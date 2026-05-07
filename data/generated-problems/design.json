@@ -1,0 +1,459 @@
+[
+  {
+    "slug": "swiggy-delivery-partner-lru-assignment",
+    "number": 2901,
+    "title": "Swiggy Delivery Partner LRU Assignment",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["swiggy", "zomato", "uber"],
+    "description": "Swiggy ka dispatch system ek LRU (Least Recently Used) cache use karta hai delivery partner ke recent assignment dhyan rakhne ke liye. Cache me partner ka ID (key) aur unka current zone (value) store hota hai. Jab capacity full ho jaaye aur naya partner add ho, toh sabse purana (least recently used) hata do.\n\nImplement an LRU cache with `get(key)` and `put(key, value)`, both in O(1).\n\nSince the grader runs a flat function, dispatch operations as an array. The driver function `runOps` receives `ops` like `[[\"LRUCache\", capacity], [\"put\", k, v], [\"get\", k], ...]`. Constructor pushes `null`; `put` pushes `null`; `get` pushes the value (or `-1` if absent).",
+    "examples": [
+      {"input": "ops = [[\"LRUCache\",2],[\"put\",1,1],[\"put\",2,2],[\"get\",1],[\"put\",3,3],[\"get\",2],[\"put\",4,4],[\"get\",1],[\"get\",3],[\"get\",4]]", "output": "[null,null,null,1,null,-1,null,-1,3,4]", "explanation": "Capacity 2; key 2 evicted after put(3); key 1 evicted after put(4)."},
+      {"input": "ops = [[\"LRUCache\",1],[\"put\",1,10],[\"get\",1],[\"put\",2,20],[\"get\",1]]", "output": "[null,null,10,null,-1]"}
+    ],
+    "constraints": ["1 <= capacity <= 3000", "Total ops <= 10^5", "0 <= key, value <= 10^4"],
+    "hints": [
+      "Doubly-linked list + hash map combo — DLL maintain order, map gives O(1) node access.",
+      "Dummy head/tail sentinels rakh — boundary checks zero ho jaate hain.",
+      "Get bhi 'recent' bana deta hai — node ko head ke paas move kar."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["LRUCache", 2], ["put", 1, 1], ["put", 2, 2], ["get", 1], ["put", 3, 3], ["get", 2], ["put", 4, 4], ["get", 1], ["get", 3], ["get", 4]]], "expected": [null, null, null, 1, null, -1, null, -1, 3, 4], "label": "classic LRU"},
+      {"args": [[["LRUCache", 1], ["put", 1, 10], ["get", 1], ["put", 2, 20], ["get", 1], ["get", 2]]], "expected": [null, null, 10, null, -1, 20], "label": "capacity 1"},
+      {"args": [[["LRUCache", 2], ["put", 2, 1], ["put", 2, 2], ["get", 2], ["put", 1, 1], ["put", 4, 1], ["get", 2]]], "expected": [null, null, null, 2, null, null, -1], "label": "update existing key"},
+      {"args": [[["LRUCache", 3], ["put", 1, 1], ["put", 2, 2], ["put", 3, 3], ["get", 1], ["put", 4, 4], ["get", 2], ["get", 3], ["get", 4]]], "expected": [null, null, null, null, 1, null, -1, 3, 4], "label": "get refreshes recency"}
+    ],
+    "editorial": "**Approach — doubly-linked list + hash map**: The DLL keeps recency order (head = most-recent, tail = least-recent). The map gives O(1) lookup `key → node`. On `get`, move the node to the head. On `put`, either update + move-to-head, or insert a new node at head and evict tail if over capacity.\n\n```javascript\nfunction runOps(ops) {\n  class Node {\n    constructor(k, v) { this.k = k; this.v = v; this.prev = null; this.next = null; }\n  }\n  class LRUCache {\n    constructor(cap) {\n      this.cap = cap;\n      this.map = new Map();\n      this.head = new Node(0, 0);\n      this.tail = new Node(0, 0);\n      this.head.next = this.tail;\n      this.tail.prev = this.head;\n    }\n    _remove(node) {\n      node.prev.next = node.next;\n      node.next.prev = node.prev;\n    }\n    _addToFront(node) {\n      node.next = this.head.next;\n      node.prev = this.head;\n      this.head.next.prev = node;\n      this.head.next = node;\n    }\n    get(key) {\n      if (!this.map.has(key)) return -1;\n      const node = this.map.get(key);\n      this._remove(node);\n      this._addToFront(node);\n      return node.v;\n    }\n    put(key, value) {\n      if (this.map.has(key)) {\n        const node = this.map.get(key);\n        node.v = value;\n        this._remove(node);\n        this._addToFront(node);\n        return;\n      }\n      if (this.map.size === this.cap) {\n        const lru = this.tail.prev;\n        this._remove(lru);\n        this.map.delete(lru.k);\n      }\n      const node = new Node(key, value);\n      this._addToFront(node);\n      this.map.set(key, node);\n    }\n  }\n  let cache = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'LRUCache') { cache = new LRUCache(op[1]); out.push(null); }\n    else if (op[0] === 'put') { cache.put(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'get') { out.push(cache.get(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) per op. **Space**: O(capacity).\n\nPro tip: JavaScript's `Map` already keeps insertion order, so you can skip the DLL entirely — `delete` + `set` reinserts at the back. But interviews expect the DLL for showing the data-structure design."
+  },
+  {
+    "slug": "phonepe-transaction-lfu-cache",
+    "number": 2902,
+    "title": "PhonePe Transaction LFU Cache",
+    "difficulty": "Hard",
+    "topic": "Design",
+    "companies": ["phonepe", "paytm", "razorpay"],
+    "description": "PhonePe ka risk-engine LFU (Least Frequently Used) cache use karta hai recent transaction profiles store karne ke liye. Jab capacity full ho aur eviction zaroori ho, sabse kam baar use hua entry hatao; tie ho toh among those sabse purana (LRU within LFU bucket).\n\nImplement `get(key)` and `put(key, value)`, both O(1). Use the operations array — `[[\"LFUCache\", cap], [\"put\", k, v], [\"get\", k], ...]`.",
+    "examples": [
+      {"input": "ops = [[\"LFUCache\",2],[\"put\",1,1],[\"put\",2,2],[\"get\",1],[\"put\",3,3],[\"get\",2],[\"get\",3],[\"put\",4,4],[\"get\",1],[\"get\",3],[\"get\",4]]", "output": "[null,null,null,1,null,-1,3,null,-1,3,4]", "explanation": "Key 2 evicted (freq 1) on put(3). Then key 1 evicted (freq 2 vs 3 also at 2 but 1 LRU)."},
+      {"input": "ops = [[\"LFUCache\",1],[\"put\",1,1],[\"get\",1],[\"put\",2,2],[\"get\",1],[\"get\",2]]", "output": "[null,null,1,null,-1,2]"}
+    ],
+    "constraints": ["1 <= capacity <= 10^4", "Total ops <= 10^5", "0 <= key, value <= 10^9"],
+    "hints": [
+      "Freq → ordered set of keys (insertion-ordered Map works in JS).",
+      "Track `minFreq` so eviction is O(1).",
+      "On get/put existing, bump freq and move key from old freq bucket to new."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["LFUCache", 2], ["put", 1, 1], ["put", 2, 2], ["get", 1], ["put", 3, 3], ["get", 2], ["get", 3], ["put", 4, 4], ["get", 1], ["get", 3], ["get", 4]]], "expected": [null, null, null, 1, null, -1, 3, null, -1, 3, 4], "label": "leetcode classic"},
+      {"args": [[["LFUCache", 1], ["put", 1, 1], ["get", 1], ["put", 2, 2], ["get", 1], ["get", 2]]], "expected": [null, null, 1, null, -1, 2], "label": "capacity 1"},
+      {"args": [[["LFUCache", 2], ["put", 2, 1], ["put", 1, 1], ["get", 2], ["put", 4, 1], ["get", 1], ["get", 2]]], "expected": [null, null, null, 1, null, -1, 1], "label": "tie evict LRU within freq"},
+      {"args": [[["LFUCache", 0], ["put", 0, 0], ["get", 0]]], "expected": [null, null, -1], "label": "zero capacity"}
+    ],
+    "editorial": "**Approach — three maps**: `keyToVal`, `keyToFreq`, and `freqToKeys` (each value is an insertion-ordered Set of keys at that freq). Maintain `minFreq` to know which bucket to evict from.\n\n```javascript\nfunction runOps(ops) {\n  class LFUCache {\n    constructor(cap) {\n      this.cap = cap;\n      this.size = 0;\n      this.minFreq = 0;\n      this.keyToVal = new Map();\n      this.keyToFreq = new Map();\n      this.freqToKeys = new Map();\n    }\n    _bump(key) {\n      const f = this.keyToFreq.get(key);\n      this.keyToFreq.set(key, f + 1);\n      this.freqToKeys.get(f).delete(key);\n      if (this.freqToKeys.get(f).size === 0) {\n        this.freqToKeys.delete(f);\n        if (this.minFreq === f) this.minFreq++;\n      }\n      if (!this.freqToKeys.has(f + 1)) this.freqToKeys.set(f + 1, new Set());\n      this.freqToKeys.get(f + 1).add(key);\n    }\n    get(key) {\n      if (!this.keyToVal.has(key)) return -1;\n      this._bump(key);\n      return this.keyToVal.get(key);\n    }\n    put(key, value) {\n      if (this.cap === 0) return;\n      if (this.keyToVal.has(key)) {\n        this.keyToVal.set(key, value);\n        this._bump(key);\n        return;\n      }\n      if (this.size === this.cap) {\n        const bucket = this.freqToKeys.get(this.minFreq);\n        const evictKey = bucket.values().next().value;\n        bucket.delete(evictKey);\n        if (bucket.size === 0) this.freqToKeys.delete(this.minFreq);\n        this.keyToVal.delete(evictKey);\n        this.keyToFreq.delete(evictKey);\n        this.size--;\n      }\n      this.keyToVal.set(key, value);\n      this.keyToFreq.set(key, 1);\n      if (!this.freqToKeys.has(1)) this.freqToKeys.set(1, new Set());\n      this.freqToKeys.get(1).add(key);\n      this.minFreq = 1;\n      this.size++;\n    }\n  }\n  let cache = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'LFUCache') { cache = new LFUCache(op[1]); out.push(null); }\n    else if (op[0] === 'put') { cache.put(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'get') { out.push(cache.get(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) amortized per op. **Space**: O(capacity).\n\nKey insight: JS `Set` preserves insertion order — `values().next().value` gives the oldest entry, perfect for LRU-tiebreak inside a freq bucket."
+  },
+  {
+    "slug": "razorpay-min-stack-fees",
+    "number": 2903,
+    "title": "Razorpay Min Stack of Fee Adjustments",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["razorpay", "stripe", "amazon"],
+    "description": "Razorpay ka fee-pipeline ek stack rakhta hai jisme har push ek fee adjustment hai. Engineering ko kabhi bhi pata chahiye stack me sabse chhota current fee — sab kuch O(1) me. Implement a `MinStack` supporting `push(x)`, `pop()`, `top()`, `getMin()`, all in O(1).\n\nOps array: `[[\"MinStack\"], [\"push\", x], [\"pop\"], [\"top\"], [\"getMin\"], ...]`. Constructor and `push`/`pop` push `null`; `top` and `getMin` push the value.",
+    "examples": [
+      {"input": "ops = [[\"MinStack\"],[\"push\",-2],[\"push\",0],[\"push\",-3],[\"getMin\"],[\"pop\"],[\"top\"],[\"getMin\"]]", "output": "[null,null,null,null,-3,null,0,-2]"},
+      {"input": "ops = [[\"MinStack\"],[\"push\",5],[\"getMin\"],[\"push\",3],[\"getMin\"]]", "output": "[null,null,5,null,3]"}
+    ],
+    "constraints": ["Total ops <= 3 * 10^4", "-10^5 <= x <= 10^5", "pop/top/getMin called only on non-empty stack"],
+    "hints": [
+      "Auxiliary stack of running mins parallel to main stack.",
+      "Push only when new value <= current min; pop in lockstep when popped value === min.",
+      "Single stack with [val, min] tuples bhi kaam karta hai."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["MinStack"], ["push", -2], ["push", 0], ["push", -3], ["getMin"], ["pop"], ["top"], ["getMin"]]], "expected": [null, null, null, null, -3, null, 0, -2], "label": "leetcode classic"},
+      {"args": [[["MinStack"], ["push", 5], ["getMin"], ["push", 3], ["getMin"], ["pop"], ["getMin"]]], "expected": [null, null, 5, null, 3, null, 5], "label": "min restored after pop"},
+      {"args": [[["MinStack"], ["push", 1], ["push", 1], ["push", 1], ["getMin"], ["pop"], ["getMin"], ["pop"], ["top"]]], "expected": [null, null, null, null, 1, null, 1, null, 1], "label": "duplicate mins"},
+      {"args": [[["MinStack"], ["push", 7], ["top"], ["getMin"]]], "expected": [null, null, 7, 7], "label": "single element"}
+    ],
+    "editorial": "**Approach — pair each push with current min**: Store `[value, minSoFar]` in a single stack. Top, push, pop are trivially O(1).\n\n```javascript\nfunction runOps(ops) {\n  class MinStack {\n    constructor() { this.stack = []; }\n    push(x) {\n      const min = this.stack.length === 0 ? x : Math.min(x, this.stack[this.stack.length - 1][1]);\n      this.stack.push([x, min]);\n    }\n    pop() { this.stack.pop(); }\n    top() { return this.stack[this.stack.length - 1][0]; }\n    getMin() { return this.stack[this.stack.length - 1][1]; }\n  }\n  let s = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'MinStack') { s = new MinStack(); out.push(null); }\n    else if (op[0] === 'push') { s.push(op[1]); out.push(null); }\n    else if (op[0] === 'pop') { s.pop(); out.push(null); }\n    else if (op[0] === 'top') { out.push(s.top()); }\n    else if (op[0] === 'getMin') { out.push(s.getMin()); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) per op. **Space**: O(n).\n\nAlternative — auxiliary mins stack only pushing when new ≤ current min: saves space when distinct mins are few but adds equality care."
+  },
+  {
+    "slug": "flipkart-stack-via-two-queues",
+    "number": 2904,
+    "title": "Flipkart Stack via Two Queues",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["flipkart", "amazon", "microsoft"],
+    "description": "Flipkart ke training quiz me ek classic question — implement a LIFO stack using only two queues (FIFO). Support `push(x)`, `pop()`, `top()`, `empty()`.\n\nOps array: `[[\"MyStack\"], [\"push\", x], [\"pop\"], [\"top\"], [\"empty\"]]`. Constructor and `push` push `null`; `pop`/`top` push the value; `empty` pushes a boolean.",
+    "examples": [
+      {"input": "ops = [[\"MyStack\"],[\"push\",1],[\"push\",2],[\"top\"],[\"pop\"],[\"empty\"]]", "output": "[null,null,null,2,2,false]"},
+      {"input": "ops = [[\"MyStack\"],[\"empty\"],[\"push\",10],[\"empty\"]]", "output": "[null,true,null,false]"}
+    ],
+    "constraints": ["Total ops <= 100", "0 <= x <= 9", "pop/top called only on non-empty stack"],
+    "hints": [
+      "Costly push approach — har push pe q1 me daal aur q2 ke saamne rotate kar.",
+      "Result: q1's front always the most-recently pushed = stack top.",
+      "Single queue bhi kaam karta hai — rotate it after push."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["MyStack"], ["push", 1], ["push", 2], ["top"], ["pop"], ["empty"]]], "expected": [null, null, null, 2, 2, false], "label": "basic"},
+      {"args": [[["MyStack"], ["empty"], ["push", 10], ["empty"], ["pop"], ["empty"]]], "expected": [null, true, null, false, 10, true], "label": "empty toggle"},
+      {"args": [[["MyStack"], ["push", 1], ["push", 2], ["push", 3], ["pop"], ["pop"], ["top"], ["pop"], ["empty"]]], "expected": [null, null, null, null, 3, 2, 1, 1, true], "label": "LIFO order"},
+      {"args": [[["MyStack"], ["push", 5], ["top"], ["push", 6], ["top"], ["pop"], ["top"]]], "expected": [null, null, 5, null, 6, 6, 5], "label": "top updates after push"}
+    ],
+    "editorial": "**Approach — costly push with single queue**: After enqueueing, rotate the queue n-1 times so the just-pushed item is at the front. Now `pop` and `top` are O(1) on a regular FIFO.\n\n```javascript\nfunction runOps(ops) {\n  class MyStack {\n    constructor() { this.q = []; }\n    push(x) {\n      this.q.push(x);\n      for (let i = 0; i < this.q.length - 1; i++) this.q.push(this.q.shift());\n    }\n    pop() { return this.q.shift(); }\n    top() { return this.q[0]; }\n    empty() { return this.q.length === 0; }\n  }\n  let s = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'MyStack') { s = new MyStack(); out.push(null); }\n    else if (op[0] === 'push') { s.push(op[1]); out.push(null); }\n    else if (op[0] === 'pop') { out.push(s.pop()); }\n    else if (op[0] === 'top') { out.push(s.top()); }\n    else if (op[0] === 'empty') { out.push(s.empty()); }\n  }\n  return out;\n}\n```\n\n**Time**: O(n) push, O(1) pop/top/empty. **Space**: O(n).\n\nProblem says 'two queues' — the spirit is the rotation; in JS `Array.shift()` simulates queue dequeue cleanly."
+  },
+  {
+    "slug": "paytm-queue-via-two-stacks",
+    "number": 2905,
+    "title": "Paytm Queue via Two Stacks",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["paytm", "amazon", "google"],
+    "description": "Paytm ke onboarding system me FIFO queue chahiye but available data-structure library me sirf stacks hain. Build a `MyQueue` using only two stacks supporting `push(x)`, `pop()`, `peek()`, `empty()` — amortized O(1) for each.\n\nOps array: `[[\"MyQueue\"], [\"push\", x], [\"pop\"], [\"peek\"], [\"empty\"]]`.",
+    "examples": [
+      {"input": "ops = [[\"MyQueue\"],[\"push\",1],[\"push\",2],[\"peek\"],[\"pop\"],[\"empty\"]]", "output": "[null,null,null,1,1,false]"},
+      {"input": "ops = [[\"MyQueue\"],[\"empty\"],[\"push\",5],[\"empty\"]]", "output": "[null,true,null,false]"}
+    ],
+    "constraints": ["Total ops <= 100", "0 <= x <= 9", "pop/peek called only on non-empty queue"],
+    "hints": [
+      "Two stacks: `inStack` for pushes, `outStack` for pops.",
+      "Move from in→out only when out is empty; preserves FIFO.",
+      "Amortized O(1) — each element moves at most once between stacks."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["MyQueue"], ["push", 1], ["push", 2], ["peek"], ["pop"], ["empty"]]], "expected": [null, null, null, 1, 1, false], "label": "basic"},
+      {"args": [[["MyQueue"], ["empty"], ["push", 5], ["empty"], ["pop"], ["empty"]]], "expected": [null, true, null, false, 5, true], "label": "empty toggle"},
+      {"args": [[["MyQueue"], ["push", 1], ["push", 2], ["push", 3], ["pop"], ["push", 4], ["pop"], ["pop"], ["pop"]]], "expected": [null, null, null, null, 1, null, 2, 3, 4], "label": "interleaved push pop"},
+      {"args": [[["MyQueue"], ["push", 7], ["peek"], ["push", 8], ["peek"], ["pop"], ["peek"]]], "expected": [null, null, 7, null, 7, 7, 8], "label": "peek invariant"}
+    ],
+    "editorial": "**Approach — lazy transfer**: Keep two stacks. Pushing always goes to `inStack`. When `pop`/`peek` is called, if `outStack` is empty drain `inStack` into it (reverses order, so FIFO preserved). Each element migrates at most once, amortized O(1).\n\n```javascript\nfunction runOps(ops) {\n  class MyQueue {\n    constructor() { this.inS = []; this.outS = []; }\n    push(x) { this.inS.push(x); }\n    _shift() {\n      if (this.outS.length === 0) {\n        while (this.inS.length) this.outS.push(this.inS.pop());\n      }\n    }\n    pop() { this._shift(); return this.outS.pop(); }\n    peek() { this._shift(); return this.outS[this.outS.length - 1]; }\n    empty() { return this.inS.length === 0 && this.outS.length === 0; }\n  }\n  let q = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'MyQueue') { q = new MyQueue(); out.push(null); }\n    else if (op[0] === 'push') { q.push(op[1]); out.push(null); }\n    else if (op[0] === 'pop') { out.push(q.pop()); }\n    else if (op[0] === 'peek') { out.push(q.peek()); }\n    else if (op[0] === 'empty') { out.push(q.empty()); }\n  }\n  return out;\n}\n```\n\n**Time**: amortized O(1). **Space**: O(n)."
+  },
+  {
+    "slug": "ola-hashset-from-scratch",
+    "number": 2906,
+    "title": "Ola HashSet From Scratch",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["ola", "uber", "amazon"],
+    "description": "Wait — actually a Medium. Ola ke fraud-detection module me apna hashset chahiye taaki built-in libraries pe dependency na ho. Implement `MyHashSet` with `add(key)`, `remove(key)`, `contains(key)` — all without using language Set/Map for the storage.\n\nOps array: `[[\"MyHashSet\"], [\"add\", k], [\"remove\", k], [\"contains\", k]]`. Constructor/add/remove push `null`; `contains` pushes a boolean.",
+    "examples": [
+      {"input": "ops = [[\"MyHashSet\"],[\"add\",1],[\"add\",2],[\"contains\",1],[\"contains\",3],[\"add\",2],[\"contains\",2],[\"remove\",2],[\"contains\",2]]", "output": "[null,null,null,true,false,null,true,null,false]"},
+      {"input": "ops = [[\"MyHashSet\"],[\"contains\",0]]", "output": "[null,false]"}
+    ],
+    "constraints": ["0 <= key <= 10^6", "Total ops <= 10^4"],
+    "hints": [
+      "Bucket array of size ~1009 (prime). Each bucket is a list (chaining) of keys.",
+      "Hash = key % numBuckets.",
+      "Linear search inside the bucket — buckets stay short."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["MyHashSet"], ["add", 1], ["add", 2], ["contains", 1], ["contains", 3], ["add", 2], ["contains", 2], ["remove", 2], ["contains", 2]]], "expected": [null, null, null, true, false, null, true, null, false], "label": "leetcode example"},
+      {"args": [[["MyHashSet"], ["contains", 0]]], "expected": [null, false], "label": "empty contains"},
+      {"args": [[["MyHashSet"], ["add", 0], ["add", 1009], ["contains", 0], ["contains", 1009], ["remove", 0], ["contains", 0], ["contains", 1009]]], "expected": [null, null, null, true, true, null, false, true], "label": "hash collisions"},
+      {"args": [[["MyHashSet"], ["add", 5], ["add", 5], ["remove", 5], ["contains", 5], ["remove", 5], ["contains", 5]]], "expected": [null, null, null, null, false, null, false], "label": "double add and remove"}
+    ],
+    "editorial": "**Approach — separate chaining**: Fixed-size bucket array; each bucket is an array of keys. Hash = `key % B`. `add` skips if already present; `remove` linear-scans and splices.\n\n```javascript\nfunction runOps(ops) {\n  class MyHashSet {\n    constructor() {\n      this.B = 1009;\n      this.buckets = Array.from({ length: this.B }, () => []);\n    }\n    _h(k) { return k % this.B; }\n    add(k) {\n      const b = this.buckets[this._h(k)];\n      if (!b.includes(k)) b.push(k);\n    }\n    remove(k) {\n      const b = this.buckets[this._h(k)];\n      const i = b.indexOf(k);\n      if (i !== -1) b.splice(i, 1);\n    }\n    contains(k) {\n      return this.buckets[this._h(k)].includes(k);\n    }\n  }\n  let s = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'MyHashSet') { s = new MyHashSet(); out.push(null); }\n    else if (op[0] === 'add') { s.add(op[1]); out.push(null); }\n    else if (op[0] === 'remove') { s.remove(op[1]); out.push(null); }\n    else if (op[0] === 'contains') { out.push(s.contains(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(n/B) average per op. **Space**: O(n + B).\n\n1009 prime — better key distribution. For very large n, resize when load factor crosses ~0.75."
+  },
+  {
+    "slug": "myntra-time-based-key-value",
+    "number": 2907,
+    "title": "Myntra Time-Based Price Store",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["myntra", "flipkart", "amazon"],
+    "description": "Myntra ka price-history service har SKU ka price timestamp ke saath store karta hai. Pricing analyst ko kabhi bhi pata chahiye: 'is timestamp pe (ya us se pehle ka latest) is SKU ka price kya tha?' Timestamps strictly increasing diye jaate hain per key.\n\nImplement `set(key, value, timestamp)` and `get(key, timestamp)`. `get` returns the value with the largest timestamp `<=` queried timestamp; if none, return empty string `\"\"`.\n\nOps: `[[\"TimeMap\"], [\"set\", k, v, ts], [\"get\", k, ts]]`. Constructor/set push `null`; get pushes the string.",
+    "examples": [
+      {"input": "ops = [[\"TimeMap\"],[\"set\",\"foo\",\"bar\",1],[\"get\",\"foo\",1],[\"get\",\"foo\",3],[\"set\",\"foo\",\"bar2\",4],[\"get\",\"foo\",4],[\"get\",\"foo\",5]]", "output": "[null,null,\"bar\",\"bar\",null,\"bar2\",\"bar2\"]"},
+      {"input": "ops = [[\"TimeMap\"],[\"get\",\"a\",1]]", "output": "[null,\"\"]"}
+    ],
+    "constraints": ["1 <= key.length, value.length <= 100", "key/value lowercase + digits", "1 <= timestamp <= 10^7", "timestamps strictly increasing per key"],
+    "hints": [
+      "Per-key array of [timestamp, value]; ts is sorted (problem guarantees).",
+      "Binary search for largest ts <= query.",
+      "Empty string when query ts < earliest stored ts."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["TimeMap"], ["set", "foo", "bar", 1], ["get", "foo", 1], ["get", "foo", 3], ["set", "foo", "bar2", 4], ["get", "foo", 4], ["get", "foo", 5]]], "expected": [null, null, "bar", "bar", null, "bar2", "bar2"], "label": "leetcode classic"},
+      {"args": [[["TimeMap"], ["get", "a", 1]]], "expected": [null, ""], "label": "missing key"},
+      {"args": [[["TimeMap"], ["set", "k", "v1", 5], ["get", "k", 1], ["get", "k", 5], ["get", "k", 10]]], "expected": [null, null, "", "v1", "v1"], "label": "before earliest"},
+      {"args": [[["TimeMap"], ["set", "love", "high", 10], ["set", "love", "low", 20], ["get", "love", 5], ["get", "love", 10], ["get", "love", 15], ["get", "love", 20], ["get", "love", 25]]], "expected": [null, null, null, "", "high", "high", "low", "low"], "label": "multiple sets"}
+    ],
+    "editorial": "**Approach — binary search per key**: Keep `Map<key, [ts, val][]>`. Since timestamps are strictly increasing per key, `set` just appends. `get` binary-searches the rightmost ts ≤ query.\n\n```javascript\nfunction runOps(ops) {\n  class TimeMap {\n    constructor() { this.m = new Map(); }\n    set(k, v, t) {\n      if (!this.m.has(k)) this.m.set(k, []);\n      this.m.get(k).push([t, v]);\n    }\n    get(k, t) {\n      const arr = this.m.get(k);\n      if (!arr) return '';\n      let lo = 0, hi = arr.length - 1, ans = -1;\n      while (lo <= hi) {\n        const mid = (lo + hi) >> 1;\n        if (arr[mid][0] <= t) { ans = mid; lo = mid + 1; }\n        else hi = mid - 1;\n      }\n      return ans === -1 ? '' : arr[ans][1];\n    }\n  }\n  let tm = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'TimeMap') { tm = new TimeMap(); out.push(null); }\n    else if (op[0] === 'set') { tm.set(op[1], op[2], op[3]); out.push(null); }\n    else if (op[0] === 'get') { out.push(tm.get(op[1], op[2])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) set, O(log n) get. **Space**: O(n)."
+  },
+  {
+    "slug": "koo-twitter-style-feed",
+    "number": 2908,
+    "title": "Koo Twitter-Style News Feed",
+    "difficulty": "Hard",
+    "topic": "Design",
+    "companies": ["koo", "twitter", "sharechat"],
+    "description": "Koo ka social feed engine — implement `postTweet(userId, tweetId)`, `follow(followerId, followeeId)`, `unfollow(followerId, followeeId)`, `getNewsFeed(userId)`. `getNewsFeed` returns up to 10 most recent tweet IDs from the user themselves and the people they follow, newest first.\n\nOps: `[[\"Twitter\"], [\"postTweet\", u, tw], [\"follow\", f, t], [\"unfollow\", f, t], [\"getNewsFeed\", u]]`. Constructor/post/follow/unfollow push `null`; getNewsFeed pushes array.",
+    "examples": [
+      {"input": "ops = [[\"Twitter\"],[\"postTweet\",1,5],[\"getNewsFeed\",1],[\"follow\",1,2],[\"postTweet\",2,6],[\"getNewsFeed\",1],[\"unfollow\",1,2],[\"getNewsFeed\",1]]", "output": "[null,null,[5],null,null,[6,5],null,[5]]"}
+    ],
+    "constraints": ["1 <= userId, tweetId <= 500", "Total ops <= 3 * 10^4", "All tweetIds distinct"],
+    "hints": [
+      "Per user: list of (timestamp, tweetId).",
+      "Per user: set of followee IDs (don't forget self).",
+      "Feed: collect from self + followees, sort by ts desc, take 10."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["Twitter"], ["postTweet", 1, 5], ["getNewsFeed", 1], ["follow", 1, 2], ["postTweet", 2, 6], ["getNewsFeed", 1], ["unfollow", 1, 2], ["getNewsFeed", 1]]], "expected": [null, null, [5], null, null, [6, 5], null, [5]], "label": "leetcode classic"},
+      {"args": [[["Twitter"], ["getNewsFeed", 99]]], "expected": [null, []], "label": "no posts no follows"},
+      {"args": [[["Twitter"], ["postTweet", 1, 1], ["postTweet", 1, 2], ["postTweet", 1, 3], ["postTweet", 1, 4], ["getNewsFeed", 1]]], "expected": [null, null, null, null, null, [4, 3, 2, 1]], "label": "self only"},
+      {"args": [[["Twitter"], ["postTweet", 1, 11], ["follow", 2, 1], ["follow", 2, 1], ["getNewsFeed", 2], ["unfollow", 2, 1], ["getNewsFeed", 2]]], "expected": [null, null, null, null, [11], null, []], "label": "double follow idempotent"}
+    ],
+    "editorial": "**Approach**: Maintain a global timestamp counter. `tweets[userId]` is a list of `[ts, tweetId]`; `following[userId]` is a Set. `getNewsFeed` merges tweet lists from self + followees, sorts by ts desc, returns first 10.\n\n```javascript\nfunction runOps(ops) {\n  class Twitter {\n    constructor() {\n      this.ts = 0;\n      this.tweets = new Map();\n      this.following = new Map();\n    }\n    postTweet(u, tw) {\n      if (!this.tweets.has(u)) this.tweets.set(u, []);\n      this.tweets.get(u).push([this.ts++, tw]);\n    }\n    follow(f, t) {\n      if (!this.following.has(f)) this.following.set(f, new Set());\n      this.following.get(f).add(t);\n    }\n    unfollow(f, t) {\n      if (this.following.has(f)) this.following.get(f).delete(t);\n    }\n    getNewsFeed(u) {\n      const ids = new Set([u]);\n      if (this.following.has(u)) for (const v of this.following.get(u)) ids.add(v);\n      const all = [];\n      for (const v of ids) {\n        if (this.tweets.has(v)) for (const t of this.tweets.get(v)) all.push(t);\n      }\n      all.sort((a, b) => b[0] - a[0]);\n      return all.slice(0, 10).map(x => x[1]);\n    }\n  }\n  let t = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'Twitter') { t = new Twitter(); out.push(null); }\n    else if (op[0] === 'postTweet') { t.postTweet(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'follow') { t.follow(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'unfollow') { t.unfollow(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'getNewsFeed') { out.push(t.getNewsFeed(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(N log N) per feed where N = total tweets across self+followees. With min-heap of size 10 you can get O(N log 10).\n**Space**: O(tweets + follows)."
+  },
+  {
+    "slug": "cred-snapshot-array",
+    "number": 2909,
+    "title": "CRED Credit Score Snapshot Array",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["cred", "razorpay", "amazon"],
+    "description": "CRED ka credit-score module ek snapshot-able array maintain karta hai. Indexes 0..length-1 sab 0 se start hote hain. Ops: `set(idx, val)`, `snap()` returning the next snap_id (starts 0), `get(idx, snap_id)` returning value at that index when that snapshot was taken.\n\nOps: `[[\"SnapshotArray\", length], [\"set\", i, v], [\"snap\"], [\"get\", i, snap_id]]`. Constructor/set push `null`; `snap` pushes the new snap_id; `get` pushes the value.",
+    "examples": [
+      {"input": "ops = [[\"SnapshotArray\",3],[\"set\",0,5],[\"snap\"],[\"set\",0,6],[\"get\",0,0]]", "output": "[null,null,0,null,5]"}
+    ],
+    "constraints": ["1 <= length <= 5 * 10^4", "Total ops <= 5 * 10^4", "0 <= idx < length", "0 <= val <= 10^9", "0 <= snap_id < total_snaps_taken"],
+    "hints": [
+      "Naive: full copy on snap — O(n) time, O(n*snaps) space. Bahut zyada.",
+      "Per-index list of [snap_id, val] writes; binary search on get.",
+      "Track current `snap_id` counter — only writes since last snap matter."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["SnapshotArray", 3], ["set", 0, 5], ["snap"], ["set", 0, 6], ["get", 0, 0]]], "expected": [null, null, 0, null, 5], "label": "leetcode classic"},
+      {"args": [[["SnapshotArray", 1], ["snap"], ["snap"], ["get", 0, 0], ["get", 0, 1]]], "expected": [null, 0, 1, 0, 0], "label": "untouched index"},
+      {"args": [[["SnapshotArray", 2], ["set", 0, 7], ["set", 1, 8], ["snap"], ["set", 0, 70], ["snap"], ["get", 0, 0], ["get", 0, 1], ["get", 1, 1]]], "expected": [null, null, null, 0, null, 1, 7, 70, 8], "label": "two snaps two indices"},
+      {"args": [[["SnapshotArray", 4], ["snap"], ["set", 2, 9], ["snap"], ["get", 2, 0], ["get", 2, 1]]], "expected": [null, 0, null, 1, 0, 9], "label": "snap then write"}
+    ],
+    "editorial": "**Approach — versioned writes per index**: For each index keep `[[snap_id, val], ...]` sorted by `snap_id`. `set(i, v)` appends `[curSnap, v]` (or overwrites the last if same `curSnap`). `snap()` increments and returns the previous counter. `get(i, sid)` binary-searches the largest `snap_id <= sid`; default 0.\n\n```javascript\nfunction runOps(ops) {\n  class SnapshotArray {\n    constructor(length) {\n      this.length = length;\n      this.cur = 0;\n      this.data = Array.from({ length }, () => []);\n    }\n    set(i, v) {\n      const arr = this.data[i];\n      if (arr.length && arr[arr.length - 1][0] === this.cur) arr[arr.length - 1][1] = v;\n      else arr.push([this.cur, v]);\n    }\n    snap() {\n      return this.cur++;\n    }\n    get(i, sid) {\n      const arr = this.data[i];\n      let lo = 0, hi = arr.length - 1, ans = -1;\n      while (lo <= hi) {\n        const mid = (lo + hi) >> 1;\n        if (arr[mid][0] <= sid) { ans = mid; lo = mid + 1; }\n        else hi = mid - 1;\n      }\n      return ans === -1 ? 0 : arr[ans][1];\n    }\n  }\n  let sa = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'SnapshotArray') { sa = new SnapshotArray(op[1]); out.push(null); }\n    else if (op[0] === 'set') { sa.set(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'snap') { out.push(sa.snap()); }\n    else if (op[0] === 'get') { out.push(sa.get(op[1], op[2])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) set, O(1) snap, O(log W) get where W = writes to that index. **Space**: O(total sets)."
+  },
+  {
+    "slug": "razorpay-rate-limiter-hit-counter",
+    "number": 2910,
+    "title": "Razorpay API Hit Counter",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["razorpay", "stripe", "uber"],
+    "description": "Razorpay ka API gateway count karna chahta hai last 300 seconds (5 minutes) me kitne hits aaye. `hit(timestamp)` ek hit log karta hai (timestamps in seconds, monotonically non-decreasing). `getHits(timestamp)` returns hits in the window `(timestamp-300, timestamp]`.\n\nOps: `[[\"HitCounter\"], [\"hit\", ts], [\"getHits\", ts]]`. Constructor/hit push `null`; getHits pushes the count.",
+    "examples": [
+      {"input": "ops = [[\"HitCounter\"],[\"hit\",1],[\"hit\",2],[\"hit\",3],[\"getHits\",4],[\"hit\",300],[\"getHits\",300],[\"getHits\",301]]", "output": "[null,null,null,null,3,null,4,3]"}
+    ],
+    "constraints": ["1 <= timestamp <= 2 * 10^9", "Timestamps in non-decreasing order", "Total ops <= 3 * 10^4"],
+    "hints": [
+      "Queue of timestamps. On getHits/hit, drop entries with ts <= now-300.",
+      "If timestamps cluster heavily, use bucket per second (size 300).",
+      "For follow-up: 'what if many hits per second?' — bucketed approach scales."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["HitCounter"], ["hit", 1], ["hit", 2], ["hit", 3], ["getHits", 4], ["hit", 300], ["getHits", 300], ["getHits", 301]]], "expected": [null, null, null, null, 3, null, 4, 3], "label": "leetcode classic"},
+      {"args": [[["HitCounter"], ["getHits", 1]]], "expected": [null, 0], "label": "empty"},
+      {"args": [[["HitCounter"], ["hit", 1], ["hit", 1], ["hit", 1], ["getHits", 1], ["getHits", 300], ["getHits", 301]]], "expected": [null, null, null, null, 3, 3, 0], "label": "all at same second, expire"},
+      {"args": [[["HitCounter"], ["hit", 100], ["hit", 200], ["hit", 300], ["hit", 400], ["getHits", 400], ["getHits", 500]]], "expected": [null, null, null, null, null, 3, 2], "label": "boundary 300"}
+    ],
+    "editorial": "**Approach — queue of timestamps**: Push every hit. On any operation, drop from the front while `front <= now - 300`. The remaining queue length is the answer.\n\n```javascript\nfunction runOps(ops) {\n  class HitCounter {\n    constructor() { this.q = []; }\n    _evict(now) {\n      while (this.q.length && this.q[0] <= now - 300) this.q.shift();\n    }\n    hit(ts) {\n      this._evict(ts);\n      this.q.push(ts);\n    }\n    getHits(ts) {\n      this._evict(ts);\n      return this.q.length;\n    }\n  }\n  let hc = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'HitCounter') { hc = new HitCounter(); out.push(null); }\n    else if (op[0] === 'hit') { hc.hit(op[1]); out.push(null); }\n    else if (op[0] === 'getHits') { out.push(hc.getHits(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: amortized O(1) per hit; getHits worst-case O(k) for k expired evictions but amortized O(1).\n**Space**: O(hits in window).\n\nFollow-up: dense traffic → maintain `count[ts % 300]` and `lastTs[ts % 300]` arrays for O(1) constant time and O(300) space."
+  },
+  {
+    "slug": "razorpay-token-bucket-rate-limiter",
+    "number": 2911,
+    "title": "Razorpay Token Bucket Rate Limiter",
+    "difficulty": "Hard",
+    "topic": "Design",
+    "companies": ["razorpay", "stripe", "google"],
+    "description": "Razorpay ka API gateway token-bucket rate-limiter use karta hai. Bucket capacity `cap` hai aur har second `refillRate` tokens add hote hain (capped at cap). `allow(timestamp)` ek request: agar token available hai, consume 1 and return `true`; else `false`. Bucket starts full.\n\nTokens are refilled lazily — between calls ka elapsed time integer-second granularity pe compute karo: `tokens = min(cap, tokens + (now - lastRefill) * refillRate)`. Use floor — partial tokens carry as fractional? **No** — keep tokens as integer count, refill `(now-lastRefill) * refillRate` tokens (timestamps in whole seconds, monotonic).\n\nOps: `[[\"RateLimiter\", cap, refillRate], [\"allow\", ts]]`. Constructor pushes `null`; allow pushes boolean.",
+    "examples": [
+      {"input": "ops = [[\"RateLimiter\",3,1],[\"allow\",1],[\"allow\",1],[\"allow\",1],[\"allow\",1],[\"allow\",2],[\"allow\",2]]", "output": "[null,true,true,true,false,true,false]", "explanation": "Cap 3, refill 1/s. First 3 succeed at t=1. 4th rejected. At t=2 one token refilled, one allow ok, second rejected."}
+    ],
+    "constraints": ["1 <= cap <= 10^6", "1 <= refillRate <= 10^6", "1 <= timestamp <= 10^9", "Timestamps non-decreasing", "Total ops <= 10^4"],
+    "hints": [
+      "Lazy refill — only update tokens when allow() is called.",
+      "tokens = min(cap, tokens + (now - lastRefillTs) * refillRate). Then update lastRefillTs = now.",
+      "Bucket starts at cap (full)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["RateLimiter", 3, 1], ["allow", 1], ["allow", 1], ["allow", 1], ["allow", 1], ["allow", 2], ["allow", 2]]], "expected": [null, true, true, true, false, true, false], "label": "basic burst then refill"},
+      {"args": [[["RateLimiter", 1, 1], ["allow", 1], ["allow", 1], ["allow", 5], ["allow", 5]]], "expected": [null, true, false, true, false], "label": "cap 1"},
+      {"args": [[["RateLimiter", 2, 2], ["allow", 1], ["allow", 1], ["allow", 1], ["allow", 2], ["allow", 2], ["allow", 2]]], "expected": [null, true, true, false, true, true, false], "label": "refill rate 2"},
+      {"args": [[["RateLimiter", 5, 1], ["allow", 10], ["allow", 10], ["allow", 10], ["allow", 10], ["allow", 10], ["allow", 10], ["allow", 100]]], "expected": [null, true, true, true, true, true, false, true], "label": "long gap fully refills"}
+    ],
+    "editorial": "**Approach — lazy refill**: On every `allow(now)`, first refill: `tokens = min(cap, tokens + (now - lastTs) * refillRate)` and set `lastTs = now`. Then if `tokens > 0`, decrement and return true; else false.\n\n```javascript\nfunction runOps(ops) {\n  class RateLimiter {\n    constructor(cap, rate) {\n      this.cap = cap;\n      this.rate = rate;\n      this.tokens = cap;\n      this.lastTs = -1;\n    }\n    allow(now) {\n      if (this.lastTs === -1) {\n        this.lastTs = now;\n      } else {\n        const refill = (now - this.lastTs) * this.rate;\n        if (refill > 0) {\n          this.tokens = Math.min(this.cap, this.tokens + refill);\n          this.lastTs = now;\n        }\n      }\n      if (this.tokens > 0) { this.tokens--; return true; }\n      return false;\n    }\n  }\n  let rl = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'RateLimiter') { rl = new RateLimiter(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'allow') { out.push(rl.allow(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) per call. **Space**: O(1).\n\nNote: only update `lastTs` when refill > 0, otherwise within-the-same-second multiple calls would accidentally never advance the clock. Here updating only on positive refill keeps the invariant clean."
+  },
+  {
+    "slug": "flipkart-product-autocomplete",
+    "number": 2912,
+    "title": "Flipkart Product Search Autocomplete",
+    "difficulty": "Hard",
+    "topic": "Design",
+    "companies": ["flipkart", "amazon", "myntra"],
+    "description": "Flipkart ka search-bar autocomplete bana — user character-by-character type karta hai (lowercase a-z and `#` to commit). Past committed sentences ka frequency rakho, aur har keystroke pe suggestions return karo: top 3 sentences (by frequency desc, then ASCII asc) jinka prefix abhi-tak typed hai.\n\nConstructor takes initial sentences and counts. `input(c)`: if `c == '#'`, commit current buffer (increment freq, reset) and return `[]`. Else append `c` to buffer and return up to 3 matching sentences.\n\nOps: `[[\"AutocompleteSystem\", sentences, counts], [\"input\", c]]`. Constructor pushes `null`; input pushes the suggestions array.",
+    "examples": [
+      {"input": "ops = [[\"AutocompleteSystem\",[\"i love you\",\"island\",\"ironman\",\"i love leetcode\"],[5,3,2,2]],[\"input\",\"i\"],[\"input\",\" \"],[\"input\",\"a\"],[\"input\",\"#\"]]", "output": "[null,[\"i love you\",\"island\",\"i love leetcode\"],[\"i love you\",\"i love leetcode\"],[],[]]"}
+    ],
+    "constraints": ["1 <= sentences.length <= 100", "1 <= sentences[i].length <= 100", "Sentences contain a-z and space only", "input chars are a-z, space, or #", "Total input ops <= 10^3"],
+    "hints": [
+      "Map<sentence, freq>. Filter by prefix on each input — small data so O(N) scan ok.",
+      "Sort filtered by (-freq, sentence asc), take 3.",
+      "On '#', merge current buffer into freq map."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["AutocompleteSystem", ["i love you", "island", "ironman", "i love leetcode"], [5, 3, 2, 2]], ["input", "i"], ["input", " "], ["input", "a"], ["input", "#"]]], "expected": [null, ["i love you", "island", "i love leetcode"], ["i love you", "i love leetcode"], [], []], "label": "leetcode classic"},
+      {"args": [[["AutocompleteSystem", [], []], ["input", "a"], ["input", "#"], ["input", "a"]]], "expected": [null, [], [], ["a"]], "label": "empty start, learn new"},
+      {"args": [[["AutocompleteSystem", ["abc", "abd", "abe"], [1, 1, 1]], ["input", "a"], ["input", "b"], ["input", "f"]]], "expected": [null, ["abc", "abd", "abe"], ["abc", "abd", "abe"], []], "label": "tie sorted asc"},
+      {"args": [[["AutocompleteSystem", ["go"], [3]], ["input", "g"], ["input", "o"], ["input", "a"], ["input", "#"], ["input", "g"]]], "expected": [null, ["go"], ["go"], [], [], ["go", "goa"]], "label": "commits new sentence shows in next prefix"}
+    ],
+    "editorial": "**Approach — small dataset, simple filter+sort**: With ≤ 100 sentences, recompute matches on every keystroke. For larger N, use a Trie where each node holds the top-3 sentences by freq.\n\n```javascript\nfunction runOps(ops) {\n  class AutocompleteSystem {\n    constructor(sentences, counts) {\n      this.freq = new Map();\n      for (let i = 0; i < sentences.length; i++) this.freq.set(sentences[i], counts[i]);\n      this.buf = '';\n    }\n    input(c) {\n      if (c === '#') {\n        this.freq.set(this.buf, (this.freq.get(this.buf) || 0) + 1);\n        this.buf = '';\n        return [];\n      }\n      this.buf += c;\n      const matches = [];\n      for (const [s, f] of this.freq) if (s.startsWith(this.buf)) matches.push([s, f]);\n      matches.sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));\n      return matches.slice(0, 3).map(x => x[0]);\n    }\n  }\n  let ac = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'AutocompleteSystem') { ac = new AutocompleteSystem(op[1], op[2]); out.push(null); }\n    else if (op[0] === 'input') { out.push(ac.input(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(N * L) per keystroke (N = stored sentences, L = max length). **Space**: O(N * L).\n\nProduction systems use a Trie + per-node heap of top-K to make each keystroke O(prefix length)."
+  },
+  {
+    "slug": "paytm-randomized-set",
+    "number": 2913,
+    "title": "Paytm Idempotency Randomized Set",
+    "difficulty": "Medium",
+    "topic": "Design",
+    "companies": ["paytm", "razorpay", "amazon"],
+    "description": "Paytm idempotency-key store me operations chahiye: `insert(val)` → returns `true` if newly added, `remove(val)` → returns `true` if was present, `getRandom()` → returns a uniformly-random present value. All in O(1) average.\n\nFor deterministic testing, the grader replaces `Math.random` so `getRandom` returns the **last inserted element still present**. Implement using `Math.random` in your code; the test harness deterministically forces the last index. (The tests below use sequences where this is unambiguous.)\n\nActually — to make this deterministic for the grader, define `getRandom()` to return the element at index `array.length - 1` (the most recently added still-present element). This sidesteps randomness while still validating O(1) data-structure design.\n\nOps: `[[\"RandomizedSet\"], [\"insert\", x], [\"remove\", x], [\"getRandom\"]]`. Constructor pushes `null`; insert/remove push boolean; getRandom pushes a number.",
+    "examples": [
+      {"input": "ops = [[\"RandomizedSet\"],[\"insert\",1],[\"remove\",2],[\"insert\",2],[\"getRandom\"],[\"remove\",1],[\"insert\",2],[\"getRandom\"]]", "output": "[null,true,false,true,2,true,false,2]"}
+    ],
+    "constraints": ["-2^31 <= val <= 2^31 - 1", "Total ops <= 2 * 10^5", "getRandom only called when set non-empty"],
+    "hints": [
+      "Array of values + Map<val, idx> for O(1) lookup.",
+      "Remove: swap-with-last, pop, update map.",
+      "getRandom — return values[values.length - 1] (deterministic per problem note)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["RandomizedSet"], ["insert", 1], ["remove", 2], ["insert", 2], ["getRandom"], ["remove", 1], ["insert", 2], ["getRandom"]]], "expected": [null, true, false, true, 2, true, false, 2], "label": "leetcode classic"},
+      {"args": [[["RandomizedSet"], ["insert", 0], ["insert", 1], ["remove", 0], ["insert", 2], ["remove", 1], ["getRandom"]]], "expected": [null, true, true, true, true, true, 2], "label": "deterministic last"},
+      {"args": [[["RandomizedSet"], ["insert", 5], ["insert", 5], ["remove", 5], ["insert", 5], ["getRandom"]]], "expected": [null, true, false, true, true, 5], "label": "duplicate insert returns false"},
+      {"args": [[["RandomizedSet"], ["insert", 100], ["getRandom"], ["insert", 200], ["getRandom"], ["remove", 200], ["getRandom"]]], "expected": [null, true, 100, true, 200, true, 100], "label": "remove last shifts"}
+    ],
+    "editorial": "**Approach — array + index map**: Keep `values[]` and `pos: Map<val,idx>`. `insert`: if not in map, push and record. `remove`: if in map, swap target with the last element (update last's index in the map), pop, delete from map. Both O(1).\n\n```javascript\nfunction runOps(ops) {\n  class RandomizedSet {\n    constructor() { this.vals = []; this.pos = new Map(); }\n    insert(v) {\n      if (this.pos.has(v)) return false;\n      this.pos.set(v, this.vals.length);\n      this.vals.push(v);\n      return true;\n    }\n    remove(v) {\n      if (!this.pos.has(v)) return false;\n      const idx = this.pos.get(v);\n      const last = this.vals[this.vals.length - 1];\n      this.vals[idx] = last;\n      this.pos.set(last, idx);\n      this.vals.pop();\n      this.pos.delete(v);\n      return true;\n    }\n    getRandom() {\n      // Deterministic for the grader: return the last element.\n      return this.vals[this.vals.length - 1];\n    }\n  }\n  let s = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'RandomizedSet') { s = new RandomizedSet(); out.push(null); }\n    else if (op[0] === 'insert') { out.push(s.insert(op[1])); }\n    else if (op[0] === 'remove') { out.push(s.remove(op[1])); }\n    else if (op[0] === 'getRandom') { out.push(s.getRandom()); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) per op. **Space**: O(n).\n\nIn a real interview, `getRandom()` would be `vals[Math.floor(Math.random()*vals.length)]`. For a deterministic grader, picking the last element is equivalent in coverage and lets us verify the swap-pop logic."
+  },
+  {
+    "slug": "delhi-metro-underground-system",
+    "number": 2914,
+    "title": "Delhi Metro Underground Travel System",
+    "difficulty": "Hard",
+    "topic": "Design",
+    "companies": ["dmrc", "irctc", "uber"],
+    "description": "Delhi Metro ka travel-time system: passengers tap-in at one station and tap-out at another. Track average travel time between station pairs.\n\n- `checkIn(id, station, t)` — passenger `id` enters `station` at time `t`.\n- `checkOut(id, station, t)` — same passenger exits at `station` at time `t`. Updates the avg between their checkIn station and this one.\n- `getAverageTime(start, end)` — return avg trip time from `start` to `end` (over all completed trips matching that ordered pair).\n\nReturn from `getAverageTime` is a number (use floating point — match expected to within problem tolerance, but for grader simplicity all expected values are exact integers in the tests below).\n\nOps: `[[\"UndergroundSystem\"], [\"checkIn\", id, st, t], [\"checkOut\", id, st, t], [\"getAverageTime\", a, b]]`.",
+    "examples": [
+      {"input": "ops = [[\"UndergroundSystem\"],[\"checkIn\",10,\"Leyton\",3],[\"checkOut\",10,\"Paradise\",8],[\"getAverageTime\",\"Leyton\",\"Paradise\"]]", "output": "[null,null,null,5]"}
+    ],
+    "constraints": ["1 <= id <= 10^6", "1 <= t <= 10^9, t increases per id between in/out", "Station names lowercase/uppercase letters, length <= 10", "getAverageTime always called for a pair with at least one completed trip", "Total ops <= 2 * 10^4"],
+    "hints": [
+      "Per-passenger pending check-in: Map<id, [station, time]>.",
+      "Per-pair stats: Map<\"a→b\", [totalTime, count]>.",
+      "Average = total / count; problem tests expect integer answers so plain integer division works here."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["UndergroundSystem"], ["checkIn", 10, "Leyton", 3], ["checkOut", 10, "Paradise", 8], ["getAverageTime", "Leyton", "Paradise"]]], "expected": [null, null, null, 5], "label": "single trip"},
+      {"args": [[["UndergroundSystem"], ["checkIn", 1, "A", 1], ["checkOut", 1, "B", 5], ["checkIn", 2, "A", 3], ["checkOut", 2, "B", 9], ["getAverageTime", "A", "B"]]], "expected": [null, null, null, null, null, 5], "label": "two trips averaged"},
+      {"args": [[["UndergroundSystem"], ["checkIn", 7, "X", 10], ["checkOut", 7, "Y", 20], ["checkIn", 7, "Y", 30], ["checkOut", 7, "X", 40], ["getAverageTime", "X", "Y"], ["getAverageTime", "Y", "X"]]], "expected": [null, null, null, null, null, 10, 10], "label": "directional pairs"},
+      {"args": [[["UndergroundSystem"], ["checkIn", 1, "P", 0], ["checkOut", 1, "Q", 10], ["checkIn", 1, "P", 20], ["checkOut", 1, "Q", 30], ["checkIn", 1, "P", 40], ["checkOut", 1, "Q", 50], ["getAverageTime", "P", "Q"]]], "expected": [null, null, null, null, null, null, null, 10], "label": "same passenger repeated"}
+    ],
+    "editorial": "**Approach — two maps**: `pending: Map<id, [station, t]>` for in-progress trips. `stats: Map<\"start→end\", [sum, count]>` for completed trips. `getAverageTime` divides.\n\n```javascript\nfunction runOps(ops) {\n  class UndergroundSystem {\n    constructor() {\n      this.pending = new Map();\n      this.stats = new Map();\n    }\n    checkIn(id, st, t) { this.pending.set(id, [st, t]); }\n    checkOut(id, st, t) {\n      const [start, t0] = this.pending.get(id);\n      this.pending.delete(id);\n      const key = start + '\\u0001' + st;\n      const cur = this.stats.get(key) || [0, 0];\n      cur[0] += (t - t0);\n      cur[1] += 1;\n      this.stats.set(key, cur);\n    }\n    getAverageTime(a, b) {\n      const [sum, cnt] = this.stats.get(a + '\\u0001' + b);\n      return sum / cnt;\n    }\n  }\n  let u = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'UndergroundSystem') { u = new UndergroundSystem(); out.push(null); }\n    else if (op[0] === 'checkIn') { u.checkIn(op[1], op[2], op[3]); out.push(null); }\n    else if (op[0] === 'checkOut') { u.checkOut(op[1], op[2], op[3]); out.push(null); }\n    else if (op[0] === 'getAverageTime') { out.push(u.getAverageTime(op[1], op[2])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) per op. **Space**: O(passengers + station-pairs).\n\nKey detail: use a delimiter unlikely in station names (`\\u0001`) for the composite key, so 'AB|C' and 'A|BC' don't collide."
+  },
+  {
+    "slug": "zomato-logger-rate-limiter",
+    "number": 2915,
+    "title": "Zomato Logger Rate Limiter",
+    "difficulty": "Hard",
+    "topic": "Design",
+    "companies": ["zomato", "swiggy", "uber"],
+    "description": "Zomato ka order-event logger rate-limit karta hai duplicate messages ko. `shouldPrintMessage(timestamp, message)` returns `true` if the message can be printed at this timestamp, else `false`. A message is printable only if it hasn't been printed in the last 10 seconds (so if it was printed at time `t`, the next allowed time is `t + 10`).\n\nAdditionally, support `purge(timestamp)` which evicts all entries whose last-printed time is `<= timestamp - 10` (memory hygiene). `purge` returns the number of entries evicted.\n\nOps: `[[\"Logger\"], [\"shouldPrintMessage\", t, msg], [\"purge\", t]]`. Constructor pushes `null`; shouldPrintMessage pushes boolean; purge pushes the integer evicted count.",
+    "examples": [
+      {"input": "ops = [[\"Logger\"],[\"shouldPrintMessage\",1,\"foo\"],[\"shouldPrintMessage\",2,\"bar\"],[\"shouldPrintMessage\",3,\"foo\"],[\"shouldPrintMessage\",8,\"bar\"],[\"shouldPrintMessage\",10,\"foo\"],[\"shouldPrintMessage\",11,\"foo\"]]", "output": "[null,true,true,false,false,false,true]"}
+    ],
+    "constraints": ["0 <= timestamp <= 10^9", "Timestamps non-decreasing", "1 <= message.length <= 30", "Total ops <= 10^4"],
+    "hints": [
+      "Map<msg, lastPrintedTs>. Allowed if !has(msg) or t - lastTs >= 10.",
+      "Purge: iterate map, delete entries where ts <= now - 10.",
+      "Update map only on a successful print."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {"args": [[["Logger"], ["shouldPrintMessage", 1, "foo"], ["shouldPrintMessage", 2, "bar"], ["shouldPrintMessage", 3, "foo"], ["shouldPrintMessage", 8, "bar"], ["shouldPrintMessage", 10, "foo"], ["shouldPrintMessage", 11, "foo"]]], "expected": [null, true, true, false, false, false, true], "label": "leetcode classic"},
+      {"args": [[["Logger"], ["shouldPrintMessage", 0, "x"], ["shouldPrintMessage", 9, "x"], ["shouldPrintMessage", 10, "x"], ["shouldPrintMessage", 19, "x"], ["shouldPrintMessage", 20, "x"]]], "expected": [null, true, false, true, false, true], "label": "exact 10 boundary"},
+      {"args": [[["Logger"], ["shouldPrintMessage", 1, "a"], ["shouldPrintMessage", 1, "b"], ["shouldPrintMessage", 1, "c"], ["purge", 100], ["shouldPrintMessage", 101, "a"]]], "expected": [null, true, true, true, 3, true], "label": "purge clears stale"},
+      {"args": [[["Logger"], ["shouldPrintMessage", 1, "hello"], ["purge", 5], ["shouldPrintMessage", 5, "hello"], ["purge", 100]]], "expected": [null, true, 0, false, 1], "label": "purge boundary keeps active"}
+    ],
+    "editorial": "**Approach — last-printed map**: `Map<msg, ts>`. Print-decision: `!has || now - last >= 10`. On print, update. `purge(now)` iterates and deletes entries with `ts <= now - 10`.\n\n```javascript\nfunction runOps(ops) {\n  class Logger {\n    constructor() { this.last = new Map(); }\n    shouldPrintMessage(t, msg) {\n      if (!this.last.has(msg) || t - this.last.get(msg) >= 10) {\n        this.last.set(msg, t);\n        return true;\n      }\n      return false;\n    }\n    purge(t) {\n      let evicted = 0;\n      const cutoff = t - 10;\n      for (const [m, ts] of this.last) {\n        if (ts <= cutoff) {\n          this.last.delete(m);\n          evicted++;\n        }\n      }\n      return evicted;\n    }\n  }\n  let lg = null;\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'Logger') { lg = new Logger(); out.push(null); }\n    else if (op[0] === 'shouldPrintMessage') { out.push(lg.shouldPrintMessage(op[1], op[2])); }\n    else if (op[0] === 'purge') { out.push(lg.purge(op[1])); }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) per shouldPrintMessage; O(M) per purge where M = current map size. **Space**: O(M).\n\nFor a tighter bound on memory growth, you can purge lazily inside shouldPrintMessage too. The boundary is `>= 10` (so t=10 message at t=0 is allowed) — careful with `>` vs `>=`."
+  }
+]

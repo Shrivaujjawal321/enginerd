@@ -1,0 +1,2005 @@
+[
+  {
+    "slug": "razorpay-transaction-flag-bits",
+    "number": 2701,
+    "title": "Razorpay Transaction Flag Bit Count",
+    "difficulty": "Easy",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
+    "description": "Razorpay encodes per-transaction risk flags into a single 32-bit integer where each set bit signals a specific risk rule fired (KYC mismatch, velocity, geo, etc.). The fraud team wants to know how many flags are active for a transaction. Given a non-negative integer `n`, return the number of `1` bits in its binary representation (Hamming weight).",
+    "examples": [
+      {
+        "input": "n = 11",
+        "output": "3",
+        "explanation": "11 in binary is 1011 — three set bits."
+      },
+      {
+        "input": "n = 0",
+        "output": "0",
+        "explanation": "No flags fired."
+      },
+      {
+        "input": "n = 4294967295",
+        "output": "32",
+        "explanation": "All 32 bits set."
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 2^32 - 1"
+    ],
+    "hints": [
+      "Right shift karte ja aur n & 1 check karta ja — har 1 ko count.",
+      "Brian Kernighan trick: n = n & (n-1) lowest set bit ko clear karta hai.",
+      "Loop tab tak chal jab tak n != 0; iterations = number of set bits."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countTransactionFlags(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_transaction_flags(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countTransactionFlags(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countTransactionFlags(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countTransactionFlags(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countTransactionFlags(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countTransactionFlags",
+    "tests": [
+      {
+        "args": [
+          11
+        ],
+        "expected": 3,
+        "label": "basic 1011"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0,
+        "label": "zero"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1,
+        "label": "single bit"
+      },
+      {
+        "args": [
+          4294967295
+        ],
+        "expected": 32,
+        "label": "all bits set"
+      },
+      {
+        "args": [
+          128
+        ],
+        "expected": 1,
+        "label": "one high bit"
+      },
+      {
+        "args": [
+          2147483648
+        ],
+        "expected": 1,
+        "label": "msb only"
+      },
+      {
+        "args": [
+          255
+        ],
+        "expected": 8,
+        "label": "byte full"
+      }
+    ],
+    "editorial": "**Naive — shift and mask**: Loop 32 times, on each iteration AND with 1 and right-shift. O(32).\n\n**Better — Brian Kernighan**: `n & (n - 1)` clears the lowest set bit. Loop until n becomes 0; the number of iterations equals the popcount.\n\n```javascript\nfunction countTransactionFlags(n) {\n  let count = 0;\n  while (n !== 0) {\n    n = n & (n - 1);\n    count++;\n  }\n  return count;\n}\n```\n\n**Time**: O(k) where k = number of set bits (at most 32). **Space**: O(1).\n\nJavaScript me bitwise ops 32-bit signed pe operate karte hain — bade unsigned values ke liye `>>> 0` ya BigInt sambhal le. Yahan `n & (n-1)` already 32-bit safe hai jab n fits in 32 bits."
+  },
+  {
+    "slug": "paytm-coupon-eligibility-counts",
+    "number": 2702,
+    "title": "Paytm Coupon Eligibility Bit Counts",
+    "difficulty": "Easy",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "paytm",
+      "flipkart",
+      "amazon"
+    ],
+    "description": "Paytm's coupon engine encodes each user tier 0..n as a bitmask. The marketing team wants a quick lookup: for tiers 0 through n inclusive, how many bits are set in each tier id? Given an integer `n`, return an array `ans` of length n+1 where `ans[i]` is the popcount of `i`.",
+    "examples": [
+      {
+        "input": "n = 5",
+        "output": "[0, 1, 1, 2, 1, 2]",
+        "explanation": "0:0b, 1:1b, 2:10b, 3:11b, 4:100b, 5:101b."
+      },
+      {
+        "input": "n = 2",
+        "output": "[0, 1, 1]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 10^5"
+    ],
+    "hints": [
+      "Naive: har i ke liye Hamming weight nikaal — O(n log n).",
+      "DP trick: ans[i] = ans[i >> 1] + (i & 1).",
+      "Ya: ans[i] = ans[i & (i-1)] + 1 — Kernighan recurrence."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function couponBitCounts(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def coupon_bit_counts(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object couponBitCounts(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson couponBitCounts(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function couponBitCounts(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc couponBitCounts(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "couponBitCounts",
+    "tests": [
+      {
+        "args": [
+          5
+        ],
+        "expected": [
+          0,
+          1,
+          1,
+          2,
+          1,
+          2
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": [
+          0,
+          1,
+          1
+        ],
+        "label": "small"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": [
+          0
+        ],
+        "label": "zero"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": [
+          0,
+          1
+        ],
+        "label": "one"
+      },
+      {
+        "args": [
+          8
+        ],
+        "expected": [
+          0,
+          1,
+          1,
+          2,
+          1,
+          2,
+          2,
+          3,
+          1
+        ],
+        "label": "power boundary"
+      }
+    ],
+    "editorial": "**Naive**: Compute popcount for each i using Brian Kernighan. O(n log n).\n\n**DP — shift recurrence**: `ans[i] = ans[i >> 1] + (i & 1)`. The right-shifted value's popcount is already computed; add 1 if the low bit is set.\n\n```javascript\nfunction couponBitCounts(n) {\n  const ans = new Array(n + 1).fill(0);\n  for (let i = 1; i <= n; i++) {\n    ans[i] = ans[i >> 1] + (i & 1);\n  }\n  return ans;\n}\n```\n\n**Time**: O(n). **Space**: O(n) for the output (excluded from extra space).\n\nAlternative recurrence: `ans[i] = ans[i & (i-1)] + 1`. Both correct, both O(n)."
+  },
+  {
+    "slug": "flipkart-reverse-permission-bits",
+    "number": 2703,
+    "title": "Flipkart Reverse 32-bit Permission Mask",
+    "difficulty": "Easy",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "flipkart",
+      "meesho",
+      "amazon"
+    ],
+    "description": "Flipkart's permissions service stores access flags as a 32-bit integer where bit 0 is the most senior role. A migration tool stored everything reversed. Given a 32-bit unsigned integer `n`, return the value obtained by reversing its 32 bits.",
+    "examples": [
+      {
+        "input": "n = 43261596",
+        "output": "964176192",
+        "explanation": "00000010100101000001111010011100 reversed → 00111001011110000010100101000000."
+      },
+      {
+        "input": "n = 1",
+        "output": "2147483648",
+        "explanation": "Bit 0 moves to bit 31."
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 2^32 - 1"
+    ],
+    "hints": [
+      "32 iterations: result <<= 1; result |= (n & 1); n >>= 1.",
+      "JavaScript me result ko unsigned banane ke liye `>>> 0` use kar.",
+      "Edge case: n = 0 should return 0; n with only msb set returns 1."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function reversePermissionBits(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reverse_permission_bits(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object reversePermissionBits(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson reversePermissionBits(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function reversePermissionBits(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc reversePermissionBits(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "reversePermissionBits",
+    "tests": [
+      {
+        "args": [
+          43261596
+        ],
+        "expected": 964176192,
+        "label": "leetcode classic"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 2147483648,
+        "label": "lsb to msb"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0,
+        "label": "zero"
+      },
+      {
+        "args": [
+          4294967295
+        ],
+        "expected": 4294967295,
+        "label": "all ones"
+      },
+      {
+        "args": [
+          2147483648
+        ],
+        "expected": 1,
+        "label": "msb to lsb"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": 536870912,
+        "label": "small power"
+      }
+    ],
+    "editorial": "**Idea — bit-by-bit**: Pop the lowest bit of `n`, shift `result` left, OR it in. Repeat 32 times.\n\n```javascript\nfunction reversePermissionBits(n) {\n  let result = 0;\n  for (let i = 0; i < 32; i++) {\n    result = (result << 1) | (n & 1);\n    n = n >>> 1; // unsigned right shift\n  }\n  return result >>> 0; // force unsigned 32-bit\n}\n```\n\n**Time**: O(32) = O(1). **Space**: O(1).\n\nKey gotcha in JS: `<<` produces a signed 32-bit, so the final `>>> 0` reinterprets the bit pattern as unsigned for the return value. In Python, mask the result with `0xFFFFFFFF`."
+  },
+  {
+    "slug": "swiggy-single-rider-id",
+    "number": 2704,
+    "title": "Swiggy Lone Delivery Rider ID",
+    "difficulty": "Easy",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
+    "description": "Swiggy's dispatch logs every rider assignment twice (once at pickup, once at handoff). Due to a bug today, exactly one rider has only a single entry. Given a non-empty array `riders` where every ID appears twice except one, return that lone ID. Constant extra space required.",
+    "examples": [
+      {
+        "input": "riders = [4, 1, 2, 1, 2]",
+        "output": "4",
+        "explanation": "Only 4 appears once."
+      },
+      {
+        "input": "riders = [1]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "1 <= riders.length <= 3*10^4",
+      "0 <= riders[i] <= 3*10^4",
+      "Exactly one element appears once; all others twice"
+    ],
+    "hints": [
+      "XOR identity: x ^ x = 0, x ^ 0 = x.",
+      "Saare elements ka XOR le — duplicates cancel.",
+      "Order pe nahi depend karta — XOR commutative aur associative hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findLoneRider(riders) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_lone_rider(riders):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findLoneRider(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findLoneRider(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findLoneRider(riders): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findLoneRider(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findLoneRider",
+    "tests": [
+      {
+        "args": [
+          [
+            4,
+            1,
+            2,
+            1,
+            2
+          ]
+        ],
+        "expected": 4,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "only one"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            5
+          ]
+        ],
+        "expected": 5,
+        "label": "small"
+      },
+      {
+        "args": [
+          [
+            7,
+            3,
+            5,
+            4,
+            5,
+            3,
+            4
+          ]
+        ],
+        "expected": 7,
+        "label": "longer"
+      },
+      {
+        "args": [
+          [
+            0,
+            1,
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "zero is lone"
+      }
+    ],
+    "editorial": "**Approach — XOR sweep**: Because XOR is commutative and a^a = 0, XOR-ing every element together leaves only the unpaired one.\n\n```javascript\nfunction findLoneRider(riders) {\n  let acc = 0;\n  for (const r of riders) acc ^= r;\n  return acc;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nNo sorting, no hash set — pure bit play. Edge case n=1 trivially returns the single element since `0 ^ x = x`."
+  },
+  {
+    "slug": "razorpay-power-of-two-batch",
+    "number": 2705,
+    "title": "Razorpay Power-of-Two Batch Size",
+    "difficulty": "Easy",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "google"
+    ],
+    "description": "Razorpay's settlement engine batches payouts in powers-of-two for efficient parallelism. Given an integer `n`, return `true` if `n` is a power of two (1, 2, 4, 8, ...), else `false`. Use bit manipulation; do not use loops or `Math.log`.",
+    "examples": [
+      {
+        "input": "n = 16",
+        "output": "true",
+        "explanation": "2^4 = 16."
+      },
+      {
+        "input": "n = 18",
+        "output": "false"
+      },
+      {
+        "input": "n = 1",
+        "output": "true",
+        "explanation": "2^0 = 1."
+      }
+    ],
+    "constraints": [
+      "-2^31 <= n <= 2^31 - 1"
+    ],
+    "hints": [
+      "Power of two ka binary me sirf ek hi 1 hota hai.",
+      "n > 0 AND (n & (n - 1)) == 0 — yahi check.",
+      "Negative aur zero false return karna chahiye."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function isPowerOfTwoBatch(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_power_of_two_batch(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object isPowerOfTwoBatch(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson isPowerOfTwoBatch(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function isPowerOfTwoBatch(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc isPowerOfTwoBatch(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "isPowerOfTwoBatch",
+    "tests": [
+      {
+        "args": [
+          16
+        ],
+        "expected": true,
+        "label": "16"
+      },
+      {
+        "args": [
+          18
+        ],
+        "expected": false,
+        "label": "not power"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": true,
+        "label": "one"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": false,
+        "label": "zero"
+      },
+      {
+        "args": [
+          -4
+        ],
+        "expected": false,
+        "label": "negative"
+      },
+      {
+        "args": [
+          1073741824
+        ],
+        "expected": true,
+        "label": "2^30"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": false,
+        "label": "small non-power"
+      }
+    ],
+    "editorial": "**Trick**: A power of two has exactly one set bit. `n & (n-1)` clears the lowest set bit; if the result is zero AND n was positive, it was a power of two.\n\n```javascript\nfunction isPowerOfTwoBatch(n) {\n  return n > 0 && (n & (n - 1)) === 0;\n}\n```\n\n**Time**: O(1). **Space**: O(1).\n\nWhy `n > 0`? Because for n = 0, `0 & -1 = 0` would falsely pass. For negative numbers (two's complement), `(n & (n-1))` can also be zero (e.g., n = -2147483648), so the positive guard is essential."
+  },
+  {
+    "slug": "phonepe-missing-merchant-id",
+    "number": 2706,
+    "title": "PhonePe Missing Merchant ID",
+    "difficulty": "Medium",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "phonepe",
+      "razorpay",
+      "google"
+    ],
+    "description": "PhonePe assigns merchant IDs from 0 to n. A daily reconciliation file has n distinct IDs from this range; one is missing due to a sync gap. Given the array `ids` of length n, return the missing ID. Solve in O(n) time and O(1) extra space using XOR (no sum overflow allowed).",
+    "examples": [
+      {
+        "input": "ids = [3, 0, 1]",
+        "output": "2",
+        "explanation": "Range is 0..3, 2 is missing."
+      },
+      {
+        "input": "ids = [0, 1]",
+        "output": "2"
+      },
+      {
+        "input": "ids = [9, 6, 4, 2, 3, 5, 7, 0, 1]",
+        "output": "8"
+      }
+    ],
+    "constraints": [
+      "1 <= ids.length <= 10^4",
+      "0 <= ids[i] <= ids.length",
+      "All ids distinct"
+    ],
+    "hints": [
+      "XOR 0..n with all array elements — pairs cancel.",
+      "Loop me hi index aur value dono XOR kar; final ans = n hi se start kar.",
+      "Sum trick bhi correct hai but XOR overflow-proof."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function missingMerchantId(ids) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def missing_merchant_id(ids):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object missingMerchantId(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson missingMerchantId(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function missingMerchantId(ids): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc missingMerchantId(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "missingMerchantId",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "expected": 2,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            0,
+            1
+          ]
+        ],
+        "expected": 2,
+        "label": "missing end"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "missing zero"
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": 1,
+        "label": "missing one"
+      },
+      {
+        "args": [
+          [
+            9,
+            6,
+            4,
+            2,
+            3,
+            5,
+            7,
+            0,
+            1
+          ]
+        ],
+        "expected": 8,
+        "label": "shuffled"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 0,
+        "label": "missing zero again"
+      }
+    ],
+    "editorial": "**XOR approach**: Initialize `acc = n` (length of array). For each index i and value ids[i], do `acc ^= i ^ ids[i]`. Every present number XORs with its index pair plus the seed `n` covers `0..n`. Duplicates cancel; the missing number remains.\n\n```javascript\nfunction missingMerchantId(ids) {\n  let acc = ids.length;\n  for (let i = 0; i < ids.length; i++) {\n    acc ^= i ^ ids[i];\n  }\n  return acc;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\n**Why it works**: The full XOR `0 ^ 1 ^ ... ^ n` combined with `0 ^ 1 ^ ... ^ (n-1)` (the indices) and the array contents cancels every present number, leaving the missing one.\n\nSum formula `n*(n+1)/2 - sum(ids)` works too, but for very large n it can overflow standard 32-bit ints; XOR cannot overflow."
+  },
+  {
+    "slug": "flipkart-permission-toggle-kth",
+    "number": 2707,
+    "title": "Flipkart Toggle K-th Permission Bit",
+    "difficulty": "Medium",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "meesho"
+    ],
+    "description": "Flipkart's admin tool exposes a single 32-bit permissions integer per user. An operator wants to flip the k-th permission bit (0-indexed from LSB) — set it if clear, clear it if set. Given `mask` and `k`, return the new mask after toggling bit k.",
+    "examples": [
+      {
+        "input": "mask = 5, k = 1",
+        "output": "7",
+        "explanation": "0101 toggle bit 1 → 0111 = 7."
+      },
+      {
+        "input": "mask = 7, k = 1",
+        "output": "5",
+        "explanation": "0111 → 0101 = 5."
+      },
+      {
+        "input": "mask = 0, k = 0",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "0 <= mask <= 2^31 - 1",
+      "0 <= k <= 30"
+    ],
+    "hints": [
+      "XOR with (1 << k) — set bit toggle ka standard idiom.",
+      "AND clears, OR sets, XOR toggles — yaad rakh.",
+      "Result negative na ho is liye k <= 30 rakha hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function togglePermissionBit(mask, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def toggle_permission_bit(mask, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object togglePermissionBit(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson togglePermissionBit(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function togglePermissionBit(mask, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc togglePermissionBit(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "togglePermissionBit",
+    "tests": [
+      {
+        "args": [
+          5,
+          1
+        ],
+        "expected": 7,
+        "label": "set the clear bit"
+      },
+      {
+        "args": [
+          7,
+          1
+        ],
+        "expected": 5,
+        "label": "clear the set bit"
+      },
+      {
+        "args": [
+          0,
+          0
+        ],
+        "expected": 1,
+        "label": "from zero"
+      },
+      {
+        "args": [
+          1,
+          0
+        ],
+        "expected": 0,
+        "label": "back to zero"
+      },
+      {
+        "args": [
+          1024,
+          10
+        ],
+        "expected": 0,
+        "label": "single bit clears"
+      },
+      {
+        "args": [
+          0,
+          30
+        ],
+        "expected": 1073741824,
+        "label": "high bit set"
+      }
+    ],
+    "editorial": "**Three idioms**:\n- Set bit k: `mask | (1 << k)`\n- Clear bit k: `mask & ~(1 << k)`\n- Toggle bit k: `mask ^ (1 << k)`\n\n```javascript\nfunction togglePermissionBit(mask, k) {\n  return mask ^ (1 << k);\n}\n```\n\n**Time**: O(1). **Space**: O(1).\n\nXOR with a 1 flips the bit (because 0^1=1, 1^1=0). XOR with 0 leaves bits unchanged, so all other positions stay put.\n\n**Pro tip**: To check bit k, use `(mask >> k) & 1` or `(mask & (1 << k)) !== 0`. Easy to confuse 'set' and 'toggle' under interview pressure — XOR = toggle."
+  },
+  {
+    "slug": "razorpay-sum-without-plus",
+    "number": 2708,
+    "title": "Razorpay Sum Without Plus Operator",
+    "difficulty": "Medium",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "razorpay",
+      "google",
+      "amazon"
+    ],
+    "description": "An interviewer at Razorpay challenged a candidate to add two integers without using `+` or `-`. Given two integers `a` and `b`, return their sum using only bitwise operators.",
+    "examples": [
+      {
+        "input": "a = 3, b = 5",
+        "output": "8"
+      },
+      {
+        "input": "a = -2, b = 3",
+        "output": "1"
+      },
+      {
+        "input": "a = 0, b = 0",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "-1000 <= a, b <= 1000"
+    ],
+    "hints": [
+      "Sum without carry = a XOR b.",
+      "Carry = (a AND b) << 1.",
+      "Loop until carry becomes 0; sum-without-carry becomes the new a, carry becomes new b."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function sumWithoutPlus(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def sum_without_plus(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object sumWithoutPlus(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson sumWithoutPlus(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function sumWithoutPlus(a, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc sumWithoutPlus(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "sumWithoutPlus",
+    "tests": [
+      {
+        "args": [
+          3,
+          5
+        ],
+        "expected": 8,
+        "label": "basic"
+      },
+      {
+        "args": [
+          -2,
+          3
+        ],
+        "expected": 1,
+        "label": "mixed sign"
+      },
+      {
+        "args": [
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "zero zero"
+      },
+      {
+        "args": [
+          1000,
+          -1000
+        ],
+        "expected": 0,
+        "label": "cancel"
+      },
+      {
+        "args": [
+          -5,
+          -7
+        ],
+        "expected": -12,
+        "label": "both negative"
+      },
+      {
+        "args": [
+          1,
+          1
+        ],
+        "expected": 2,
+        "label": "carry trigger"
+      }
+    ],
+    "editorial": "**Idea — split addition into bitwise parts**:\n- `a ^ b` gives sum of bits with no carry handling.\n- `(a & b) << 1` gives the carry that needs to be added in the next round.\n\nKeep iterating until carry is zero.\n\n```javascript\nfunction sumWithoutPlus(a, b) {\n  while (b !== 0) {\n    const carry = (a & b) << 1;\n    a = a ^ b;\n    b = carry;\n  }\n  return a | 0; // force 32-bit signed\n}\n```\n\n**Time**: O(1) (at most ~32 iterations). **Space**: O(1).\n\n**Negatives** work because JavaScript bitwise ops treat numbers as 32-bit two's-complement. The `| 0` at the end normalizes to a 32-bit signed int. In Python, you have to mask with 0xFFFFFFFF and convert back to a signed int because Python ints are arbitrary precision."
+  },
+  {
+    "slug": "swiggy-zone-bit-pair-uniques",
+    "number": 2709,
+    "title": "Swiggy Two Lonely Delivery Zones",
+    "difficulty": "Medium",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "amazon"
+    ],
+    "description": "Swiggy logs delivery zones touched by every rider; each zone should appear an even number of times in a healthy day. Today exactly two zone IDs appear an odd number of times (technically once, while the rest appear twice). Given `zones`, return the two odd-occurrence zone IDs as an array sorted ascending. O(n) time, O(1) extra space.",
+    "examples": [
+      {
+        "input": "zones = [1, 2, 1, 3, 2, 5]",
+        "output": "[3, 5]",
+        "explanation": "1 and 2 cancel; 3 and 5 are the lonely pair."
+      },
+      {
+        "input": "zones = [4, 7]",
+        "output": "[4, 7]"
+      }
+    ],
+    "constraints": [
+      "2 <= zones.length <= 3*10^4",
+      "1 <= zones[i] <= 10^9",
+      "Exactly two values appear once; all others twice"
+    ],
+    "hints": [
+      "Saare ka XOR = a XOR b (the two unique values).",
+      "Lowest set bit of (a XOR b) ek aisa bit hai jo a aur b me alag hai.",
+      "Us bit ke basis pe array ko do groups me partition kar — har group me ek unique."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findTwoLonelyZones(zones) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_two_lonely_zones(zones):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findTwoLonelyZones(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findTwoLonelyZones(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findTwoLonelyZones(zones): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findTwoLonelyZones(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findTwoLonelyZones",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            1,
+            3,
+            2,
+            5
+          ]
+        ],
+        "expected": [
+          3,
+          5
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            4,
+            7
+          ]
+        ],
+        "expected": [
+          4,
+          7
+        ],
+        "label": "only the two"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            2,
+            1,
+            4
+          ]
+        ],
+        "expected": [
+          3,
+          4
+        ],
+        "label": "shuffled"
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40,
+            10,
+            20
+          ]
+        ],
+        "expected": [
+          30,
+          40
+        ],
+        "label": "different magnitudes"
+      },
+      {
+        "args": [
+          [
+            1,
+            1000000000,
+            1,
+            999999999
+          ]
+        ],
+        "expected": [
+          999999999,
+          1000000000
+        ],
+        "label": "large values"
+      }
+    ],
+    "editorial": "**Idea — XOR + partition**: XOR everything; the result is `a ^ b`. Pick any bit set in this XOR (commonly the lowest): a and b differ at that bit, so all numbers split into two groups by that bit. XOR each group separately to recover a and b.\n\n```javascript\nfunction findTwoLonelyZones(zones) {\n  let xorAll = 0;\n  for (const z of zones) xorAll ^= z;\n  const diffBit = xorAll & (-xorAll); // isolate lowest set bit\n  let a = 0, b = 0;\n  for (const z of zones) {\n    if (z & diffBit) a ^= z;\n    else b ^= z;\n  }\n  return a < b ? [a, b] : [b, a];\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nThe trick `x & (-x)` isolates the lowest set bit thanks to two's-complement representation of `-x`."
+  },
+  {
+    "slug": "paytm-coupon-once-only",
+    "number": 2710,
+    "title": "Paytm Coupon Used Once vs Thrice",
+    "difficulty": "Medium",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "paytm",
+      "razorpay",
+      "amazon"
+    ],
+    "description": "Paytm's coupon system records every redemption; legitimate users redeem any given coupon exactly three times in a campaign window. A leak caused exactly one coupon ID to be redeemed only once. Given `redemptions` where every ID appears 3 times except one (which appears once), return the lone ID. O(n) time, O(1) extra space.",
+    "examples": [
+      {
+        "input": "redemptions = [2, 2, 3, 2]",
+        "output": "3"
+      },
+      {
+        "input": "redemptions = [0, 1, 0, 1, 0, 1, 99]",
+        "output": "99"
+      }
+    ],
+    "constraints": [
+      "1 <= redemptions.length <= 3*10^4",
+      "-2^31 <= redemptions[i] <= 2^31 - 1",
+      "Exactly one element appears once; all others three times"
+    ],
+    "hints": [
+      "Bitwise count modulo 3 — har bit position ka sum mod 3 lo.",
+      "Smarter: do counters `ones`, `twos` as bitmasks tracking 'seen 1 time', 'seen 2 times' mod 3.",
+      "Update: ones = (ones XOR x) AND NOT twos; twos = (twos XOR x) AND NOT ones."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findOnceCoupon(redemptions) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_once_coupon(redemptions):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findOnceCoupon(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findOnceCoupon(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findOnceCoupon(redemptions): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findOnceCoupon(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findOnceCoupon",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            2,
+            3,
+            2
+          ]
+        ],
+        "expected": 3,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            99
+          ]
+        ],
+        "expected": 99,
+        "label": "leetcode classic"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5,
+        "label": "only one"
+      },
+      {
+        "args": [
+          [
+            7,
+            7,
+            7,
+            -3
+          ]
+        ],
+        "expected": -3,
+        "label": "negative lone"
+      },
+      {
+        "args": [
+          [
+            10,
+            10,
+            10,
+            11,
+            11,
+            11,
+            12
+          ]
+        ],
+        "expected": 12,
+        "label": "two triples"
+      }
+    ],
+    "editorial": "**Brute force — bit tally**: For each of 32 bit positions, sum that bit across all numbers; the missing bits are the ones whose total mod 3 equals 1. O(32n).\n\n**Optimal — two-bit state machine**: Maintain `ones` and `twos`, two bitmasks. At any moment, bit b in (twos, ones) gives the count of x having bit b set, mod 3 (states 00, 01, 10, then back to 00).\n\n```javascript\nfunction findOnceCoupon(redemptions) {\n  let ones = 0, twos = 0;\n  for (const x of redemptions) {\n    ones = (ones ^ x) & ~twos;\n    twos = (twos ^ x) & ~ones;\n  }\n  return ones;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nAt the end, every element that appeared 3 times has bits resetting to (0,0). The lone element ends up with its bits in `ones`."
+  },
+  {
+    "slug": "phonepe-bitwise-and-transaction-range",
+    "number": 2711,
+    "title": "PhonePe Bitwise AND of Transaction Range",
+    "difficulty": "Hard",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "phonepe",
+      "razorpay",
+      "google"
+    ],
+    "description": "PhonePe's anomaly job ANDs together all transaction IDs in a numeric range [left, right] to detect a common high-bit signature. Given two non-negative integers `left` and `right` with `left <= right`, return the bitwise AND of all integers in the inclusive range.",
+    "examples": [
+      {
+        "input": "left = 5, right = 7",
+        "output": "4",
+        "explanation": "5 & 6 & 7 = 4."
+      },
+      {
+        "input": "left = 0, right = 0",
+        "output": "0"
+      },
+      {
+        "input": "left = 1, right = 2147483647",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "0 <= left <= right <= 2^31 - 1"
+    ],
+    "hints": [
+      "Looping through every int will TLE for big ranges.",
+      "Common prefix of left and right ke baad sab bits eventually 0 ho jaate hain.",
+      "Right-shift dono ko jab tak equal nahi ho jaate, count shifts, fir wapas left-shift kar."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function rangeBitwiseAnd(left, right) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def range_bitwise_and(left, right):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object rangeBitwiseAnd(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson rangeBitwiseAnd(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function rangeBitwiseAnd(left, right): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc rangeBitwiseAnd(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "rangeBitwiseAnd",
+    "tests": [
+      {
+        "args": [
+          5,
+          7
+        ],
+        "expected": 4,
+        "label": "basic"
+      },
+      {
+        "args": [
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "single zero"
+      },
+      {
+        "args": [
+          1,
+          1
+        ],
+        "expected": 1,
+        "label": "single one"
+      },
+      {
+        "args": [
+          1,
+          2147483647
+        ],
+        "expected": 0,
+        "label": "huge range"
+      },
+      {
+        "args": [
+          12,
+          15
+        ],
+        "expected": 12,
+        "label": "common prefix 1100"
+      },
+      {
+        "args": [
+          600,
+          2147483645
+        ],
+        "expected": 0,
+        "label": "very large"
+      }
+    ],
+    "editorial": "**Insight**: As the range grows, lower-order bits inevitably take both 0 and 1 values, so they AND to 0. Only the **common high-order prefix** of `left` and `right` survives.\n\n**Algorithm**: Right-shift both until they're equal; count shifts. The common prefix shifted back is the answer.\n\n```javascript\nfunction rangeBitwiseAnd(left, right) {\n  let shift = 0;\n  while (left !== right) {\n    left >>>= 1;\n    right >>>= 1;\n    shift++;\n  }\n  return left << shift;\n}\n```\n\n**Time**: O(log max). **Space**: O(1).\n\n**Alternative — Brian Kernighan**: Repeatedly do `right = right & (right - 1)` while `right > left`; the answer is the final `right`. Both run in O(log max).\n\nUse `>>>` (unsigned shift) in JS to avoid sign-bit pollution near the upper bound."
+  },
+  {
+    "slug": "razorpay-feature-flag-subsets",
+    "number": 2712,
+    "title": "Razorpay Feature Flag Subsets",
+    "difficulty": "Medium",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "razorpay",
+      "amazon",
+      "google"
+    ],
+    "description": "Razorpay's QA wants to test every subset of `n` distinct feature flags before a release. Given an array `flags` of distinct integers, return all possible subsets (the power set). Each subset must have its elements in the original input order, and the subsets themselves must be sorted ascending by their bitmask representation (subset `i` corresponds to bitmask `i`, where bit b set means `flags[b]` is included).",
+    "examples": [
+      {
+        "input": "flags = [1, 2, 3]",
+        "output": "[[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]"
+      },
+      {
+        "input": "flags = [9]",
+        "output": "[[], [9]]"
+      }
+    ],
+    "constraints": [
+      "1 <= flags.length <= 10",
+      "All flags are distinct integers"
+    ],
+    "hints": [
+      "2^n subsets — bitmask enumeration ka classic case.",
+      "For mask in 0..(1<<n)-1: subset me flags[i] include kar agar (mask>>i)&1.",
+      "Output order = mask order itself."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function featureFlagSubsets(flags) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def feature_flag_subsets(flags):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object featureFlagSubsets(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson featureFlagSubsets(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function featureFlagSubsets(flags): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc featureFlagSubsets(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "featureFlagSubsets",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "label": "three flags"
+      },
+      {
+        "args": [
+          [
+            9
+          ]
+        ],
+        "expected": [
+          [],
+          [
+            9
+          ]
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "label": "two flags"
+      },
+      {
+        "args": [
+          [
+            7,
+            11,
+            13,
+            17
+          ]
+        ],
+        "expected": [
+          [],
+          [
+            7
+          ],
+          [
+            11
+          ],
+          [
+            7,
+            11
+          ],
+          [
+            13
+          ],
+          [
+            7,
+            13
+          ],
+          [
+            11,
+            13
+          ],
+          [
+            7,
+            11,
+            13
+          ],
+          [
+            17
+          ],
+          [
+            7,
+            17
+          ],
+          [
+            11,
+            17
+          ],
+          [
+            7,
+            11,
+            17
+          ],
+          [
+            13,
+            17
+          ],
+          [
+            7,
+            13,
+            17
+          ],
+          [
+            11,
+            13,
+            17
+          ],
+          [
+            7,
+            11,
+            13,
+            17
+          ]
+        ],
+        "label": "four flags"
+      }
+    ],
+    "editorial": "**Idea — bitmask enumeration**: For an input of size n, there are 2^n subsets. Iterate masks from 0 to (1<<n)-1; for each, walk bits from low to high and include `flags[i]` whenever bit i is set.\n\n```javascript\nfunction featureFlagSubsets(flags) {\n  const n = flags.length;\n  const out = [];\n  for (let mask = 0; mask < (1 << n); mask++) {\n    const subset = [];\n    for (let i = 0; i < n; i++) {\n      if ((mask >> i) & 1) subset.push(flags[i]);\n    }\n    out.push(subset);\n  }\n  return out;\n}\n```\n\n**Time**: O(n * 2^n). **Space**: O(n * 2^n) for output.\n\nThis ordering matches the natural mask enumeration and is reproducible across languages — useful for tests. For n > ~20 the enumeration is impractical; use backtracking or meet-in-the-middle."
+  },
+  {
+    "slug": "flipkart-prefix-xor-queries",
+    "number": 2713,
+    "title": "Flipkart XOR-Permission Subarray Queries",
+    "difficulty": "Medium",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Flipkart stores per-event permission deltas as an array. The audit team runs many range-XOR queries — for each query [l, r], they need the XOR of `arr[l..r]` inclusive. Given the array `arr` and a list of `queries` (each `[l, r]`), return an array of XOR results, one per query.",
+    "examples": [
+      {
+        "input": "arr = [1, 3, 4, 8], queries = [[0, 1], [1, 2], [0, 3], [3, 3]]",
+        "output": "[2, 7, 14, 8]",
+        "explanation": "1^3=2; 3^4=7; 1^3^4^8=14; 8 alone =8."
+      },
+      {
+        "input": "arr = [4, 8, 2, 10], queries = [[2, 3], [1, 3], [0, 0]]",
+        "output": "[8, 0, 4]"
+      }
+    ],
+    "constraints": [
+      "1 <= arr.length <= 10^5",
+      "1 <= queries.length <= 10^5",
+      "0 <= arr[i] < 2^30",
+      "0 <= l <= r < arr.length"
+    ],
+    "hints": [
+      "Naive: per-query O(n) — total O(n*q), too slow.",
+      "Prefix XOR `p[i]` = arr[0] ^ ... ^ arr[i-1]. Then XOR of [l..r] = p[r+1] ^ p[l].",
+      "p[0] = 0; build in single pass."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function rangeXorQueries(arr, queries) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def range_xor_queries(arr, queries):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object rangeXorQueries(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson rangeXorQueries(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function rangeXorQueries(arr, queries): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc rangeXorQueries(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "rangeXorQueries",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            4,
+            8
+          ],
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          2,
+          7,
+          14,
+          8
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            4,
+            8,
+            2,
+            10
+          ],
+          [
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          8,
+          0,
+          4
+        ],
+        "label": "leetcode style"
+      },
+      {
+        "args": [
+          [
+            7
+          ],
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          7
+        ],
+        "label": "single element"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            [
+              0,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "full array"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5
+          ],
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          0
+        ],
+        "label": "even xor cancels"
+      }
+    ],
+    "editorial": "**Key identity**: XOR is invertible — `a ^ b ^ b = a`. Define `p[0] = 0`, `p[i] = arr[0] ^ arr[1] ^ ... ^ arr[i-1]`. Then\n\n`xor(l..r) = p[r+1] ^ p[l]`\n\nbecause everything before index l cancels itself out.\n\n```javascript\nfunction rangeXorQueries(arr, queries) {\n  const n = arr.length;\n  const p = new Array(n + 1);\n  p[0] = 0;\n  for (let i = 0; i < n; i++) p[i + 1] = p[i] ^ arr[i];\n  const out = [];\n  for (const [l, r] of queries) {\n    out.push(p[r + 1] ^ p[l]);\n  }\n  return out;\n}\n```\n\n**Time**: O(n + q). **Space**: O(n).\n\nSame structure as prefix-sum, but with XOR. Works because XOR has identity 0 and self-inverse property."
+  },
+  {
+    "slug": "razorpay-max-xor-pair",
+    "number": 2714,
+    "title": "Razorpay Maximum XOR Pair",
+    "difficulty": "Hard",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "razorpay",
+      "google",
+      "amazon"
+    ],
+    "description": "Razorpay's anti-fraud team measures the divergence between two transaction signatures by their bitwise XOR. Given an array `nums` of non-negative integers, return the maximum value of `a XOR b` over all index pairs (i, j) with i != j. Aim for better than O(n^2).",
+    "examples": [
+      {
+        "input": "nums = [3, 10, 5, 25, 2, 8]",
+        "output": "28",
+        "explanation": "5 XOR 25 = 28."
+      },
+      {
+        "input": "nums = [0]",
+        "output": "0",
+        "explanation": "Only one element — XOR with itself is 0."
+      },
+      {
+        "input": "nums = [14, 70, 53, 83, 49, 91, 36, 80, 92, 51, 66, 70]",
+        "output": "127"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 2*10^5",
+      "0 <= nums[i] < 2^31"
+    ],
+    "hints": [
+      "Greedy bit-by-bit: try to make answer's highest bit 1, fir aage badh.",
+      "Bit-trie (binary trie of all numbers) banane se O(32n) ho jata hai.",
+      "Edge: single element ⇒ no pair ⇒ return 0."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function maxXorPair(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_xor_pair(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object maxXorPair(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson maxXorPair(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function maxXorPair(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc maxXorPair(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "maxXorPair",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            10,
+            5,
+            25,
+            2,
+            8
+          ]
+        ],
+        "expected": 28,
+        "label": "leetcode classic"
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "single element"
+      },
+      {
+        "args": [
+          [
+            0,
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "two zeros"
+      },
+      {
+        "args": [
+          [
+            14,
+            70,
+            53,
+            83,
+            49,
+            91,
+            36,
+            80,
+            92,
+            51,
+            66,
+            70
+          ]
+        ],
+        "expected": 127,
+        "label": "larger set"
+      },
+      {
+        "args": [
+          [
+            8,
+            1,
+            2,
+            12,
+            7,
+            6
+          ]
+        ],
+        "expected": 15,
+        "label": "easy mix"
+      },
+      {
+        "args": [
+          [
+            2147483647,
+            0
+          ]
+        ],
+        "expected": 2147483647,
+        "label": "max int boundary"
+      }
+    ],
+    "editorial": "**Brute force**: O(n^2) — fine for n up to a few thousand.\n\n**Greedy + hashing — O(32n)**: Build the answer bit-by-bit from the highest bit (30) down. At each step, hypothesize the answer has the next bit set and check whether two numbers in the array have prefixes (truncated to current bit depth) whose XOR equals the current candidate. Use a HashSet of prefixes for the lookup.\n\n```javascript\nfunction maxXorPair(nums) {\n  if (nums.length < 2) return 0;\n  let max = 0, mask = 0;\n  for (let bit = 30; bit >= 0; bit--) {\n    mask |= (1 << bit);\n    const prefixes = new Set();\n    for (const n of nums) prefixes.add(n & mask);\n    const candidate = max | (1 << bit);\n    for (const p of prefixes) {\n      if (prefixes.has(candidate ^ p)) {\n        max = candidate;\n        break;\n      }\n    }\n  }\n  return max;\n}\n```\n\n**Time**: O(31 * n). **Space**: O(n).\n\n**Intuition**: For each bit position from highest to lowest, greedily try to make that bit 1 in the answer. If two prefixes p1, p2 satisfy `p1 ^ p2 == candidate`, then real numbers with those prefixes will produce an XOR ≥ candidate, so accept the bit. Otherwise drop it.\n\nA bit-trie variant has the same asymptotics but is heavier to code."
+  },
+  {
+    "slug": "swiggy-min-flips-target-zone",
+    "number": 2715,
+    "title": "Swiggy Minimum Flips to Reach Target Zone Mask",
+    "difficulty": "Hard",
+    "topic": "Bit Manipulation",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "google"
+    ],
+    "description": "Swiggy maintains delivery zones as bitmasks. To move a rider from zone-mask `a` to zone-mask `b`, the dispatcher must flip individual bits. Given `a` and `b`, return the minimum number of bit flips needed so that `a` becomes equal to `b` (each flip toggles one bit).",
+    "examples": [
+      {
+        "input": "a = 29, b = 15",
+        "output": "2",
+        "explanation": "29=11101, 15=01111; XOR = 10010 has 2 bits set."
+      },
+      {
+        "input": "a = 0, b = 0",
+        "output": "0"
+      },
+      {
+        "input": "a = 7, b = 0",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "0 <= a, b <= 2^31 - 1"
+    ],
+    "hints": [
+      "Hamming distance dhoondhna hai a aur b ke beech.",
+      "a XOR b = positions where they differ.",
+      "Popcount of (a XOR b) hi answer hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minFlipsToTarget(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_flips_to_target(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minFlipsToTarget(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minFlipsToTarget(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minFlipsToTarget(a, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minFlipsToTarget(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minFlipsToTarget",
+    "tests": [
+      {
+        "args": [
+          29,
+          15
+        ],
+        "expected": 2,
+        "label": "leetcode classic"
+      },
+      {
+        "args": [
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "no flips"
+      },
+      {
+        "args": [
+          7,
+          0
+        ],
+        "expected": 3,
+        "label": "all clear"
+      },
+      {
+        "args": [
+          0,
+          7
+        ],
+        "expected": 3,
+        "label": "all set"
+      },
+      {
+        "args": [
+          2147483647,
+          0
+        ],
+        "expected": 31,
+        "label": "max int distance"
+      },
+      {
+        "args": [
+          1,
+          1
+        ],
+        "expected": 0,
+        "label": "equal"
+      },
+      {
+        "args": [
+          1,
+          2
+        ],
+        "expected": 2,
+        "label": "one off and on"
+      }
+    ],
+    "editorial": "**Reduction**: A flip changes a single bit. The bits where `a` and `b` differ are exactly the positions of set bits in `a XOR b`. Therefore the minimum flips = popcount(a XOR b) — this is the Hamming distance.\n\n```javascript\nfunction minFlipsToTarget(a, b) {\n  let x = (a ^ b) >>> 0; // unsigned to be safe\n  let count = 0;\n  while (x !== 0) {\n    x = x & (x - 1); // clear lowest set bit\n    count++;\n  }\n  return count;\n}\n```\n\n**Time**: O(k) where k = number of differing bits (≤ 32). **Space**: O(1).\n\n**Hard variant** (not asked here, but worth knowing): if you also have a third mask `c` and want to flip bits in `a` and `b` so that `a OR b == c`, the analysis branches on each bit's `(a, b, c)` triple. Plain Hamming distance is the right answer for the asked problem; do not over-engineer."
+  }
+]

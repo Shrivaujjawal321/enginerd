@@ -1,0 +1,3482 @@
+[
+  {
+    "slug": "flipkart-product-autocomplete-trie",
+    "number": 1701,
+    "title": "Flipkart Product Autocomplete Trie",
+    "difficulty": "Easy",
+    "topic": "Tries",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "meesho"
+    ],
+    "description": "Flipkart's search bar needs fast product-name lookup. Implement a Trie that supports three ops: `insert(word)` adds a product name, `search(word)` returns true iff the exact word was inserted, and `startsWith(prefix)` returns true iff any inserted word has that prefix. You will be given an array `ops` where each entry is `[opName, arg]`. Return an array of results — `null` for inserts, boolean for search/startsWith.",
+    "examples": [
+      {
+        "input": "ops = [[\"insert\",\"apple\"],[\"search\",\"apple\"],[\"search\",\"app\"],[\"startsWith\",\"app\"],[\"insert\",\"app\"],[\"search\",\"app\"]]",
+        "output": "[null, true, false, true, null, true]",
+        "explanation": "After inserting 'apple', 'app' is a prefix but not a complete word until inserted."
+      },
+      {
+        "input": "ops = [[\"insert\",\"hi\"],[\"startsWith\",\"hello\"]]",
+        "output": "[null, false]"
+      }
+    ],
+    "constraints": [
+      "1 <= ops.length <= 10^4",
+      "1 <= word.length, prefix.length <= 50",
+      "Words are lowercase English letters"
+    ],
+    "hints": [
+      "Har node me children map (object) aur ek isEnd flag rakh.",
+      "search aur startsWith dono walk karte hain — fark sirf last node ke isEnd check pe hai.",
+      "Insert me last node ka isEnd true mark kar."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object runOps(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson runOps(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function runOps(ops): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc runOps(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "apple"
+            ],
+            [
+              "search",
+              "apple"
+            ],
+            [
+              "search",
+              "app"
+            ],
+            [
+              "startsWith",
+              "app"
+            ],
+            [
+              "insert",
+              "app"
+            ],
+            [
+              "search",
+              "app"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          true,
+          false,
+          true,
+          null,
+          true
+        ],
+        "label": "classic trie sequence"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "hi"
+            ],
+            [
+              "startsWith",
+              "hello"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          false
+        ],
+        "label": "no matching prefix"
+      },
+      {
+        "args": [
+          [
+            [
+              "search",
+              "anything"
+            ],
+            [
+              "startsWith",
+              "x"
+            ]
+          ]
+        ],
+        "expected": [
+          false,
+          false
+        ],
+        "label": "empty trie"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "iphone"
+            ],
+            [
+              "insert",
+              "ipad"
+            ],
+            [
+              "startsWith",
+              "ip"
+            ],
+            [
+              "search",
+              "ip"
+            ],
+            [
+              "startsWith",
+              "ipa"
+            ],
+            [
+              "search",
+              "ipad"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          true,
+          false,
+          true,
+          true
+        ],
+        "label": "shared prefixes"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "a"
+            ],
+            [
+              "search",
+              "a"
+            ],
+            [
+              "startsWith",
+              "a"
+            ],
+            [
+              "search",
+              "aa"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          true,
+          true,
+          false
+        ],
+        "label": "single char"
+      }
+    ],
+    "editorial": "**Trie node**: each node holds a `children` map (char → next node) and an `isEnd` flag. Insertion walks/creates nodes; search walks and checks `isEnd`; `startsWith` walks only.\n\n```javascript\nfunction runOps(ops) {\n  function makeNode() { return { children: {}, isEnd: false }; }\n  const root = makeNode();\n  function insert(word) {\n    let cur = root;\n    for (const c of word) {\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n    }\n    cur.isEnd = true;\n    return null;\n  }\n  function walk(word) {\n    let cur = root;\n    for (const c of word) {\n      if (!cur.children[c]) return null;\n      cur = cur.children[c];\n    }\n    return cur;\n  }\n  function search(word) {\n    const node = walk(word);\n    return !!(node && node.isEnd);\n  }\n  function startsWith(pre) {\n    return walk(pre) !== null;\n  }\n  return ops.map(([op, arg]) => {\n    if (op === 'insert') return insert(arg);\n    if (op === 'search') return search(arg);\n    return startsWith(arg);\n  });\n}\n```\n\n**Time**: insert/search/startsWith each O(L) where L = word length.\n**Space**: O(total chars).\n\nKey insight: `search` differs from `startsWith` only by the `isEnd` check at the end."
+  },
+  {
+    "slug": "amazon-longest-common-prefix",
+    "number": 1702,
+    "title": "Amazon Catalog Longest Common Prefix",
+    "difficulty": "Easy",
+    "topic": "Tries",
+    "companies": [
+      "amazon",
+      "flipkart",
+      "google"
+    ],
+    "description": "Amazon's catalog team groups products by SKU codes. Given an array of SKU strings `words`, return the longest string that is a prefix of every word. If there is no common prefix or the array is empty, return `\"\"`.",
+    "examples": [
+      {
+        "input": "words = [\"flower\",\"flow\",\"flight\"]",
+        "output": "\"fl\""
+      },
+      {
+        "input": "words = [\"dog\",\"racecar\",\"car\"]",
+        "output": "\"\"",
+        "explanation": "No common prefix."
+      }
+    ],
+    "constraints": [
+      "0 <= words.length <= 200",
+      "0 <= words[i].length <= 200",
+      "words[i] is lowercase English"
+    ],
+    "hints": [
+      "Trie banake root se chal — jab tak ek hi child hai aur current node end nahi hai.",
+      "Simpler: vertical scan — har column pe check kar saare words me same char hai ya nahi.",
+      "Empty array ya empty string mile toh '' return kar."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function longestCommonPrefix(words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def longest_common_prefix(words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object longestCommonPrefix(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson longestCommonPrefix(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function longestCommonPrefix(words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc longestCommonPrefix(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "longestCommonPrefix",
+    "tests": [
+      {
+        "args": [
+          [
+            "flower",
+            "flow",
+            "flight"
+          ]
+        ],
+        "expected": "fl",
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "dog",
+            "racecar",
+            "car"
+          ]
+        ],
+        "expected": "",
+        "label": "no common"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": "",
+        "label": "empty array"
+      },
+      {
+        "args": [
+          [
+            "alone"
+          ]
+        ],
+        "expected": "alone",
+        "label": "single word"
+      },
+      {
+        "args": [
+          [
+            "abc",
+            "abc",
+            "abc"
+          ]
+        ],
+        "expected": "abc",
+        "label": "all identical"
+      },
+      {
+        "args": [
+          [
+            "interspecies",
+            "interstellar",
+            "interstate"
+          ]
+        ],
+        "expected": "inters",
+        "label": "long prefix"
+      },
+      {
+        "args": [
+          [
+            "",
+            "abc"
+          ]
+        ],
+        "expected": "",
+        "label": "empty string blocks"
+      }
+    ],
+    "editorial": "**Trie approach**: Build a trie of all words. Walk from root: as long as the current node has exactly one child AND is not the end of any word, append that child's character.\n\n**Vertical scan (simpler, equivalent)**: Pick the first word; for each column index `i`, ensure every other word has the same char at `i`. Stop on first mismatch or when any word ends.\n\n```javascript\nfunction longestCommonPrefix(words) {\n  if (words.length === 0) return \"\";\n  const first = words[0];\n  for (let i = 0; i < first.length; i++) {\n    const c = first[i];\n    for (let j = 1; j < words.length; j++) {\n      if (i >= words[j].length || words[j][i] !== c) {\n        return first.slice(0, i);\n      }\n    }\n  }\n  return first;\n}\n```\n\n**Time**: O(N * L) total chars scanned. **Space**: O(1).\n\nTrie version is O(total chars) for build + O(L) for walk; same big-O but more memory."
+  },
+  {
+    "slug": "razorpay-merchant-prefix-count",
+    "number": 1703,
+    "title": "Razorpay Merchant Prefix Counter",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
+    "description": "Razorpay's analytics dashboard needs to count how many merchant codes share a given prefix. Implement a Trie supporting: `insert(word)`, `countWordsEqualTo(word)` (how many times the exact word was inserted), and `countWordsStartingWith(prefix)` (how many inserted words have this prefix). You'll receive `ops` like `[\"insert\",\"raz\"]` etc. Return an array — `null` for inserts, integer for the two count ops.",
+    "examples": [
+      {
+        "input": "ops = [[\"insert\",\"apple\"],[\"insert\",\"apple\"],[\"insert\",\"app\"],[\"countWordsEqualTo\",\"apple\"],[\"countWordsStartingWith\",\"app\"]]",
+        "output": "[null, null, null, 2, 3]"
+      },
+      {
+        "input": "ops = [[\"insert\",\"a\"],[\"countWordsStartingWith\",\"b\"]]",
+        "output": "[null, 0]"
+      }
+    ],
+    "constraints": [
+      "1 <= ops.length <= 10^4",
+      "1 <= word.length, prefix.length <= 50",
+      "Words are lowercase English letters"
+    ],
+    "hints": [
+      "Har trie node pe do counters rakh: `endCount` (kitne words isi node pe end hue) aur `prefixCount` (kitne words is path se guzre).",
+      "Insert me path pe har node ka prefixCount++ aur final node ka endCount++.",
+      "Walk fail karo prefix me missing char par → return 0."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object runOps(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson runOps(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function runOps(ops): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc runOps(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "apple"
+            ],
+            [
+              "insert",
+              "apple"
+            ],
+            [
+              "insert",
+              "app"
+            ],
+            [
+              "countWordsEqualTo",
+              "apple"
+            ],
+            [
+              "countWordsStartingWith",
+              "app"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          2,
+          3
+        ],
+        "label": "classic counts"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "a"
+            ],
+            [
+              "countWordsStartingWith",
+              "b"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          0
+        ],
+        "label": "no prefix match"
+      },
+      {
+        "args": [
+          [
+            [
+              "countWordsEqualTo",
+              "x"
+            ],
+            [
+              "countWordsStartingWith",
+              "y"
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          0
+        ],
+        "label": "empty trie"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "raz"
+            ],
+            [
+              "insert",
+              "razor"
+            ],
+            [
+              "insert",
+              "razorpay"
+            ],
+            [
+              "countWordsStartingWith",
+              "raz"
+            ],
+            [
+              "countWordsEqualTo",
+              "raz"
+            ],
+            [
+              "countWordsStartingWith",
+              "razo"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          3,
+          1,
+          2
+        ],
+        "label": "merchant codes"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "ab"
+            ],
+            [
+              "insert",
+              "ab"
+            ],
+            [
+              "insert",
+              "abc"
+            ],
+            [
+              "countWordsEqualTo",
+              "ab"
+            ],
+            [
+              "countWordsEqualTo",
+              "abc"
+            ],
+            [
+              "countWordsEqualTo",
+              "abcd"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          2,
+          1,
+          0
+        ],
+        "label": "duplicates"
+      }
+    ],
+    "editorial": "**Idea — counters per node**: Each node tracks `endCount` (words ending exactly here) and `prefixCount` (words passing through). Insert bumps `prefixCount` along the path and `endCount` at the terminal node. Queries simply walk and return the relevant counter (0 if walk fails).\n\n```javascript\nfunction runOps(ops) {\n  function makeNode() { return { children: {}, endCount: 0, prefixCount: 0 }; }\n  const root = makeNode();\n  function insert(word) {\n    let cur = root;\n    for (const c of word) {\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n      cur.prefixCount++;\n    }\n    cur.endCount++;\n    return null;\n  }\n  function walk(s) {\n    let cur = root;\n    for (const c of s) {\n      if (!cur.children[c]) return null;\n      cur = cur.children[c];\n    }\n    return cur;\n  }\n  function countEq(word) {\n    const n = walk(word);\n    return n ? n.endCount : 0;\n  }\n  function countPre(pre) {\n    const n = walk(pre);\n    return n ? n.prefixCount : 0;\n  }\n  return ops.map(([op, arg]) => {\n    if (op === 'insert') return insert(arg);\n    if (op === 'countWordsEqualTo') return countEq(arg);\n    return countPre(arg);\n  });\n}\n```\n\n**Time**: O(L) per op. **Space**: O(total chars)."
+  },
+  {
+    "slug": "swiggy-replace-words-with-roots",
+    "number": 1704,
+    "title": "Swiggy Replace Words With Restaurant Codes",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "amazon"
+    ],
+    "description": "Swiggy uses short restaurant 'roots' (codes) as canonical prefixes. Given a list of `roots` and a sentence string, replace every word in the sentence with the SHORTEST root that is a prefix of that word. If no root is a prefix, keep the word unchanged. Words are separated by single spaces. Return the rewritten sentence.",
+    "examples": [
+      {
+        "input": "roots = [\"cat\",\"bat\",\"rat\"], sentence = \"the cattle was rattled by the battery\"",
+        "output": "\"the cat was rat by the bat\""
+      },
+      {
+        "input": "roots = [\"a\",\"b\"], sentence = \"aadvark bear cat\"",
+        "output": "\"a b cat\""
+      }
+    ],
+    "constraints": [
+      "1 <= roots.length <= 1000",
+      "1 <= roots[i].length <= 100",
+      "1 <= sentence.length <= 10^4",
+      "Lowercase English letters and single spaces"
+    ],
+    "hints": [
+      "Saare roots ko ek trie me daal de.",
+      "Har word pe trie walk kar — pehla isEnd node hi shortest root hai.",
+      "Walk break ho jaye toh original word rakh."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function replaceWords(roots, sentence) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def replace_words(roots, sentence):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object replaceWords(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson replaceWords(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function replaceWords(roots, sentence): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc replaceWords(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "replaceWords",
+    "tests": [
+      {
+        "args": [
+          [
+            "cat",
+            "bat",
+            "rat"
+          ],
+          "the cattle was rattled by the battery"
+        ],
+        "expected": "the cat was rat by the bat",
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b"
+          ],
+          "aadvark bear cat"
+        ],
+        "expected": "a b cat",
+        "label": "single-char roots"
+      },
+      {
+        "args": [
+          [
+            "xyz"
+          ],
+          "hello world"
+        ],
+        "expected": "hello world",
+        "label": "no matches"
+      },
+      {
+        "args": [
+          [
+            "catt",
+            "cat"
+          ],
+          "cattle"
+        ],
+        "expected": "cat",
+        "label": "shortest wins"
+      },
+      {
+        "args": [
+          [
+            "the"
+          ],
+          "the only one"
+        ],
+        "expected": "the only one",
+        "label": "exact match preserved"
+      },
+      {
+        "args": [
+          [
+            "fix"
+          ],
+          "fixed fixing fix"
+        ],
+        "expected": "fix fix fix",
+        "label": "multiple matches"
+      }
+    ],
+    "editorial": "**Idea — trie of roots, walk per word**: Insert all roots into a trie. For each word in the sentence, walk char-by-char; the moment we reach a node where `isEnd === true`, that's the SHORTEST matching root → use the consumed prefix. If we hit a missing edge first, keep the original word.\n\n```javascript\nfunction replaceWords(roots, sentence) {\n  function makeNode() { return { children: {}, isEnd: false }; }\n  const root = makeNode();\n  for (const r of roots) {\n    let cur = root;\n    for (const c of r) {\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n    }\n    cur.isEnd = true;\n  }\n  function shortest(word) {\n    let cur = root;\n    let prefix = '';\n    for (const c of word) {\n      if (!cur.children[c]) return word;\n      cur = cur.children[c];\n      prefix += c;\n      if (cur.isEnd) return prefix;\n    }\n    return word;\n  }\n  return sentence.split(' ').map(shortest).join(' ');\n}\n```\n\n**Time**: O(R + S) where R = total root chars, S = sentence length.\n**Space**: O(R)."
+  },
+  {
+    "slug": "swiggy-restaurant-prefix-matches",
+    "number": 1705,
+    "title": "Swiggy Restaurant Names Matching Prefixes",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
+    "description": "Swiggy's search team has a list of restaurant `names` (lowercase strings) and a list of `prefixes` typed by users. For each prefix, count how many restaurant names start with that prefix, and return the counts in the same order as `prefixes`. Names may repeat (a chain) — every occurrence counts.",
+    "examples": [
+      {
+        "input": "names = [\"biryanihouse\",\"biryanibazaar\",\"pizzahut\"], prefixes = [\"bir\",\"piz\",\"xyz\"]",
+        "output": "[2, 1, 0]"
+      },
+      {
+        "input": "names = [\"aa\",\"aa\",\"ab\"], prefixes = [\"a\",\"aa\",\"ab\"]",
+        "output": "[3, 2, 1]"
+      }
+    ],
+    "constraints": [
+      "1 <= names.length <= 10^4",
+      "1 <= names[i].length <= 50",
+      "1 <= prefixes.length <= 10^4",
+      "1 <= prefixes[i].length <= 50"
+    ],
+    "hints": [
+      "Trie banate waqt har visited node pe ek `count` increment kar.",
+      "Query: prefix walk kar; node mile toh uska count return kar, varna 0.",
+      "Same name multiple times insert hone par count properly badhega."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countMatchingPrefixes(names, prefixes) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_matching_prefixes(names, prefixes):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countMatchingPrefixes(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countMatchingPrefixes(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countMatchingPrefixes(names, prefixes): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countMatchingPrefixes(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countMatchingPrefixes",
+    "tests": [
+      {
+        "args": [
+          [
+            "biryanihouse",
+            "biryanibazaar",
+            "pizzahut"
+          ],
+          [
+            "bir",
+            "piz",
+            "xyz"
+          ]
+        ],
+        "expected": [
+          2,
+          1,
+          0
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "aa",
+            "aa",
+            "ab"
+          ],
+          [
+            "a",
+            "aa",
+            "ab"
+          ]
+        ],
+        "expected": [
+          3,
+          2,
+          1
+        ],
+        "label": "duplicates count"
+      },
+      {
+        "args": [
+          [
+            "dosa"
+          ],
+          [
+            "d",
+            "do",
+            "dosa",
+            "dosas"
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "label": "longer prefix than word"
+      },
+      {
+        "args": [
+          [
+            "paneer",
+            "pasta",
+            "pav"
+          ],
+          [
+            "p",
+            "pa",
+            "pas",
+            "q"
+          ]
+        ],
+        "expected": [
+          3,
+          3,
+          1,
+          0
+        ],
+        "label": "branching"
+      },
+      {
+        "args": [
+          [
+            "x"
+          ],
+          [
+            "x",
+            "xx",
+            ""
+          ]
+        ],
+        "expected": [
+          1,
+          0,
+          1
+        ],
+        "label": "empty prefix matches all"
+      }
+    ],
+    "editorial": "**Idea**: Build a trie; on each insert, increment a `count` field at every node along the path (root not included, but including root works too as long as you count consistently — here we count root for empty prefix). Querying a prefix is a walk that returns the node's count.\n\n```javascript\nfunction countMatchingPrefixes(names, prefixes) {\n  const root = { children: {}, count: 0 };\n  for (const name of names) {\n    let cur = root;\n    cur.count++;\n    for (const c of name) {\n      if (!cur.children[c]) cur.children[c] = { children: {}, count: 0 };\n      cur = cur.children[c];\n      cur.count++;\n    }\n  }\n  const out = [];\n  for (const p of prefixes) {\n    let cur = root;\n    let ok = true;\n    for (const c of p) {\n      if (!cur.children[c]) { ok = false; break; }\n      cur = cur.children[c];\n    }\n    out.push(ok ? cur.count : 0);\n  }\n  return out;\n}\n```\n\n**Time**: O(sum(name lengths) + sum(prefix lengths)). **Space**: O(sum(name lengths)).\n\nEmpty prefix matches every name → root.count = total names. ✓"
+  },
+  {
+    "slug": "sharechat-hashtag-autocomplete",
+    "number": 1706,
+    "title": "Sharechat Hashtag Top-K Autocomplete",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "sharechat",
+      "instagram",
+      "twitter"
+    ],
+    "description": "Sharechat's hashtag bar suggests up to 3 trending hashtags as the user types. Given an array of `hashtags` (with possible repeats — repetition denotes frequency) and a `prefix`, return up to 3 hashtag strings that start with the prefix, ordered by frequency descending; ties broken lexicographically (smallest string first). Only DISTINCT hashtags should appear in the result.",
+    "examples": [
+      {
+        "input": "hashtags = [\"love\",\"love\",\"life\",\"love\",\"life\",\"laugh\"], prefix = \"l\"",
+        "output": "[\"love\",\"life\",\"laugh\"]",
+        "explanation": "Counts: love=3, life=2, laugh=1."
+      },
+      {
+        "input": "hashtags = [\"abc\",\"abd\"], prefix = \"z\"",
+        "output": "[]"
+      }
+    ],
+    "constraints": [
+      "1 <= hashtags.length <= 10^4",
+      "1 <= hashtags[i].length <= 50",
+      "0 <= prefix.length <= 50",
+      "Lowercase English letters"
+    ],
+    "hints": [
+      "Frequency map of distinct hashtags + trie of distinct hashtags. Query: walk to prefix node, DFS collect all words below, sort by (-count, word).",
+      "Top 3 ke liye full sort thik hai chote inputs me; bada ho toh min-heap of size 3 use kar.",
+      "Empty prefix valid hai — root se DFS poore trie pe."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function suggestHashtags(hashtags, prefix) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def suggest_hashtags(hashtags, prefix):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object suggestHashtags(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson suggestHashtags(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function suggestHashtags(hashtags, prefix): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc suggestHashtags(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "suggestHashtags",
+    "tests": [
+      {
+        "args": [
+          [
+            "love",
+            "love",
+            "life",
+            "love",
+            "life",
+            "laugh"
+          ],
+          "l"
+        ],
+        "expected": [
+          "love",
+          "life",
+          "laugh"
+        ],
+        "label": "frequency ordered"
+      },
+      {
+        "args": [
+          [
+            "abc",
+            "abd"
+          ],
+          "z"
+        ],
+        "expected": [],
+        "label": "no match"
+      },
+      {
+        "args": [
+          [
+            "food",
+            "food",
+            "fitness",
+            "fun",
+            "fun",
+            "fun"
+          ],
+          "f"
+        ],
+        "expected": [
+          "fun",
+          "food",
+          "fitness"
+        ],
+        "label": "top 3 of 3"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b",
+            "c",
+            "d"
+          ],
+          ""
+        ],
+        "expected": [
+          "a",
+          "b",
+          "c"
+        ],
+        "label": "empty prefix tie all 1"
+      },
+      {
+        "args": [
+          [
+            "cat",
+            "car",
+            "card",
+            "care",
+            "cars"
+          ],
+          "ca"
+        ],
+        "expected": [
+          "car",
+          "card",
+          "care"
+        ],
+        "label": "tie lex order"
+      },
+      {
+        "args": [
+          [
+            "india",
+            "indore",
+            "inside"
+          ],
+          "in"
+        ],
+        "expected": [
+          "india",
+          "indore",
+          "inside"
+        ],
+        "label": "all same prefix"
+      }
+    ],
+    "editorial": "**Idea**: Build (a) frequency map of distinct hashtags and (b) a trie of those distinct strings. To answer a prefix query: walk to the prefix node; if missing, return []. Otherwise DFS to gather every full word below; sort by `(-count, word)`; take first 3.\n\n```javascript\nfunction suggestHashtags(hashtags, prefix) {\n  const freq = new Map();\n  for (const h of hashtags) freq.set(h, (freq.get(h) || 0) + 1);\n  const root = { children: {}, word: null };\n  for (const w of freq.keys()) {\n    let cur = root;\n    for (const c of w) {\n      if (!cur.children[c]) cur.children[c] = { children: {}, word: null };\n      cur = cur.children[c];\n    }\n    cur.word = w;\n  }\n  let cur = root;\n  for (const c of prefix) {\n    if (!cur.children[c]) return [];\n    cur = cur.children[c];\n  }\n  const found = [];\n  (function dfs(node) {\n    if (node.word !== null) found.push(node.word);\n    const keys = Object.keys(node.children).sort();\n    for (const k of keys) dfs(node.children[k]);\n  })(cur);\n  found.sort((a, b) => {\n    const fa = freq.get(a), fb = freq.get(b);\n    if (fa !== fb) return fb - fa;\n    return a < b ? -1 : a > b ? 1 : 0;\n  });\n  return found.slice(0, 3);\n}\n```\n\n**Time**: O(N*L + M) where N = distinct hashtags, L = max length, M = matches under prefix. **Space**: O(N*L)."
+  },
+  {
+    "slug": "paytm-word-break-trie",
+    "number": 1707,
+    "title": "Paytm Word Break Using Trie",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "paytm",
+      "google",
+      "microsoft"
+    ],
+    "description": "Paytm's voice-to-text pipeline gets a long undelimited string `s` and a `dictionary` of valid lowercase tokens. Determine if `s` can be segmented into a sequence of one or more dictionary words (each word reusable any number of times). Use a trie to make per-position lookups efficient. Return `true` or `false`.",
+    "examples": [
+      {
+        "input": "s = \"paytmkaro\", dictionary = [\"paytm\",\"karo\",\"pay\"]",
+        "output": "true",
+        "explanation": "'paytm' + 'karo'."
+      },
+      {
+        "input": "s = \"abcd\", dictionary = [\"a\",\"abc\",\"b\",\"cd\"]",
+        "output": "true",
+        "explanation": "'a'+'b'+'cd' or 'abc'+'d'? d not in dict — try 'a'+'b'+'cd'."
+      },
+      {
+        "input": "s = \"applepie\", dictionary = [\"apple\",\"pie\"]",
+        "output": "true"
+      }
+    ],
+    "constraints": [
+      "1 <= s.length <= 300",
+      "1 <= dictionary.length <= 1000",
+      "1 <= dictionary[i].length <= 20",
+      "Lowercase English letters"
+    ],
+    "hints": [
+      "DP: `dp[i]` = can suffix starting at index i be segmented? `dp[s.length]=true`.",
+      "From index i, walk trie char-by-char; jab kabhi `isEnd` mile aur `dp[j+1]` true ho, toh `dp[i] = true`.",
+      "Memoize ya iterate i from right to left."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function canSegment(s, dictionary) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_segment(s, dictionary):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object canSegment(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson canSegment(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function canSegment(s, dictionary): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc canSegment(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "canSegment",
+    "tests": [
+      {
+        "args": [
+          "paytmkaro",
+          [
+            "paytm",
+            "karo",
+            "pay"
+          ]
+        ],
+        "expected": true,
+        "label": "two-word split"
+      },
+      {
+        "args": [
+          "abcd",
+          [
+            "a",
+            "abc",
+            "b",
+            "cd"
+          ]
+        ],
+        "expected": true,
+        "label": "three-word split"
+      },
+      {
+        "args": [
+          "applepie",
+          [
+            "apple",
+            "pie"
+          ]
+        ],
+        "expected": true,
+        "label": "two clean words"
+      },
+      {
+        "args": [
+          "catsandog",
+          [
+            "cats",
+            "dog",
+            "sand",
+            "and",
+            "cat"
+          ]
+        ],
+        "expected": false,
+        "label": "fails segmentation"
+      },
+      {
+        "args": [
+          "a",
+          [
+            "a"
+          ]
+        ],
+        "expected": true,
+        "label": "single char"
+      },
+      {
+        "args": [
+          "aaaaaaa",
+          [
+            "aaaa",
+            "aaa"
+          ]
+        ],
+        "expected": true,
+        "label": "reuse words"
+      },
+      {
+        "args": [
+          "abc",
+          [
+            "b"
+          ]
+        ],
+        "expected": false,
+        "label": "missing prefix"
+      }
+    ],
+    "editorial": "**Approach — trie + DP**: Insert dictionary into a trie. Define `dp[i]` = true if `s[i..]` is segmentable; `dp[n] = true`. Iterate `i` from `n-1` down to `0`: walk the trie from root following `s[i], s[i+1], ...`. Each time we hit a node with `isEnd`, that means `s[i..j]` is a dictionary word — if also `dp[j+1]` is true, set `dp[i]=true` and break.\n\n```javascript\nfunction canSegment(s, dictionary) {\n  const root = { children: {}, isEnd: false };\n  for (const w of dictionary) {\n    let cur = root;\n    for (const c of w) {\n      if (!cur.children[c]) cur.children[c] = { children: {}, isEnd: false };\n      cur = cur.children[c];\n    }\n    cur.isEnd = true;\n  }\n  const n = s.length;\n  const dp = new Array(n + 1).fill(false);\n  dp[n] = true;\n  for (let i = n - 1; i >= 0; i--) {\n    let cur = root;\n    for (let j = i; j < n; j++) {\n      const c = s[j];\n      if (!cur.children[c]) break;\n      cur = cur.children[c];\n      if (cur.isEnd && dp[j + 1]) { dp[i] = true; break; }\n    }\n  }\n  return dp[0];\n}\n```\n\n**Time**: O(n * maxWordLen). **Space**: O(total dict chars + n)."
+  },
+  {
+    "slug": "amazon-word-search-board-trie",
+    "number": 1708,
+    "title": "Amazon Warehouse Word Search With Trie",
+    "difficulty": "Hard",
+    "topic": "Tries",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Amazon's warehouse robots scan a 2D grid of letter-tiles (`board`) hunting for product-name words. Given a list of target `words`, return all words that can be formed by sequentially adjacent (up/down/left/right) tiles, each tile used at most once per word. Return the matched words in lexicographic order, no duplicates.",
+    "examples": [
+      {
+        "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
+        "output": "[\"eat\",\"oath\"]"
+      },
+      {
+        "input": "board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]",
+        "output": "[]",
+        "explanation": "Cannot reuse 'b'."
+      }
+    ],
+    "constraints": [
+      "1 <= board.length, board[0].length <= 12",
+      "1 <= words.length <= 30",
+      "1 <= words[i].length <= 10",
+      "board[i][j] and words[i] are lowercase English"
+    ],
+    "hints": [
+      "Saare words ka trie banake board pe DFS chala — trie node se chal, har step pe board cell aur trie child match honi chahiye.",
+      "Word mil jaye toh result me daal aur trie node ka isEnd false set kar (avoid duplicate).",
+      "Visited cells track kar; backtrack pe restore."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findWordsInBoard(board, words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_words_in_board(board, words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findWordsInBoard(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findWordsInBoard(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findWordsInBoard(board, words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findWordsInBoard(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findWordsInBoard",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              "o",
+              "a",
+              "a",
+              "n"
+            ],
+            [
+              "e",
+              "t",
+              "a",
+              "e"
+            ],
+            [
+              "i",
+              "h",
+              "k",
+              "r"
+            ],
+            [
+              "i",
+              "f",
+              "l",
+              "v"
+            ]
+          ],
+          [
+            "oath",
+            "pea",
+            "eat",
+            "rain"
+          ]
+        ],
+        "expected": [
+          "eat",
+          "oath"
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              "a",
+              "b"
+            ],
+            [
+              "c",
+              "d"
+            ]
+          ],
+          [
+            "abcb"
+          ]
+        ],
+        "expected": [],
+        "label": "cannot reuse"
+      },
+      {
+        "args": [
+          [
+            [
+              "a"
+            ]
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "expected": [
+          "a"
+        ],
+        "label": "single cell"
+      },
+      {
+        "args": [
+          [
+            [
+              "a",
+              "b"
+            ],
+            [
+              "c",
+              "d"
+            ]
+          ],
+          [
+            "ab",
+            "ac",
+            "bd",
+            "cd",
+            "ad"
+          ]
+        ],
+        "expected": [
+          "ab",
+          "ac",
+          "bd",
+          "cd"
+        ],
+        "label": "adjacency rules"
+      },
+      {
+        "args": [
+          [
+            [
+              "a",
+              "a"
+            ]
+          ],
+          [
+            "aaa"
+          ]
+        ],
+        "expected": [],
+        "label": "no reuse same cell"
+      },
+      {
+        "args": [
+          [
+            [
+              "o",
+              "a",
+              "b",
+              "n"
+            ],
+            [
+              "o",
+              "t",
+              "a",
+              "e"
+            ],
+            [
+              "a",
+              "h",
+              "k",
+              "r"
+            ],
+            [
+              "a",
+              "f",
+              "l",
+              "v"
+            ]
+          ],
+          [
+            "oa",
+            "oaa"
+          ]
+        ],
+        "expected": [
+          "oa",
+          "oaa"
+        ],
+        "label": "two found"
+      }
+    ],
+    "editorial": "**Idea — trie + DFS with pruning**: Build a trie of all target words; each terminal node stores the full word. DFS from every cell; at each step, descend the trie; on `isEnd` push the word and clear `isEnd` (so we don't double-add). Mark visited via `'#'` swap; restore on backtrack.\n\n```javascript\nfunction findWordsInBoard(board, words) {\n  const root = { children: {}, word: null };\n  for (const w of words) {\n    let cur = root;\n    for (const c of w) {\n      if (!cur.children[c]) cur.children[c] = { children: {}, word: null };\n      cur = cur.children[c];\n    }\n    cur.word = w;\n  }\n  const rows = board.length, cols = board[0].length;\n  const found = [];\n  function dfs(r, c, node) {\n    const ch = board[r][c];\n    const next = node.children[ch];\n    if (!next) return;\n    if (next.word !== null) {\n      found.push(next.word);\n      next.word = null;\n    }\n    board[r][c] = '#';\n    const dirs = [[-1,0],[1,0],[0,-1],[0,1]];\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] !== '#') {\n        dfs(nr, nc, next);\n      }\n    }\n    board[r][c] = ch;\n  }\n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) dfs(r, c, root);\n  }\n  found.sort();\n  return found;\n}\n```\n\n**Time**: O(R*C * 4^L) worst case. **Space**: O(total word chars).\n\nClearing `next.word` after a hit prevents double counting and prunes future searches for the same word."
+  },
+  {
+    "slug": "phonepe-maximum-xor-bit-trie",
+    "number": 1709,
+    "title": "PhonePe Maximum XOR With Bit Trie",
+    "difficulty": "Hard",
+    "topic": "Tries",
+    "companies": [
+      "phonepe",
+      "google",
+      "amazon"
+    ],
+    "description": "PhonePe's fraud team encodes risk scores as 32-bit non-negative integers and wants the maximum XOR between any two distinct entries (highest XOR signals divergent profiles). Given an array `nums` (length >= 2), return the maximum value of `nums[i] ^ nums[j]` for any `i != j`. Use a bit-trie for efficiency.",
+    "examples": [
+      {
+        "input": "nums = [3, 10, 5, 25, 2, 8]",
+        "output": "28",
+        "explanation": "5 ^ 25 = 28."
+      },
+      {
+        "input": "nums = [0, 0]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "2 <= nums.length <= 2*10^5",
+      "0 <= nums[i] <= 2^31 - 1"
+    ],
+    "hints": [
+      "Bit trie: 31 down to 0, har number ka bit insert kar.",
+      "Har number ke liye trie traverse kar opposite bit prefer karte hue — yahi maximum XOR banata hai.",
+      "Insert pehle, then query har element ke liye, max track."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function maximumXor(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def maximum_xor(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object maximumXor(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson maximumXor(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function maximumXor(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc maximumXor(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "maximumXor",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            10,
+            5,
+            25,
+            2,
+            8
+          ]
+        ],
+        "expected": 28,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            0,
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "all zero"
+      },
+      {
+        "args": [
+          [
+            14,
+            70,
+            53,
+            83,
+            49,
+            91,
+            36,
+            80,
+            92,
+            51,
+            66,
+            70
+          ]
+        ],
+        "expected": 127,
+        "label": "large set"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 3,
+        "label": "two elements"
+      },
+      {
+        "args": [
+          [
+            8,
+            1,
+            2,
+            12,
+            7,
+            6,
+            4,
+            11,
+            9,
+            5
+          ]
+        ],
+        "expected": 15,
+        "label": "mixed"
+      },
+      {
+        "args": [
+          [
+            2147483647,
+            0
+          ]
+        ],
+        "expected": 2147483647,
+        "label": "max int"
+      }
+    ],
+    "editorial": "**Idea — bit trie**: For each number, insert its 31-bit representation (MSB first) into a trie where each node has up to two children (`0` and `1`). Then for each number, traverse the trie greedily: at each bit, try to go to the OPPOSITE bit child (which would maximize that XOR bit); fall back to same bit if opposite is missing. Track the running XOR and the global max.\n\n```javascript\nfunction maximumXor(nums) {\n  const root = [null, null];\n  function insert(num) {\n    let cur = root;\n    for (let i = 30; i >= 0; i--) {\n      const b = (num >> i) & 1;\n      if (!cur[b]) cur[b] = [null, null];\n      cur = cur[b];\n    }\n  }\n  function query(num) {\n    let cur = root;\n    let xor = 0;\n    for (let i = 30; i >= 0; i--) {\n      const b = (num >> i) & 1;\n      const want = 1 - b;\n      if (cur[want]) {\n        xor |= (1 << i);\n        cur = cur[want];\n      } else {\n        cur = cur[b];\n      }\n    }\n    return xor;\n  }\n  for (const n of nums) insert(n);\n  let best = 0;\n  for (const n of nums) best = Math.max(best, query(n));\n  return best;\n}\n```\n\n**Time**: O(N * 31). **Space**: O(N * 31).\n\nEdge: when both nums are equal (e.g., [0,0]), every bit aligns → XOR is 0; the algorithm still works since we query with every element and find the same one (XOR with self = 0, but with the duplicate also = 0)."
+  },
+  {
+    "slug": "meesho-concatenated-words-trie",
+    "number": 1710,
+    "title": "Meesho Concatenated Catalog Words",
+    "difficulty": "Hard",
+    "topic": "Tries",
+    "companies": [
+      "meesho",
+      "flipkart",
+      "google"
+    ],
+    "description": "Meesho's catalog has a list of distinct lowercase product tokens `words`. A 'concatenated word' is one that can be formed by joining at least TWO shorter words from the same list (each shorter word can be used multiple times). Return all concatenated words, sorted lexicographically.",
+    "examples": [
+      {
+        "input": "words = [\"cat\",\"cats\",\"dog\",\"catsdog\",\"dogcat\",\"dogcatsdog\"]",
+        "output": "[\"catsdog\",\"dogcat\",\"dogcatsdog\"]"
+      },
+      {
+        "input": "words = [\"a\",\"b\",\"ab\",\"abc\"]",
+        "output": "[\"ab\"]",
+        "explanation": "'ab' = 'a'+'b'. 'abc' has no decomposition."
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 10^4",
+      "1 <= words[i].length <= 30",
+      "All words are distinct lowercase English strings"
+    ],
+    "hints": [
+      "Trie of all words. Har word ke liye check kar: kya use 2+ trie words me todha ja sakta hai?",
+      "DP per word: from index i, walk trie; jab isEnd mile aur (j == word.length OR suffix(j) similarly decomposable), then yes.",
+      "Same word ko apne andar use mat karna — depth >= 1 word use ho chuka ho ya word khud trie me ho but recursion suffix pe continue ho rahi ho."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findConcatenatedWords(words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_concatenated_words(words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findConcatenatedWords(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findConcatenatedWords(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findConcatenatedWords(words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findConcatenatedWords(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findConcatenatedWords",
+    "tests": [
+      {
+        "args": [
+          [
+            "cat",
+            "cats",
+            "dog",
+            "catsdog",
+            "dogcat",
+            "dogcatsdog"
+          ]
+        ],
+        "expected": [
+          "catsdog",
+          "dogcat",
+          "dogcatsdog"
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b",
+            "ab",
+            "abc"
+          ]
+        ],
+        "expected": [
+          "ab"
+        ],
+        "label": "abc not decomposable"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "aa",
+            "aaa",
+            "aaaa"
+          ]
+        ],
+        "expected": [
+          "aa",
+          "aaa",
+          "aaaa"
+        ],
+        "label": "repeated 'a'"
+      },
+      {
+        "args": [
+          [
+            "x",
+            "y",
+            "z"
+          ]
+        ],
+        "expected": [],
+        "label": "no concatenations"
+      },
+      {
+        "args": [
+          [
+            "cat",
+            "dog",
+            "catdog"
+          ]
+        ],
+        "expected": [
+          "catdog"
+        ],
+        "label": "single concat"
+      },
+      {
+        "args": [
+          [
+            "ab",
+            "cd",
+            "abcd",
+            "abcdcd"
+          ]
+        ],
+        "expected": [
+          "abcd",
+          "abcdcd"
+        ],
+        "label": "longer chains"
+      }
+    ],
+    "editorial": "**Idea — trie + DP with 'parts used' counter**: Build a trie of all words. For each word `w`, run a DFS/DP from index 0: walk the trie, and every time we hit `isEnd` at index `j`, recurse on suffix starting at `j+1` requiring it to also fully decompose. Track `parts` — at least 2 needed. Crucially, the whole-word match (j == w.length on first segment with parts == 0) does NOT count by itself; we need parts >= 2 in total.\n\nA cleaner equivalent: for each candidate `w`, ask whether it can be split into two pieces each of which is itself either in the dictionary or further decomposable — using memoized recursion with the trie as the membership check.\n\n```javascript\nfunction findConcatenatedWords(words) {\n  const root = { children: {}, isEnd: false };\n  for (const w of words) {\n    let cur = root;\n    for (const c of w) {\n      if (!cur.children[c]) cur.children[c] = { children: {}, isEnd: false };\n      cur = cur.children[c];\n    }\n    cur.isEnd = true;\n  }\n  function canForm(w, start, parts, memo) {\n    if (start === w.length) return parts >= 2;\n    const key = start + ',' + parts;\n    if (memo.has(key)) return memo.get(key);\n    let cur = root;\n    for (let j = start; j < w.length; j++) {\n      const c = w[j];\n      if (!cur.children[c]) break;\n      cur = cur.children[c];\n      if (cur.isEnd && canForm(w, j + 1, parts + 1, memo)) {\n        memo.set(key, true);\n        return true;\n      }\n    }\n    memo.set(key, false);\n    return false;\n  }\n  const result = [];\n  for (const w of words) {\n    if (w.length === 0) continue;\n    if (canForm(w, 0, 0, new Map())) result.push(w);\n  }\n  result.sort();\n  return result;\n}\n```\n\n**Time**: O(N * L^2) worst case. **Space**: O(total chars).\n\nThe `parts` counter ensures we only accept decompositions of two or more pieces — a single full match (the word itself) returns false."
+  },
+  {
+    "slug": "zomato-restaurant-search-suggestion",
+    "number": 1711,
+    "title": "Zomato Restaurant Search Suggestion System",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "zomato",
+      "amazon",
+      "flipkart"
+    ],
+    "description": "Zomato's search bar suggests dishes as the user types. Given a list of dish strings `products` and a user query `searchWord`, return a list of length `searchWord.length` where the i-th entry is the up-to-3 lexicographically smallest products from `products` that share `searchWord[0..i]` as a prefix. After the prefix stops matching any product, the rest of the entries should be empty arrays.",
+    "examples": [
+      {
+        "input": "products = [\"mobile\",\"mouse\",\"moneypot\",\"monitor\",\"mousepad\"], searchWord = \"mouse\"",
+        "output": "[[\"mobile\",\"moneypot\",\"monitor\"],[\"mobile\",\"moneypot\",\"monitor\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"]]"
+      },
+      {
+        "input": "products = [\"bags\"], searchWord = \"bagx\"",
+        "output": "[[\"bags\"],[\"bags\"],[\"bags\"],[]]",
+        "explanation": "Last char 'x' has no match, so empty after that — but search runs full length."
+      }
+    ],
+    "constraints": [
+      "1 <= products.length <= 10^4",
+      "1 <= products[i].length <= 50",
+      "1 <= searchWord.length <= 50",
+      "Lowercase English letters"
+    ],
+    "hints": [
+      "Pehle products ko sort kar de — phir trie me daal; har visited node pe pehle 3 products store kar (lex smallest naturally).",
+      "Query me prefix walk kar; dead hone par baaki sab empty arrays.",
+      "Trie ka beauty: suggestions list pre-baked hai, query bas walk hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function searchSuggestions(products, searchWord) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def search_suggestions(products, search_word):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object searchSuggestions(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson searchSuggestions(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function searchSuggestions(products, searchWord): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc searchSuggestions(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "searchSuggestions",
+    "tests": [
+      {
+        "args": [
+          [
+            "mobile",
+            "mouse",
+            "moneypot",
+            "monitor",
+            "mousepad"
+          ],
+          "mouse"
+        ],
+        "expected": [
+          [
+            "mobile",
+            "moneypot",
+            "monitor"
+          ],
+          [
+            "mobile",
+            "moneypot",
+            "monitor"
+          ],
+          [
+            "mouse",
+            "mousepad"
+          ],
+          [
+            "mouse",
+            "mousepad"
+          ],
+          [
+            "mouse",
+            "mousepad"
+          ]
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "havells",
+            "haveli",
+            "hawk"
+          ],
+          "ha"
+        ],
+        "expected": [
+          [
+            "haveli",
+            "havells",
+            "hawk"
+          ],
+          [
+            "haveli",
+            "havells",
+            "hawk"
+          ]
+        ],
+        "label": "lex sorted suggestions"
+      },
+      {
+        "args": [
+          [
+            "bags"
+          ],
+          "bagx"
+        ],
+        "expected": [
+          [
+            "bags"
+          ],
+          [
+            "bags"
+          ],
+          [
+            "bags"
+          ],
+          []
+        ],
+        "label": "dead after mismatch"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "ab",
+            "abc",
+            "abcd"
+          ],
+          "abc"
+        ],
+        "expected": [
+          [
+            "a",
+            "ab",
+            "abc"
+          ],
+          [
+            "ab",
+            "abc",
+            "abcd"
+          ],
+          [
+            "abc",
+            "abcd"
+          ]
+        ],
+        "label": "top-3 cap"
+      },
+      {
+        "args": [
+          [
+            "paneer",
+            "palak",
+            "pakora"
+          ],
+          "pa"
+        ],
+        "expected": [
+          [
+            "pakora",
+            "palak",
+            "paneer"
+          ],
+          [
+            "pakora",
+            "palak",
+            "paneer"
+          ]
+        ],
+        "label": "all share prefix"
+      },
+      {
+        "args": [
+          [
+            "x"
+          ],
+          "y"
+        ],
+        "expected": [
+          []
+        ],
+        "label": "no match at all"
+      }
+    ],
+    "editorial": "**Idea — pre-baked suggestions per trie node**: Sort `products` lexicographically. Insert each into a trie; at every node passed during insert, push the product into a `suggestions` list capped at length 3. Because we insert in sorted order, the first 3 are guaranteed to be the lex-smallest passing through that node.\n\nAt query time, walk the trie following `searchWord`; output the `suggestions` snapshot at each step. Once the walk fails, output empty arrays for the remaining characters.\n\n```javascript\nfunction searchSuggestions(products, searchWord) {\n  const sorted = products.slice().sort();\n  function makeNode() { return { children: {}, suggestions: [] }; }\n  const root = makeNode();\n  for (const p of sorted) {\n    let cur = root;\n    for (const c of p) {\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n      if (cur.suggestions.length < 3) cur.suggestions.push(p);\n    }\n  }\n  const out = [];\n  let cur = root;\n  let dead = false;\n  for (const c of searchWord) {\n    if (!dead && cur.children[c]) {\n      cur = cur.children[c];\n      out.push(cur.suggestions.slice());\n    } else {\n      dead = true;\n      out.push([]);\n    }\n  }\n  return out;\n}\n```\n\n**Time**: O(N*L log N) for sort + O(N*L) for trie + O(M) for query (M = searchWord length). **Space**: O(N*L)."
+  },
+  {
+    "slug": "freshworks-add-search-words-wildcard",
+    "number": 1712,
+    "title": "Freshworks Add and Search Words With Wildcard",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "freshworks",
+      "atlassian",
+      "microsoft"
+    ],
+    "description": "Freshworks's helpdesk autocompletes ticket categories. Implement a word dictionary that supports two ops: `addWord(word)` inserts a word, and `search(word)` returns true iff some inserted word matches `word`. The search pattern may contain `.` which matches any single lowercase letter. You'll receive `ops` as `[opName, arg]` pairs. Return an array — `null` for adds, boolean for searches.",
+    "examples": [
+      {
+        "input": "ops = [[\"addWord\",\"bad\"],[\"addWord\",\"dad\"],[\"addWord\",\"mad\"],[\"search\",\"pad\"],[\"search\",\"bad\"],[\"search\",\".ad\"],[\"search\",\"b..\"]]",
+        "output": "[null, null, null, false, true, true, true]"
+      },
+      {
+        "input": "ops = [[\"search\",\"x\"]]",
+        "output": "[false]",
+        "explanation": "Empty dictionary."
+      }
+    ],
+    "constraints": [
+      "1 <= ops.length <= 10^4",
+      "1 <= word.length <= 25",
+      "word in addWord is lowercase English",
+      "word in search may contain `.` wildcard"
+    ],
+    "hints": [
+      "Trie + DFS recursion. Normal char: drill down ek child me. `.` ka matlab: saare children pe try kar.",
+      "Base case: idx == word.length → node.isEnd return kar.",
+      "Wildcard worst case slow ho sakta hai, par average pe theek hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object runOps(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson runOps(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function runOps(ops): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc runOps(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              "addWord",
+              "bad"
+            ],
+            [
+              "addWord",
+              "dad"
+            ],
+            [
+              "addWord",
+              "mad"
+            ],
+            [
+              "search",
+              "pad"
+            ],
+            [
+              "search",
+              "bad"
+            ],
+            [
+              "search",
+              ".ad"
+            ],
+            [
+              "search",
+              "b.."
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          false,
+          true,
+          true,
+          true
+        ],
+        "label": "classic with wildcard"
+      },
+      {
+        "args": [
+          [
+            [
+              "search",
+              "x"
+            ]
+          ]
+        ],
+        "expected": [
+          false
+        ],
+        "label": "empty dict"
+      },
+      {
+        "args": [
+          [
+            [
+              "addWord",
+              "a"
+            ],
+            [
+              "search",
+              "."
+            ],
+            [
+              "search",
+              "aa"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          true,
+          false
+        ],
+        "label": "single wildcard match"
+      },
+      {
+        "args": [
+          [
+            [
+              "addWord",
+              "at"
+            ],
+            [
+              "addWord",
+              "and"
+            ],
+            [
+              "addWord",
+              "an"
+            ],
+            [
+              "addWord",
+              "add"
+            ],
+            [
+              "search",
+              "a"
+            ],
+            [
+              "search",
+              ".at"
+            ],
+            [
+              "addWord",
+              "bat"
+            ],
+            [
+              "search",
+              ".at"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          null,
+          false,
+          false,
+          null,
+          true
+        ],
+        "label": "wildcard activates after insert"
+      },
+      {
+        "args": [
+          [
+            [
+              "addWord",
+              "abc"
+            ],
+            [
+              "search",
+              "abc"
+            ],
+            [
+              "search",
+              "..."
+            ],
+            [
+              "search",
+              ".b."
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          true,
+          true,
+          true
+        ],
+        "label": "all wildcards"
+      },
+      {
+        "args": [
+          [
+            [
+              "addWord",
+              "hello"
+            ],
+            [
+              "search",
+              "h.llo"
+            ],
+            [
+              "search",
+              "h.l.o"
+            ],
+            [
+              "search",
+              "h.llox"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          true,
+          true,
+          false
+        ],
+        "label": "mixed wildcard"
+      }
+    ],
+    "editorial": "**Idea — trie + recursive search**: Insert words as usual. For search, recurse with `(node, idx)`. If `idx == word.length`, return `node.isEnd`. If current char is a regular letter, drill into that child if present. If current char is `.`, try every child — return true if any branch succeeds.\n\n```javascript\nfunction runOps(ops) {\n  function makeNode() { return { children: {}, isEnd: false }; }\n  const root = makeNode();\n  function add(word) {\n    let cur = root;\n    for (const c of word) {\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n    }\n    cur.isEnd = true;\n    return null;\n  }\n  function search(word) {\n    function dfs(node, idx) {\n      if (idx === word.length) return node.isEnd;\n      const c = word[idx];\n      if (c === '.') {\n        for (const k of Object.keys(node.children)) {\n          if (dfs(node.children[k], idx + 1)) return true;\n        }\n        return false;\n      }\n      if (!node.children[c]) return false;\n      return dfs(node.children[c], idx + 1);\n    }\n    return dfs(root, 0);\n  }\n  return ops.map(([op, arg]) => {\n    if (op === 'addWord') return add(arg);\n    return search(arg);\n  });\n}\n```\n\n**Time**: addWord O(L); search O(26^k * L) worst (k = wildcards). **Space**: O(total chars)."
+  },
+  {
+    "slug": "atlassian-map-sum-prefix",
+    "number": 1713,
+    "title": "Atlassian Map Sum Prefix Pairs",
+    "difficulty": "Easy",
+    "topic": "Tries",
+    "companies": [
+      "atlassian",
+      "microsoft",
+      "amazon"
+    ],
+    "description": "Atlassian's billing keeps a key-value map of feature usage. Implement a structure with two ops: `insert(key, val)` sets the value (overwriting any previous value for the same key), and `sum(prefix)` returns the SUM of values for every key that has the given prefix. Return an array — `null` for inserts, integer for sums.",
+    "examples": [
+      {
+        "input": "ops = [[\"insert\",\"apple\",3],[\"sum\",\"ap\"],[\"insert\",\"app\",2],[\"sum\",\"ap\"]]",
+        "output": "[null, 3, null, 5]"
+      },
+      {
+        "input": "ops = [[\"insert\",\"aa\",3],[\"insert\",\"aa\",2],[\"sum\",\"a\"]]",
+        "output": "[null, null, 2]",
+        "explanation": "Re-insert overwrites; sum reflects the new value only."
+      }
+    ],
+    "constraints": [
+      "1 <= ops.length <= 10^4",
+      "1 <= key.length, prefix.length <= 50",
+      "0 <= val <= 1000",
+      "Lowercase English letters"
+    ],
+    "hints": [
+      "Har trie node pe ek `sum` field rakh — path pe har node ka sum += value during insert.",
+      "Re-insert handle karne ke liye purana value yaad rakh aur delta apply kar (newVal - oldVal).",
+      "sum(prefix) = walk to prefix node; uska sum return kar (0 if walk fails)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function runOps(ops) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object runOps(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson runOps(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function runOps(ops): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc runOps(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "runOps",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "apple",
+              3
+            ],
+            [
+              "sum",
+              "ap"
+            ],
+            [
+              "insert",
+              "app",
+              2
+            ],
+            [
+              "sum",
+              "ap"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          3,
+          null,
+          5
+        ],
+        "label": "basic two inserts"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "aa",
+              3
+            ],
+            [
+              "insert",
+              "aa",
+              2
+            ],
+            [
+              "sum",
+              "a"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          2
+        ],
+        "label": "overwrite"
+      },
+      {
+        "args": [
+          [
+            [
+              "sum",
+              "x"
+            ]
+          ]
+        ],
+        "expected": [
+          0
+        ],
+        "label": "empty map"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "abc",
+              1
+            ],
+            [
+              "insert",
+              "abd",
+              2
+            ],
+            [
+              "insert",
+              "abe",
+              3
+            ],
+            [
+              "sum",
+              "ab"
+            ],
+            [
+              "sum",
+              "abc"
+            ],
+            [
+              "sum",
+              "abf"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          6,
+          1,
+          0
+        ],
+        "label": "siblings"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "x",
+              5
+            ],
+            [
+              "insert",
+              "x",
+              10
+            ],
+            [
+              "sum",
+              "x"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          10
+        ],
+        "label": "overwrite same key"
+      },
+      {
+        "args": [
+          [
+            [
+              "insert",
+              "jira",
+              7
+            ],
+            [
+              "insert",
+              "jiraapp",
+              3
+            ],
+            [
+              "sum",
+              "jira"
+            ],
+            [
+              "sum",
+              "jiraa"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          10,
+          3
+        ],
+        "label": "longer prefix narrows"
+      }
+    ],
+    "editorial": "**Idea — trie with `sum` per node and `delta` on overwrite**: Maintain a map of last-stored value per key. On insert, compute delta = newVal - prevVal (0 if first insert). Walk the trie creating nodes as needed; add `delta` to every node along the path (including the root or just the children — pick one and stay consistent; here we add to the root too so empty prefix returns the global sum).\n\n```javascript\nfunction runOps(ops) {\n  const root = { children: {}, sum: 0 };\n  const stored = new Map();\n  function insert(key, val) {\n    const delta = val - (stored.get(key) || 0);\n    stored.set(key, val);\n    let cur = root;\n    cur.sum += delta;\n    for (const c of key) {\n      if (!cur.children[c]) cur.children[c] = { children: {}, sum: 0 };\n      cur = cur.children[c];\n      cur.sum += delta;\n    }\n    return null;\n  }\n  function sum(prefix) {\n    let cur = root;\n    for (const c of prefix) {\n      if (!cur.children[c]) return 0;\n      cur = cur.children[c];\n    }\n    return cur.sum;\n  }\n  return ops.map(([op, a, b]) => {\n    if (op === 'insert') return insert(a, b);\n    return sum(a);\n  });\n}\n```\n\n**Time**: O(L) per op. **Space**: O(total chars)."
+  },
+  {
+    "slug": "walmart-stream-of-characters-suffix-trie",
+    "number": 1714,
+    "title": "Walmart Stream of Characters Suffix Trie",
+    "difficulty": "Hard",
+    "topic": "Tries",
+    "companies": [
+      "walmart-labs",
+      "amazon",
+      "google"
+    ],
+    "description": "Walmart's chat-moderation pipeline streams characters one at a time and must alert if the LATEST suffix of the stream matches any blocked word from a dictionary. Given the dictionary `words` and an input string `letters` (the chars arriving in order), return an array of booleans — index i is true iff after consuming `letters[0..i]`, some suffix ending exactly at position i equals a dictionary word.",
+    "examples": [
+      {
+        "input": "words = [\"cd\",\"f\",\"kl\"], letters = \"abcdefghijkl\"",
+        "output": "[false,false,false,true,false,true,false,false,false,false,false,true]"
+      },
+      {
+        "input": "words = [\"abc\"], letters = \"xabc\"",
+        "output": "[false,false,false,true]"
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 2000",
+      "1 <= words[i].length <= 200",
+      "1 <= letters.length <= 4*10^4",
+      "Lowercase English letters"
+    ],
+    "hints": [
+      "Trick: dictionary words ko REVERSE karke trie banao. Stream me jo bhi aaye, latest char se peeche jaake walk karo.",
+      "Buffer me saare chars rakh; query pe end se start tak walk — `isEnd` mile to true.",
+      "Walk break ho jaye to stop kar do (no longer matching)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function runStreamOps(words, letters) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def run_stream_ops(words, letters):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object runStreamOps(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson runStreamOps(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function runStreamOps(words, letters): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc runStreamOps(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "runStreamOps",
+    "tests": [
+      {
+        "args": [
+          [
+            "cd",
+            "f",
+            "kl"
+          ],
+          "abcdefghijkl"
+        ],
+        "expected": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "abc"
+          ],
+          "xabc"
+        ],
+        "expected": [
+          false,
+          false,
+          false,
+          true
+        ],
+        "label": "simple match"
+      },
+      {
+        "args": [
+          [
+            "a"
+          ],
+          "aaa"
+        ],
+        "expected": [
+          true,
+          true,
+          true
+        ],
+        "label": "every step"
+      },
+      {
+        "args": [
+          [
+            "xyz"
+          ],
+          "abc"
+        ],
+        "expected": [
+          false,
+          false,
+          false
+        ],
+        "label": "no match"
+      },
+      {
+        "args": [
+          [
+            "ab",
+            "ba"
+          ],
+          "abba"
+        ],
+        "expected": [
+          false,
+          true,
+          false,
+          true
+        ],
+        "label": "two words"
+      },
+      {
+        "args": [
+          [
+            "hello",
+            "world"
+          ],
+          "helloworld"
+        ],
+        "expected": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          true
+        ],
+        "label": "two long words"
+      }
+    ],
+    "editorial": "**Idea — reverse-suffix trie + per-step backwards walk**: Insert each dictionary word REVERSED into a trie (so each path from root spells a word backwards). Maintain a buffer of streamed chars. At each step, append the new char and walk the trie from the END of the buffer back to the start: if at any point we land on a node with `isEnd`, the current suffix matches a word.\n\n```javascript\nfunction runStreamOps(words, letters) {\n  function makeNode() { return { children: {}, isEnd: false }; }\n  const root = makeNode();\n  for (const w of words) {\n    let cur = root;\n    for (let i = w.length - 1; i >= 0; i--) {\n      const c = w[i];\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n    }\n    cur.isEnd = true;\n  }\n  const buf = [];\n  const out = [];\n  for (const ch of letters) {\n    buf.push(ch);\n    let cur = root;\n    let found = false;\n    for (let i = buf.length - 1; i >= 0; i--) {\n      const c = buf[i];\n      if (!cur.children[c]) break;\n      cur = cur.children[c];\n      if (cur.isEnd) { found = true; break; }\n    }\n    out.push(found);\n  }\n  return out;\n}\n```\n\n**Time**: O(N * Lmax) where N = stream length, Lmax = longest dictionary word. **Space**: O(total dict chars + N)."
+  },
+  {
+    "slug": "google-palindrome-pair-finder",
+    "number": 1715,
+    "title": "Google Palindrome Pair Finder",
+    "difficulty": "Hard",
+    "topic": "Tries",
+    "companies": [
+      "google",
+      "amazon",
+      "microsoft"
+    ],
+    "description": "Google's NLP team needs to find palindrome pairs in a vocabulary. Given an array of distinct lowercase strings `words`, return all pairs `[i, j]` (with `i != j`) such that the concatenation `words[i] + words[j]` is a palindrome. Return the pairs sorted ascending by `i`, then by `j`.",
+    "examples": [
+      {
+        "input": "words = [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"]",
+        "output": "[[0,1],[1,0],[2,4],[3,2]]",
+        "explanation": "\"abcd\"+\"dcba\", \"dcba\"+\"abcd\", \"lls\"+\"sssll\", \"s\"+\"lls\""
+      },
+      {
+        "input": "words = [\"bat\",\"tab\",\"cat\"]",
+        "output": "[[0,1],[1,0]]"
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 5000",
+      "0 <= words[i].length <= 300",
+      "words[i] are distinct lowercase English strings (empty string allowed)"
+    ],
+    "hints": [
+      "Reverse-trie banao saare words ka. Har word w ke liye, trie pe walk karo jaise w match karna ho us word ke reverse se.",
+      "Do cases handle karo: (A) trie me kuch word khatam ho gaya bich me — to baaki w ka suffix palindrome ho, (B) w pura khatam ho gaya — to is node ke neeche jo bhi words hain unka extra prefix palindromic ho.",
+      "Per-node `palindromeBelow` list rakhna helps Case B fast."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function palindromePairs(words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def palindrome_pairs(words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object palindromePairs(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson palindromePairs(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function palindromePairs(words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc palindromePairs(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "palindromePairs",
+    "tests": [
+      {
+        "args": [
+          [
+            "abcd",
+            "dcba",
+            "lls",
+            "s",
+            "sssll"
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "bat",
+            "tab",
+            "cat"
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "label": "two pairs"
+      },
+      {
+        "args": [
+          [
+            "a",
+            ""
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "label": "empty string pair"
+      },
+      {
+        "args": [
+          [
+            "abc",
+            "def"
+          ]
+        ],
+        "expected": [],
+        "label": "no pairs"
+      },
+      {
+        "args": [
+          [
+            "aba",
+            "abaaba",
+            "aab"
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "label": "palin word concats"
+      },
+      {
+        "args": [
+          [
+            "ab",
+            "ba"
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "label": "simple two"
+      }
+    ],
+    "editorial": "**Idea — reverse-trie + two cases**: For each word w (index `idx`), we want some other word w' such that `w + w'` is a palindrome. Build a trie keyed by REVERSED words. While walking the trie following w from index 0, two cases reveal palindromes:\n\n* **Case A** — the trie hits a complete word `w'` (its `wordIndex` set) at some position `i` while we're partway through w. That means `w' == reverse(w[0..i-1])`. If the remainder `w[i..end]` is itself a palindrome, then `w + w'` is a palindrome.\n* **Case B** — w finishes the walk at some node. Any word `w''` whose reversed insertion passed through this node has `w` as a suffix of reverse(w''). If the EXTRA characters in reverse(w'') (the part still below this node) form a palindrome, then `w + w''` is a palindrome. We pre-store such indices in `palindromeBelow` during insertion.\n\n```javascript\nfunction palindromePairs(words) {\n  function isPalin(s, l, r) {\n    while (l < r) { if (s[l] !== s[r]) return false; l++; r--; }\n    return true;\n  }\n  function makeNode() { return { children: {}, wordIndex: -1, palindromeBelow: [] }; }\n  const root = makeNode();\n  for (let idx = 0; idx < words.length; idx++) {\n    const w = words[idx];\n    let cur = root;\n    for (let i = w.length - 1; i >= 0; i--) {\n      if (isPalin(w, 0, i)) cur.palindromeBelow.push(idx);\n      const c = w[i];\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n    }\n    cur.wordIndex = idx;\n    cur.palindromeBelow.push(idx);\n  }\n  const result = [];\n  for (let idx = 0; idx < words.length; idx++) {\n    const w = words[idx];\n    let cur = root;\n    for (let i = 0; i < w.length; i++) {\n      if (cur.wordIndex !== -1 && cur.wordIndex !== idx && isPalin(w, i, w.length - 1)) {\n        result.push([idx, cur.wordIndex]);\n      }\n      const c = w[i];\n      if (!cur.children[c]) { cur = null; break; }\n      cur = cur.children[c];\n    }\n    if (cur !== null) {\n      for (const j of cur.palindromeBelow) {\n        if (j !== idx) result.push([idx, j]);\n      }\n    }\n  }\n  result.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1]);\n  return result;\n}\n```\n\n**Time**: O(N * L^2) for trie build (palindrome checks per insert) + O(N * L) per query. **Space**: O(N * L)."
+  },
+  {
+    "slug": "microsoft-short-encoding-of-words",
+    "number": 1716,
+    "title": "Microsoft Short Encoding of Words",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "microsoft",
+      "google",
+      "amazon"
+    ],
+    "description": "Microsoft's storage layer encodes a set of words into a single reference string `S` plus an index array, where each word is recoverable as some `S[i..]` ending at `#`. Given a list `words`, return the MINIMUM possible length of `S` (including the trailing `#` for every encoded word). Equivalent: a word can be omitted from the encoding if it is a SUFFIX of another word.",
+    "examples": [
+      {
+        "input": "words = [\"time\",\"me\",\"bell\"]",
+        "output": "10",
+        "explanation": "S = \"time#bell#\" of length 10. \"me\" is a suffix of \"time\" so it shares."
+      },
+      {
+        "input": "words = [\"t\"]",
+        "output": "2",
+        "explanation": "S = \"t#\"."
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 2000",
+      "1 <= words[i].length <= 7",
+      "Lowercase English letters"
+    ],
+    "hints": [
+      "Idea: agar koi word X kisi aur word Y ka suffix hai to X ko encoding me alag se rakhne ki zaroorat nahi.",
+      "Reverse-trie banao saare DISTINCT words ka. Har word ka end-node check kar — agar uske children hain to wo dusre word ka suffix hai (skip).",
+      "Leaf end-nodes contribute (length + 1) (1 for `#`)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function shortEncoding(words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def short_encoding(words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object shortEncoding(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson shortEncoding(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function shortEncoding(words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc shortEncoding(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "shortEncoding",
+    "tests": [
+      {
+        "args": [
+          [
+            "time",
+            "me",
+            "bell"
+          ]
+        ],
+        "expected": 10,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "t"
+          ]
+        ],
+        "expected": 2,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            "me",
+            "time"
+          ]
+        ],
+        "expected": 5,
+        "label": "me is suffix"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "aa",
+            "aaa"
+          ]
+        ],
+        "expected": 4,
+        "label": "cascade"
+      },
+      {
+        "args": [
+          [
+            "abc",
+            "def"
+          ]
+        ],
+        "expected": 8,
+        "label": "no overlap"
+      },
+      {
+        "args": [
+          [
+            "feipyxx",
+            "e"
+          ]
+        ],
+        "expected": 10,
+        "label": "long + suffix"
+      }
+    ],
+    "editorial": "**Idea — reverse-trie, count the leaves**: Two words can be merged in the encoding iff one is a suffix of the other. Reverse every word and build a trie. After all inserts, the end-node of any word X that is a SUFFIX of another word Y will have children (because Y's reverse extends past X's). Only end-nodes with NO children are 'real' encoded words; they each contribute `len(word) + 1` (the trailing `#`).\n\n```javascript\nfunction shortEncoding(words) {\n  const set = Array.from(new Set(words));\n  function makeNode() { return { children: {} }; }\n  const root = makeNode();\n  const ends = [];\n  for (const w of set) {\n    let cur = root;\n    for (let i = w.length - 1; i >= 0; i--) {\n      const c = w[i];\n      if (!cur.children[c]) cur.children[c] = makeNode();\n      cur = cur.children[c];\n    }\n    ends.push({ node: cur, len: w.length });\n  }\n  let total = 0;\n  for (const { node, len } of ends) {\n    if (Object.keys(node.children).length === 0) total += len + 1;\n  }\n  return total;\n}\n```\n\n**Time**: O(sum of word lengths). **Space**: O(sum of word lengths)."
+  },
+  {
+    "slug": "uber-longest-buildable-word",
+    "number": 1717,
+    "title": "Uber Longest Buildable Word",
+    "difficulty": "Easy",
+    "topic": "Tries",
+    "companies": [
+      "uber",
+      "amazon",
+      "meesho"
+    ],
+    "description": "Uber's autocomplete builds words one character at a time by typing letters. Given a list of strings `words` (all lowercase), return the LONGEST string `w` in `words` such that every prefix of `w` (of length 1, 2, ..., |w|-1) also appears in `words`. If multiple, return the lexicographically smallest. If none, return the empty string.",
+    "examples": [
+      {
+        "input": "words = [\"w\",\"wo\",\"wor\",\"worl\",\"world\"]",
+        "output": "\"world\""
+      },
+      {
+        "input": "words = [\"a\",\"banana\",\"app\",\"appl\",\"ap\",\"apply\",\"apple\"]",
+        "output": "\"apple\"",
+        "explanation": "\"apple\" and \"apply\" both work; lex smaller is \"apple\"."
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 1000",
+      "1 <= words[i].length <= 30",
+      "Lowercase English letters; words are distinct"
+    ],
+    "hints": [
+      "Set me daal saari words. Har word ke liye uske saare prefixes (length 1..len-1) check kar set me hain ya nahi.",
+      "Tie-break: pehle length compare, equal ho to lex.",
+      "Trie approach bhi chalega — trie me insert kar, phir DFS me sirf un nodes pe jaa jinka isEnd true hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function longestWord(words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def longest_word(words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object longestWord(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson longestWord(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function longestWord(words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc longestWord(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "longestWord",
+    "tests": [
+      {
+        "args": [
+          [
+            "w",
+            "wo",
+            "wor",
+            "worl",
+            "world"
+          ]
+        ],
+        "expected": "world",
+        "label": "classic chain"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "banana",
+            "app",
+            "appl",
+            "ap",
+            "apply",
+            "apple"
+          ]
+        ],
+        "expected": "apple",
+        "label": "tie lex smaller"
+      },
+      {
+        "args": [
+          [
+            "x",
+            "y",
+            "z"
+          ]
+        ],
+        "expected": "x",
+        "label": "single char wins"
+      },
+      {
+        "args": [
+          [
+            "abc"
+          ]
+        ],
+        "expected": "",
+        "label": "no buildable"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "ab",
+            "ac",
+            "abc",
+            "abd"
+          ]
+        ],
+        "expected": "abc",
+        "label": "two of length 3"
+      },
+      {
+        "args": [
+          [
+            "ola",
+            "o",
+            "ol"
+          ]
+        ],
+        "expected": "ola",
+        "label": "three letters"
+      }
+    ],
+    "editorial": "**Idea — set membership for every prefix**: A word `w` is buildable iff every prefix `w[0..i-1]` for `i = 1..|w|-1` is also in the dictionary. Put `words` into a Set, iterate, check prefixes.\n\n```javascript\nfunction longestWord(words) {\n  const set = new Set(words);\n  let best = '';\n  for (const w of words) {\n    if (w.length < best.length) continue;\n    if (w.length === best.length && w >= best) continue;\n    let ok = true;\n    for (let i = 1; i < w.length; i++) {\n      if (!set.has(w.slice(0, i))) { ok = false; break; }\n    }\n    if (ok) best = w;\n  }\n  return best;\n}\n```\n\n**Time**: O(N * L^2) (slice is O(L)). **Space**: O(N * L) for the set.\n\n**Trie alternative**: Insert all words, then DFS — only descend through children whose `isEnd` is true; track the longest path (lex smallest on tie)."
+  },
+  {
+    "slug": "paytm-count-distinct-substrings",
+    "number": 1718,
+    "title": "Paytm Count Distinct Substrings With Trie",
+    "difficulty": "Hard",
+    "topic": "Tries",
+    "companies": [
+      "paytm",
+      "razorpay",
+      "google"
+    ],
+    "description": "Paytm's fraud system fingerprints transaction strings by their distinct substrings count. Given a string `s`, return the number of distinct non-empty substrings of `s`. Use a trie of all suffixes — every newly created node corresponds to a distinct substring.",
+    "examples": [
+      {
+        "input": "s = \"abc\"",
+        "output": "6",
+        "explanation": "a, b, c, ab, bc, abc."
+      },
+      {
+        "input": "s = \"aaa\"",
+        "output": "3",
+        "explanation": "a, aa, aaa."
+      }
+    ],
+    "constraints": [
+      "0 <= s.length <= 1000",
+      "Lowercase English letters"
+    ],
+    "hints": [
+      "Har suffix ko trie me insert kar — har new node ek new distinct substring represent karta hai.",
+      "Counter use kar: jab kabhi naya child banaye, +1.",
+      "Time O(n^2) but space optimal for distinct count without suffix automaton complexity."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countDistinctSubstrings(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_distinct_substrings(s):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countDistinctSubstrings(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countDistinctSubstrings(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countDistinctSubstrings(s): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countDistinctSubstrings(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countDistinctSubstrings",
+    "tests": [
+      {
+        "args": [
+          "abc"
+        ],
+        "expected": 6,
+        "label": "all distinct"
+      },
+      {
+        "args": [
+          "aaa"
+        ],
+        "expected": 3,
+        "label": "repeats collapse"
+      },
+      {
+        "args": [
+          ""
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          "ababa"
+        ],
+        "expected": 9,
+        "label": "mixed"
+      },
+      {
+        "args": [
+          "a"
+        ],
+        "expected": 1,
+        "label": "single char"
+      },
+      {
+        "args": [
+          "abab"
+        ],
+        "expected": 7,
+        "label": "short repeat"
+      }
+    ],
+    "editorial": "**Idea — insert every suffix into a trie, count new nodes**: For each starting index `i`, walk the trie following `s[i], s[i+1], ...`. Every time we create a new child, that node corresponds to the unique substring `s[i..j]`. The total count of newly created nodes equals the number of distinct non-empty substrings.\n\n```javascript\nfunction countDistinctSubstrings(s) {\n  const root = {};\n  let count = 0;\n  for (let i = 0; i < s.length; i++) {\n    let cur = root;\n    for (let j = i; j < s.length; j++) {\n      const c = s[j];\n      if (!cur[c]) {\n        cur[c] = {};\n        count++;\n      }\n      cur = cur[c];\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2) worst case (e.g., 'abcdef...').\n\nFor longer strings, suffix automata achieve linear; the trie approach is the canonical interview presentation."
+  },
+  {
+    "slug": "zomato-prefix-suffix-cuisine-search",
+    "number": 1719,
+    "title": "Zomato Prefix And Suffix Cuisine Search",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "zomato",
+      "swiggy",
+      "amazon"
+    ],
+    "description": "Zomato indexes restaurant tags `words` (lowercase). Implement a search where each `query` is `[prefix, suffix]` — return the LARGEST index `i` such that `words[i]` starts with `prefix` AND ends with `suffix`. If no word matches, return `-1`. Process all queries against the same `words` list.",
+    "examples": [
+      {
+        "input": "words = [\"apple\",\"apricot\",\"grape\",\"app\"], queries = [[\"a\",\"e\"],[\"ap\",\"p\"],[\"g\",\"e\"],[\"x\",\"y\"]]",
+        "output": "[0, 3, 2, -1]"
+      },
+      {
+        "input": "words = [\"zomato\",\"ola\",\"oyo\"], queries = [[\"o\",\"o\"]]",
+        "output": "[2]",
+        "explanation": "\"oyo\" starts with o and ends with o; \"ola\" ends with a; \"zomato\" starts with z."
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 5000",
+      "1 <= words[i].length <= 10",
+      "1 <= queries.length <= 5000",
+      "1 <= prefix.length, suffix.length <= 10"
+    ],
+    "hints": [
+      "Trick: har word `w` ke liye saare (suffix + \"#\" + word) keys ko trie me daalo. Trie me node pe max-index store karo.",
+      "Query (prefix, suffix) → key = suffix + \"#\" + prefix. Trie me walk; agar mile to node ka max-index return.",
+      "Worst case: O(L^2) words, par L <= 10 to OK."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function runFPSOps(words, queries) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def run_fps_ops(words, queries):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object runFPSOps(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson runFPSOps(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function runFPSOps(words, queries): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc runFPSOps(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "runFPSOps",
+    "tests": [
+      {
+        "args": [
+          [
+            "apple",
+            "apricot",
+            "grape",
+            "app"
+          ],
+          [
+            [
+              "a",
+              "e"
+            ],
+            [
+              "ap",
+              "p"
+            ],
+            [
+              "g",
+              "e"
+            ],
+            [
+              "x",
+              "y"
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          3,
+          2,
+          -1
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "zomato",
+            "ola",
+            "oyo"
+          ],
+          [
+            [
+              "o",
+              "o"
+            ]
+          ]
+        ],
+        "expected": [
+          2
+        ],
+        "label": "one query"
+      },
+      {
+        "args": [
+          [
+            "abc"
+          ],
+          [
+            [
+              "a",
+              "c"
+            ],
+            [
+              "a",
+              "b"
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          -1
+        ],
+        "label": "mismatch suffix"
+      },
+      {
+        "args": [
+          [
+            "aaaa",
+            "aaab"
+          ],
+          [
+            [
+              "aa",
+              "ab"
+            ],
+            [
+              "a",
+              "a"
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          0
+        ],
+        "label": "two-aa words"
+      },
+      {
+        "args": [
+          [
+            "x"
+          ],
+          [
+            [
+              "x",
+              "x"
+            ]
+          ]
+        ],
+        "expected": [
+          0
+        ],
+        "label": "single char word"
+      },
+      {
+        "args": [
+          [
+            "paneer",
+            "pasta",
+            "pav",
+            "papa"
+          ],
+          [
+            [
+              "p",
+              "a"
+            ],
+            [
+              "pa",
+              "er"
+            ],
+            [
+              "pa",
+              "x"
+            ]
+          ]
+        ],
+        "expected": [
+          3,
+          0,
+          -1
+        ],
+        "label": "multiple matches"
+      }
+    ],
+    "editorial": "**Idea — combined suffix#word trie**: For each word `w` at index `i`, generate every key of the form `w[s:] + '#' + w` for every `s` in `0..|w|`. Insert each key into a trie, recording the max index seen at every node along the way. To answer `(prefix, suffix)`, build the lookup key `suffix + '#' + prefix` and walk the trie; the node's `max-index` field is the answer (or -1 if walk fails).\n\n```javascript\nfunction runFPSOps(words, queries) {\n  const root = { children: {}, idx: -1 };\n  for (let i = 0; i < words.length; i++) {\n    const w = words[i];\n    for (let s = 0; s <= w.length; s++) {\n      const key = w.slice(s) + '#' + w;\n      let cur = root;\n      cur.idx = Math.max(cur.idx, i);\n      for (const c of key) {\n        if (!cur.children[c]) cur.children[c] = { children: {}, idx: -1 };\n        cur = cur.children[c];\n        cur.idx = Math.max(cur.idx, i);\n      }\n    }\n  }\n  const out = [];\n  for (const [pre, suf] of queries) {\n    const k = suf + '#' + pre;\n    let cur = root;\n    let bad = false;\n    for (const c of k) {\n      if (!cur.children[c]) { bad = true; break; }\n      cur = cur.children[c];\n    }\n    out.push(bad ? -1 : cur.idx);\n  }\n  return out;\n}\n```\n\n**Time**: O(N * L^2) build + O(L) per query. **Space**: O(N * L^2).\n\nThe `#` separator ensures the suffix-portion of the key is unambiguous from the word-portion."
+  },
+  {
+    "slug": "microsoft-camelcase-matching",
+    "number": 1720,
+    "title": "Microsoft CamelCase Matching",
+    "difficulty": "Medium",
+    "topic": "Tries",
+    "companies": [
+      "microsoft",
+      "google",
+      "atlassian"
+    ],
+    "description": "Microsoft IDE autocomplete matches camelCase patterns. Given a list of `queries` and a `pattern`, return for each query a boolean — true iff the query 'matches' the pattern. A query matches the pattern if you can insert any number of LOWERCASE letters into the pattern (anywhere) so that it becomes the query exactly. Uppercase letters in the query must appear in the pattern (in order, exactly).",
+    "examples": [
+      {
+        "input": "queries = [\"FooBar\",\"FooBarTest\",\"FootBall\",\"FrameBuffer\",\"ForceFeedBack\"], pattern = \"FB\"",
+        "output": "[true,false,true,true,false]",
+        "explanation": "\"FooBar\" inserts \"oo\" then \"ar\" → matches \"FB\"."
+      },
+      {
+        "input": "queries = [\"FooBar\",\"FooBarTest\",\"FootBall\",\"FrameBuffer\",\"ForceFeedBack\"], pattern = \"FoBaT\"",
+        "output": "[false,true,false,false,false]"
+      }
+    ],
+    "constraints": [
+      "1 <= queries.length <= 100",
+      "1 <= queries[i].length <= 100",
+      "0 <= pattern.length <= 100",
+      "queries[i] and pattern consist of English letters"
+    ],
+    "hints": [
+      "Two-pointer: query pe iterate kar; agar current char pattern[i] hai to i++. Else agar uppercase hai to fail (uppercase ko pattern me match karna pad raha tha).",
+      "Loop ke baad i == pattern.length hona chahiye.",
+      "Trie-based variant: pattern ko ek trie me daalo (chains of length 1) — par yahan two-pointer simpler hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function camelMatch(queries, pattern) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def camel_match(queries, pattern):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object camelMatch(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson camelMatch(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function camelMatch(queries, pattern): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc camelMatch(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "camelMatch",
+    "tests": [
+      {
+        "args": [
+          [
+            "FooBar",
+            "FooBarTest",
+            "FootBall",
+            "FrameBuffer",
+            "ForceFeedBack"
+          ],
+          "FB"
+        ],
+        "expected": [
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        "label": "classic FB"
+      },
+      {
+        "args": [
+          [
+            "FooBar",
+            "FooBarTest",
+            "FootBall",
+            "FrameBuffer",
+            "ForceFeedBack"
+          ],
+          "FoBa"
+        ],
+        "expected": [
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        "label": "FoBa"
+      },
+      {
+        "args": [
+          [
+            "FooBar",
+            "FooBarTest",
+            "FootBall",
+            "FrameBuffer",
+            "ForceFeedBack"
+          ],
+          "FoBaT"
+        ],
+        "expected": [
+          false,
+          true,
+          false,
+          false,
+          false
+        ],
+        "label": "FoBaT"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b"
+          ],
+          ""
+        ],
+        "expected": [
+          true,
+          true
+        ],
+        "label": "empty pattern"
+      },
+      {
+        "args": [
+          [
+            "AaBC",
+            "AaBC",
+            "aBC"
+          ],
+          "ABC"
+        ],
+        "expected": [
+          true,
+          true,
+          false
+        ],
+        "label": "lowercase first fails"
+      },
+      {
+        "args": [
+          [
+            "HelloWorld"
+          ],
+          "HW"
+        ],
+        "expected": [
+          true
+        ],
+        "label": "simple two-cap"
+      }
+    ],
+    "editorial": "**Idea — single-pass two-pointer**: Walk the query char by char with a pattern pointer `i`. If the current query char equals `pattern[i]`, advance `i`. Otherwise, the char must be lowercase (insertable); if it's uppercase, fail. At the end, `i` must have reached `pattern.length` for a match.\n\n```javascript\nfunction camelMatch(queries, pattern) {\n  function matches(q, p) {\n    let i = 0;\n    for (const c of q) {\n      if (i < p.length && c === p[i]) {\n        i++;\n      } else if (c >= 'A' && c <= 'Z') {\n        return false;\n      }\n    }\n    return i === p.length;\n  }\n  return queries.map(q => matches(q, pattern));\n}\n```\n\n**Time**: O(sum of query lengths). **Space**: O(1) extra.\n\n**Trie variant**: Insert pattern as a path. For each query, simulate the same matcher using the trie — useful if you have many patterns and want shared traversal, but with one pattern the two-pointer is cleaner."
+  }
+]

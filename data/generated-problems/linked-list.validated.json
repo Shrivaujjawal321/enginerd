@@ -1,0 +1,2801 @@
+[
+  {
+    "slug": "razorpay-reverse-transaction-chain",
+    "number": 1501,
+    "title": "Razorpay Reverse Transaction Chain",
+    "difficulty": "Easy",
+    "topic": "Linked List",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
+    "description": "Razorpay maintains each merchant's transactions as a singly linked list ordered chronologically. For an end-of-day report they need the chain reversed (latest first). Given the head of a list (encoded as an array of node values), return the values of the reversed list.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4, 5]",
+        "output": "[5, 4, 3, 2, 1]",
+        "explanation": "Reverse the pointers."
+      },
+      {
+        "input": "head = []",
+        "output": "[]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 10^4",
+      "-10^9 <= node.val <= 10^9"
+    ],
+    "hints": [
+      "Three pointers: prev, curr, next — classic in-place reverse.",
+      "Loop: save next, flip curr.next to prev, advance prev/curr.",
+      "Edge case: empty list — return null directly."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseTransactionChain(head) {\n  // tu yahan apna solution likh — operates on real ListNode\n}\n\nfunction solve(arr) {\n  return listToArray(reverseTransactionChain(arrayToList(arr)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef reverse_transaction_chain(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(reverse_transaction_chain(array_to_list(arr)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            7
+          ]
+        ],
+        "expected": [
+          7
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          2,
+          1
+        ],
+        "label": "two nodes"
+      },
+      {
+        "args": [
+          [
+            -1,
+            0,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          0,
+          -1
+        ],
+        "label": "negatives"
+      },
+      {
+        "args": [
+          [
+            100,
+            200,
+            300,
+            400
+          ]
+        ],
+        "expected": [
+          400,
+          300,
+          200,
+          100
+        ],
+        "label": "four nodes"
+      }
+    ],
+    "editorial": "**Idea — iterative pointer flip**: Walk the list keeping `prev` (initially null) and `curr` (the head). Save `curr.next`, flip `curr.next = prev`, then slide `prev = curr; curr = next`. When done, `prev` is the new head.\n\n```javascript\n// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseTransactionChain(head) {\n  let prev = null, curr = head;\n  while (curr) {\n    const next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n  return prev;\n}\n\nfunction solve(arr) {\n  return listToArray(reverseTransactionChain(arrayToList(arr)));\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nRecursive version bhi possible hai but iterative cleanest aur stack overflow ka risk nahi."
+  },
+  {
+    "slug": "swiggy-detect-delivery-loop",
+    "number": 1502,
+    "title": "Swiggy Detect Delivery Route Loop",
+    "difficulty": "Easy",
+    "topic": "Linked List",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
+    "description": "Swiggy chains delivery hops as a linked list. A misconfigured route can loop forever. To represent this in tests, we use the array `[values, pos]` where `pos` is the 0-based index of the node that the tail's `next` points back to (or `-1` if no cycle). Return `true` if the list has a cycle, else `false`.",
+    "examples": [
+      {
+        "input": "[[3, 2, 0, -4], 1]",
+        "output": "true",
+        "explanation": "Tail -4 points back to index 1 (value 2)."
+      },
+      {
+        "input": "[[1, 2], -1]",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 10^4",
+      "-10^9 <= node.val <= 10^9",
+      "pos is -1 or a valid index"
+    ],
+    "hints": [
+      "Floyd's tortoise + hare: slow moves 1, fast moves 2.",
+      "Agar fast slow se mil gaya → cycle. Agar fast null hua → no cycle.",
+      "Edge: empty or single node with pos=-1 → false."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction hasDeliveryLoop(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, pos) {\n  return hasDeliveryLoop(arrayToListWithCycle(arr, pos));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list_with_cycle(arr, pos):\n    if not arr: return None\n    nodes = [ListNode(v) for v in arr]\n    for i in range(len(nodes) - 1):\n        nodes[i].next = nodes[i + 1]\n    if 0 <= pos < len(nodes):\n        nodes[-1].next = nodes[pos]\n    return nodes[0]\n\ndef has_delivery_loop(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, pos):\n    return has_delivery_loop(array_to_list_with_cycle(arr, pos))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr, pos): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            2,
+            0,
+            -4
+          ],
+          1
+        ],
+        "expected": true,
+        "label": "cycle middle"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          -1
+        ],
+        "expected": false,
+        "label": "no cycle"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          0
+        ],
+        "expected": true,
+        "label": "cycle to head"
+      },
+      {
+        "args": [
+          [],
+          -1
+        ],
+        "expected": false,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          -1
+        ],
+        "expected": false,
+        "label": "single no cycle"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          0
+        ],
+        "expected": true,
+        "label": "single self loop"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          -1
+        ],
+        "expected": false,
+        "label": "long no cycle"
+      }
+    ],
+    "editorial": "**Idea — Floyd's tortoise & hare**: Two pointers, slow advances 1 step, fast advances 2. If a cycle exists, fast eventually laps and meets slow. If fast hits null, no cycle.\n\n```javascript\n// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction hasDeliveryLoop(head) {\n  let slow = head, fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n    if (slow === fast) return true;\n  }\n  return false;\n}\n\nfunction solve(arr, pos) {\n  return hasDeliveryLoop(arrayToListWithCycle(arr, pos));\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nHashSet of visited nodes also works but uses O(n) memory. Floyd's is the standard answer."
+  },
+  {
+    "slug": "flipkart-middle-wishlist-item",
+    "number": 1503,
+    "title": "Flipkart Middle Wishlist Item",
+    "difficulty": "Easy",
+    "topic": "Linked List",
+    "companies": [
+      "flipkart",
+      "meesho",
+      "amazon"
+    ],
+    "description": "Flipkart shows users the 'middle' item of their wishlist as a featured suggestion. Given the wishlist as a linked list, return the value of the middle node. If there are two middle nodes (even length), return the second middle.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4, 5]",
+        "output": "3",
+        "explanation": "Middle of 5 is index 2."
+      },
+      {
+        "input": "head = [1, 2, 3, 4, 5, 6]",
+        "output": "4",
+        "explanation": "Two middles 3 and 4; pick second."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 10^4",
+      "-10^9 <= node.val <= 10^9"
+    ],
+    "hints": [
+      "Slow + fast pointer trick — slow ek step, fast do step.",
+      "Jab fast null/last hit kare, slow middle pe hoga.",
+      "Even length me slow second middle pe hi rukta hai if you advance slow whenever fast & fast.next exist."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction middleWishlist(head) {\n  // tu yahan apna solution likh — return value of middle node\n}\n\nfunction solve(arr) {\n  return middleWishlist(arrayToList(arr));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef middle_wishlist(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return middle_wishlist(array_to_list(arr))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 3,
+        "label": "odd"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        ],
+        "expected": 4,
+        "label": "even picks second"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 2,
+        "label": "two nodes"
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30
+          ]
+        ],
+        "expected": 20,
+        "label": "three"
+      },
+      {
+        "args": [
+          [
+            -5,
+            0,
+            5,
+            10
+          ]
+        ],
+        "expected": 5,
+        "label": "negatives"
+      }
+    ],
+    "editorial": "**Idea — slow/fast pointers**: Move slow by 1 and fast by 2. When fast can't move further (null or last), slow stands at the middle. The standard `while (fast && fast.next)` loop yields the second middle for even lengths.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction middleWishlist(head) {\n  let slow = head, fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n  }\n  return slow.val;\n}\n\nfunction solve(arr) {\n  return middleWishlist(arrayToList(arr));\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nNaive: count length, then walk length/2 — two passes. Slow/fast does it in one."
+  },
+  {
+    "slug": "phonepe-nth-from-end",
+    "number": 1504,
+    "title": "PhonePe Remove Nth Recent Payment",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "phonepe",
+      "paytm",
+      "razorpay"
+    ],
+    "description": "PhonePe lets users undo their `n`-th most recent payment. Payments form a linked list with the oldest at the head and newest at the tail. Given the head and `n`, remove the n-th node counting from the end (1-indexed) and return the resulting list values.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4, 5], n = 2",
+        "output": "[1, 2, 3, 5]",
+        "explanation": "Remove the 2nd from end (value 4)."
+      },
+      {
+        "input": "head = [1], n = 1",
+        "output": "[]"
+      }
+    ],
+    "constraints": [
+      "1 <= length <= 10^4",
+      "1 <= n <= length",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "Dummy node use kar — head removal handle ho jayegi.",
+      "Two pointer: fast ko n+1 ahead bhej, fir dono ko saath chala.",
+      "Jab fast null hit kare, slow.next is the node to skip."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeNthRecent(head, n) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, n) {\n  return listToArray(removeNthRecent(arrayToList(arr), n));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef remove_nth_recent(head, n):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, n):\n    return list_to_array(remove_nth_recent(array_to_list(arr), n))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr, n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": [],
+        "label": "single becomes empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          1
+        ],
+        "expected": [
+          1
+        ],
+        "label": "remove tail"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          2
+        ],
+        "expected": [
+          2
+        ],
+        "label": "remove head"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          3
+        ],
+        "expected": [
+          2,
+          3
+        ],
+        "label": "remove first of three"
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          5
+        ],
+        "expected": [
+          20,
+          30,
+          40,
+          50
+        ],
+        "label": "remove first of five"
+      }
+    ],
+    "editorial": "**Idea — two-pointer single pass with dummy**: Use a dummy node whose next is head. Push `fast` n+1 steps ahead from dummy, then advance both `fast` and `slow` until fast is null. `slow.next` is now the node to remove.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeNthRecent(head, n) {\n  const dummy = new ListNode(0, head);\n  let slow = dummy, fast = dummy;\n  for (let i = 0; i <= n; i++) fast = fast.next;\n  while (fast) { slow = slow.next; fast = fast.next; }\n  slow.next = slow.next.next;\n  return dummy.next;\n}\n\nfunction solve(arr, n) {\n  return listToArray(removeNthRecent(arrayToList(arr), n));\n}\n```\n\n**Time**: O(length). **Space**: O(1).\n\nDummy node is the trick — bina iske head removal me extra branching aati hai."
+  },
+  {
+    "slug": "paytm-merge-sorted-upi-queues",
+    "number": 1505,
+    "title": "Paytm Merge Sorted UPI Queues",
+    "difficulty": "Easy",
+    "topic": "Linked List",
+    "companies": [
+      "paytm",
+      "phonepe",
+      "google"
+    ],
+    "description": "Paytm's UPI gateway has two priority queues represented as sorted linked lists (ascending by priority). Merge them into one sorted linked list and return its values. Both inputs are sorted; the result must also be sorted ascending.",
+    "examples": [
+      {
+        "input": "a = [1, 2, 4], b = [1, 3, 4]",
+        "output": "[1, 1, 2, 3, 4, 4]"
+      },
+      {
+        "input": "a = [], b = []",
+        "output": "[]"
+      }
+    ],
+    "constraints": [
+      "0 <= len(a), len(b) <= 5*10^3",
+      "-10^9 <= val <= 10^9",
+      "Both lists are sorted ascending"
+    ],
+    "hints": [
+      "Dummy node + tail pointer build pattern.",
+      "Two pointers a, b — pick smaller, advance.",
+      "Loop end ke baad jo bacha use append kar de."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction mergeUpiQueues(a, b) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(mergeUpiQueues(arrayToList(arrA), arrayToList(arrB)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef merge_upi_queues(a, b):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr_a, arr_b):\n    return list_to_array(merge_upi_queues(array_to_list(arr_a), array_to_list(arr_b)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arrA, arrB): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            4
+          ],
+          [
+            1,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [],
+          []
+        ],
+        "expected": [],
+        "label": "both empty"
+      },
+      {
+        "args": [
+          [],
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "first empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          []
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "second empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            5,
+            9
+          ],
+          [
+            2,
+            3,
+            4,
+            10
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          9,
+          10
+        ],
+        "label": "uneven"
+      },
+      {
+        "args": [
+          [
+            -5,
+            0
+          ],
+          [
+            -3,
+            7
+          ]
+        ],
+        "expected": [
+          -5,
+          -3,
+          0,
+          7
+        ],
+        "label": "negatives"
+      }
+    ],
+    "editorial": "**Idea — dummy node + tail merge**: Walk both lists with two pointers. Always splice the smaller one onto the tail. When one list runs out, attach the rest of the other.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction mergeUpiQueues(a, b) {\n  const dummy = new ListNode();\n  let tail = dummy;\n  while (a && b) {\n    if (a.val <= b.val) { tail.next = a; a = a.next; }\n    else { tail.next = b; b = b.next; }\n    tail = tail.next;\n  }\n  tail.next = a || b;\n  return dummy.next;\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(mergeUpiQueues(arrayToList(arrA), arrayToList(arrB)));\n}\n```\n\n**Time**: O(m + n). **Space**: O(1) extra (we splice existing nodes)."
+  },
+  {
+    "slug": "ola-remove-duplicate-trips",
+    "number": 1506,
+    "title": "Ola Remove Duplicate Trip Logs",
+    "difficulty": "Easy",
+    "topic": "Linked List",
+    "companies": [
+      "ola",
+      "uber",
+      "rapido"
+    ],
+    "description": "Ola's trip log is a sorted linked list of trip distances. Some trips were logged twice. Remove duplicates so each distance appears only once. The list is already sorted. Return the resulting values.",
+    "examples": [
+      {
+        "input": "head = [1, 1, 2]",
+        "output": "[1, 2]"
+      },
+      {
+        "input": "head = [1, 1, 2, 3, 3]",
+        "output": "[1, 2, 3]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 10^4",
+      "-10^9 <= val <= 10^9",
+      "List is sorted ascending"
+    ],
+    "hints": [
+      "Single pointer walk — agar curr.val == curr.next.val toh skip.",
+      "Else move forward.",
+      "Empty / single list → return as-is."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeDuplicateTrips(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(removeDuplicateTrips(arrayToList(arr)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef remove_duplicate_trips(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(remove_duplicate_trips(array_to_list(arr)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "simple"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            2,
+            3,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "two dup groups"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": [
+          5
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "all same"
+      },
+      {
+        "args": [
+          [
+            -2,
+            -2,
+            0,
+            1,
+            1,
+            4
+          ]
+        ],
+        "expected": [
+          -2,
+          0,
+          1,
+          4
+        ],
+        "label": "with negatives"
+      }
+    ],
+    "editorial": "**Idea — single walk**: Because the list is sorted, duplicates sit adjacent. If `curr.val === curr.next.val`, skip `curr.next`; otherwise advance.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeDuplicateTrips(head) {\n  let curr = head;\n  while (curr && curr.next) {\n    if (curr.val === curr.next.val) curr.next = curr.next.next;\n    else curr = curr.next;\n  }\n  return head;\n}\n\nfunction solve(arr) {\n  return listToArray(removeDuplicateTrips(arrayToList(arr)));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "cred-palindrome-card-history",
+    "number": 1507,
+    "title": "CRED Palindrome Card History",
+    "difficulty": "Easy",
+    "topic": "Linked List",
+    "companies": [
+      "cred",
+      "razorpay",
+      "phonepe"
+    ],
+    "description": "CRED treats certain credit-card last-4-digit patterns as 'lucky' if their history sequence reads the same forward and backward. Given the linked list of card history values, return `true` if it's a palindrome.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 2, 1]",
+        "output": "true"
+      },
+      {
+        "input": "head = [1, 2]",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 10^4",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "Find middle, reverse second half, compare with first half.",
+      "Or simpler: dump values into array and two-pointer compare.",
+      "Empty / single → trivially palindrome."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction isPalindromeHistory(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return isPalindromeHistory(arrayToList(arr));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef is_palindrome_history(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return is_palindrome_history(array_to_list(arr))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            2,
+            1
+          ]
+        ],
+        "expected": true,
+        "label": "even palindrome"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": false,
+        "label": "not palindrome"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": true,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": true,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": true,
+        "label": "odd palindrome"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": false,
+        "label": "long not"
+      },
+      {
+        "args": [
+          [
+            7,
+            7
+          ]
+        ],
+        "expected": true,
+        "label": "two same"
+      }
+    ],
+    "editorial": "**Idea — find middle, reverse second half, compare**: This gives O(n) time and O(1) space (mutating the list).\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction isPalindromeHistory(head) {\n  if (!head || !head.next) return true;\n  // find middle\n  let slow = head, fast = head;\n  while (fast && fast.next) { slow = slow.next; fast = fast.next.next; }\n  // reverse from slow\n  let prev = null, curr = slow;\n  while (curr) { const n = curr.next; curr.next = prev; prev = curr; curr = n; }\n  // compare\n  let left = head, right = prev;\n  while (right) {\n    if (left.val !== right.val) return false;\n    left = left.next; right = right.next;\n  }\n  return true;\n}\n\nfunction solve(arr) {\n  return isPalindromeHistory(arrayToList(arr));\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nSimpler O(n) space alternative: push all values into an array and run a two-pointer check."
+  },
+  {
+    "slug": "zomato-reverse-between-bookmarks",
+    "number": 1509,
+    "title": "Zomato Reverse Between Bookmarks",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "zomato",
+      "swiggy",
+      "flipkart"
+    ],
+    "description": "Zomato lets users bookmark a range of past orders. Given a linked list of order IDs and 1-indexed positions `left` and `right`, reverse the nodes from position `left` to `right` (inclusive) in place and return the resulting list values.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4, 5], left = 2, right = 4",
+        "output": "[1, 4, 3, 2, 5]"
+      },
+      {
+        "input": "head = [5], left = 1, right = 1",
+        "output": "[5]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 500",
+      "1 <= left <= right <= n",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "Dummy node se start kar — head reverse ho sakta hai.",
+      "Walk to node before `left`, then in-place pointer reverse for (right - left) iterations.",
+      "Splice carefully: pre-left.next ko naya head, original-left.next ko remainder."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseBetweenBookmarks(head, left, right) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, left, right) {\n  return listToArray(reverseBetweenBookmarks(arrayToList(arr), left, right));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reverse_between_bookmarks(head, left, right):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, left, right):\n    return list_to_array(reverse_between_bookmarks(array_to_list(arr), left, right))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr, left, right): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2,
+          4
+        ],
+        "expected": [
+          1,
+          4,
+          3,
+          2,
+          5
+        ],
+        "label": "middle range"
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          1,
+          1
+        ],
+        "expected": [
+          5
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          1,
+          3
+        ],
+        "expected": [
+          3,
+          2,
+          1
+        ],
+        "label": "full reverse"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          1,
+          2
+        ],
+        "expected": [
+          2,
+          1,
+          3,
+          4
+        ],
+        "label": "reverse head pair"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          3,
+          4
+        ],
+        "expected": [
+          1,
+          2,
+          4,
+          3
+        ],
+        "label": "reverse tail pair"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2,
+          2
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "label": "left equals right no-op"
+      }
+    ],
+    "editorial": "**Idea — dummy + iterative head-insertion**: With dummy in front, walk `pre` to the node just before `left`. Then for `right - left` iterations, take `pre.next.next` and splice it right after `pre`. This rotates the inner segment in place.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseBetweenBookmarks(head, left, right) {\n  const dummy = new ListNode(0, head);\n  let pre = dummy;\n  for (let i = 1; i < left; i++) pre = pre.next;\n  let curr = pre.next;\n  for (let i = 0; i < right - left; i++) {\n    const moved = curr.next;\n    curr.next = moved.next;\n    moved.next = pre.next;\n    pre.next = moved;\n  }\n  return dummy.next;\n}\n\nfunction solve(arr, left, right) {\n  return listToArray(reverseBetweenBookmarks(arrayToList(arr), left, right));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "uber-rotate-driver-shifts",
+    "number": 1510,
+    "title": "Uber Rotate Driver Shifts",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "uber",
+      "ola",
+      "rapido"
+    ],
+    "description": "Uber rotates a daily driver-shift list to the right by `k` positions every morning. Given the linked list and `k`, return the values after rotation. `k` may exceed the length.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4, 5], k = 2",
+        "output": "[4, 5, 1, 2, 3]"
+      },
+      {
+        "input": "head = [0, 1, 2], k = 4",
+        "output": "[2, 0, 1]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 500",
+      "0 <= k <= 2*10^9",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "k % length kar — bada k handle ho jata hai.",
+      "List ko circle banao (tail.next = head), fir new tail dhoondh.",
+      "New head = node after new tail; break the cycle."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction rotateDriverShifts(head, k) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, k) {\n  return listToArray(rotateDriverShifts(arrayToList(arr), k));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef rotate_driver_shifts(head, k):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, k):\n    return list_to_array(rotate_driver_shifts(array_to_list(arr), k))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2
+        ],
+        "expected": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            0,
+            1,
+            2
+          ],
+          4
+        ],
+        "expected": [
+          2,
+          0,
+          1
+        ],
+        "label": "k > n"
+      },
+      {
+        "args": [
+          [],
+          3
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          5
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          0
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "k zero"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "label": "k equals n"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          1
+        ],
+        "expected": [
+          3,
+          1,
+          2
+        ],
+        "label": "rotate by 1"
+      }
+    ],
+    "editorial": "**Idea — close the loop, find new break**: Compute length `n`, set `k %= n`. Connect tail to head making a circle. The new tail is `n - k - 1` steps from the old head; the new head is its `next`. Break the link.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction rotateDriverShifts(head, k) {\n  if (!head || !head.next || k === 0) return head;\n  let n = 1, tail = head;\n  while (tail.next) { tail = tail.next; n++; }\n  k = k % n;\n  if (k === 0) return head;\n  tail.next = head;\n  let newTail = head;\n  for (let i = 0; i < n - k - 1; i++) newTail = newTail.next;\n  const newHead = newTail.next;\n  newTail.next = null;\n  return newHead;\n}\n\nfunction solve(arr, k) {\n  return listToArray(rotateDriverShifts(arrayToList(arr), k));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "tcs-odd-even-employee-list",
+    "number": 1511,
+    "title": "TCS Odd Even Employee Reorder",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "tcs",
+      "infosys",
+      "wipro"
+    ],
+    "description": "TCS reorders an employee linked list so that all nodes at odd positions (1-indexed) come first, followed by nodes at even positions, while preserving relative order within each group. Do it in O(1) extra space (rearrange pointers).",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4, 5]",
+        "output": "[1, 3, 5, 2, 4]"
+      },
+      {
+        "input": "head = [2, 1, 3, 5, 6, 4, 7]",
+        "output": "[2, 3, 6, 7, 1, 5, 4]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 10^4",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "Maintain two chains: odd tail and even tail.",
+      "Iterate: odd.next = odd.next.next, even.next = even.next.next.",
+      "Finally connect odd-tail to even-head."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction oddEvenEmployees(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(oddEvenEmployees(arrayToList(arr)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef odd_even_employees(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(odd_even_employees(array_to_list(arr)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": [
+          1,
+          3,
+          5,
+          2,
+          4
+        ],
+        "label": "odd length"
+      },
+      {
+        "args": [
+          [
+            2,
+            1,
+            3,
+            5,
+            6,
+            4,
+            7
+          ]
+        ],
+        "expected": [
+          2,
+          3,
+          6,
+          7,
+          1,
+          5,
+          4
+        ],
+        "label": "long"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "two nodes"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          1,
+          3,
+          2,
+          4
+        ],
+        "label": "even length"
+      }
+    ],
+    "editorial": "**Idea — two interleaved chains**: Keep `odd` and `even` tails, plus `evenHead` to remember where the even chain begins. Each step jumps two ahead. At the end, `odd.next = evenHead`.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction oddEvenEmployees(head) {\n  if (!head || !head.next) return head;\n  let odd = head, even = head.next, evenHead = even;\n  while (even && even.next) {\n    odd.next = even.next;\n    odd = odd.next;\n    even.next = odd.next;\n    even = even.next;\n  }\n  odd.next = evenHead;\n  return head;\n}\n\nfunction solve(arr) {\n  return listToArray(oddEvenEmployees(arrayToList(arr)));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "wipro-add-two-bill-numbers",
+    "number": 1512,
+    "title": "Wipro Add Two Bill Numbers",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "wipro",
+      "infosys",
+      "tcs"
+    ],
+    "description": "Wipro stores giant bill amounts as linked lists where each node holds a digit, with the LEAST significant digit at the head (so 342 is stored as 2 → 4 → 3). Given two such lists, return the sum as a linked list in the same format.",
+    "examples": [
+      {
+        "input": "a = [2, 4, 3], b = [5, 6, 4]",
+        "output": "[7, 0, 8]",
+        "explanation": "342 + 465 = 807."
+      },
+      {
+        "input": "a = [0], b = [0]",
+        "output": "[0]"
+      }
+    ],
+    "constraints": [
+      "1 <= len(a), len(b) <= 100",
+      "0 <= digit <= 9",
+      "No leading zeros except the number 0 itself"
+    ],
+    "hints": [
+      "Iterate dono lists, ek digit-by-digit add carry ke saath.",
+      "Carry next iteration me forward kar, end me agar carry > 0 toh extra node.",
+      "Different lengths handle: jo khatam hua usko 0 treat kar."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction addTwoBills(a, b) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(addTwoBills(arrayToList(arrA), arrayToList(arrB)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef add_two_bills(a, b):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr_a, arr_b):\n    return list_to_array(add_two_bills(array_to_list(arr_a), array_to_list(arr_b)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arrA, arrB): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            4,
+            3
+          ],
+          [
+            5,
+            6,
+            4
+          ]
+        ],
+        "expected": [
+          7,
+          0,
+          8
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            0
+          ],
+          [
+            0
+          ]
+        ],
+        "expected": [
+          0
+        ],
+        "label": "zero plus zero"
+      },
+      {
+        "args": [
+          [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            9,
+            9,
+            9,
+            9
+          ]
+        ],
+        "expected": [
+          8,
+          9,
+          9,
+          9,
+          0,
+          0,
+          0,
+          1
+        ],
+        "label": "long carries"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          [
+            9,
+            9
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          1
+        ],
+        "label": "uneven carry"
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          [
+            5
+          ]
+        ],
+        "expected": [
+          0,
+          1
+        ],
+        "label": "single carry"
+      },
+      {
+        "args": [
+          [
+            1,
+            8
+          ],
+          [
+            0
+          ]
+        ],
+        "expected": [
+          1,
+          8
+        ],
+        "label": "add zero"
+      }
+    ],
+    "editorial": "**Idea — digit-by-digit with carry**: Walk both lists in lockstep. At each step, sum the two digits (treating missing nodes as 0) plus the carry. The new node value is `sum % 10`; carry becomes `floor(sum / 10)`. Continue until both are null AND carry is 0.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction addTwoBills(a, b) {\n  const dummy = new ListNode();\n  let tail = dummy, carry = 0;\n  while (a || b || carry) {\n    const x = a ? a.val : 0;\n    const y = b ? b.val : 0;\n    const s = x + y + carry;\n    tail.next = new ListNode(s % 10);\n    carry = Math.floor(s / 10);\n    tail = tail.next;\n    if (a) a = a.next;\n    if (b) b = b.next;\n  }\n  return dummy.next;\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(addTwoBills(arrayToList(arrA), arrayToList(arrB)));\n}\n```\n\n**Time**: O(max(m, n)). **Space**: O(max(m, n)) for the result."
+  },
+  {
+    "slug": "meesho-swap-pair-products",
+    "number": 1513,
+    "title": "Meesho Swap Adjacent Pair Products",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "meesho",
+      "flipkart",
+      "amazon"
+    ],
+    "description": "Meesho's merchandising team A/B-tests by swapping adjacent product pairs in a feed. Given the linked list, swap every two adjacent nodes (modify pointers, not values) and return the new list values. If a final lone node remains, leave it alone.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4]",
+        "output": "[2, 1, 4, 3]"
+      },
+      {
+        "input": "head = [1, 2, 3]",
+        "output": "[2, 1, 3]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 100",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "Dummy node se start kar.",
+      "Maintain prev — har step me ek pair fetch karke pointers shuffle kar.",
+      "Recursion bhi clean hai but iterative O(1) space."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction swapPairProducts(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(swapPairProducts(arrayToList(arr)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef swap_pair_products(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(swap_pair_products(array_to_list(arr)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          2,
+          1,
+          4,
+          3
+        ],
+        "label": "even"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          2,
+          1,
+          3
+        ],
+        "label": "odd leftover"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          2,
+          1
+        ],
+        "label": "single pair"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        ],
+        "expected": [
+          2,
+          1,
+          4,
+          3,
+          6,
+          5
+        ],
+        "label": "three pairs"
+      }
+    ],
+    "editorial": "**Idea — iterative pointer juggle with dummy**: For each pair `(a, b)` (where `prev.next = a, a.next = b`), perform: `prev.next = b; a.next = b.next; b.next = a;` then advance `prev = a`.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction swapPairProducts(head) {\n  const dummy = new ListNode(0, head);\n  let prev = dummy;\n  while (prev.next && prev.next.next) {\n    const a = prev.next;\n    const b = a.next;\n    prev.next = b;\n    a.next = b.next;\n    b.next = a;\n    prev = a;\n  }\n  return dummy.next;\n}\n\nfunction solve(arr) {\n  return listToArray(swapPairProducts(arrayToList(arr)));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "razorpay-partition-payment-threshold",
+    "number": 1514,
+    "title": "Razorpay Partition by Payment Threshold",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "razorpay",
+      "phonepe",
+      "stripe"
+    ],
+    "description": "Razorpay's risk engine partitions a transaction list by amount: every transaction with amount strictly less than threshold `x` should appear before every transaction with amount >= `x`. Within each side, preserve original relative order.",
+    "examples": [
+      {
+        "input": "head = [1, 4, 3, 2, 5, 2], x = 3",
+        "output": "[1, 2, 2, 4, 3, 5]"
+      },
+      {
+        "input": "head = [2, 1], x = 2",
+        "output": "[1, 2]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 200",
+      "-100 <= val <= 100",
+      "-200 <= x <= 200"
+    ],
+    "hints": [
+      "Build do separate lists: less and greaterEqual, dummy heads ke saath.",
+      "Iterate original, append nodes accordingly.",
+      "Last me less.tail.next = greaterEqual.head, greaterEqual.tail.next = null."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction partitionByThreshold(head, x) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, x) {\n  return listToArray(partitionByThreshold(arrayToList(arr), x));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef partition_by_threshold(head, x):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, x):\n    return list_to_array(partition_by_threshold(array_to_list(arr), x))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr, x): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            4,
+            3,
+            2,
+            5,
+            2
+          ],
+          3
+        ],
+        "expected": [
+          1,
+          2,
+          2,
+          4,
+          3,
+          5
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            2,
+            1
+          ],
+          2
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "two nodes"
+      },
+      {
+        "args": [
+          [],
+          5
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          0
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "all >= x"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          10
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "all < x"
+      },
+      {
+        "args": [
+          [
+            3,
+            1,
+            2
+          ],
+          3
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "first stays last"
+      }
+    ],
+    "editorial": "**Idea — two builders**: Maintain two dummy-headed builder chains, one for values `< x` and one for `>= x`. Walk the original list, append each node to the appropriate chain. Finally splice the two together.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction partitionByThreshold(head, x) {\n  const lessDum = new ListNode(), geDum = new ListNode();\n  let lessTail = lessDum, geTail = geDum;\n  let curr = head;\n  while (curr) {\n    if (curr.val < x) { lessTail.next = curr; lessTail = curr; }\n    else { geTail.next = curr; geTail = curr; }\n    curr = curr.next;\n  }\n  geTail.next = null;\n  lessTail.next = geDum.next;\n  return lessDum.next;\n}\n\nfunction solve(arr, x) {\n  return listToArray(partitionByThreshold(arrayToList(arr), x));\n}\n```\n\n**Time**: O(n). **Space**: O(1) (reuses nodes)."
+  },
+  {
+    "slug": "swiggy-reorder-delivery-feed",
+    "number": 1515,
+    "title": "Swiggy Reorder Delivery Feed",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "flipkart"
+    ],
+    "description": "Swiggy reorders a delivery feed list `L0 → L1 → ... → Ln-1` into `L0 → Ln-1 → L1 → Ln-2 → L2 → ...` to alternate between top and bottom of the list. Modify in place and return the resulting values.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4]",
+        "output": "[1, 4, 2, 3]"
+      },
+      {
+        "input": "head = [1, 2, 3, 4, 5]",
+        "output": "[1, 5, 2, 4, 3]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 5*10^4",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "Steps: find middle, reverse second half, then merge two halves alternately.",
+      "After reverse, first half ends right before middle.",
+      "Be careful: split list into two halves cleanly (first half tail.next = null)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reorderDeliveryFeed(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(reorderDeliveryFeed(arrayToList(arr)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reorder_delivery_feed(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(reorder_delivery_feed(array_to_list(arr)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          1,
+          4,
+          2,
+          3
+        ],
+        "label": "even"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": [
+          1,
+          5,
+          2,
+          4,
+          3
+        ],
+        "label": "odd"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "two nodes"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          3,
+          2
+        ],
+        "label": "three"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        ],
+        "expected": [
+          1,
+          6,
+          2,
+          5,
+          3,
+          4
+        ],
+        "label": "six"
+      }
+    ],
+    "editorial": "**Three-phase approach**:\n1. Find middle (slow/fast).\n2. Reverse the second half.\n3. Merge alternately.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reorderDeliveryFeed(head) {\n  if (!head || !head.next) return head;\n  // 1. middle\n  let slow = head, fast = head;\n  while (fast.next && fast.next.next) { slow = slow.next; fast = fast.next.next; }\n  // 2. reverse second half\n  let prev = null, curr = slow.next;\n  slow.next = null;\n  while (curr) { const n = curr.next; curr.next = prev; prev = curr; curr = n; }\n  // 3. merge\n  let first = head, second = prev;\n  while (second) {\n    const t1 = first.next, t2 = second.next;\n    first.next = second;\n    second.next = t1;\n    first = t1; second = t2;\n  }\n  return head;\n}\n\nfunction solve(arr) {\n  return listToArray(reorderDeliveryFeed(arrayToList(arr)));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "ola-cycle-entry-point",
+    "number": 1516,
+    "title": "Ola Cycle Entry Point",
+    "difficulty": "Medium",
+    "topic": "Linked List",
+    "companies": [
+      "ola",
+      "uber",
+      "google"
+    ],
+    "description": "Ola's hop chain has a configuration bug that causes a cycle in the route. Given the list (encoded as `arr` and `pos` like the cycle-detection problem), return the VALUE of the node where the cycle begins, or `null` if there is no cycle.",
+    "examples": [
+      {
+        "input": "[[3, 2, 0, -4], 1]",
+        "output": "2",
+        "explanation": "Cycle starts at index 1 (value 2)."
+      },
+      {
+        "input": "[[1, 2], -1]",
+        "output": "null"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 10^4",
+      "-10^9 <= val <= 10^9"
+    ],
+    "hints": [
+      "Phase 1: tortoise+hare to find a meeting point inside the cycle.",
+      "Phase 2: reset slow to head; advance both 1 step — they meet at entry.",
+      "Math: distance from head to entry = distance from meeting to entry (mod cycle)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction cycleEntryPoint(head) {\n  // tu yahan apna solution likh — return the val of cycle entry node, or null\n}\n\nfunction solve(arr, pos) {\n  return cycleEntryPoint(arrayToListWithCycle(arr, pos));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list_with_cycle(arr, pos):\n    if not arr: return None\n    nodes = [ListNode(v) for v in arr]\n    for i in range(len(nodes) - 1):\n        nodes[i].next = nodes[i + 1]\n    if 0 <= pos < len(nodes):\n        nodes[-1].next = nodes[pos]\n    return nodes[0]\n\ndef cycle_entry_point(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, pos):\n    return cycle_entry_point(array_to_list_with_cycle(arr, pos))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr, pos): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            2,
+            0,
+            -4
+          ],
+          1
+        ],
+        "expected": 2,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          -1
+        ],
+        "expected": null,
+        "label": "no cycle"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          0
+        ],
+        "expected": 1,
+        "label": "cycle to head"
+      },
+      {
+        "args": [
+          [],
+          -1
+        ],
+        "expected": null,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          0
+        ],
+        "expected": 1,
+        "label": "self loop"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2
+        ],
+        "expected": 3,
+        "label": "long with cycle"
+      }
+    ],
+    "editorial": "**Floyd's cycle finding — second phase**:\nAfter slow/fast meet inside the cycle, math shows the distance from the head to the cycle entry equals the distance from the meeting point to the cycle entry (modulo cycle length). So move one pointer back to head and step both 1 at a time; they meet at the entry.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction cycleEntryPoint(head) {\n  let slow = head, fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n    if (slow === fast) {\n      let p = head;\n      while (p !== slow) { p = p.next; slow = slow.next; }\n      return p.val;\n    }\n  }\n  return null;\n}\n\nfunction solve(arr, pos) {\n  return cycleEntryPoint(arrayToListWithCycle(arr, pos));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "phonepe-merge-k-payment-streams",
+    "number": 1517,
+    "title": "PhonePe Merge K Payment Streams",
+    "difficulty": "Hard",
+    "topic": "Linked List",
+    "companies": [
+      "phonepe",
+      "google",
+      "amazon"
+    ],
+    "description": "PhonePe receives `k` ascending sorted payment streams (each a linked list of timestamps as integers). Merge them into one ascending sorted list. Input is encoded as an array of arrays.",
+    "examples": [
+      {
+        "input": "lists = [[1,4,5],[1,3,4],[2,6]]",
+        "output": "[1, 1, 2, 3, 4, 4, 5, 6]"
+      },
+      {
+        "input": "lists = []",
+        "output": "[]"
+      }
+    ],
+    "constraints": [
+      "0 <= k <= 10^4",
+      "0 <= total nodes <= 10^4",
+      "Each list sorted ascending",
+      "-10^4 <= val <= 10^4"
+    ],
+    "hints": [
+      "Pairwise merge: O(N log k).",
+      "Or: min-heap of k heads, pop smallest, push its next.",
+      "Single dummy + tail builder for the result."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction mergeKPaymentStreams(lists) {\n  // lists is an array of ListNode heads — return single merged head\n}\n\nfunction solve(arrOfArrs) {\n  const heads = arrOfArrs.map(arrayToList);\n  return listToArray(mergeKPaymentStreams(heads));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef merge_k_payment_streams(lists):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr_of_arrs):\n    heads = [array_to_list(a) for a in arr_of_arrs]\n    return list_to_array(merge_k_payment_streams(heads))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arrOfArrs): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              4
+            ],
+            [
+              2,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          2,
+          3,
+          4,
+          4,
+          5,
+          6
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty input"
+      },
+      {
+        "args": [
+          [
+            []
+          ]
+        ],
+        "expected": [],
+        "label": "one empty list"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "single list"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0
+            ],
+            [
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ],
+        "label": "k singletons"
+      },
+      {
+        "args": [
+          [
+            [
+              -3,
+              -1
+            ],
+            [
+              -2,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          -3,
+          -2,
+          -1,
+          0
+        ],
+        "label": "negatives"
+      }
+    ],
+    "editorial": "**Idea — pairwise merge (divide & conquer)**: Merge lists in pairs (1+2, 3+4, ...), halving the count each round. This gives O(N log k) time vs the naive O(Nk) of merging into one accumulator.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction mergeTwo(a, b) {\n  const dummy = new ListNode();\n  let t = dummy;\n  while (a && b) {\n    if (a.val <= b.val) { t.next = a; a = a.next; }\n    else { t.next = b; b = b.next; }\n    t = t.next;\n  }\n  t.next = a || b;\n  return dummy.next;\n}\n\nfunction mergeKPaymentStreams(lists) {\n  if (!lists || lists.length === 0) return null;\n  while (lists.length > 1) {\n    const merged = [];\n    for (let i = 0; i < lists.length; i += 2) {\n      const a = lists[i];\n      const b = i + 1 < lists.length ? lists[i + 1] : null;\n      merged.push(mergeTwo(a, b));\n    }\n    lists = merged;\n  }\n  return lists[0];\n}\n\nfunction solve(arrOfArrs) {\n  const heads = arrOfArrs.map(arrayToList);\n  return listToArray(mergeKPaymentStreams(heads));\n}\n```\n\n**Time**: O(N log k) where N is total nodes. **Space**: O(1) extra (in-place splicing)."
+  },
+  {
+    "slug": "flipkart-reverse-in-groups",
+    "number": 1518,
+    "title": "Flipkart Reverse Catalog in Groups of K",
+    "difficulty": "Hard",
+    "topic": "Linked List",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Flipkart's catalog API supports a 'flip-by-page' feature: given the linked list and a page size `k`, reverse every consecutive group of `k` nodes in place. If the last group has fewer than `k` nodes, leave it as-is. Return the resulting values.",
+    "examples": [
+      {
+        "input": "head = [1, 2, 3, 4, 5], k = 2",
+        "output": "[2, 1, 4, 3, 5]"
+      },
+      {
+        "input": "head = [1, 2, 3, 4, 5], k = 3",
+        "output": "[3, 2, 1, 4, 5]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 5000",
+      "1 <= k <= n"
+    ],
+    "hints": [
+      "Walk in chunks of k. For each chunk, peek ahead to see if k nodes remain.",
+      "If yes, reverse those k nodes and re-link with prev tail.",
+      "If no, stop. Track group's previous tail to splice."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseCatalogInGroups(head, k) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, k) {\n  return listToArray(reverseCatalogInGroups(arrayToList(arr), k));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reverse_catalog_in_groups(head, k):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, k):\n    return list_to_array(reverse_catalog_in_groups(array_to_list(arr), k))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2
+        ],
+        "expected": [
+          2,
+          1,
+          4,
+          3,
+          5
+        ],
+        "label": "k=2 odd"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          3
+        ],
+        "expected": [
+          3,
+          2,
+          1,
+          4,
+          5
+        ],
+        "label": "k=3 leftover"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          3
+        ],
+        "expected": [
+          3,
+          2,
+          1,
+          6,
+          5,
+          4
+        ],
+        "label": "exact groups"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single k=1"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          1
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "label": "k=1 unchanged"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          4
+        ],
+        "expected": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "label": "k=n full reverse"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          5
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "k>n no change"
+      }
+    ],
+    "editorial": "**Idea — chunked reverse with splice**:\n1. Use a dummy node; track `groupPrev` (initially dummy).\n2. From `groupPrev`, count `k` nodes ahead; if fewer remain, stop.\n3. Reverse the `k` nodes between `groupPrev.next` and `kth`; re-attach.\n4. Move `groupPrev` to the new tail (which was the original head of the chunk).\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseCatalogInGroups(head, k) {\n  const dummy = new ListNode(0, head);\n  let groupPrev = dummy;\n  while (true) {\n    let kth = groupPrev;\n    for (let i = 0; i < k && kth; i++) kth = kth.next;\n    if (!kth) break;\n    const groupNext = kth.next;\n    // reverse from groupPrev.next .. kth\n    let prev = groupNext, curr = groupPrev.next;\n    while (curr !== groupNext) {\n      const n = curr.next;\n      curr.next = prev;\n      prev = curr;\n      curr = n;\n    }\n    const tmp = groupPrev.next;\n    groupPrev.next = kth;\n    groupPrev = tmp;\n  }\n  return dummy.next;\n}\n\nfunction solve(arr, k) {\n  return listToArray(reverseCatalogInGroups(arrayToList(arr), k));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "amazon-sort-fulfillment-list",
+    "number": 1520,
+    "title": "Amazon Sort Fulfillment List",
+    "difficulty": "Hard",
+    "topic": "Linked List",
+    "companies": [
+      "amazon",
+      "microsoft",
+      "google"
+    ],
+    "description": "Amazon's fulfillment center receives an unsorted linked list of order priorities and needs it sorted ascending. Achieve O(n log n) time and O(1) extra space (excluding recursion/iterative bookkeeping). Return the sorted list values.",
+    "examples": [
+      {
+        "input": "head = [4, 2, 1, 3]",
+        "output": "[1, 2, 3, 4]"
+      },
+      {
+        "input": "head = [-1, 5, 3, 4, 0]",
+        "output": "[-1, 0, 3, 4, 5]"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 5*10^4",
+      "-10^5 <= val <= 10^5"
+    ],
+    "hints": [
+      "Merge sort fits linked lists naturally — split, sort halves, merge.",
+      "Iterative bottom-up version achieves O(1) extra space (no recursion stack).",
+      "Helper: split head into two halves using slow/fast."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction sortFulfillmentList(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(sortFulfillmentList(arrayToList(arr)));\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef sort_fulfillment_list(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(sort_fulfillment_list(array_to_list(arr)))\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "solve",
+    "tests": [
+      {
+        "args": [
+          [
+            4,
+            2,
+            1,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            -1,
+            5,
+            3,
+            4,
+            0
+          ]
+        ],
+        "expected": [
+          -1,
+          0,
+          3,
+          4,
+          5
+        ],
+        "label": "negatives"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            2,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "two"
+      },
+      {
+        "args": [
+          [
+            3,
+            3,
+            3
+          ]
+        ],
+        "expected": [
+          3,
+          3,
+          3
+        ],
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "label": "reverse sorted"
+      }
+    ],
+    "editorial": "**Idea — top-down merge sort on linked list**:\n1. Find the middle (slow/fast), split into two halves.\n2. Recursively sort each half.\n3. Merge.\n\n```javascript\n// helpers\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction merge(a, b) {\n  const dummy = new ListNode();\n  let t = dummy;\n  while (a && b) {\n    if (a.val <= b.val) { t.next = a; a = a.next; }\n    else { t.next = b; b = b.next; }\n    t = t.next;\n  }\n  t.next = a || b;\n  return dummy.next;\n}\n\nfunction sortFulfillmentList(head) {\n  if (!head || !head.next) return head;\n  // split\n  let slow = head, fast = head, prev = null;\n  while (fast && fast.next) { prev = slow; slow = slow.next; fast = fast.next.next; }\n  prev.next = null;\n  const left = sortFulfillmentList(head);\n  const right = sortFulfillmentList(slow);\n  return merge(left, right);\n}\n\nfunction solve(arr) {\n  return listToArray(sortFulfillmentList(arrayToList(arr)));\n}\n```\n\n**Time**: O(n log n). **Space**: O(log n) recursion stack — true O(1) requires the iterative bottom-up variant."
+  }
+]

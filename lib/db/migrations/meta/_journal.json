@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1777615565112,
+      "tag": "0000_phase_1_2_init",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777623650224,
+      "tag": "0001_phase_3_problems",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777642994781,
+      "tag": "0002_phase_5_feedback",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777658112008,
+      "tag": "0003_phase_8_cohorts",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1777661492629,
+      "tag": "0004_phase_9_payments",
+      "breakpoints": true
+    }
+  ]
+}

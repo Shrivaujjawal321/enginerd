@@ -1,26 +1,246 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ---- Surface ramp (4 layers — base → popover) ----------------------- */
+  --color-bg-base: #0a0a0f;
+  --color-bg-elevated: #12121a;
+  --color-surface-0: #0a0a0f;
+  --color-surface-1: #101018;
+  --color-surface-2: #16161f;
+  --color-surface-3: #1d1d28;
+
+  /* ---- Lines (subtle → strong) ---------------------------------------- */
+  --color-line-subtle: rgba(255, 255, 255, 0.06);
+  --color-line: rgba(255, 255, 255, 0.10);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+
+  /* ---- Text ----------------------------------------------------------- */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  /* ---- Brand — single accent. Pink/orange retired except for status. -- */
+  --color-primary-from: #8b5cf6;
+  --color-primary-to: #06b6d4;
+  --color-accent-400: #a78bfa;
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* ---- Glass surfaces ------------------------------------------------- */
+  --color-glass-bg: rgba(255, 255, 255, 0.04);
+  --color-glass-bg-hover: rgba(255, 255, 255, 0.07);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-border-strong: rgba(255, 255, 255, 0.12);
+
+  /* ---- Font stacks --------------------------------------------------- */
+  /* Hind covers Devanagari for Hinglish content slipping into Hindi script. */
+  --font-sans: var(--font-geist-sans), var(--font-hind), ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  --font-deva: var(--font-hind), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Type scale (modular ratio ≈ 1.2) ----------------------------- */
+  --text-xs: 12px;
+  --text-sm: 13.5px;
+  --text-base: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 38px;
+  --text-display: 56px;
+
+  /* ---- Spacing — 4px grid ------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* ---- Radii ----------------------------------------------------------*/
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* ---- Shadows — three only + a brand glow ------------------------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 0 1px rgba(139, 92, 246, 0.25),
+    0 12px 40px rgba(139, 92, 246, 0.18);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html,
+  body {
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+    background-size: 32px 32px;
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background-color: rgba(139, 92, 246, 0.4);
+    color: #fff;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-primary-from);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass {
+    background-color: var(--color-glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--color-glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-strong {
+    background-color: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--color-glass-border-strong);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .gradient-primary {
+    background-image: linear-gradient(
+      135deg,
+      var(--color-primary-from),
+      var(--color-primary-to)
+    );
+  }
+
+  .gradient-text-primary {
+    background-image: linear-gradient(
+      135deg,
+      var(--color-primary-from),
+      var(--color-primary-to)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .ring-glow-primary {
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.3),
+      0 8px 32px rgba(139, 92, 246, 0.25);
+  }
+
+  @keyframes orb-drift-1 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(40px, -30px) scale(1.05);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.95);
+    }
+  }
+
+  @keyframes orb-drift-2 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-50px, 40px) scale(1.08);
+    }
+  }
+
+  @keyframes orb-drift-3 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(30px, 50px) scale(0.92);
+    }
+  }
+
+  .animate-orb-1 {
+    animation: orb-drift-1 80s ease-in-out infinite;
+  }
+
+  .animate-orb-2 {
+    animation: orb-drift-2 95s ease-in-out infinite;
+  }
+
+  .animate-orb-3 {
+    animation: orb-drift-3 110s ease-in-out infinite;
+  }
+
+  .marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-orb-1,
+    .animate-orb-2,
+    .animate-orb-3,
+    .marquee {
+      animation: none !important;
+    }
+  }
+
+  /* Shiki — strip the theme's bg + size so our wrapper controls it. */
+  .shiki-host pre {
+    background: transparent !important;
+    margin: 0;
+    padding: 16px 18px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    font-family: var(--font-mono);
+    color: #e5e7eb;
+  }
+  .shiki-host code {
+    background: transparent !important;
+    font-family: inherit;
+  }
 }

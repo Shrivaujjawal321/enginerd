@@ -1,0 +1,822 @@
+[
+  {
+    "slug": "razorpay-duplicate-payment-id",
+    "number": 1001,
+    "title": "Razorpay Duplicate Payment ID",
+    "difficulty": "Easy",
+    "topic": "Arrays & Hashing",
+    "companies": ["razorpay", "paytm", "phonepe"],
+    "description": "Razorpay's reconciliation team gets a list of payment IDs (as integers) processed in a day. They want to flag if any payment ID appears more than once because that signals a duplicate charge bug. Given an array `ids`, return `true` if at least one ID repeats, otherwise `false`.",
+    "examples": [
+      {"input": "ids = [101, 202, 303, 101]", "output": "true", "explanation": "101 appears twice."},
+      {"input": "ids = [1, 2, 3, 4, 5]", "output": "false"}
+    ],
+    "constraints": ["1 <= ids.length <= 10^5", "0 <= ids[i] <= 10^9"],
+    "hints": [
+      "Set ka use kar — agar add karte waqt already present hai toh duplicate mil gaya.",
+      "Ek single pass me hi answer mil jayega.",
+      "Empty array nahi aayega per constraints, but single element ka case sochna."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function hasDuplicatePayment(ids) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def has_duplicate_payment(ids):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "hasDuplicatePayment",
+    "tests": [
+      {"args": [[101, 202, 303, 101]], "expected": true, "label": "basic duplicate"},
+      {"args": [[1, 2, 3, 4, 5]], "expected": false, "label": "all unique"},
+      {"args": [[7]], "expected": false, "label": "single element"},
+      {"args": [[5, 5]], "expected": true, "label": "two equal"},
+      {"args": [[1000000000, 999999999, 1000000000]], "expected": true, "label": "large values"},
+      {"args": [[0, 1, 2, 0]], "expected": true, "label": "zero duplicate"}
+    ],
+    "editorial": "**Brute force**: Compare every pair — O(n^2). Slow for 10^5 length.\n\n**Optimal — hash set**: Iterate the array. For each ID, check if it's already in a Set; if yes, return true. Otherwise add it. End of loop without a hit means all unique.\n\n```javascript\nfunction hasDuplicatePayment(ids) {\n  const seen = new Set();\n  for (const id of ids) {\n    if (seen.has(id)) return true;\n    seen.add(id);\n  }\n  return false;\n}\n```\n\n**Time**: O(n) — single pass with O(1) Set lookup.\n**Space**: O(n) — worst case, all unique IDs land in the Set.\n\nEk chhota Hinglish trick: agar tu sort karke adjacent compare karega toh O(n log n) lagega, but Set ka straight O(n) better hai."
+  },
+  {
+    "slug": "swiggy-order-pair-sum",
+    "number": 1002,
+    "title": "Swiggy Order Pair Hitting Target",
+    "difficulty": "Easy",
+    "topic": "Arrays & Hashing",
+    "companies": ["swiggy", "zomato", "uber"],
+    "description": "Swiggy is running a 'pair-and-save' promo: if any two orders in your cart sum exactly to the campaign target, you get a discount. Given `prices` (the cart) and `target` (the magic sum), return the indices of the two orders that match. Return them sorted ascending. Exactly one valid pair exists; you cannot pick the same index twice.",
+    "examples": [
+      {"input": "prices = [120, 350, 80, 200], target = 280", "output": "[2, 3]", "explanation": "80 + 200 = 280; their indices are 2 and 3."},
+      {"input": "prices = [50, 150], target = 200", "output": "[0, 1]"}
+    ],
+    "constraints": ["2 <= prices.length <= 10^4", "0 <= prices[i] <= 10^6", "0 <= target <= 2*10^6"],
+    "hints": [
+      "Har element ke liye complement chahiye = target - current.",
+      "Hash map me value→index store kar, ek pass me check kar.",
+      "Same index twice mat use kar — map me current daalne se PEHLE complement check kar."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function findOrderPair(prices, target) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def find_order_pair(prices, target):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "findOrderPair",
+    "tests": [
+      {"args": [[120, 350, 80, 200], 280], "expected": [2, 3], "label": "basic"},
+      {"args": [[50, 150], 200], "expected": [0, 1], "label": "two elements"},
+      {"args": [[3, 3, 4, 5], 6], "expected": [0, 1], "label": "duplicates"},
+      {"args": [[1, 2, 3, 4, 5], 9], "expected": [3, 4], "label": "end of array"},
+      {"args": [[0, 0, 5, 7], 0], "expected": [0, 1], "label": "zero target"}
+    ],
+    "editorial": "**Brute force**: Two nested loops, check every pair — O(n^2).\n\n**Optimal — hash map complement trick**: As we iterate, for each price `p` at index `i`, the partner we need is `target - p`. If we've already seen that partner, we have our pair. Otherwise, store `p → i` in the map.\n\n```javascript\nfunction findOrderPair(prices, target) {\n  const map = new Map();\n  for (let i = 0; i < prices.length; i++) {\n    const need = target - prices[i];\n    if (map.has(need)) {\n      const j = map.get(need);\n      return [j, i]; // j < i always, already sorted\n    }\n    map.set(prices[i], i);\n  }\n  return [];\n}\n```\n\n**Time**: O(n). **Space**: O(n). Indices come out sorted because `j` was inserted before `i`."
+  },
+  {
+    "slug": "flipkart-missing-sku",
+    "number": 1003,
+    "title": "Flipkart Missing SKU Number",
+    "difficulty": "Easy",
+    "topic": "Arrays & Hashing",
+    "companies": ["flipkart", "meesho", "amazon"],
+    "description": "Flipkart's warehouse expects SKU numbers from 0 to n in every shipment crate. Today's crate has only n SKUs (one is missing). Given the array `skus` of length n containing distinct integers from the range [0, n], return the missing SKU.",
+    "examples": [
+      {"input": "skus = [3, 0, 1]", "output": "2", "explanation": "Range is 0..3 with n=3, missing is 2."},
+      {"input": "skus = [0, 1]", "output": "2"}
+    ],
+    "constraints": ["1 <= skus.length <= 10^4", "0 <= skus[i] <= skus.length", "All values distinct"],
+    "hints": [
+      "Total sum of 0..n = n*(n+1)/2 — array sum se subtract kar de.",
+      "Ya hash set me daal aur 0..n iterate karke missing dhoondh.",
+      "n = length of array, range 0..n inclusive — total n+1 numbers but array has n only."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function findMissingSku(skus) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def find_missing_sku(skus):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "findMissingSku",
+    "tests": [
+      {"args": [[3, 0, 1]], "expected": 2, "label": "missing middle"},
+      {"args": [[0, 1]], "expected": 2, "label": "missing end"},
+      {"args": [[1]], "expected": 0, "label": "missing zero, single elem"},
+      {"args": [[0]], "expected": 1, "label": "missing one"},
+      {"args": [[9, 6, 4, 2, 3, 5, 7, 0, 1]], "expected": 8, "label": "long shuffled"},
+      {"args": [[1, 2]], "expected": 0, "label": "missing zero"}
+    ],
+    "editorial": "**Brute force**: Sort and check positions — O(n log n).\n\n**Optimal — sum formula (Gauss)**: Sum 0..n = n*(n+1)/2. Subtract the actual array sum; the difference is the missing number.\n\n```javascript\nfunction findMissingSku(skus) {\n  const n = skus.length;\n  const expected = (n * (n + 1)) / 2;\n  let actual = 0;\n  for (const s of skus) actual += s;\n  return expected - actual;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nXOR trick bhi kaam karta hai (XOR of 0..n with all elements), but sum is cleaner here. Watch overflow only at huge n — for n ≤ 10^4 we're safe."
+  },
+  {
+    "slug": "zomato-restaurant-anagram-groups",
+    "number": 1004,
+    "title": "Zomato Restaurant Name Anagrams",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["zomato", "swiggy", "google"],
+    "description": "Zomato's data team noticed many restaurant names are anagrams of each other (e.g., 'biryani' and 'aibinry'). Group them so the analytics dashboard can show clusters. Given `names` array of lowercase strings, return groups of anagrams. Each group should be sorted lexicographically internally, and the groups themselves should be sorted by their first element.",
+    "examples": [
+      {"input": "names = [\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]", "output": "[[\"ate\", \"eat\", \"tea\"], [\"bat\"], [\"nat\", \"tan\"]]", "explanation": "Three groups, sorted internally and by first element."},
+      {"input": "names = [\"abc\"]", "output": "[[\"abc\"]]"}
+    ],
+    "constraints": ["1 <= names.length <= 10^4", "1 <= names[i].length <= 100", "names[i] is lowercase English"],
+    "hints": [
+      "Anagrams ka sorted form same hota hai — use that as map key.",
+      "Map<string, string[]> bana, fir values nikaal le.",
+      "Output sort karna mat bhool — internal aur outer dono."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function groupRestaurantAnagrams(names) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def group_restaurant_anagrams(names):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "groupRestaurantAnagrams",
+    "tests": [
+      {"args": [["eat", "tea", "tan", "ate", "nat", "bat"]], "expected": [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]], "label": "classic"},
+      {"args": [["abc"]], "expected": [["abc"]], "label": "single"},
+      {"args": [[""]], "expected": [[""]], "label": "empty string"},
+      {"args": [["a", "a", "a"]], "expected": [["a", "a", "a"]], "label": "all duplicates"},
+      {"args": [["dog", "god", "cat"]], "expected": [["cat"], ["dog", "god"]], "label": "two groups"}
+    ],
+    "editorial": "**Idea — sorted-string key**: Two strings are anagrams iff their sorted character sequences match. Use the sorted string as a hash-map key, push originals into the bucket.\n\n```javascript\nfunction groupRestaurantAnagrams(names) {\n  const groups = new Map();\n  for (const name of names) {\n    const key = name.split('').sort().join('');\n    if (!groups.has(key)) groups.set(key, []);\n    groups.get(key).push(name);\n  }\n  const result = [];\n  for (const arr of groups.values()) {\n    arr.sort();\n    result.push(arr);\n  }\n  result.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);\n  return result;\n}\n```\n\n**Time**: O(n * k log k) where k = max name length. **Space**: O(n*k).\n\nAlternative key: 26-length char-count tuple — avoids the per-string sort, gives O(n*k)."
+  },
+  {
+    "slug": "paytm-frequency-mode",
+    "number": 1005,
+    "title": "Paytm Most Frequent Transaction Amount",
+    "difficulty": "Easy",
+    "topic": "Arrays & Hashing",
+    "companies": ["paytm", "phonepe", "razorpay"],
+    "description": "Paytm wants to know the single most common transaction amount in a list (the mode). Given `amounts`, return the value that appears most often. If there's a tie, return the smallest such value.",
+    "examples": [
+      {"input": "amounts = [10, 20, 10, 30, 20, 10]", "output": "10", "explanation": "10 appears 3 times."},
+      {"input": "amounts = [5, 5, 7, 7]", "output": "5", "explanation": "Tie between 5 and 7; pick the smaller."}
+    ],
+    "constraints": ["1 <= amounts.length <= 10^4", "0 <= amounts[i] <= 10^9"],
+    "hints": [
+      "Frequency count — Map ya plain object.",
+      "Iterate map: track best count + smallest value among ties.",
+      "Empty array nahi aayega; single element ka direct return sochna."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function mostFrequentAmount(amounts) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def most_frequent_amount(amounts):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "mostFrequentAmount",
+    "tests": [
+      {"args": [[10, 20, 10, 30, 20, 10]], "expected": 10, "label": "clear winner"},
+      {"args": [[5, 5, 7, 7]], "expected": 5, "label": "tie picks smaller"},
+      {"args": [[42]], "expected": 42, "label": "single element"},
+      {"args": [[1, 1, 1, 1]], "expected": 1, "label": "all same"},
+      {"args": [[3, 1, 3, 1, 2]], "expected": 1, "label": "tie middle"}
+    ],
+    "editorial": "**Approach — frequency map**: One pass to count, second pass over the map to find max count, breaking ties by smallest value.\n\n```javascript\nfunction mostFrequentAmount(amounts) {\n  const freq = new Map();\n  for (const a of amounts) freq.set(a, (freq.get(a) || 0) + 1);\n  let bestCount = -1;\n  let bestVal = Infinity;\n  for (const [val, cnt] of freq) {\n    if (cnt > bestCount || (cnt === bestCount && val < bestVal)) {\n      bestCount = cnt;\n      bestVal = val;\n    }\n  }\n  return bestVal;\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\nTie-break logic key hai — equal count par smaller value pick karna explicit likho, warna Map iteration order trust mat kar."
+  },
+  {
+    "slug": "phonepe-top-k-merchants",
+    "number": 1006,
+    "title": "PhonePe Top K Merchants",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["phonepe", "paytm", "google"],
+    "description": "PhonePe wants the top `k` merchants by transaction count. Given `merchants` (array of merchant ID integers, possibly repeating) and `k`, return the `k` IDs with the highest counts, sorted by count descending; if two merchants tie on count, the smaller ID comes first.",
+    "examples": [
+      {"input": "merchants = [1, 2, 2, 3, 3, 3], k = 2", "output": "[3, 2]", "explanation": "3 appears 3 times, 2 appears twice."},
+      {"input": "merchants = [5, 5, 4, 4, 3], k = 2", "output": "[4, 5]", "explanation": "Both tied at 2; smaller ID 4 first."}
+    ],
+    "constraints": ["1 <= merchants.length <= 10^5", "1 <= k <= number of distinct merchants", "0 <= merchants[i] <= 10^9"],
+    "hints": [
+      "Frequency count nikaal, fir entries ko sort kar count desc, id asc.",
+      "Slice top k.",
+      "k <= distinct count guaranteed hai per constraints."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function topKMerchants(merchants, k) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def top_k_merchants(merchants, k):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "topKMerchants",
+    "tests": [
+      {"args": [[1, 2, 2, 3, 3, 3], 2], "expected": [3, 2], "label": "basic"},
+      {"args": [[5, 5, 4, 4, 3], 2], "expected": [4, 5], "label": "tie by id"},
+      {"args": [[7], 1], "expected": [7], "label": "single"},
+      {"args": [[1, 2, 3, 4], 3], "expected": [1, 2, 3], "label": "all tied at 1"},
+      {"args": [[10, 10, 20, 20, 20, 30, 30, 30, 30], 2], "expected": [30, 20], "label": "clear ranks"}
+    ],
+    "editorial": "**Idea — count then sort**: Build a frequency map, dump entries to an array, sort by `(-count, id)`, take first k.\n\n```javascript\nfunction topKMerchants(merchants, k) {\n  const freq = new Map();\n  for (const m of merchants) freq.set(m, (freq.get(m) || 0) + 1);\n  const entries = [...freq.entries()];\n  entries.sort((a, b) => b[1] - a[1] || a[0] - b[0]);\n  return entries.slice(0, k).map(e => e[0]);\n}\n```\n\n**Time**: O(n + d log d) where d = distinct count. **Space**: O(d).\n\nFor very large n, a min-heap of size k is asymptotically better (O(n log k)), but here sort is plenty fast and clearer."
+  },
+  {
+    "slug": "amazon-warehouse-intersect",
+    "number": 1007,
+    "title": "Amazon Warehouse Common Inventory",
+    "difficulty": "Easy",
+    "topic": "Arrays & Hashing",
+    "companies": ["amazon", "flipkart", "meesho"],
+    "description": "Two Amazon warehouses share a fulfillment center. Given two arrays `wA` and `wB` of product IDs (with possible duplicates), return the unique IDs that appear in both warehouses, sorted ascending.",
+    "examples": [
+      {"input": "wA = [1, 2, 2, 3], wB = [2, 3, 4]", "output": "[2, 3]"},
+      {"input": "wA = [5, 6], wB = [7, 8]", "output": "[]"}
+    ],
+    "constraints": ["1 <= wA.length, wB.length <= 10^4", "0 <= wA[i], wB[i] <= 10^9"],
+    "hints": [
+      "Set ka use — wA ko set me daal, wB iterate karke common nikaal.",
+      "Result ko ek aur Set me daal duplicates avoid karne ke liye.",
+      "Last me sort ascending."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function commonInventory(wA, wB) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def common_inventory(w_a, w_b):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "commonInventory",
+    "tests": [
+      {"args": [[1, 2, 2, 3], [2, 3, 4]], "expected": [2, 3], "label": "basic"},
+      {"args": [[5, 6], [7, 8]], "expected": [], "label": "no overlap"},
+      {"args": [[1, 1, 1], [1]], "expected": [1], "label": "dedupe"},
+      {"args": [[3, 1, 2], [2, 1, 3]], "expected": [1, 2, 3], "label": "all common"},
+      {"args": [[100], [100]], "expected": [100], "label": "single match"}
+    ],
+    "editorial": "**Idea**: Convert one array to a Set, scan the other and collect matches into a result Set (auto-dedupe), then sort.\n\n```javascript\nfunction commonInventory(wA, wB) {\n  const setA = new Set(wA);\n  const result = new Set();\n  for (const x of wB) if (setA.has(x)) result.add(x);\n  return [...result].sort((a, b) => a - b);\n}\n```\n\n**Time**: O((n + m) + k log k) where k = result size. **Space**: O(n + k).\n\nNumeric sort comparator zaroori hai — default JS sort lex order use karta hai jo galat hoga numbers ke liye."
+  },
+  {
+    "slug": "razorpay-subarray-sum-target",
+    "number": 1008,
+    "title": "Razorpay Subarray Sum Equals Target",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["razorpay", "google", "microsoft"],
+    "description": "Razorpay's audit team scans contiguous chunks of daily settlement amounts (which can be negative on refunds) looking for any window whose total exactly equals a target. Given `settlements` and `target`, return how many contiguous subarrays sum to `target`.",
+    "examples": [
+      {"input": "settlements = [1, 1, 1], target = 2", "output": "2", "explanation": "[1,1] at index 0-1 and 1-2."},
+      {"input": "settlements = [1, 2, 3], target = 3", "output": "2", "explanation": "[3] and [1,2]."}
+    ],
+    "constraints": ["1 <= settlements.length <= 2*10^4", "-1000 <= settlements[i] <= 1000", "-10^7 <= target <= 10^7"],
+    "hints": [
+      "Prefix sum sochkar dekh — sum(i..j) = prefix[j] - prefix[i-1].",
+      "Map se count karo har prefix sum ko, fir (current - target) ka count add.",
+      "Initial map me {0: 1} daalna mat bhool — prefix that exactly equals target."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function countSubarraysWithSum(settlements, target) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def count_subarrays_with_sum(settlements, target):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "countSubarraysWithSum",
+    "tests": [
+      {"args": [[1, 1, 1], 2], "expected": 2, "label": "basic"},
+      {"args": [[1, 2, 3], 3], "expected": 2, "label": "two windows"},
+      {"args": [[1], 0], "expected": 0, "label": "no zero"},
+      {"args": [[0, 0, 0], 0], "expected": 6, "label": "all zeros"},
+      {"args": [[-1, -1, 1], 0], "expected": 1, "label": "negatives"},
+      {"args": [[3, 4, 7, 2, -3, 1, 4, 2], 7], "expected": 4, "label": "mixed"}
+    ],
+    "editorial": "**Brute force**: Enumerate all O(n^2) subarrays, sum each — O(n^3) naive or O(n^2) with running sum.\n\n**Optimal — prefix sum + hash map**: Let `pre` be running prefix. Number of subarrays ending at `i` with sum = target equals the count of earlier prefixes equal to `pre - target`.\n\n```javascript\nfunction countSubarraysWithSum(settlements, target) {\n  const map = new Map();\n  map.set(0, 1); // empty prefix\n  let pre = 0, count = 0;\n  for (const x of settlements) {\n    pre += x;\n    if (map.has(pre - target)) count += map.get(pre - target);\n    map.set(pre, (map.get(pre) || 0) + 1);\n  }\n  return count;\n}\n```\n\n**Time**: O(n). **Space**: O(n). Dry run: [0,0,0] target 0 → counts 1+2+3 = 6. ✓"
+  },
+  {
+    "slug": "swiggy-delivery-equilibrium",
+    "number": 1009,
+    "title": "Swiggy Delivery Equilibrium Index",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["swiggy", "zomato", "uber"],
+    "description": "Swiggy plots the per-hour delivery counts for the day as an array. They want the leftmost hour `i` such that the total deliveries strictly before `i` equals the total strictly after `i`. Return that index, or `-1` if no such index exists.",
+    "examples": [
+      {"input": "deliveries = [1, 7, 3, 6, 5, 6]", "output": "3", "explanation": "Left of 3 = 1+7+3=11, right = 5+6=11."},
+      {"input": "deliveries = [1, 2, 3]", "output": "-1"}
+    ],
+    "constraints": ["1 <= deliveries.length <= 10^4", "-1000 <= deliveries[i] <= 1000"],
+    "hints": [
+      "Total sum nikaal. Iterate karte waqt left running sum maintain kar.",
+      "At index i: right = total - left - arr[i]. If left === right, return i.",
+      "Single element: left=0, right=0 → index 0 is equilibrium."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function equilibriumIndex(deliveries) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def equilibrium_index(deliveries):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "equilibriumIndex",
+    "tests": [
+      {"args": [[1, 7, 3, 6, 5, 6]], "expected": 3, "label": "classic"},
+      {"args": [[1, 2, 3]], "expected": -1, "label": "no equilibrium"},
+      {"args": [[5]], "expected": 0, "label": "single"},
+      {"args": [[0, 0, 0]], "expected": 0, "label": "all zeros leftmost"},
+      {"args": [[-7, 1, 5, 2, -4, 3, 0]], "expected": 3, "label": "with negatives"},
+      {"args": [[1, -1, 0]], "expected": 2, "label": "trailing zero"}
+    ],
+    "editorial": "**Idea — running sum**: Compute total sum once. Walk left-to-right tracking `leftSum` (sum of elements before `i`). At each `i`, the right sum is `total - leftSum - arr[i]`. First index where `leftSum === rightSum` wins.\n\n```javascript\nfunction equilibriumIndex(deliveries) {\n  let total = 0;\n  for (const x of deliveries) total += x;\n  let left = 0;\n  for (let i = 0; i < deliveries.length; i++) {\n    const right = total - left - deliveries[i];\n    if (left === right) return i;\n    left += deliveries[i];\n  }\n  return -1;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nSingle element [5]: total=5, i=0, right = 5-0-5 = 0, left=0 → equal, return 0. ✓"
+  },
+  {
+    "slug": "flipkart-product-reorder-needed",
+    "number": 1010,
+    "title": "Flipkart Reorder Detection",
+    "difficulty": "Easy",
+    "topic": "Arrays & Hashing",
+    "companies": ["flipkart", "meesho", "amazon"],
+    "description": "Flipkart maintains a `currentStock` array (length n, distinct integers). They also have a `targetStock` array — the same set of values but possibly in a different order. Determine whether `currentStock` is a permutation of `targetStock` (i.e., contains exactly the same multiset of items). Return `true` or `false`.",
+    "examples": [
+      {"input": "currentStock = [3, 1, 2], targetStock = [1, 2, 3]", "output": "true"},
+      {"input": "currentStock = [1, 2], targetStock = [1, 2, 3]", "output": "false"}
+    ],
+    "constraints": ["0 <= currentStock.length, targetStock.length <= 10^4", "0 <= values <= 10^9"],
+    "hints": [
+      "Length compare karna pehla check.",
+      "Frequency map of one, decrement using other; agar koi negative ya missing → false.",
+      "Note: not stated distinct → handle duplicates correctly."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function isPermutation(currentStock, targetStock) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def is_permutation(current_stock, target_stock):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "isPermutation",
+    "tests": [
+      {"args": [[3, 1, 2], [1, 2, 3]], "expected": true, "label": "basic"},
+      {"args": [[1, 2], [1, 2, 3]], "expected": false, "label": "different lengths"},
+      {"args": [[], []], "expected": true, "label": "both empty"},
+      {"args": [[1, 1, 2], [1, 2, 2]], "expected": false, "label": "different multisets"},
+      {"args": [[5], [5]], "expected": true, "label": "single match"},
+      {"args": [[1, 2, 3], [1, 2, 4]], "expected": false, "label": "one differs"}
+    ],
+    "editorial": "**Approach — frequency map**: Lengths must match first. Then count `currentStock`, walk `targetStock` decrementing; any missing key or below-zero count means false.\n\n```javascript\nfunction isPermutation(currentStock, targetStock) {\n  if (currentStock.length !== targetStock.length) return false;\n  const freq = new Map();\n  for (const x of currentStock) freq.set(x, (freq.get(x) || 0) + 1);\n  for (const y of targetStock) {\n    if (!freq.has(y)) return false;\n    freq.set(y, freq.get(y) - 1);\n    if (freq.get(y) < 0) return false;\n  }\n  return true;\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\nSorting both arrays and comparing also works in O(n log n) — but the hash map version is faster and handles duplicates cleanly."
+  },
+  {
+    "slug": "cred-credit-card-streak",
+    "number": 1011,
+    "title": "CRED Longest Consecutive Reward Streak",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["cred", "razorpay", "google"],
+    "description": "CRED logs reward levels reached by users as integers. Find the length of the longest run of consecutive integer levels present in the unsorted log. The run can start anywhere; gaps break the streak.",
+    "examples": [
+      {"input": "levels = [100, 4, 200, 1, 3, 2]", "output": "4", "explanation": "Streak 1,2,3,4 → length 4."},
+      {"input": "levels = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]", "output": "9", "explanation": "0..8 → 9 numbers."}
+    ],
+    "constraints": ["0 <= levels.length <= 10^5", "-10^9 <= levels[i] <= 10^9"],
+    "hints": [
+      "Set me sab daal de.",
+      "Sirf streak ke 'starting point' se hi forward chal — agar n-1 set me hai, n start nahi hai.",
+      "Empty array ka case: return 0."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function longestConsecutiveStreak(levels) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def longest_consecutive_streak(levels):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "longestConsecutiveStreak",
+    "tests": [
+      {"args": [[100, 4, 200, 1, 3, 2]], "expected": 4, "label": "basic"},
+      {"args": [[0, 3, 7, 2, 5, 8, 4, 6, 0, 1]], "expected": 9, "label": "long with dupe"},
+      {"args": [[]], "expected": 0, "label": "empty"},
+      {"args": [[1]], "expected": 1, "label": "single"},
+      {"args": [[1, 1, 1]], "expected": 1, "label": "all same"},
+      {"args": [[-3, -2, -1, 5, 6]], "expected": 3, "label": "negatives"}
+    ],
+    "editorial": "**Brute force**: Sort then count adjacency — O(n log n).\n\n**Optimal — hash set + start detection**: Put everything in a Set. For each value `v`, only start counting if `v - 1` is NOT in the set (so `v` is the start of a streak). Then walk `v, v+1, v+2…` while present.\n\n```javascript\nfunction longestConsecutiveStreak(levels) {\n  const s = new Set(levels);\n  let best = 0;\n  for (const v of s) {\n    if (!s.has(v - 1)) {\n      let cur = v, len = 1;\n      while (s.has(cur + 1)) { cur++; len++; }\n      if (len > best) best = len;\n    }\n  }\n  return best;\n}\n```\n\n**Time**: O(n) amortized — each element is the inner-loop entry at most once. **Space**: O(n)."
+  },
+  {
+    "slug": "meesho-product-difference-pairs",
+    "number": 1012,
+    "title": "Meesho Product Price Difference Pairs",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["meesho", "flipkart", "amazon"],
+    "description": "Meesho is bundling product pairs whose price difference is exactly `d`. Given an array `prices` of distinct positive integers and a non-negative integer `d`, return the count of unique unordered pairs `(a, b)` with `a < b` and `b - a == d`.",
+    "examples": [
+      {"input": "prices = [1, 5, 3, 4, 2], d = 2", "output": "3", "explanation": "(1,3),(2,4),(3,5)."},
+      {"input": "prices = [1, 2, 3, 4, 5], d = 0", "output": "0", "explanation": "All distinct, d=0 means no pair."}
+    ],
+    "constraints": ["1 <= prices.length <= 10^4", "0 <= prices[i] <= 10^9", "0 <= d <= 10^9", "All prices distinct"],
+    "hints": [
+      "Set bana de prices ka.",
+      "Har price p ke liye check kar agar (p + d) bhi present hai.",
+      "d = 0 special: distinct array me koi pair nahi banta."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function countDiffPairs(prices, d) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def count_diff_pairs(prices, d):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "countDiffPairs",
+    "tests": [
+      {"args": [[1, 5, 3, 4, 2], 2], "expected": 3, "label": "basic"},
+      {"args": [[1, 2, 3, 4, 5], 0], "expected": 0, "label": "d zero distinct"},
+      {"args": [[1], 5], "expected": 0, "label": "single"},
+      {"args": [[8, 12, 16, 4, 0, 20], 4], "expected": 5, "label": "uniform"},
+      {"args": [[7, 10], 3], "expected": 1, "label": "two elements match"},
+      {"args": [[7, 10], 5], "expected": 0, "label": "two elements no match"}
+    ],
+    "editorial": "**Brute force**: Two nested loops, count |a-b|==d — O(n^2).\n\n**Optimal — set lookup**: Insert all into a Set. For each `p`, check whether `p + d` is also in the set; each match counts once because we always pair `p` with the larger `p + d` (no double-count).\n\n```javascript\nfunction countDiffPairs(prices, d) {\n  const s = new Set(prices);\n  if (d === 0) return 0; // distinct array, impossible\n  let count = 0;\n  for (const p of prices) {\n    if (s.has(p + d)) count++;\n  }\n  return count;\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\nGotcha: sirf `p + d` check karna — `p - d` bhi check karoge toh double-count ho jayega."
+  },
+  {
+    "slug": "atlassian-sparse-matrix-equal",
+    "number": 1013,
+    "title": "Atlassian Sparse Matrix Equality",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["atlassian", "google", "microsoft"],
+    "description": "Atlassian's collaboration tool stores giant sparse matrices (mostly zero). Two matrices are given as 2D arrays `A` and `B` of identical dimensions. Decide if they are equal by hashing only their non-zero cells (so the comparison stays cheap on sparse data). Return `true` if all non-zero cells match in position and value, else `false`.",
+    "examples": [
+      {"input": "A = [[0,0,3],[0,5,0]], B = [[0,0,3],[0,5,0]]", "output": "true"},
+      {"input": "A = [[1,0],[0,2]], B = [[1,0],[0,3]]", "output": "false"}
+    ],
+    "constraints": ["1 <= rows, cols <= 1000", "Matrices have identical dimensions", "-10^9 <= cell <= 10^9"],
+    "hints": [
+      "Map<string,number> bana 'r,c' → value for non-zero cells of A.",
+      "B iterate kar: agar cell non-zero hai toh A me bhi same value chahiye, aur Map se hata.",
+      "End me Map empty hona chahiye."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function sparseMatrixEqual(A, B) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def sparse_matrix_equal(A, B):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "sparseMatrixEqual",
+    "tests": [
+      {"args": [[[0,0,3],[0,5,0]], [[0,0,3],[0,5,0]]], "expected": true, "label": "equal"},
+      {"args": [[[1,0],[0,2]], [[1,0],[0,3]]], "expected": false, "label": "differ"},
+      {"args": [[[0,0],[0,0]], [[0,0],[0,0]]], "expected": true, "label": "all zero"},
+      {"args": [[[1,0]], [[0,1]]], "expected": false, "label": "position differs"},
+      {"args": [[[5]], [[5]]], "expected": true, "label": "single cell"},
+      {"args": [[[1,0],[0,2]], [[1,0],[0,2]]], "expected": true, "label": "small equal"}
+    ],
+    "editorial": "**Idea — hash only non-zero cells**: Build a map `\"r,c\" → value` for A's non-zero entries. Walk B; for each non-zero cell, the map must contain the same value (then remove it). At the end, any leftover key means A had a non-zero where B has zero.\n\n```javascript\nfunction sparseMatrixEqual(A, B) {\n  if (A.length !== B.length || A[0].length !== B[0].length) return false;\n  const map = new Map();\n  for (let r = 0; r < A.length; r++)\n    for (let c = 0; c < A[0].length; c++)\n      if (A[r][c] !== 0) map.set(r + ',' + c, A[r][c]);\n  for (let r = 0; r < B.length; r++)\n    for (let c = 0; c < B[0].length; c++) {\n      if (B[r][c] !== 0) {\n        const k = r + ',' + c;\n        if (map.get(k) !== B[r][c]) return false;\n        map.delete(k);\n      }\n    }\n  return map.size === 0;\n}\n```\n\n**Time**: O(rows * cols). **Space**: O(non-zero count)."
+  },
+  {
+    "slug": "postman-api-rolling-uniques",
+    "number": 1014,
+    "title": "Postman Rolling Unique API Calls",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["postman", "atlassian", "uber"],
+    "description": "Postman's analytics dashboard shows a stream of API endpoint IDs hit per second. For every window of size `k`, return the count of distinct endpoints in that window. Output is an array of length `n - k + 1`. If `k > n`, return `[]`.",
+    "examples": [
+      {"input": "stream = [1, 2, 1, 3, 4, 2, 3], k = 4", "output": "[3, 4, 4, 3]", "explanation": "Windows: [1,2,1,3]=3, [2,1,3,4]=4, [1,3,4,2]=4, [3,4,2,3]=3."},
+      {"input": "stream = [1, 2, 3], k = 5", "output": "[]"}
+    ],
+    "constraints": ["1 <= stream.length <= 10^5", "1 <= k <= 10^5", "0 <= stream[i] <= 10^9"],
+    "hints": [
+      "Sliding window + frequency map.",
+      "Add element entering, decrement (and possibly delete) element leaving.",
+      "Map size = distinct count at any moment."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function rollingUniqueCounts(stream, k) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def rolling_unique_counts(stream, k):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "rollingUniqueCounts",
+    "tests": [
+      {"args": [[1, 2, 1, 3, 4, 2, 3], 4], "expected": [3, 4, 4, 3], "label": "basic"},
+      {"args": [[1, 2, 3], 5], "expected": [], "label": "k too big"},
+      {"args": [[5, 5, 5], 1], "expected": [1, 1, 1], "label": "k=1"},
+      {"args": [[1, 1, 1, 1], 3], "expected": [1, 1], "label": "all same"},
+      {"args": [[1, 2, 3, 4], 4], "expected": [4], "label": "single window"},
+      {"args": [[1, 2, 1, 2, 1], 2], "expected": [2, 2, 2, 2], "label": "alternating"}
+    ],
+    "editorial": "**Idea — sliding window**: Maintain a Map of value→count for the current window. As the window slides right, increment the new element's count. When window exceeds size k, decrement (and delete if zero) the leaving element. After we hit size k, push `map.size` per step.\n\n```javascript\nfunction rollingUniqueCounts(stream, k) {\n  const n = stream.length;\n  if (k > n) return [];\n  const freq = new Map();\n  const out = [];\n  for (let i = 0; i < n; i++) {\n    freq.set(stream[i], (freq.get(stream[i]) || 0) + 1);\n    if (i >= k) {\n      const left = stream[i - k];\n      const c = freq.get(left) - 1;\n      if (c === 0) freq.delete(left);\n      else freq.set(left, c);\n    }\n    if (i >= k - 1) out.push(freq.size);\n  }\n  return out;\n}\n```\n\n**Time**: O(n). **Space**: O(k)."
+  },
+  {
+    "slug": "uber-fare-running-median-bucket",
+    "number": 1015,
+    "title": "Uber Fare Bucket Modes",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["uber", "swiggy", "zomato"],
+    "description": "Uber bucketizes fares into buckets of width `w` (e.g., w=100 → buckets 0-99, 100-199, …). Given a `fares` array and bucket width `w` (positive), return the bucket id (the floor-division integer) that contains the most fares. Tie-break: return the smallest bucket id.",
+    "examples": [
+      {"input": "fares = [50, 99, 100, 250, 270, 320], w = 100", "output": "0", "explanation": "Bucket 0: {50,99} count=2, bucket 1: {100} count=1, bucket 2: {250,270} count=2, bucket 3: {320} count=1. Tie at count 2 between buckets 0 and 2; return smaller, 0."},
+      {"input": "fares = [10, 20, 30], w = 50", "output": "0"}
+    ],
+    "constraints": ["1 <= fares.length <= 10^5", "0 <= fares[i] <= 10^9", "1 <= w <= 10^9"],
+    "hints": [
+      "Bucket id = Math.floor(fare / w).",
+      "Frequency map of bucket ids.",
+      "Tie break: smaller id."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function busiestFareBucket(fares, w) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def busiest_fare_bucket(fares, w):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "busiestFareBucket",
+    "tests": [
+      {"args": [[50, 99, 100, 250, 270, 320], 100], "expected": 0, "label": "tie picks smaller"},
+      {"args": [[10, 20, 30], 50], "expected": 0, "label": "all in zero"},
+      {"args": [[100, 200, 300], 100], "expected": 1, "label": "one each tie picks smallest"},
+      {"args": [[0, 0, 0], 5], "expected": 0, "label": "all zeros"},
+      {"args": [[150, 250, 350, 250], 100], "expected": 2, "label": "clear winner"},
+      {"args": [[7], 3], "expected": 2, "label": "single fare"}
+    ],
+    "editorial": "**Approach**: Frequency map keyed by `Math.floor(fare / w)`, then pick max count with smallest id on tie.\n\n```javascript\nfunction busiestFareBucket(fares, w) {\n  const freq = new Map();\n  for (const f of fares) {\n    const id = Math.floor(f / w);\n    freq.set(id, (freq.get(id) || 0) + 1);\n  }\n  let bestCount = -1;\n  let bestId = Infinity;\n  for (const [id, cnt] of freq) {\n    if (cnt > bestCount || (cnt === bestCount && id < bestId)) {\n      bestCount = cnt;\n      bestId = id;\n    }\n  }\n  return bestId;\n}\n```\n\n**Time**: O(n). **Space**: O(distinct buckets).\n\nDry run sample 1: floor divs → [0,0,1,2,2,3]. Counts {0:2,1:1,2:2,3:1}. Tie at 2 → pick 0. ✓"
+  },
+  {
+    "slug": "google-isomorphic-tags",
+    "number": 1016,
+    "title": "Isomorphic Product Tags",
+    "difficulty": "Easy",
+    "topic": "Arrays & Hashing",
+    "companies": ["google", "microsoft", "atlassian"],
+    "description": "A startup uses lowercase tag strings of equal length. Two tags are 'isomorphic' if you can rename characters in tag A (a consistent 1-to-1 mapping, no two source chars mapping to the same target) to obtain tag B. Given two strings `a` and `b`, return `true` if isomorphic, else `false`.",
+    "examples": [
+      {"input": "a = \"egg\", b = \"add\"", "output": "true", "explanation": "e→a, g→d."},
+      {"input": "a = \"foo\", b = \"bar\"", "output": "false", "explanation": "o would map to both a and r."}
+    ],
+    "constraints": ["1 <= a.length == b.length <= 10^4", "a, b lowercase letters"],
+    "hints": [
+      "Do maps maintain karne padenge — a→b aur b→a.",
+      "Conflict detect karna hoga.",
+      "Equal length precondition hai per constraints."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function areIsomorphic(a, b) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def are_isomorphic(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "areIsomorphic",
+    "tests": [
+      {"args": ["egg", "add"], "expected": true, "label": "basic"},
+      {"args": ["foo", "bar"], "expected": false, "label": "conflict"},
+      {"args": ["paper", "title"], "expected": true, "label": "classic"},
+      {"args": ["a", "a"], "expected": true, "label": "single same"},
+      {"args": ["ab", "aa"], "expected": false, "label": "two-to-one"},
+      {"args": ["abc", "xyz"], "expected": true, "label": "all different"}
+    ],
+    "editorial": "**Idea — bijection check**: Maintain forward map (`a[i] → b[i]`) and reverse map (`b[i] → a[i]`). On each index, both must be consistent.\n\n```javascript\nfunction areIsomorphic(a, b) {\n  if (a.length !== b.length) return false;\n  const fwd = new Map();\n  const bwd = new Map();\n  for (let i = 0; i < a.length; i++) {\n    const x = a[i], y = b[i];\n    if (fwd.has(x) && fwd.get(x) !== y) return false;\n    if (bwd.has(y) && bwd.get(y) !== x) return false;\n    fwd.set(x, y);\n    bwd.set(y, x);\n  }\n  return true;\n}\n```\n\n**Time**: O(n). **Space**: O(σ) where σ = alphabet size.\n\n'ab' vs 'aa': i=0 fwd a→a, bwd a→a OK. i=1: x=b,y=a. bwd already has a→a, but x=b ≠ a → false. ✓"
+  },
+  {
+    "slug": "phonepe-balance-zero-subarrays",
+    "number": 1017,
+    "title": "PhonePe Net-Zero Day Spans",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["phonepe", "paytm", "razorpay"],
+    "description": "PhonePe records daily net cash flow (positive = inflow, negative = outflow). Find the LENGTH of the longest contiguous span of days where the net total is exactly zero. If none exists, return 0.",
+    "examples": [
+      {"input": "flow = [1, -1, 3, 2, -2, -3, 5]", "output": "6", "explanation": "Indices 0..5 sum to 0; length 6."},
+      {"input": "flow = [1, 2, 3]", "output": "0"}
+    ],
+    "constraints": ["1 <= flow.length <= 10^5", "-1000 <= flow[i] <= 1000"],
+    "hints": [
+      "Prefix sum first occurrence index ka map rakh.",
+      "Same prefix sum repeat hua → bich ka subarray sum zero.",
+      "Initial: prefix 0 at index -1."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function longestZeroSumSpan(flow) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def longest_zero_sum_span(flow):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "longestZeroSumSpan",
+    "tests": [
+      {"args": [[1, -1, 3, 2, -2, -3, 5]], "expected": 6, "label": "long span"},
+      {"args": [[1, 2, 3]], "expected": 0, "label": "no zero"},
+      {"args": [[0]], "expected": 1, "label": "single zero"},
+      {"args": [[1, -1]], "expected": 2, "label": "exact pair"},
+      {"args": [[0, 0, 0]], "expected": 3, "label": "all zeros"},
+      {"args": [[5, -5, 5, -5, 5]], "expected": 4, "label": "alternating"}
+    ],
+    "editorial": "**Idea — prefix sum first-seen map**: Maintain running prefix `pre`. The span (i+1..j] sums to 0 iff `pre` repeats. Store the first index where each prefix appeared; on repeat, candidate length = `j - firstIdx`.\n\n```javascript\nfunction longestZeroSumSpan(flow) {\n  const first = new Map();\n  first.set(0, -1);\n  let pre = 0, best = 0;\n  for (let i = 0; i < flow.length; i++) {\n    pre += flow[i];\n    if (first.has(pre)) {\n      best = Math.max(best, i - first.get(pre));\n    } else {\n      first.set(pre, i);\n    }\n  }\n  return best;\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\nSample 1: pres = 1,0,3,5,3,0,5. `0` first seen at -1, hits at i=1 → len 2; i=5 → len 6. `5` first at 3, hits at 6 → len 3. Best = 6. ✓"
+  },
+  {
+    "slug": "razorpay-largest-subgrid-zero-sum",
+    "number": 1018,
+    "title": "Razorpay Largest Zero-Sum Submatrix",
+    "difficulty": "Hard",
+    "topic": "Arrays & Hashing",
+    "companies": ["razorpay", "google", "microsoft"],
+    "description": "Razorpay's risk team scans an `R x C` grid where each cell is a signed integer (positive credits, negative debits). Find the AREA (cells × cells = R*C cells inside) of the largest contiguous rectangular submatrix whose elements sum to zero. If no zero-sum submatrix exists, return 0.",
+    "examples": [
+      {"input": "grid = [[1,-1],[-1,1]]", "output": "4", "explanation": "Whole grid sums to 0, area 4."},
+      {"input": "grid = [[1,2],[3,4]]", "output": "0"}
+    ],
+    "constraints": ["1 <= R, C <= 50", "-1000 <= grid[r][c] <= 1000"],
+    "hints": [
+      "2D problem ko fix karke 1D banaya ja sakta hai — top row aur bottom row fix kar.",
+      "Column-wise compressed sum array banao, fir 1D longest-zero-subarray solve kar — but 'area' ke liye width track karna padega.",
+      "Best area = (bottom - top + 1) * (rightCol - leftCol + 1)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function largestZeroSumSubmatrixArea(grid) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def largest_zero_sum_submatrix_area(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "largestZeroSumSubmatrixArea",
+    "tests": [
+      {"args": [[[1,-1],[-1,1]]], "expected": 4, "label": "whole zero"},
+      {"args": [[[1,2],[3,4]]], "expected": 0, "label": "no zero"},
+      {"args": [[[0]]], "expected": 1, "label": "single zero"},
+      {"args": [[[5]]], "expected": 0, "label": "single non-zero"},
+      {"args": [[[1,-1,3],[2,-2,5]]], "expected": 4, "label": "2x2 zero submatrix"},
+      {"args": [[[0,0],[0,0]]], "expected": 4, "label": "all zeros"}
+    ],
+    "editorial": "**Idea — fix two rows, compress columns, run 1D longest-zero-sum**: For each pair (top, bottom), build a compressed array `colSum[c] = sum of grid[top..bottom][c]`. Then in this 1D array, find the longest contiguous span with sum 0 using prefix-sum + first-seen map. Multiply that span length by `(bottom - top + 1)` to get the area; track the max.\n\n```javascript\nfunction largestZeroSumSubmatrixArea(grid) {\n  const R = grid.length, C = grid[0].length;\n  let best = 0;\n  for (let top = 0; top < R; top++) {\n    const colSum = new Array(C).fill(0);\n    for (let bottom = top; bottom < R; bottom++) {\n      for (let c = 0; c < C; c++) colSum[c] += grid[bottom][c];\n      const first = new Map();\n      first.set(0, -1);\n      let pre = 0, maxWidth = 0;\n      for (let c = 0; c < C; c++) {\n        pre += colSum[c];\n        if (first.has(pre)) {\n          maxWidth = Math.max(maxWidth, c - first.get(pre));\n        } else {\n          first.set(pre, c);\n        }\n      }\n      if (maxWidth > 0) {\n        const area = maxWidth * (bottom - top + 1);\n        if (area > best) best = area;\n      }\n    }\n  }\n  return best;\n}\n```\n\n**Time**: O(R^2 * C). **Space**: O(C).\n\n[[0]]: top=bottom=0, colSum=[0], pre=0 at c=0 hits first=-1 → width 1, area 1. ✓"
+  },
+  {
+    "slug": "amazon-warehouse-checkin-anagram-windows",
+    "number": 1019,
+    "title": "Amazon Check-in Anagram Windows",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["amazon", "google", "microsoft"],
+    "description": "Amazon's barcode scanner streams a string `s` of lowercase letters and a pattern `p`. Return the count of substrings of `s` of length `|p|` that are anagrams of `p`.",
+    "examples": [
+      {"input": "s = \"cbaebabacd\", p = \"abc\"", "output": "2", "explanation": "Substrings 'cba' and 'bac'."},
+      {"input": "s = \"abab\", p = \"ab\"", "output": "3"}
+    ],
+    "constraints": ["1 <= s.length <= 3*10^4", "1 <= p.length <= 100", "lowercase letters only"],
+    "hints": [
+      "Sliding window of size |p| with frequency arrays of length 26.",
+      "Compare arrays — agar match toh +1.",
+      "Smart: track 'matches' counter to avoid full compare each step."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function countAnagramWindows(s, p) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def count_anagram_windows(s, p):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "countAnagramWindows",
+    "tests": [
+      {"args": ["cbaebabacd", "abc"], "expected": 2, "label": "classic"},
+      {"args": ["abab", "ab"], "expected": 3, "label": "overlapping"},
+      {"args": ["a", "a"], "expected": 1, "label": "single match"},
+      {"args": ["a", "b"], "expected": 0, "label": "no match"},
+      {"args": ["aaaaa", "aa"], "expected": 4, "label": "all same"},
+      {"args": ["ab", "abc"], "expected": 0, "label": "p longer than s"}
+    ],
+    "editorial": "**Idea — sliding window + char counts**: Pre-compute frequency of `p`. Slide a window of size `|p|` over `s` maintaining its frequency. After each shift, compare with target.\n\n```javascript\nfunction countAnagramWindows(s, p) {\n  if (p.length > s.length) return 0;\n  const need = new Array(26).fill(0);\n  const have = new Array(26).fill(0);\n  const A = 'a'.charCodeAt(0);\n  for (const c of p) need[c.charCodeAt(0) - A]++;\n  let count = 0;\n  for (let i = 0; i < s.length; i++) {\n    have[s.charCodeAt(i) - A]++;\n    if (i >= p.length) have[s.charCodeAt(i - p.length) - A]--;\n    if (i >= p.length - 1) {\n      let ok = true;\n      for (let k = 0; k < 26; k++) if (need[k] !== have[k]) { ok = false; break; }\n      if (ok) count++;\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(n * 26). **Space**: O(1)."
+  },
+  {
+    "slug": "swiggy-min-window-cover",
+    "number": 1020,
+    "title": "Swiggy Minimum Combo Window",
+    "difficulty": "Hard",
+    "topic": "Arrays & Hashing",
+    "companies": ["swiggy", "amazon", "google"],
+    "description": "Swiggy's combo offer requires the customer cart to contain ALL items from a target list (with multiplicity). Given `cart` (string of lowercase letters where each letter is an item) and `combo` (also a string), return the SHORTEST contiguous slice of `cart` that contains every item in `combo` (with multiplicity). If no such slice exists, return the empty string. Among ties, return the one with the smallest starting index.",
+    "examples": [
+      {"input": "cart = \"adobecodebanc\", combo = \"abc\"", "output": "\"banc\"", "explanation": "Length 4."},
+      {"input": "cart = \"a\", combo = \"a\"", "output": "\"a\""}
+    ],
+    "constraints": ["1 <= cart.length, combo.length <= 10^5", "lowercase letters"],
+    "hints": [
+      "Sliding window: expand right until 'have' covers 'need', then shrink from left.",
+      "Counters: need-map (combo freq), have-map running, plus 'matched' integer for required positions filled.",
+      "Track best (minLen, startIdx)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function minComboWindow(cart, combo) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def min_combo_window(cart, combo):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "minComboWindow",
+    "tests": [
+      {"args": ["adobecodebanc", "abc"], "expected": "banc", "label": "classic"},
+      {"args": ["a", "a"], "expected": "a", "label": "single"},
+      {"args": ["a", "aa"], "expected": "", "label": "impossible"},
+      {"args": ["ab", "b"], "expected": "b", "label": "tail single"},
+      {"args": ["aaflslflsldkalskaaa", "aaa"], "expected": "aaa", "label": "trailing aaa"},
+      {"args": ["abcabc", "abc"], "expected": "abc", "label": "first window wins"}
+    ],
+    "editorial": "**Idea — two-pointer sliding window**: Expand right pointer; once the window covers `combo` (we use a `formed` integer that ticks up when a character's `have` count reaches its `need`), shrink from left while still valid, tracking the smallest seen window's start and length.\n\n```javascript\nfunction minComboWindow(cart, combo) {\n  if (combo.length === 0 || cart.length < combo.length) return '';\n  const need = new Map();\n  for (const c of combo) need.set(c, (need.get(c) || 0) + 1);\n  const required = need.size;\n  const have = new Map();\n  let formed = 0, l = 0, bestLen = Infinity, bestStart = 0;\n  for (let r = 0; r < cart.length; r++) {\n    const ch = cart[r];\n    have.set(ch, (have.get(ch) || 0) + 1);\n    if (need.has(ch) && have.get(ch) === need.get(ch)) formed++;\n    while (formed === required) {\n      if (r - l + 1 < bestLen) { bestLen = r - l + 1; bestStart = l; }\n      const left = cart[l];\n      have.set(left, have.get(left) - 1);\n      if (need.has(left) && have.get(left) < need.get(left)) formed--;\n      l++;\n    }\n  }\n  return bestLen === Infinity ? '' : cart.substring(bestStart, bestStart + bestLen);\n}\n```\n\n**Time**: O(n). **Space**: O(σ).\n\nDry run 'abcabc' vs 'abc': first valid window at r=2 ('abc', len 3) — best. Shrinking can't keep validity. ✓"
+  },
+  {
+    "slug": "google-distinct-subsequences-count",
+    "number": 1021,
+    "title": "Distinct Pairs With Sum Below K",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["google", "microsoft", "atlassian"],
+    "description": "Given an integer array `nums` and integer `k`, count the number of UNORDERED pairs `(a, b)` with `a < b` (by value, distinct values) such that `a + b < k`. Each unordered pair of distinct values is counted at most once, regardless of how many copies appear in `nums`.",
+    "examples": [
+      {"input": "nums = [1, 2, 3, 4], k = 6", "output": "4", "explanation": "(1,2),(1,3),(1,4),(2,3) all <6. (2,4)=6 not <. (3,4)=7."},
+      {"input": "nums = [1, 1, 1], k = 5", "output": "0", "explanation": "Only one distinct value."}
+    ],
+    "constraints": ["1 <= nums.length <= 10^4", "-10^9 <= nums[i] <= 10^9", "-10^9 <= k <= 10^9"],
+    "hints": [
+      "Set me daal de duplicates remove karne ke liye, fir array banao aur sort kar.",
+      "Two-pointer ya har element ke liye binary search.",
+      "n distinct ho toh worst O(n log n)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function countDistinctPairsBelowK(nums, k) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def count_distinct_pairs_below_k(nums, k):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "countDistinctPairsBelowK",
+    "tests": [
+      {"args": [[1, 2, 3, 4], 6], "expected": 4, "label": "basic"},
+      {"args": [[1, 1, 1], 5], "expected": 0, "label": "all same"},
+      {"args": [[1, 2], 4], "expected": 1, "label": "two distinct"},
+      {"args": [[5, 5, 5, 5], 100], "expected": 0, "label": "no distinct pair"},
+      {"args": [[-2, -1, 0, 1], 0], "expected": 4, "label": "negatives"},
+      {"args": [[10], 100], "expected": 0, "label": "single"}
+    ],
+    "editorial": "**Idea — dedupe then two-pointer**: Convert to Set to keep distinct values, sort. Then use two pointers `l=0, r=n-1`: if `arr[l] + arr[r] < k`, every index between `l+1` and `r` paired with `l` also satisfies (sorted), so add `r - l` and move `l` forward. Otherwise, the right side is too big — move `r` left.\n\n```javascript\nfunction countDistinctPairsBelowK(nums, k) {\n  const arr = [...new Set(nums)].sort((a, b) => a - b);\n  let l = 0, r = arr.length - 1, count = 0;\n  while (l < r) {\n    if (arr[l] + arr[r] < k) { count += r - l; l++; }\n    else r--;\n  }\n  return count;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n).\n\nDry run [-2,-1,0,1], k=0: l=0,r=3 → -2+1=-1<0, count+=3, l=1. l=1,r=3 → -1+1=0, not <, r=2. l=1,r=2 → -1+0=-1<0, count+=1, l=2. Stop. Total 4 (covers all four (-2,-1),(-2,0),(-2,1),(-1,0))."
+  },
+  {
+    "slug": "microsoft-frequency-sort-stable",
+    "number": 1022,
+    "title": "Microsoft Stable Frequency Sort",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["microsoft", "google", "uber"],
+    "description": "Sort the array `nums` so that elements with HIGHER frequency come first. If two values have the same frequency, the SMALLER value comes first. Within a value-group, repetitions are output consecutively.",
+    "examples": [
+      {"input": "nums = [1, 1, 2, 2, 3]", "output": "[1, 1, 2, 2, 3]", "explanation": "1 and 2 tie at count 2; smaller (1) first."},
+      {"input": "nums = [4, 4, 4, 5, 5, 6]", "output": "[4, 4, 4, 5, 5, 6]"}
+    ],
+    "constraints": ["1 <= nums.length <= 10^4", "-10^9 <= nums[i] <= 10^9"],
+    "hints": [
+      "Frequency map bana.",
+      "Sort by (-count, value).",
+      "Re-emit each value count times in the sorted order."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function frequencySortStable(nums) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def frequency_sort_stable(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "frequencySortStable",
+    "tests": [
+      {"args": [[1, 1, 2, 2, 3]], "expected": [1, 1, 2, 2, 3], "label": "tie at 2"},
+      {"args": [[4, 4, 4, 5, 5, 6]], "expected": [4, 4, 4, 5, 5, 6], "label": "descending freq"},
+      {"args": [[7]], "expected": [7], "label": "single"},
+      {"args": [[3, 1, 2, 3, 1, 3]], "expected": [3, 3, 3, 1, 1, 2], "label": "mixed"},
+      {"args": [[5, 5, 4, 4, 3, 3]], "expected": [3, 3, 4, 4, 5, 5], "label": "all tied"},
+      {"args": [[-1, -1, 0, 0, 0]], "expected": [0, 0, 0, -1, -1], "label": "negatives"}
+    ],
+    "editorial": "**Approach — count, sort entries, expand**: Build frequency map. Sort the entries by `(−count, value)`. Walk sorted entries and append `value` repeated `count` times.\n\n```javascript\nfunction frequencySortStable(nums) {\n  const freq = new Map();\n  for (const n of nums) freq.set(n, (freq.get(n) || 0) + 1);\n  const entries = [...freq.entries()];\n  entries.sort((a, b) => b[1] - a[1] || a[0] - b[0]);\n  const out = [];\n  for (const [val, cnt] of entries) {\n    for (let i = 0; i < cnt; i++) out.push(val);\n  }\n  return out;\n}\n```\n\n**Time**: O(n + d log d). **Space**: O(n).\n\n[3,1,2,3,1,3] → freq {3:3,1:2,2:1}. Sorted: 3(c3), 1(c2), 2(c1). Output: [3,3,3,1,1,2]. ✓"
+  },
+  {
+    "slug": "razorpay-merge-intervals-by-id",
+    "number": 1023,
+    "title": "Razorpay Group Settlements by Account",
+    "difficulty": "Medium",
+    "topic": "Arrays & Hashing",
+    "companies": ["razorpay", "paytm", "phonepe"],
+    "description": "Razorpay receives an array of `[accountId, amount]` settlement records. Aggregate the total amount per account. Return an array of `[accountId, total]` sorted by accountId ascending.",
+    "examples": [
+      {"input": "records = [[1, 100], [2, 50], [1, 200], [3, 75], [2, 25]]", "output": "[[1, 300], [2, 75], [3, 75]]"},
+      {"input": "records = []", "output": "[]"}
+    ],
+    "constraints": ["0 <= records.length <= 10^5", "0 <= accountId <= 10^9", "-10^9 <= amount <= 10^9"],
+    "hints": [
+      "Map<accountId, totalAmount> bana.",
+      "Iterate records, accumulate.",
+      "End me entries → sort ascending by id."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function groupSettlements(records) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def group_settlements(records):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "groupSettlements",
+    "tests": [
+      {"args": [[[1, 100], [2, 50], [1, 200], [3, 75], [2, 25]]], "expected": [[1, 300], [2, 75], [3, 75]], "label": "basic"},
+      {"args": [[]], "expected": [], "label": "empty"},
+      {"args": [[[5, 10]]], "expected": [[5, 10]], "label": "single"},
+      {"args": [[[2, -50], [1, 100], [2, 50]]], "expected": [[1, 100], [2, 0]], "label": "with negatives"},
+      {"args": [[[7, 1], [7, 2], [7, 3]]], "expected": [[7, 6]], "label": "single account"}
+    ],
+    "editorial": "**Approach — map + sort**: Iterate records adding amount into map keyed by accountId. Then convert to array and sort.\n\n```javascript\nfunction groupSettlements(records) {\n  const totals = new Map();\n  for (const [id, amt] of records) totals.set(id, (totals.get(id) || 0) + amt);\n  return [...totals.entries()].map(([id, t]) => [id, t]).sort((a, b) => a[0] - b[0]);\n}\n```\n\n**Time**: O(n + d log d). **Space**: O(d).\n\nNumeric comparator zaroori — default JS sort lex order use karta hai jo number ids ke liye galat hota hai for ids like 10 vs 9."
+  },
+  {
+    "slug": "amazon-max-equal-zeros-ones",
+    "number": 1024,
+    "title": "Amazon Equal Approvals and Rejections Span",
+    "difficulty": "Hard",
+    "topic": "Arrays & Hashing",
+    "companies": ["amazon", "google", "microsoft"],
+    "description": "Amazon's review pipeline emits a binary log: `1` for approval, `0` for rejection. Find the LENGTH of the longest contiguous span containing an equal number of `0`s and `1`s.",
+    "examples": [
+      {"input": "log = [0, 1]", "output": "2"},
+      {"input": "log = [0, 1, 0]", "output": "2", "explanation": "First two indices."}
+    ],
+    "constraints": ["1 <= log.length <= 10^5", "log[i] in {0, 1}"],
+    "hints": [
+      "Treat 0 as -1, 1 as +1; problem reduces to longest zero-sum subarray.",
+      "Prefix sum + first-seen index map.",
+      "Initial: prefix 0 at index -1."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function longestEqualBinarySpan(log) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def longest_equal_binary_span(log):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "longestEqualBinarySpan",
+    "tests": [
+      {"args": [[0, 1]], "expected": 2, "label": "simple"},
+      {"args": [[0, 1, 0]], "expected": 2, "label": "trailing zero"},
+      {"args": [[1, 1, 1]], "expected": 0, "label": "all ones"},
+      {"args": [[0, 0, 1, 0, 0, 0, 1, 1]], "expected": 6, "label": "long mid"},
+      {"args": [[0]], "expected": 0, "label": "single"},
+      {"args": [[1, 0, 1, 0, 1, 0]], "expected": 6, "label": "alternating"}
+    ],
+    "editorial": "**Idea — convert and prefix**: Replace 0 with -1. Now equal-count means subarray sum = 0. Use first-seen prefix-sum map for max length.\n\n```javascript\nfunction longestEqualBinarySpan(log) {\n  const first = new Map();\n  first.set(0, -1);\n  let pre = 0, best = 0;\n  for (let i = 0; i < log.length; i++) {\n    pre += log[i] === 1 ? 1 : -1;\n    if (first.has(pre)) {\n      best = Math.max(best, i - first.get(pre));\n    } else {\n      first.set(pre, i);\n    }\n  }\n  return best;\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\n[0,0,1,0,0,0,1,1]: pres -1,-2,-1,-2,-3,-4,-3,-2. First {0:-1,-1:0,-2:1,-3:4,-4:5}. -1 at 2 → 2. -2 at 3 → 2. -3 at 6 → 2. -2 at 7 → 6. Best = 6. ✓"
+  },
+  {
+    "slug": "google-shortest-substring-k-distinct",
+    "number": 1025,
+    "title": "Google Shortest Substring With K Distinct",
+    "difficulty": "Hard",
+    "topic": "Arrays & Hashing",
+    "companies": ["google", "microsoft", "atlassian"],
+    "description": "Given a lowercase string `s` and integer `k`, return the LENGTH of the shortest substring of `s` that contains exactly `k` distinct characters. If no such substring exists, return 0. (k=0 trivially has a 0-length valid substring; return 0 in that case.)",
+    "examples": [
+      {"input": "s = \"abcabc\", k = 3", "output": "3", "explanation": "'abc' or 'bca' etc."},
+      {"input": "s = \"aaaa\", k = 2", "output": "0"}
+    ],
+    "constraints": ["0 <= s.length <= 10^5", "0 <= k <= 26"],
+    "hints": [
+      "k=0 → 0. k > distinct(s) → 0.",
+      "Sliding window with frequency map: expand, then shrink while distinct >= k tracking length.",
+      "Trick: shrink agressively when distinct === k or > k."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function shortestKDistinct(s, k) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def shortest_k_distinct(s, k):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "shortestKDistinct",
+    "tests": [
+      {"args": ["abcabc", 3], "expected": 3, "label": "exact"},
+      {"args": ["aaaa", 2], "expected": 0, "label": "impossible"},
+      {"args": ["", 0], "expected": 0, "label": "empty k zero"},
+      {"args": ["abc", 0], "expected": 0, "label": "k zero"},
+      {"args": ["abacccba", 3], "expected": 3, "label": "long"},
+      {"args": ["a", 1], "expected": 1, "label": "single"},
+      {"args": ["abcdef", 6], "expected": 6, "label": "whole string"}
+    ],
+    "editorial": "**Idea — two-pointer with target distinct**: For each right pointer, expand window. Once window contains at least k distinct, shrink left while it still has >= k distinct AND the leftmost char's count > 1 (we can drop a redundant copy without losing distinctness). When distinct === k, record `r - l + 1`.\n\n```javascript\nfunction shortestKDistinct(s, k) {\n  if (k === 0) return 0;\n  const freq = new Map();\n  let l = 0, best = Infinity;\n  for (let r = 0; r < s.length; r++) {\n    const ch = s[r];\n    freq.set(ch, (freq.get(ch) || 0) + 1);\n    // shrink redundant chars\n    while (freq.get(s[l]) > 1) {\n      freq.set(s[l], freq.get(s[l]) - 1);\n      l++;\n    }\n    if (freq.size === k) {\n      best = Math.min(best, r - l + 1);\n    } else if (freq.size > k) {\n      // pop leftmost distinct char until size === k\n      while (freq.size > k) {\n        const c = s[l];\n        freq.set(c, freq.get(c) - 1);\n        if (freq.get(c) === 0) freq.delete(c);\n        l++;\n      }\n      // shrink redundancy again after pop\n      while (l <= r && freq.get(s[l]) > 1) {\n        freq.set(s[l], freq.get(s[l]) - 1);\n        l++;\n      }\n      if (freq.size === k) best = Math.min(best, r - l + 1);\n    }\n  }\n  return best === Infinity ? 0 : best;\n}\n```\n\n**Time**: O(n). **Space**: O(σ).\n\n'abacccba' k=3: smallest window with exactly 3 distinct chars is 'cba' (length 3). ✓"
+  }
+]

@@ -1,0 +1,3548 @@
+[
+  {
+    "slug": "mumbai-local-min-fare-path",
+    "number": 2101,
+    "title": "Mumbai Local Minimum Fare Path",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "irctc",
+      "ola",
+      "uber"
+    ],
+    "description": "The Mumbai suburban network is modeled as `n` stations (0..n-1) connected by `edges` where each edge is `[u, v, fare]` (bidirectional, non-negative fare in rupees). Given a `src` and `dst` station, return the minimum total fare from `src` to `dst`. If `dst` is unreachable, return `-1`.",
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,5],[1,2,3],[0,2,10],[2,3,1]], src=0, dst=3",
+        "output": "9",
+        "explanation": "0->1->2->3 costs 5+3+1=9, cheaper than 0->2->3 (11)."
+      },
+      {
+        "input": "n=3, edges=[[0,1,4]], src=0, dst=2",
+        "output": "-1"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= fare <= 1000",
+      "0 <= src,dst < n"
+    ],
+    "hints": [
+      "Classic Dijkstra — non-negative weights pe sabse fast.",
+      "MinHeap inline likh — JS me built-in priority queue nahi hai.",
+      "Visited check heap pop ke baad lagana, push pe nahi (stale entries skip ho jaayein)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function mumbaiMinFare(n, edges, src, dst) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def mumbai_min_fare(n, edges, src, dst):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object mumbaiMinFare(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson mumbaiMinFare(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function mumbaiMinFare(n, edges, src, dst): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc mumbaiMinFare(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "mumbaiMinFare",
+    "tests": [
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              5
+            ],
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              2,
+              10
+            ],
+            [
+              2,
+              3,
+              1
+            ]
+          ],
+          0,
+          3
+        ],
+        "expected": 9,
+        "label": "basic dijkstra"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              4
+            ]
+          ],
+          0,
+          2
+        ],
+        "expected": -1,
+        "label": "unreachable"
+      },
+      {
+        "args": [
+          1,
+          [],
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "same node"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              2,
+              3,
+              2
+            ],
+            [
+              3,
+              4,
+              2
+            ],
+            [
+              0,
+              4,
+              100
+            ]
+          ],
+          0,
+          4
+        ],
+        "expected": 8,
+        "label": "longer cheaper"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              3,
+              5
+            ]
+          ],
+          0,
+          3
+        ],
+        "expected": 6,
+        "label": "with cycle"
+      }
+    ],
+    "editorial": "**Approach — Dijkstra**: Classic single-source shortest path with non-negative weights. Use a min-heap keyed on cumulative distance. Pop smallest, relax neighbors.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) {\n    this.h.push(x);\n    let i = this.h.length - 1;\n    while (i > 0) {\n      const p = (i - 1) >> 1;\n      if (this.h[p][0] <= this.h[i][0]) break;\n      [this.h[p], this.h[i]] = [this.h[i], this.h[p]];\n      i = p;\n    }\n  }\n  pop() {\n    const top = this.h[0];\n    const last = this.h.pop();\n    if (this.h.length) {\n      this.h[0] = last;\n      let i = 0, n = this.h.length;\n      while (true) {\n        const l = 2*i+1, r = 2*i+2;\n        let s = i;\n        if (l < n && this.h[l][0] < this.h[s][0]) s = l;\n        if (r < n && this.h[r][0] < this.h[s][0]) s = r;\n        if (s === i) break;\n        [this.h[s], this.h[i]] = [this.h[i], this.h[s]];\n        i = s;\n      }\n    }\n    return top;\n  }\n}\n\nfunction mumbaiMinFare(n, edges, src, dst) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v, w] of edges) {\n    adj[u].push([v, w]);\n    adj[v].push([u, w]);\n  }\n  const dist = new Array(n).fill(Infinity);\n  dist[src] = 0;\n  const heap = new MinHeap();\n  heap.push([0, src]);\n  while (heap.size()) {\n    const [d, u] = heap.pop();\n    if (d > dist[u]) continue;\n    if (u === dst) return d;\n    for (const [v, w] of adj[u]) {\n      const nd = d + w;\n      if (nd < dist[v]) {\n        dist[v] = nd;\n        heap.push([nd, v]);\n      }\n    }\n  }\n  return dist[dst] === Infinity ? -1 : dist[dst];\n}\n```\n\n**Time**: O((V+E) log V). **Space**: O(V+E)."
+  },
+  {
+    "slug": "razorpay-payment-routing-min-cost",
+    "number": 2102,
+    "title": "Razorpay Payment Routing Minimum Cost",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "razorpay",
+      "stripe",
+      "phonepe"
+    ],
+    "description": "Razorpay routes payments through `n` payment gateways (0..n-1). Directed edges `[u, v, cost]` mean a payment can flow from gateway u to v at the listed cost. Given source `src` and target `dst`, return the minimum total cost to route a payment, or `-1` if unreachable. Costs are non-negative.",
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,1],[0,2,5],[1,2,1],[2,3,1]], src=0, dst=3",
+        "output": "3",
+        "explanation": "0->1->2->3 = 3."
+      },
+      {
+        "input": "n=2, edges=[[1,0,2]], src=0, dst=1",
+        "output": "-1",
+        "explanation": "Edge is one-way 1->0."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= cost <= 1000"
+    ],
+    "hints": [
+      "Directed graph — sirf u->v wali entry add kar.",
+      "Dijkstra with min-heap.",
+      "src===dst → 0 immediately."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function razorpayRoute(n, edges, src, dst) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def razorpay_route(n, edges, src, dst):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object razorpayRoute(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson razorpayRoute(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function razorpayRoute(n, edges, src, dst): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc razorpayRoute(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "razorpayRoute",
+    "tests": [
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              2,
+              5
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ]
+          ],
+          0,
+          3
+        ],
+        "expected": 3,
+        "label": "shortest path"
+      },
+      {
+        "args": [
+          2,
+          [
+            [
+              1,
+              0,
+              2
+            ]
+          ],
+          0,
+          1
+        ],
+        "expected": -1,
+        "label": "wrong direction"
+      },
+      {
+        "args": [
+          1,
+          [],
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "same node"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              2,
+              0
+            ]
+          ],
+          0,
+          2
+        ],
+        "expected": 0,
+        "label": "zero cost path"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              2,
+              10
+            ],
+            [
+              2,
+              3,
+              1
+            ],
+            [
+              3,
+              4,
+              1
+            ],
+            [
+              0,
+              4,
+              100
+            ]
+          ],
+          0,
+          4
+        ],
+        "expected": 7,
+        "label": "multi-hop wins"
+      }
+    ],
+    "editorial": "**Approach — Dijkstra (directed)**: Same algorithm; just don't add the reverse edge.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i = this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p][0]<=this.h[i][0]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l][0]<this.h[s][0]) s=l; if (r<n&&this.h[r][0]<this.h[s][0]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction razorpayRoute(n, edges, src, dst) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v, w] of edges) adj[u].push([v, w]);\n  const dist = new Array(n).fill(Infinity);\n  dist[src] = 0;\n  const heap = new MinHeap();\n  heap.push([0, src]);\n  while (heap.size()) {\n    const [d, u] = heap.pop();\n    if (d > dist[u]) continue;\n    for (const [v, w] of adj[u]) {\n      const nd = d + w;\n      if (nd < dist[v]) { dist[v] = nd; heap.push([nd, v]); }\n    }\n  }\n  return dist[dst] === Infinity ? -1 : dist[dst];\n}\n```\n\n**Time**: O((V+E) log V). **Space**: O(V+E)."
+  },
+  {
+    "slug": "swiggy-delivery-traffic-shortest",
+    "number": 2103,
+    "title": "Swiggy Delivery Shortest With Traffic",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "dunzo"
+    ],
+    "description": "Swiggy's routing engine receives a network of `n` road junctions (0..n-1) with bidirectional `edges = [u, v, minutes]`. Some roads may have traffic delays modeled as positive minutes. Given `src` (rider) and `dst` (customer), return the minimum total minutes for the delivery. Return `-1` if unreachable.",
+    "examples": [
+      {
+        "input": "n=5, edges=[[0,1,2],[1,2,2],[0,3,1],[3,4,5],[4,2,1]], src=0, dst=2",
+        "output": "4"
+      },
+      {
+        "input": "n=2, edges=[], src=0, dst=1",
+        "output": "-1"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "1 <= minutes <= 1000"
+    ],
+    "hints": [
+      "Bidirectional edges → both directions me add.",
+      "Dijkstra hi best — non-negative weights.",
+      "src===dst → 0."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function swiggyDelivery(n, edges, src, dst) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def swiggy_delivery(n, edges, src, dst):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object swiggyDelivery(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson swiggyDelivery(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function swiggyDelivery(n, edges, src, dst): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc swiggyDelivery(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "swiggyDelivery",
+    "tests": [
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              0,
+              3,
+              1
+            ],
+            [
+              3,
+              4,
+              5
+            ],
+            [
+              4,
+              2,
+              1
+            ]
+          ],
+          0,
+          2
+        ],
+        "expected": 4,
+        "label": "two-hop wins"
+      },
+      {
+        "args": [
+          2,
+          [],
+          0,
+          1
+        ],
+        "expected": -1,
+        "label": "no edges"
+      },
+      {
+        "args": [
+          1,
+          [],
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              5
+            ],
+            [
+              1,
+              2,
+              5
+            ],
+            [
+              0,
+              2,
+              15
+            ],
+            [
+              2,
+              3,
+              5
+            ]
+          ],
+          0,
+          3
+        ],
+        "expected": 15,
+        "label": "linear"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              1
+            ]
+          ],
+          0,
+          2
+        ],
+        "expected": 1,
+        "label": "direct shortest"
+      }
+    ],
+    "editorial": "**Approach — Dijkstra (undirected)**: Build adjacency for both directions, run heap-based Dijkstra.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i=this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p][0]<=this.h[i][0]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l][0]<this.h[s][0]) s=l; if (r<n&&this.h[r][0]<this.h[s][0]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction swiggyDelivery(n, edges, src, dst) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v, w] of edges) { adj[u].push([v, w]); adj[v].push([u, w]); }\n  const dist = new Array(n).fill(Infinity);\n  dist[src] = 0;\n  const heap = new MinHeap();\n  heap.push([0, src]);\n  while (heap.size()) {\n    const [d, u] = heap.pop();\n    if (d > dist[u]) continue;\n    for (const [v, w] of adj[u]) {\n      const nd = d + w;\n      if (nd < dist[v]) { dist[v] = nd; heap.push([nd, v]); }\n    }\n  }\n  return dist[dst] === Infinity ? -1 : dist[dst];\n}\n```\n\n**Time**: O((V+E) log V)."
+  },
+  {
+    "slug": "indian-railways-cheapest-k-stops",
+    "number": 2104,
+    "title": "Indian Railways Cheapest Route With K Stops",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "irctc",
+      "makemytrip",
+      "ixigo"
+    ],
+    "description": "Indian Railways has `n` cities (0..n-1) connected by directed `flights = [u, v, price]`. From `src` to `dst`, find the cheapest fare using AT MOST `k` intermediate stops (so at most k+1 edges). Return `-1` if no such route exists.",
+    "examples": [
+      {
+        "input": "n=3, flights=[[0,1,100],[1,2,100],[0,2,500]], src=0, dst=2, k=1",
+        "output": "200",
+        "explanation": "0->1->2 with 1 stop costs 200."
+      },
+      {
+        "input": "n=3, flights=[[0,1,100],[1,2,100],[0,2,500]], src=0, dst=2, k=0",
+        "output": "500",
+        "explanation": "Only direct edge allowed."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= k < n",
+      "1 <= price <= 1000"
+    ],
+    "hints": [
+      "Bellman-Ford k+1 iterations — clean fit.",
+      "Har iteration me 'previous' distance array se relax kar — current me update karna race condition deta hai.",
+      "Initial dist[src]=0, rest Infinity."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function cheapestKStops(n, flights, src, dst, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def cheapest_k_stops(n, flights, src, dst, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object cheapestKStops(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson cheapestKStops(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function cheapestKStops(n, flights, src, dst, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc cheapestKStops(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "cheapestKStops",
+    "tests": [
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              100
+            ],
+            [
+              1,
+              2,
+              100
+            ],
+            [
+              0,
+              2,
+              500
+            ]
+          ],
+          0,
+          2,
+          1
+        ],
+        "expected": 200,
+        "label": "one stop"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              100
+            ],
+            [
+              1,
+              2,
+              100
+            ],
+            [
+              0,
+              2,
+              500
+            ]
+          ],
+          0,
+          2,
+          0
+        ],
+        "expected": 500,
+        "label": "direct only"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ]
+          ],
+          0,
+          3,
+          2
+        ],
+        "expected": 3,
+        "label": "exactly k allowed"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ]
+          ],
+          0,
+          3,
+          1
+        ],
+        "expected": -1,
+        "label": "needs more stops"
+      },
+      {
+        "args": [
+          1,
+          [],
+          0,
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "same node"
+      }
+    ],
+    "editorial": "**Approach — Bellman-Ford with k+1 iterations**: Each iteration extends the path by one edge. After `k+1` iterations, `dist[dst]` is the cheapest using at most k+1 edges (i.e., at most k stops).\n\nKey detail: take a snapshot of `dist` at the start of each iteration so a freshly-relaxed value isn't reused within the same pass.\n\n```javascript\nfunction cheapestKStops(n, flights, src, dst, k) {\n  let dist = new Array(n).fill(Infinity);\n  dist[src] = 0;\n  for (let i = 0; i <= k; i++) {\n    const prev = dist.slice();\n    for (const [u, v, w] of flights) {\n      if (prev[u] === Infinity) continue;\n      if (prev[u] + w < dist[v]) dist[v] = prev[u] + w;\n    }\n  }\n  return dist[dst] === Infinity ? -1 : dist[dst];\n}\n```\n\n**Time**: O(k * E). **Space**: O(n)."
+  },
+  {
+    "slug": "phonepe-network-delay-time",
+    "number": 2105,
+    "title": "PhonePe Network Delay Broadcast",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "phonepe",
+      "google",
+      "amazon"
+    ],
+    "description": "PhonePe broadcasts a config update from server `k` to all `n` servers (1..n) over directed links `times = [u, v, w]` (w = milliseconds). Return the minimum time it takes for ALL servers to receive the update. If some server is unreachable, return `-1`.",
+    "examples": [
+      {
+        "input": "times=[[2,1,1],[2,3,1],[3,4,1]], n=4, k=2",
+        "output": "2",
+        "explanation": "2->1 (1ms), 2->3->4 (2ms). Max = 2."
+      },
+      {
+        "input": "times=[[1,2,1]], n=2, k=2",
+        "output": "-1",
+        "explanation": "Server 1 never gets it."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "1 <= k <= n",
+      "1 <= w <= 100"
+    ],
+    "hints": [
+      "Dijkstra from k. Answer = max(dist[1..n]).",
+      "1-indexed nodes — internal me 0-index ya direct work karega.",
+      "Koi unreachable mila → -1."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function networkDelay(times, n, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def network_delay(times, n, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object networkDelay(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson networkDelay(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function networkDelay(times, n, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc networkDelay(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "networkDelay",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ],
+            [
+              3,
+              4,
+              1
+            ]
+          ],
+          4,
+          2
+        ],
+        "expected": 2,
+        "label": "broadcast"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              1
+            ]
+          ],
+          2,
+          2
+        ],
+        "expected": -1,
+        "label": "unreachable"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              1
+            ]
+          ],
+          2,
+          1
+        ],
+        "expected": 1,
+        "label": "two nodes"
+      },
+      {
+        "args": [
+          [],
+          1,
+          1
+        ],
+        "expected": 0,
+        "label": "single node no edges"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ],
+            [
+              1,
+              3,
+              15
+            ]
+          ],
+          3,
+          1
+        ],
+        "expected": 10,
+        "label": "indirect faster"
+      }
+    ],
+    "editorial": "**Approach — Dijkstra**: Run shortest-path from `k`. Answer is `max(dist)` if all reachable; else `-1`.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i=this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p][0]<=this.h[i][0]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l][0]<this.h[s][0]) s=l; if (r<n&&this.h[r][0]<this.h[s][0]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction networkDelay(times, n, k) {\n  const adj = Array.from({length: n+1}, () => []);\n  for (const [u, v, w] of times) adj[u].push([v, w]);\n  const dist = new Array(n+1).fill(Infinity);\n  dist[k] = 0;\n  const heap = new MinHeap();\n  heap.push([0, k]);\n  while (heap.size()) {\n    const [d, u] = heap.pop();\n    if (d > dist[u]) continue;\n    for (const [v, w] of adj[u]) {\n      const nd = d + w;\n      if (nd < dist[v]) { dist[v] = nd; heap.push([nd, v]); }\n    }\n  }\n  let maxD = 0;\n  for (let i = 1; i <= n; i++) {\n    if (dist[i] === Infinity) return -1;\n    if (dist[i] > maxD) maxD = dist[i];\n  }\n  return maxD;\n}\n```\n\n**Time**: O((V+E) log V)."
+  },
+  {
+    "slug": "infosys-detect-negative-cycle",
+    "number": 2106,
+    "title": "Infosys Detect Negative Cost Cycle",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "infosys",
+      "tcs",
+      "wipro"
+    ],
+    "description": "An Infosys arbitrage detector models currency conversions as a directed graph with `n` currencies (0..n-1) and edges `[u, v, w]` where w is a (possibly negative) cost. Return `true` if a negative-weight cycle is reachable from node `0`, otherwise `false`.",
+    "examples": [
+      {
+        "input": "n=3, edges=[[0,1,1],[1,2,-1],[2,0,-1]]",
+        "output": "true",
+        "explanation": "Cycle 0->1->2->0 sums to -1."
+      },
+      {
+        "input": "n=3, edges=[[0,1,1],[1,2,1]]",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "-1000 <= w <= 1000"
+    ],
+    "hints": [
+      "Bellman-Ford classic — n-1 iterations relax. Ek aur iteration me update hua → negative cycle.",
+      "Sirf reachable-from-0 cycle count karna — initial dist[0]=0 rest Infinity.",
+      "Infinity+w skip kar — JS me Infinity arithmetic safe but cleaner."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function hasNegativeCycle(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def has_negative_cycle(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object hasNegativeCycle(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson hasNegativeCycle(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function hasNegativeCycle(n, edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc hasNegativeCycle(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "hasNegativeCycle",
+    "tests": [
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              -1
+            ],
+            [
+              2,
+              0,
+              -1
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "negative cycle"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "no cycle"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ],
+            [
+              3,
+              1,
+              -5
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "reachable neg cycle"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": false,
+        "label": "single node"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              4
+            ],
+            [
+              1,
+              2,
+              -1
+            ],
+            [
+              2,
+              1,
+              -1
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "small cycle"
+      }
+    ],
+    "editorial": "**Approach — Bellman-Ford**: Initialize `dist[0]=0`, others Infinity. Relax all edges `n-1` times. Then try one more pass: if anything still relaxes AND is reachable, there's a negative cycle reachable from 0.\n\n```javascript\nfunction hasNegativeCycle(n, edges) {\n  const dist = new Array(n).fill(Infinity);\n  dist[0] = 0;\n  for (let i = 0; i < n - 1; i++) {\n    for (const [u, v, w] of edges) {\n      if (dist[u] !== Infinity && dist[u] + w < dist[v]) {\n        dist[v] = dist[u] + w;\n      }\n    }\n  }\n  for (const [u, v, w] of edges) {\n    if (dist[u] !== Infinity && dist[u] + w < dist[v]) return true;\n  }\n  return false;\n}\n```\n\n**Time**: O(V*E). **Space**: O(V)."
+  },
+  {
+    "slug": "tcs-floyd-all-pairs",
+    "number": 2107,
+    "title": "TCS All-Pairs Shortest Path Matrix",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "tcs",
+      "infosys",
+      "google"
+    ],
+    "description": "TCS infra team needs the shortest distance between every pair of `n` data centers. Given `n` and directed `edges = [u, v, w]` with non-negative weights, return an `n x n` matrix `dist` where `dist[i][j]` = shortest distance from i to j (use `-1` if unreachable; `dist[i][i] = 0`).",
+    "examples": [
+      {
+        "input": "n=3, edges=[[0,1,3],[1,2,1],[0,2,10]]",
+        "output": "[[0,3,4],[-1,0,1],[-1,-1,0]]"
+      },
+      {
+        "input": "n=2, edges=[]",
+        "output": "[[0,-1],[-1,0]]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= w <= 1000"
+    ],
+    "hints": [
+      "Floyd-Warshall — triple nested loop k,i,j.",
+      "Initialize dist[i][i]=0, dist[u][v]=w for edges, else Infinity.",
+      "End me Infinity ko -1 me convert kar."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function allPairsShortest(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def all_pairs_shortest(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object allPairsShortest(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson allPairsShortest(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function allPairsShortest(n, edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc allPairsShortest(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "allPairsShortest",
+    "tests": [
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              3
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              10
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            3,
+            4
+          ],
+          [
+            -1,
+            0,
+            1
+          ],
+          [
+            -1,
+            -1,
+            0
+          ]
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          2,
+          []
+        ],
+        "expected": [
+          [
+            0,
+            -1
+          ],
+          [
+            -1,
+            0
+          ]
+        ],
+        "label": "no edges"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": [
+          [
+            0
+          ]
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              2,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1,
+            3
+          ],
+          [
+            1,
+            0,
+            2
+          ],
+          [
+            -1,
+            -1,
+            0
+          ]
+        ],
+        "label": "asymmetric"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ],
+            [
+              0,
+              3,
+              10
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            -1,
+            0,
+            1,
+            2
+          ],
+          [
+            -1,
+            -1,
+            0,
+            1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            0
+          ]
+        ],
+        "label": "linear chain"
+      }
+    ],
+    "editorial": "**Approach — Floyd-Warshall**: For each intermediate `k`, for each pair `(i,j)`, try going `i -> k -> j`.\n\n```javascript\nfunction allPairsShortest(n, edges) {\n  const INF = Infinity;\n  const dist = Array.from({length: n}, () => new Array(n).fill(INF));\n  for (let i = 0; i < n; i++) dist[i][i] = 0;\n  for (const [u, v, w] of edges) {\n    if (w < dist[u][v]) dist[u][v] = w;\n  }\n  for (let k = 0; k < n; k++) {\n    for (let i = 0; i < n; i++) {\n      for (let j = 0; j < n; j++) {\n        if (dist[i][k] + dist[k][j] < dist[i][j]) {\n          dist[i][j] = dist[i][k] + dist[k][j];\n        }\n      }\n    }\n  }\n  const result = [];\n  for (let i = 0; i < n; i++) {\n    const row = [];\n    for (let j = 0; j < n; j++) row.push(dist[i][j] === INF ? -1 : dist[i][j]);\n    result.push(row);\n  }\n  return result;\n}\n```\n\n**Time**: O(n^3). **Space**: O(n^2)."
+  },
+  {
+    "slug": "flipkart-fulfillment-mst-prim",
+    "number": 2108,
+    "title": "Flipkart Fulfillment Network MST (Prim)",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "meesho"
+    ],
+    "description": "Flipkart wants to lay fiber connecting `n` warehouses (0..n-1) with minimum total cable cost. Given undirected `edges = [u, v, cost]`, return the total cost of the minimum spanning tree. If the graph is disconnected, return `-1`.",
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,1],[1,2,2],[2,3,3],[0,3,10]]",
+        "output": "6"
+      },
+      {
+        "input": "n=3, edges=[[0,1,5]]",
+        "output": "-1"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= cost <= 1000"
+    ],
+    "hints": [
+      "Prim's: heap se min-edge nikaal jo MST tree extend kare.",
+      "Visited array maintain — visited node ki edges skip kar.",
+      "n nodes connect → n-1 edges in MST. Kam mile → disconnected."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function mstPrim(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def mst_prim(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object mstPrim(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson mstPrim(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function mstPrim(n, edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc mstPrim(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "mstPrim",
+    "tests": [
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              2,
+              3,
+              3
+            ],
+            [
+              0,
+              3,
+              10
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "basic mst"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "disconnected"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": 0,
+        "label": "single node"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              0,
+              3,
+              1
+            ],
+            [
+              1,
+              2,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "star better"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "triangle"
+      }
+    ],
+    "editorial": "**Approach — Prim's**: Start at node 0, repeatedly pull the cheapest edge that goes to an unvisited node, add its cost.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i=this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p][0]<=this.h[i][0]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l][0]<this.h[s][0]) s=l; if (r<n&&this.h[r][0]<this.h[s][0]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction mstPrim(n, edges) {\n  if (n === 1) return 0;\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v, w] of edges) { adj[u].push([v, w]); adj[v].push([u, w]); }\n  const visited = new Array(n).fill(false);\n  const heap = new MinHeap();\n  heap.push([0, 0]);\n  let total = 0, count = 0;\n  while (heap.size() && count < n) {\n    const [w, u] = heap.pop();\n    if (visited[u]) continue;\n    visited[u] = true;\n    total += w;\n    count++;\n    for (const [v, vw] of adj[u]) if (!visited[v]) heap.push([vw, v]);\n  }\n  return count === n ? total : -1;\n}\n```\n\n**Time**: O(E log E)."
+  },
+  {
+    "slug": "ola-fleet-mst-kruskal",
+    "number": 2109,
+    "title": "Ola Fleet MST (Kruskal Union-Find)",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "ola",
+      "uber",
+      "rapido"
+    ],
+    "description": "Ola plans charging cables between `n` parking hubs. Given undirected `edges = [u, v, cost]`, return the minimum spanning tree cost using Kruskal's algorithm. Return `-1` if the graph is disconnected.",
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,1],[1,2,4],[0,2,2],[2,3,3]]",
+        "output": "6"
+      },
+      {
+        "input": "n=3, edges=[[0,1,2]]",
+        "output": "-1"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= cost <= 1000"
+    ],
+    "hints": [
+      "Edges sort kar by cost ascending.",
+      "Union-Find inline class — union karte waqt cycle avoid.",
+      "n-1 edges accept hone chahiye, warna disconnected."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function mstKruskal(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def mst_kruskal(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object mstKruskal(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson mstKruskal(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function mstKruskal(n, edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc mstKruskal(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "mstKruskal",
+    "tests": [
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              4
+            ],
+            [
+              0,
+              2,
+              2
+            ],
+            [
+              2,
+              3,
+              3
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "basic"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "disconnected"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ],
+            [
+              3,
+              4,
+              1
+            ],
+            [
+              0,
+              4,
+              10
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "linear"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              2
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "skip cycle edge"
+      }
+    ],
+    "editorial": "**Approach — Kruskal + Union-Find**: Sort edges by weight; greedily add an edge iff its endpoints are in different components.\n\n```javascript\nclass UnionFind {\n  constructor(n) { this.p = Array.from({length: n}, (_, i) => i); this.r = new Array(n).fill(0); }\n  find(x) { while (this.p[x] !== x) { this.p[x] = this.p[this.p[x]]; x = this.p[x]; } return x; }\n  union(a, b) {\n    const ra = this.find(a), rb = this.find(b);\n    if (ra === rb) return false;\n    if (this.r[ra] < this.r[rb]) this.p[ra] = rb;\n    else if (this.r[ra] > this.r[rb]) this.p[rb] = ra;\n    else { this.p[rb] = ra; this.r[ra]++; }\n    return true;\n  }\n}\n\nfunction mstKruskal(n, edges) {\n  const sorted = edges.slice().sort((a, b) => a[2] - b[2]);\n  const uf = new UnionFind(n);\n  let total = 0, accepted = 0;\n  for (const [u, v, w] of sorted) {\n    if (uf.union(u, v)) { total += w; accepted++; }\n    if (accepted === n - 1) break;\n  }\n  return accepted === n - 1 ? total : (n === 1 ? 0 : -1);\n}\n```\n\n**Time**: O(E log E)."
+  },
+  {
+    "slug": "indigo-reconstruct-itinerary",
+    "number": 2110,
+    "title": "IndiGo Reconstruct Flight Itinerary",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "indigo",
+      "makemytrip",
+      "google"
+    ],
+    "description": "IndiGo gives you a list of one-way `tickets` represented as `[from, to]` airport codes (lowercase strings). Reconstruct the itinerary in order, starting from `\"blr\"` (Bengaluru). All tickets must be used exactly once. If multiple valid itineraries exist, return the lexicographically smallest one.",
+    "examples": [
+      {
+        "input": "tickets=[[\"blr\",\"del\"],[\"del\",\"bom\"],[\"bom\",\"blr\"],[\"blr\",\"bom\"]]",
+        "output": "[\"blr\",\"bom\",\"blr\",\"del\",\"bom\"]"
+      },
+      {
+        "input": "tickets=[[\"blr\",\"a\"],[\"a\",\"b\"],[\"b\",\"blr\"],[\"blr\",\"c\"]]",
+        "output": "[\"blr\",\"a\",\"b\",\"blr\",\"c\"]"
+      }
+    ],
+    "constraints": [
+      "1 <= tickets.length <= 30",
+      "Always at least one valid itinerary"
+    ],
+    "hints": [
+      "Hierholzer's Eulerian path algorithm.",
+      "Har source ki destination list ko sort kar; queue me se shift karke smallest pick.",
+      "DFS post-order push, end me reverse — mature trick."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function reconstructItinerary(tickets) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reconstruct_itinerary(tickets):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object reconstructItinerary(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson reconstructItinerary(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function reconstructItinerary(tickets): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc reconstructItinerary(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "reconstructItinerary",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              "blr",
+              "del"
+            ],
+            [
+              "del",
+              "bom"
+            ],
+            [
+              "bom",
+              "blr"
+            ],
+            [
+              "blr",
+              "bom"
+            ]
+          ]
+        ],
+        "expected": [
+          "blr",
+          "bom",
+          "blr",
+          "del",
+          "bom"
+        ],
+        "label": "basic eulerian"
+      },
+      {
+        "args": [
+          [
+            [
+              "blr",
+              "a"
+            ],
+            [
+              "a",
+              "b"
+            ],
+            [
+              "b",
+              "blr"
+            ],
+            [
+              "blr",
+              "c"
+            ]
+          ]
+        ],
+        "expected": [
+          "blr",
+          "a",
+          "b",
+          "blr",
+          "c"
+        ],
+        "label": "lex smallest"
+      },
+      {
+        "args": [
+          [
+            [
+              "blr",
+              "del"
+            ]
+          ]
+        ],
+        "expected": [
+          "blr",
+          "del"
+        ],
+        "label": "single ticket"
+      },
+      {
+        "args": [
+          [
+            [
+              "blr",
+              "x"
+            ],
+            [
+              "x",
+              "blr"
+            ],
+            [
+              "blr",
+              "y"
+            ]
+          ]
+        ],
+        "expected": [
+          "blr",
+          "x",
+          "blr",
+          "y"
+        ],
+        "label": "two paths"
+      },
+      {
+        "args": [
+          [
+            [
+              "blr",
+              "a"
+            ],
+            [
+              "a",
+              "blr"
+            ],
+            [
+              "blr",
+              "b"
+            ],
+            [
+              "b",
+              "blr"
+            ],
+            [
+              "blr",
+              "c"
+            ]
+          ]
+        ],
+        "expected": [
+          "blr",
+          "a",
+          "blr",
+          "b",
+          "blr",
+          "c"
+        ],
+        "label": "fan out"
+      }
+    ],
+    "editorial": "**Approach — Hierholzer's**: Build adjacency lists sorted lexicographically, then DFS. Push a node to the result only after exhausting all its outgoing edges (post-order). Reverse at the end.\n\n```javascript\nfunction reconstructItinerary(tickets) {\n  const adj = new Map();\n  for (const [u, v] of tickets) {\n    if (!adj.has(u)) adj.set(u, []);\n    adj.get(u).push(v);\n  }\n  for (const list of adj.values()) list.sort();\n  const path = [];\n  function dfs(u) {\n    const list = adj.get(u);\n    while (list && list.length) {\n      const next = list.shift();\n      dfs(next);\n    }\n    path.push(u);\n  }\n  dfs('blr');\n  return path.reverse();\n}\n```\n\n**Time**: O(E log E). **Space**: O(E)."
+  },
+  {
+    "slug": "amazon-alien-dictionary",
+    "number": 2111,
+    "title": "Amazon Alien Dictionary Order",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
+    "description": "Amazon discovered a sorted list of `words` from an alien language using lowercase English letters. Derive the alien alphabet order. Return any valid order as a string. If the input is inconsistent, return `\"\"`. If multiple orders are valid, return the lexicographically smallest one (use a min-heap when picking the next 0-indegree letter).",
+    "examples": [
+      {
+        "input": "words=[\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]",
+        "output": "\"wertf\""
+      },
+      {
+        "input": "words=[\"z\",\"x\",\"z\"]",
+        "output": "\"\"",
+        "explanation": "Cycle detected."
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 30",
+      "1 <= words[i].length <= 20"
+    ],
+    "hints": [
+      "Adjacent word pairs me first differing char ka edge nikaal — u before v.",
+      "Topological sort with min-heap → lex smallest.",
+      "Prefix invalid case: 'abc' before 'ab' → return \"\"."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function alienOrder(words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def alien_order(words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object alienOrder(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson alienOrder(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function alienOrder(words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc alienOrder(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "alienOrder",
+    "tests": [
+      {
+        "args": [
+          [
+            "wrt",
+            "wrf",
+            "er",
+            "ett",
+            "rftt"
+          ]
+        ],
+        "expected": "wertf",
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "z",
+            "x",
+            "z"
+          ]
+        ],
+        "expected": "",
+        "label": "cycle"
+      },
+      {
+        "args": [
+          [
+            "abc",
+            "ab"
+          ]
+        ],
+        "expected": "",
+        "label": "invalid prefix"
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b",
+            "c"
+          ]
+        ],
+        "expected": "abc",
+        "label": "simple chain"
+      },
+      {
+        "args": [
+          [
+            "zy",
+            "zx"
+          ]
+        ],
+        "expected": "yxz",
+        "label": "lex tiebreak"
+      }
+    ],
+    "editorial": "**Approach — Topological sort with min-heap**: Build edges from adjacent word pairs. Compute in-degree. Push all 0-indegree letters into a min-heap (lex smallest first). Pop, append, decrement neighbors.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i=this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p]<=this.h[i]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l]<this.h[s]) s=l; if (r<n&&this.h[r]<this.h[s]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction alienOrder(words) {\n  const letters = new Set();\n  for (const w of words) for (const c of w) letters.add(c);\n  const adj = new Map();\n  const indeg = new Map();\n  for (const c of letters) { adj.set(c, new Set()); indeg.set(c, 0); }\n  for (let i = 0; i + 1 < words.length; i++) {\n    const a = words[i], b = words[i+1];\n    let found = false;\n    const len = Math.min(a.length, b.length);\n    for (let j = 0; j < len; j++) {\n      if (a[j] !== b[j]) {\n        if (!adj.get(a[j]).has(b[j])) {\n          adj.get(a[j]).add(b[j]);\n          indeg.set(b[j], indeg.get(b[j]) + 1);\n        }\n        found = true;\n        break;\n      }\n    }\n    if (!found && a.length > b.length) return '';\n  }\n  const heap = new MinHeap();\n  for (const [c, d] of indeg) if (d === 0) heap.push(c);\n  let result = '';\n  while (heap.size()) {\n    const c = heap.pop();\n    result += c;\n    for (const nb of adj.get(c)) {\n      indeg.set(nb, indeg.get(nb) - 1);\n      if (indeg.get(nb) === 0) heap.push(nb);\n    }\n  }\n  return result.length === letters.size ? result : '';\n}\n```\n\n**Time**: O(C + E log V) where C = total chars."
+  },
+  {
+    "slug": "iit-articulation-points",
+    "number": 2112,
+    "title": "IIT Network Articulation Points",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "google",
+      "microsoft",
+      "atlassian"
+    ],
+    "description": "An IIT campus network has `n` switches (0..n-1) connected by undirected `edges`. Find all articulation points — switches whose removal would split the network into more components. Return the list of articulation points sorted ascending.",
+    "examples": [
+      {
+        "input": "n=5, edges=[[0,1],[1,2],[2,0],[1,3],[3,4]]",
+        "output": "[1,3]"
+      },
+      {
+        "input": "n=4, edges=[[0,1],[1,2],[2,3]]",
+        "output": "[1,2]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "No self-loops or duplicate edges"
+    ],
+    "hints": [
+      "Tarjan's lowlink — disc[u], low[u] maintain.",
+      "Root special: 2+ DFS children → articulation. Non-root: koi child v with low[v] >= disc[u] → articulation.",
+      "Parent ko skip karna while DFS recursion."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function articulationPoints(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def articulation_points(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object articulationPoints(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson articulationPoints(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function articulationPoints(n, edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc articulationPoints(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "articulationPoints",
+    "tests": [
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          3
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "chain"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "triangle no AP"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": [],
+        "label": "single"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "two components"
+      }
+    ],
+    "editorial": "**Approach — Tarjan's articulation points**: DFS tracking discovery time `disc` and `low` (lowest disc reachable from subtree, possibly via one back edge). For root, articulation iff it has >= 2 DFS-tree children. For non-root u, articulation iff some child v has `low[v] >= disc[u]`.\n\n```javascript\nfunction articulationPoints(n, edges) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of edges) { adj[u].push(v); adj[v].push(u); }\n  const disc = new Array(n).fill(-1);\n  const low = new Array(n).fill(-1);\n  const isAP = new Array(n).fill(false);\n  let timer = 0;\n  function dfs(u, parent) {\n    disc[u] = low[u] = timer++;\n    let children = 0;\n    for (const v of adj[u]) {\n      if (disc[v] === -1) {\n        children++;\n        dfs(v, u);\n        if (low[v] < low[u]) low[u] = low[v];\n        if (parent !== -1 && low[v] >= disc[u]) isAP[u] = true;\n      } else if (v !== parent) {\n        if (disc[v] < low[u]) low[u] = disc[v];\n      }\n    }\n    if (parent === -1 && children > 1) isAP[u] = true;\n  }\n  for (let i = 0; i < n; i++) if (disc[i] === -1) dfs(i, -1);\n  const result = [];\n  for (let i = 0; i < n; i++) if (isAP[i]) result.push(i);\n  return result;\n}\n```\n\n**Time**: O(V+E)."
+  },
+  {
+    "slug": "google-bridges-tarjan",
+    "number": 2113,
+    "title": "Google Critical Connections (Bridges)",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "google",
+      "facebook",
+      "amazon"
+    ],
+    "description": "Given an undirected network of `n` servers and `connections` (edges), return all critical connections — edges whose removal would disconnect the graph (bridges). Return each bridge with the smaller endpoint first, sorted lexicographically (by first endpoint, then second).",
+    "examples": [
+      {
+        "input": "n=4, connections=[[0,1],[1,2],[2,0],[1,3]]",
+        "output": "[[1,3]]"
+      },
+      {
+        "input": "n=2, connections=[[0,1]]",
+        "output": "[[0,1]]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "No duplicate edges"
+    ],
+    "hints": [
+      "Tarjan's bridge: edge (u,v) is bridge iff low[v] > disc[u] (DFS tree edge).",
+      "Multiple parent-edge handling: agar duplicate parent edge ho toh tricky — yahan no duplicates per constraints.",
+      "Output format: [min, max] each pair, fir overall sort."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function criticalConnections(n, connections) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def critical_connections(n, connections):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object criticalConnections(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson criticalConnections(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function criticalConnections(n, connections): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc criticalConnections(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "criticalConnections",
+    "tests": [
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            3
+          ]
+        ],
+        "label": "one bridge"
+      },
+      {
+        "args": [
+          2,
+          [
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ]
+        ],
+        "label": "single edge"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "cycle no bridge"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "label": "all bridges"
+      },
+      {
+        "args": [
+          6,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            3
+          ]
+        ],
+        "label": "two cycles linked"
+      }
+    ],
+    "editorial": "**Approach — Tarjan's bridge**: DFS with `disc` and `low`. An edge (u, v) where v is u's DFS-tree child is a bridge iff `low[v] > disc[u]`.\n\n```javascript\nfunction criticalConnections(n, connections) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of connections) { adj[u].push(v); adj[v].push(u); }\n  const disc = new Array(n).fill(-1);\n  const low = new Array(n).fill(-1);\n  const bridges = [];\n  let timer = 0;\n  function dfs(u, parent) {\n    disc[u] = low[u] = timer++;\n    for (const v of adj[u]) {\n      if (disc[v] === -1) {\n        dfs(v, u);\n        if (low[v] < low[u]) low[u] = low[v];\n        if (low[v] > disc[u]) bridges.push([Math.min(u, v), Math.max(u, v)]);\n      } else if (v !== parent) {\n        if (disc[v] < low[u]) low[u] = disc[v];\n      }\n    }\n  }\n  for (let i = 0; i < n; i++) if (disc[i] === -1) dfs(i, -1);\n  bridges.sort((a, b) => a[0] - b[0] || a[1] - b[1]);\n  return bridges;\n}\n```\n\n**Time**: O(V+E)."
+  },
+  {
+    "slug": "linkedin-strongly-connected",
+    "number": 2114,
+    "title": "LinkedIn Strongly Connected Components",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "linkedin",
+      "google",
+      "amazon"
+    ],
+    "description": "LinkedIn models a follow graph as a directed graph with `n` users and edges `[u, v]` meaning u follows v. Return the number of strongly connected components (SCCs) — maximal subsets where every pair is mutually reachable.",
+    "examples": [
+      {
+        "input": "n=5, edges=[[0,1],[1,2],[2,0],[1,3],[3,4]]",
+        "output": "3",
+        "explanation": "{0,1,2}, {3}, {4}."
+      },
+      {
+        "input": "n=3, edges=[[0,1],[1,2],[2,0]]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8"
+    ],
+    "hints": [
+      "Kosaraju 2-pass: original graph DFS to fill stack by finish time.",
+      "Reverse graph; pop stack, DFS each unvisited — each DFS = one SCC.",
+      "Tarjan's also works in 1 pass with stack + lowlink."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countSCCs(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_sccs(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countSCCs(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countSCCs(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countSCCs(n, edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countSCCs(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countSCCs",
+    "tests": [
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "one SCC + 2 singletons"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single SCC"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "DAG all singletons"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": 1,
+        "label": "single node"
+      },
+      {
+        "args": [
+          6,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              3
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two disjoint SCCs"
+      }
+    ],
+    "editorial": "**Approach — Kosaraju's two-pass DFS**:\n1. DFS on original graph, push nodes to a stack on finish.\n2. Build reverse graph. Pop from stack; if unvisited, DFS in reverse graph — that DFS visits exactly one SCC.\n\n```javascript\nfunction countSCCs(n, edges) {\n  const adj = Array.from({length: n}, () => []);\n  const radj = Array.from({length: n}, () => []);\n  for (const [u, v] of edges) { adj[u].push(v); radj[v].push(u); }\n  const visited = new Array(n).fill(false);\n  const stack = [];\n  function dfs1(u) {\n    visited[u] = true;\n    for (const v of adj[u]) if (!visited[v]) dfs1(v);\n    stack.push(u);\n  }\n  for (let i = 0; i < n; i++) if (!visited[i]) dfs1(i);\n  visited.fill(false);\n  function dfs2(u) {\n    visited[u] = true;\n    for (const v of radj[u]) if (!visited[v]) dfs2(v);\n  }\n  let count = 0;\n  while (stack.length) {\n    const u = stack.pop();\n    if (!visited[u]) { dfs2(u); count++; }\n  }\n  return count;\n}\n```\n\n**Time**: O(V+E)."
+  },
+  {
+    "slug": "uber-find-redundant-edge",
+    "number": 2115,
+    "title": "Uber Find Redundant Connection",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "uber",
+      "ola",
+      "rapido"
+    ],
+    "description": "Uber added an extra cable to its `n`-node network, turning a tree into a graph with exactly one cycle. Given the `edges` (1-indexed, in the order they were added), return the LAST edge that completes a cycle. Each edge is `[u, v]`. Exactly one such edge exists.",
+    "examples": [
+      {
+        "input": "edges=[[1,2],[1,3],[2,3]]",
+        "output": "[2,3]"
+      },
+      {
+        "input": "edges=[[1,2],[2,3],[3,4],[1,4],[1,5]]",
+        "output": "[1,4]"
+      }
+    ],
+    "constraints": [
+      "3 <= edges.length <= 30",
+      "Nodes are 1-indexed"
+    ],
+    "hints": [
+      "Union-Find: edges in order, jab union fail kare wahi answer.",
+      "n = edges.length (tree me n-1 edges, plus 1 extra).",
+      "1-indexed nodes — UF size n+1."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findRedundantEdge(edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_redundant_edge(edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findRedundantEdge(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findRedundantEdge(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findRedundantEdge(edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findRedundantEdge(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findRedundantEdge",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          2,
+          3
+        ],
+        "label": "simple triangle"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          4
+        ],
+        "label": "later cycle"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          3,
+          1
+        ],
+        "label": "minimal triangle"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          3
+        ],
+        "label": "third edge cycles"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          3,
+          4
+        ],
+        "label": "star + extra"
+      }
+    ],
+    "editorial": "**Approach — Union-Find**: Process edges left-to-right. The first edge whose `union` fails (both endpoints already in same component) is the redundant one. Because exactly one cycle exists, that edge is unique.\n\n```javascript\nclass UnionFind {\n  constructor(n) { this.p = Array.from({length: n}, (_, i) => i); }\n  find(x) { while (this.p[x] !== x) { this.p[x] = this.p[this.p[x]]; x = this.p[x]; } return x; }\n  union(a, b) { const ra = this.find(a), rb = this.find(b); if (ra === rb) return false; this.p[ra] = rb; return true; }\n}\n\nfunction findRedundantEdge(edges) {\n  const uf = new UnionFind(edges.length + 1);\n  for (const [u, v] of edges) {\n    if (!uf.union(u, v)) return [u, v];\n  }\n  return [];\n}\n```\n\n**Time**: O(E * alpha(N))."
+  },
+  {
+    "slug": "iisc-critical-edges-mst",
+    "number": 2116,
+    "title": "IISc Critical Edges In MST",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "google",
+      "amazon",
+      "atlassian"
+    ],
+    "description": "Given `n` nodes and an undirected weighted edge list `edges` (with original index), return the sorted list of edge indices that are CRITICAL — i.e., appear in every MST. An edge is critical iff removing it strictly increases the MST cost (or makes the graph disconnected).",
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,1],[1,2,1],[2,3,1],[0,3,1],[0,2,2]]",
+        "output": "[]",
+        "explanation": "Multiple MSTs of cost 3 exist."
+      },
+      {
+        "input": "n=3, edges=[[0,1,1],[1,2,2],[0,2,5]]",
+        "output": "[0,1]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 6",
+      "1 <= edges.length <= 15"
+    ],
+    "hints": [
+      "Reference MST cost compute kar (Kruskal).",
+      "Har edge ke liye usko skip karke MST recompute — agar cost greater ya disconnected → critical.",
+      "Edge index sorted ascending result."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function criticalMSTEdges(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def critical_mst_edges(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object criticalMSTEdges(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson criticalMSTEdges(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function criticalMSTEdges(n, edges): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc criticalMSTEdges(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "criticalMSTEdges",
+    "tests": [
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              3,
+              1
+            ],
+            [
+              0,
+              3,
+              1
+            ],
+            [
+              0,
+              2,
+              2
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "multiple mst"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              0,
+              2,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1
+        ],
+        "label": "unique mst"
+      },
+      {
+        "args": [
+          2,
+          [
+            [
+              0,
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          0
+        ],
+        "label": "only edge"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              2,
+              3,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ],
+        "label": "tree only"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              0,
+              2,
+              2
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "all equal triangle"
+      }
+    ],
+    "editorial": "**Approach**: Compute the MST cost normally. For each edge, recompute the MST cost while excluding that edge. If excluded cost > original, the edge is critical. (Disconnected counts as Infinity > original, also critical.) Use Kruskal with Union-Find for each pass.\n\n```javascript\nclass UnionFind {\n  constructor(n) { this.p = Array.from({length: n}, (_, i) => i); }\n  find(x) { while (this.p[x] !== x) { this.p[x] = this.p[this.p[x]]; x = this.p[x]; } return x; }\n  union(a, b) { const ra = this.find(a), rb = this.find(b); if (ra === rb) return false; this.p[ra] = rb; return true; }\n}\n\nfunction mstCost(n, edgeList, skipIdx) {\n  const sorted = edgeList.map((e, i) => [...e, i]).sort((a, b) => a[2] - b[2]);\n  const uf = new UnionFind(n);\n  let total = 0, accepted = 0;\n  for (const [u, v, w, idx] of sorted) {\n    if (idx === skipIdx) continue;\n    if (uf.union(u, v)) { total += w; accepted++; }\n  }\n  if (n > 0 && accepted < n - 1) return Infinity;\n  return total;\n}\n\nfunction criticalMSTEdges(n, edges) {\n  const baseline = mstCost(n, edges, -1);\n  const result = [];\n  for (let i = 0; i < edges.length; i++) {\n    const without = mstCost(n, edges, i);\n    if (without > baseline) result.push(i);\n  }\n  return result;\n}\n```\n\n**Time**: O(E^2 log E)."
+  },
+  {
+    "slug": "oyo-swim-rising-water",
+    "number": 2117,
+    "title": "OYO Swim In Rising Water Grid",
+    "difficulty": "Hard",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "oyo",
+      "google",
+      "amazon"
+    ],
+    "description": "An OYO flood-rescue grid is `n x n`, where `grid[i][j]` is the elevation. Water rises continuously; at time `t`, you can swim into any cell with elevation <= t. Starting at `(0,0)` at time 0, return the minimum time to reach `(n-1,n-1)`. You may move 4-directionally.",
+    "examples": [
+      {
+        "input": "grid=[[0,2],[1,3]]",
+        "output": "3"
+      },
+      {
+        "input": "grid=[[0,1,2,3],[15,14,13,4],[12,11,10,5],[9,8,7,6]]",
+        "output": "6"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 6",
+      "0 <= grid[i][j] < n*n"
+    ],
+    "hints": [
+      "Dijkstra variant: edge 'cost' = max(current time, neighbor elevation).",
+      "Min-heap pe pop kar smallest accumulated max.",
+      "Visited check — pop ke baad."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function swimInWater(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def swim_in_water(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object swimInWater(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson swimInWater(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function swimInWater(grid): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc swimInWater(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "swimInWater",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "tiny"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              15,
+              14,
+              13,
+              4
+            ],
+            [
+              12,
+              11,
+              10,
+              5
+            ],
+            [
+              9,
+              8,
+              7,
+              6
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "spiral"
+      },
+      {
+        "args": [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "single cell"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              2
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "start is highest"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              1,
+              3
+            ],
+            [
+              2,
+              5,
+              4
+            ],
+            [
+              8,
+              7,
+              6
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "3x3"
+      }
+    ],
+    "editorial": "**Approach — Dijkstra variant**: Treat each cell as a node. The 'time to reach' a cell along a path is the max elevation along it. So we run Dijkstra where the distance to a neighbor is `max(currentDist, neighborElevation)`.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i=this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p][0]<=this.h[i][0]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l][0]<this.h[s][0]) s=l; if (r<n&&this.h[r][0]<this.h[s][0]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction swimInWater(grid) {\n  const n = grid.length;\n  const dist = Array.from({length: n}, () => new Array(n).fill(Infinity));\n  dist[0][0] = grid[0][0];\n  const heap = new MinHeap();\n  heap.push([grid[0][0], 0, 0]);\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (heap.size()) {\n    const [d, r, c] = heap.pop();\n    if (d > dist[r][c]) continue;\n    if (r === n-1 && c === n-1) return d;\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr < 0 || nr >= n || nc < 0 || nc >= n) continue;\n      const nd = Math.max(d, grid[nr][nc]);\n      if (nd < dist[nr][nc]) { dist[nr][nc] = nd; heap.push([nd, nr, nc]); }\n    }\n  }\n  return -1;\n}\n```\n\n**Time**: O(n^2 log n)."
+  },
+  {
+    "slug": "paytm-max-probability-path",
+    "number": 2118,
+    "title": "Paytm Path With Maximum Success Probability",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "paytm",
+      "phonepe",
+      "google"
+    ],
+    "description": "Paytm's payment retry network has `n` nodes (0..n-1) and undirected `edges = [u, v]` with parallel `succProb` array — `succProb[i]` is the probability that an attempt over `edges[i]` succeeds. Return the maximum end-to-end success probability from `start` to `end`. If no path exists, return 0.0.",
+    "examples": [
+      {
+        "input": "n=3, edges=[[0,1],[1,2],[0,2]], succProb=[0.5,0.5,0.2], start=0, end=2",
+        "output": "0.25"
+      },
+      {
+        "input": "n=3, edges=[[0,1]], succProb=[0.5], start=0, end=2",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= succProb[i] <= 1"
+    ],
+    "hints": [
+      "Dijkstra-like but with MAX-heap on probability — multiplication of probs.",
+      "Visited-once: pop ke baad mark, future smaller probs skip.",
+      "start===end → 1.0."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function maxProbability(n, edges, succProb, start, end) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_probability(n, edges, succ_prob, start, end):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object maxProbability(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson maxProbability(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function maxProbability(n, edges, succProb, start, end): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc maxProbability(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "maxProbability",
+    "tests": [
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          [
+            0.5,
+            0.5,
+            0.2
+          ],
+          0,
+          2
+        ],
+        "expected": 0.25,
+        "label": "indirect wins"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ]
+          ],
+          [
+            0.5
+          ],
+          0,
+          2
+        ],
+        "expected": 0,
+        "label": "no path"
+      },
+      {
+        "args": [
+          1,
+          [],
+          [],
+          0,
+          0
+        ],
+        "expected": 1,
+        "label": "same node"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          [
+            1,
+            1
+          ],
+          0,
+          2
+        ],
+        "expected": 1,
+        "label": "perfect chain"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              0,
+              3
+            ]
+          ],
+          [
+            0.5,
+            0.5,
+            0.5,
+            0.1
+          ],
+          0,
+          3
+        ],
+        "expected": 0.125,
+        "label": "longer route wins"
+      }
+    ],
+    "editorial": "**Approach — modified Dijkstra**: Instead of summing min, multiply max. Use a max-heap on `prob`. Best-prob first pop wins.\n\n```javascript\nclass MaxHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i=this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p][0]>=this.h[i][0]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l][0]>this.h[s][0]) s=l; if (r<n&&this.h[r][0]>this.h[s][0]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction maxProbability(n, edges, succProb, start, end) {\n  if (start === end) return 1;\n  const adj = Array.from({length: n}, () => []);\n  for (let i = 0; i < edges.length; i++) {\n    const [u, v] = edges[i];\n    adj[u].push([v, succProb[i]]);\n    adj[v].push([u, succProb[i]]);\n  }\n  const best = new Array(n).fill(0);\n  best[start] = 1;\n  const heap = new MaxHeap();\n  heap.push([1, start]);\n  while (heap.size()) {\n    const [p, u] = heap.pop();\n    if (u === end) return p;\n    if (p < best[u]) continue;\n    for (const [v, w] of adj[u]) {\n      const np = p * w;\n      if (np > best[v]) { best[v] = np; heap.push([np, v]); }\n    }\n  }\n  return 0;\n}\n```\n\n**Time**: O((V+E) log V)."
+  },
+  {
+    "slug": "byjus-min-effort-path",
+    "number": 2119,
+    "title": "BYJUS Path With Minimum Effort",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "byjus",
+      "unacademy",
+      "google"
+    ],
+    "description": "BYJU's hiking simulator gives a `rows x cols` grid `heights`. Effort along a path = the maximum absolute difference between consecutive cells. Starting at `(0,0)`, return the minimum effort path to `(rows-1, cols-1)`. Move 4-directionally.",
+    "examples": [
+      {
+        "input": "heights=[[1,2,2],[3,8,2],[5,3,5]]",
+        "output": "2"
+      },
+      {
+        "input": "heights=[[1,2,3],[3,8,4],[5,3,5]]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "1 <= rows, cols <= 6",
+      "0 <= heights[i][j] <= 1000"
+    ],
+    "hints": [
+      "Dijkstra: edge weight = |height[a] - height[b]|; path weight = max along path.",
+      "Min-heap on running max.",
+      "Single cell: 0 effort."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minEffortPath(heights) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_effort_path(heights):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minEffortPath(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minEffortPath(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minEffortPath(heights): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minEffortPath(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minEffortPath",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              3,
+              8,
+              2
+            ],
+            [
+              5,
+              3,
+              5
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              3,
+              8,
+              4
+            ],
+            [
+              5,
+              3,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "smoother"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "single cell"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10,
+              6,
+              7,
+              9,
+              10,
+              4,
+              9
+            ]
+          ]
+        ],
+        "expected": 9,
+        "label": "single row"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              2,
+              1
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "zero effort path"
+      }
+    ],
+    "editorial": "**Approach — Dijkstra on max-edge**: Each cell's distance is the smallest possible max-step needed to reach it. Relax neighbors by `max(currentDist, |heightDiff|)`.\n\n```javascript\nclass MinHeap {\n  constructor() { this.h = []; }\n  size() { return this.h.length; }\n  push(x) { this.h.push(x); let i=this.h.length-1; while (i>0) { const p=(i-1)>>1; if (this.h[p][0]<=this.h[i][0]) break; [this.h[p],this.h[i]]=[this.h[i],this.h[p]]; i=p; } }\n  pop() { const t=this.h[0]; const last=this.h.pop(); if (this.h.length) { this.h[0]=last; let i=0,n=this.h.length; while (true) { const l=2*i+1,r=2*i+2; let s=i; if (l<n&&this.h[l][0]<this.h[s][0]) s=l; if (r<n&&this.h[r][0]<this.h[s][0]) s=r; if (s===i) break; [this.h[s],this.h[i]]=[this.h[i],this.h[s]]; i=s; } } return t; }\n}\n\nfunction minEffortPath(heights) {\n  const rows = heights.length, cols = heights[0].length;\n  const dist = Array.from({length: rows}, () => new Array(cols).fill(Infinity));\n  dist[0][0] = 0;\n  const heap = new MinHeap();\n  heap.push([0, 0, 0]);\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (heap.size()) {\n    const [d, r, c] = heap.pop();\n    if (d > dist[r][c]) continue;\n    if (r === rows-1 && c === cols-1) return d;\n    for (const [dr, dc] of dirs) {\n      const nr = r+dr, nc = c+dc;\n      if (nr<0||nr>=rows||nc<0||nc>=cols) continue;\n      const nd = Math.max(d, Math.abs(heights[nr][nc] - heights[r][c]));\n      if (nd < dist[nr][nc]) { dist[nr][nc] = nd; heap.push([nd, nr, nc]); }\n    }\n  }\n  return 0;\n}\n```\n\n**Time**: O(rows*cols*log(rows*cols))."
+  },
+  {
+    "slug": "freshworks-bipartite-team",
+    "number": 2120,
+    "title": "Freshworks Team Bipartite Check",
+    "difficulty": "Medium",
+    "topic": "Advanced Graphs",
+    "companies": [
+      "freshworks",
+      "zoho",
+      "google"
+    ],
+    "description": "Freshworks wants to split `n` employees (0..n-1) into two teams such that every conflict edge in `dislikes = [a, b]` puts the two endpoints in DIFFERENT teams. Return `true` if such a split (2-coloring / bipartite) is possible, else `false`.",
+    "examples": [
+      {
+        "input": "n=4, dislikes=[[0,1],[1,2],[2,3]]",
+        "output": "true"
+      },
+      {
+        "input": "n=3, dislikes=[[0,1],[1,2],[0,2]]",
+        "output": "false",
+        "explanation": "Odd cycle."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8",
+      "0 <= a, b < n"
+    ],
+    "hints": [
+      "BFS/DFS coloring: 0 ya 1 assign kar, neighbors ko opposite.",
+      "Disconnected components ke liye loop over all unvisited nodes.",
+      "Conflict mile (same color) → return false."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function isBipartite(n, dislikes) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_bipartite(n, dislikes):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object isBipartite(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson isBipartite(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function isBipartite(n, dislikes): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc isBipartite(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "isBipartite",
+    "tests": [
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "path bipartite"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              2
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "odd cycle"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": true,
+        "label": "single"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "two components"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              0
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "5-cycle odd"
+      }
+    ],
+    "editorial": "**Approach — BFS 2-coloring**: Iterate every component. Start with color 0; for each unvisited node, BFS, alternating colors. A neighbor already colored the same color → not bipartite.\n\n```javascript\nfunction isBipartite(n, dislikes) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of dislikes) { adj[u].push(v); adj[v].push(u); }\n  const color = new Array(n).fill(-1);\n  for (let i = 0; i < n; i++) {\n    if (color[i] !== -1) continue;\n    color[i] = 0;\n    const q = [i];\n    while (q.length) {\n      const u = q.shift();\n      for (const v of adj[u]) {\n        if (color[v] === -1) { color[v] = 1 - color[u]; q.push(v); }\n        else if (color[v] === color[u]) return false;\n      }\n    }\n  }\n  return true;\n}\n```\n\n**Time**: O(V+E)."
+  }
+]

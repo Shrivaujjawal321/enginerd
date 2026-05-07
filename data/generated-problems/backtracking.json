@@ -1,0 +1,633 @@
+[
+  {
+    "slug": "swiggy-menu-subset-power",
+    "number": 1901,
+    "title": "Swiggy Menu Power Set",
+    "difficulty": "Easy",
+    "topic": "Backtracking",
+    "companies": ["swiggy", "zomato", "uber"],
+    "description": "Swiggy is testing every possible combo of dishes for a tasting event. Given an array of distinct dish IDs `nums`, return all possible subsets (the power set). Output must be sorted lexicographically on the JSON-stringified version of each subset.",
+    "examples": [
+      {"input": "nums = [1, 2, 3]", "output": "[[],[1,2,3],[1,2],[1,3],[1],[2,3],[2],[3]]", "explanation": "All 8 subsets, sorted by JSON.stringify lex order (where ',' < ']')."},
+      {"input": "nums = []", "output": "[[]]"}
+    ],
+    "constraints": ["0 <= nums.length <= 8", "All nums distinct", "-100 <= nums[i] <= 100"],
+    "hints": [
+      "Har element ke liye 2 choice — include or skip.",
+      "DFS chala aur path push/pop kar.",
+      "Final list ko JSON.stringify se compare karke sort kar."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function generateMenuSubsets(nums) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def generate_menu_subsets(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "generateMenuSubsets",
+    "tests": [
+      {"args": [[1, 2, 3]], "expected": [[], [1, 2, 3], [1, 2], [1, 3], [1], [2, 3], [2], [3]], "label": "three elements"},
+      {"args": [[]], "expected": [[]], "label": "empty input"},
+      {"args": [[5]], "expected": [[], [5]], "label": "single element"},
+      {"args": [[1, 2]], "expected": [[], [1, 2], [1], [2]], "label": "two elements"},
+      {"args": [[0, 1]], "expected": [[], [0, 1], [0], [1]], "label": "with zero"}
+    ],
+    "editorial": "**Idea — include/exclude DFS**: At each index, branch into 'take' and 'skip'. Collect the path at the leaf (i === n).\n\n```javascript\nfunction generateMenuSubsets(nums) {\n  const out = []; const path = [];\n  function dfs(i) {\n    if (i === nums.length) { out.push([...path]); return; }\n    dfs(i + 1);\n    path.push(nums[i]);\n    dfs(i + 1);\n    path.pop();\n  }\n  dfs(0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(n * 2^n). **Space**: O(n) recursion + O(n * 2^n) output.\n\nFinal sort makes the test deterministic — JSON.stringify lexicographic order is used everywhere in this set."
+  },
+  {
+    "slug": "flipkart-tag-combinations",
+    "number": 1902,
+    "title": "Flipkart Product Tag Combinations",
+    "difficulty": "Easy",
+    "topic": "Backtracking",
+    "companies": ["flipkart", "meesho", "amazon"],
+    "description": "Flipkart wants every k-sized combination of product tags from a pool of distinct tag IDs `1..n`. Given integers `n` and `k`, return all combinations (as arrays of integers) sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "n = 4, k = 2", "output": "[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]"},
+      {"input": "n = 1, k = 1", "output": "[[1]]"}
+    ],
+    "constraints": ["1 <= n <= 6", "1 <= k <= n"],
+    "hints": [
+      "DFS me current start index se aage choose kar.",
+      "path.length === k pe push and return.",
+      "Sort at the end on stringified arrays."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function tagCombinations(n, k) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def tag_combinations(n, k):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "tagCombinations",
+    "tests": [
+      {"args": [4, 2], "expected": [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]], "label": "n=4,k=2"},
+      {"args": [1, 1], "expected": [[1]], "label": "tiny"},
+      {"args": [3, 3], "expected": [[1, 2, 3]], "label": "k equals n"},
+      {"args": [3, 1], "expected": [[1], [2], [3]], "label": "k=1"},
+      {"args": [5, 4], "expected": [[1, 2, 3, 4], [1, 2, 3, 5], [1, 2, 4, 5], [1, 3, 4, 5], [2, 3, 4, 5]], "label": "n=5,k=4"}
+    ],
+    "editorial": "**Idea — start-index DFS**: Pick numbers in increasing order to avoid duplicate combinations. Recurse with `start = i + 1`.\n\n```javascript\nfunction tagCombinations(n, k) {\n  const out = []; const path = [];\n  function dfs(start) {\n    if (path.length === k) { out.push([...path]); return; }\n    for (let i = start; i <= n; i++) {\n      path.push(i);\n      dfs(i + 1);\n      path.pop();\n    }\n  }\n  dfs(1);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(C(n,k) * k). **Space**: O(k) recursion.\n\nPruning: if remaining slots > remaining numbers, return early — useful when n is larger."
+  },
+  {
+    "slug": "paytm-cashback-permutations",
+    "number": 1903,
+    "title": "Paytm Cashback Distribution Permutations",
+    "difficulty": "Easy",
+    "topic": "Backtracking",
+    "companies": ["paytm", "phonepe", "razorpay"],
+    "description": "Paytm has a list of distinct cashback amounts to award to N users in some order. Given `nums` of distinct integers, return every permutation. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "nums = [1, 2, 3]", "output": "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"},
+      {"input": "nums = [1]", "output": "[[1]]"}
+    ],
+    "constraints": ["1 <= nums.length <= 6", "All nums distinct", "-10 <= nums[i] <= 10"],
+    "hints": [
+      "Visited array ya boolean[] use kar to avoid reusing same index.",
+      "path.length === n pe push.",
+      "Final sort on stringified output."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function cashbackPermutations(nums) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def cashback_permutations(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "cashbackPermutations",
+    "tests": [
+      {"args": [[1, 2, 3]], "expected": [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]], "label": "three"},
+      {"args": [[1]], "expected": [[1]], "label": "single"},
+      {"args": [[1, 2]], "expected": [[1, 2], [2, 1]], "label": "two"},
+      {"args": [[0, -1]], "expected": [[-1, 0], [0, -1]], "label": "negatives"}
+    ],
+    "editorial": "**Idea — used[] flag**: Keep a boolean array indicating which indices have been picked. Recurse, mark, push, recurse, unmark.\n\n```javascript\nfunction cashbackPermutations(nums) {\n  const out = []; const path = []; const used = new Array(nums.length).fill(false);\n  function dfs() {\n    if (path.length === nums.length) { out.push([...path]); return; }\n    for (let i = 0; i < nums.length; i++) {\n      if (used[i]) continue;\n      used[i] = true; path.push(nums[i]);\n      dfs();\n      path.pop(); used[i] = false;\n    }\n  }\n  dfs();\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(n * n!). **Space**: O(n)."
+  },
+  {
+    "slug": "razorpay-merchant-volume-subset",
+    "number": 1904,
+    "title": "Razorpay Subset Hitting Target Volume",
+    "difficulty": "Easy",
+    "topic": "Backtracking",
+    "companies": ["razorpay", "stripe", "phonepe"],
+    "description": "Razorpay's analytics needs every subset of merchant volumes whose sum equals `target`. Given distinct positive integers `nums` and integer `target`, return all subsets summing to target. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "nums = [1, 2, 3, 4], target = 5", "output": "[[1,4],[2,3]]"},
+      {"input": "nums = [1, 2], target = 10", "output": "[]"}
+    ],
+    "constraints": ["1 <= nums.length <= 8", "All distinct", "1 <= nums[i] <= 50", "1 <= target <= 200"],
+    "hints": [
+      "Subset DFS with running sum; push when sum === target.",
+      "Prune jab running sum > target ho jaye.",
+      "Lexicographic sort on JSON.stringify at the end."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function merchantVolumeSubsets(nums, target) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def merchant_volume_subsets(nums, target):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "merchantVolumeSubsets",
+    "tests": [
+      {"args": [[1, 2, 3, 4], 5], "expected": [[1, 4], [2, 3]], "label": "basic"},
+      {"args": [[1, 2], 10], "expected": [], "label": "no solution"},
+      {"args": [[5], 5], "expected": [[5]], "label": "single hit"},
+      {"args": [[1, 2, 3], 6], "expected": [[1, 2, 3]], "label": "all needed"},
+      {"args": [[3, 1, 4, 5, 2], 5], "expected": [[1, 4], [2, 3], [5]], "label": "multiple"}
+    ],
+    "editorial": "**Idea — start-index DFS with running sum**: Sort first so we can prune. Recurse picking elements; record on exact match.\n\n```javascript\nfunction merchantVolumeSubsets(nums, target) {\n  const sorted = [...nums].sort((a, b) => a - b);\n  const out = []; const path = [];\n  function dfs(start, sum) {\n    if (sum === target) { out.push([...path]); return; }\n    for (let i = start; i < sorted.length; i++) {\n      if (sum + sorted[i] > target) break;\n      path.push(sorted[i]);\n      dfs(i + 1, sum + sorted[i]);\n      path.pop();\n    }\n  }\n  dfs(0, 0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: worst O(2^n). **Space**: O(n)."
+  },
+  {
+    "slug": "swiggy-budget-combinations-repeat",
+    "number": 1905,
+    "title": "Swiggy Combo Within Budget (Repeat Allowed)",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["swiggy", "zomato", "doordash"],
+    "description": "Swiggy lets you order the same dish multiple times. Given distinct dish prices `prices` and a target budget `budget`, return every combination (multiset) whose sum equals `budget`. Each inner combination should be in non-decreasing order; the outer list sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "prices = [2, 3, 6, 7], budget = 7", "output": "[[2,2,3],[7]]"},
+      {"input": "prices = [2, 3, 5], budget = 8", "output": "[[2,2,2,2],[2,3,3],[3,5]]"}
+    ],
+    "constraints": ["1 <= prices.length <= 8", "All distinct", "1 <= prices[i] <= 20", "1 <= budget <= 30"],
+    "hints": [
+      "Same index ko reuse karne do — recurse with start = i (not i+1).",
+      "Sort the prices first so combinations come out non-decreasing naturally.",
+      "Prune when remaining < 0."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function comboWithinBudget(prices, budget) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def combo_within_budget(prices, budget):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "comboWithinBudget",
+    "tests": [
+      {"args": [[2, 3, 6, 7], 7], "expected": [[2, 2, 3], [7]], "label": "classic"},
+      {"args": [[2, 3, 5], 8], "expected": [[2, 2, 2, 2], [2, 3, 3], [3, 5]], "label": "multiple combos"},
+      {"args": [[2], 1], "expected": [], "label": "no fit"},
+      {"args": [[1], 3], "expected": [[1, 1, 1]], "label": "single price"},
+      {"args": [[3, 4, 5], 10], "expected": [[3, 3, 4], [5, 5]], "label": "mid"}
+    ],
+    "editorial": "**Idea — DFS with reuse**: Sort prices. Recurse with `start = i` to allow repetition; recurse with `i + 1` would be unique-pick.\n\n```javascript\nfunction comboWithinBudget(prices, budget) {\n  const sorted = [...prices].sort((a, b) => a - b);\n  const out = []; const path = [];\n  function dfs(start, remaining) {\n    if (remaining === 0) { out.push([...path]); return; }\n    for (let i = start; i < sorted.length; i++) {\n      if (sorted[i] > remaining) break;\n      path.push(sorted[i]);\n      dfs(i, remaining - sorted[i]);\n      path.pop();\n    }\n  }\n  dfs(0, budget);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: exponential in budget/min(price). **Space**: O(budget/min)."
+  },
+  {
+    "slug": "zomato-duplicate-dish-subsets",
+    "number": 1906,
+    "title": "Zomato Subsets With Duplicate Dishes",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["zomato", "swiggy", "google"],
+    "description": "Zomato has a menu where some dishes are duplicates (same code repeated). Given an array `nums` that may contain duplicates, return the unique power set. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "nums = [1, 2, 2]", "output": "[[],[1,2,2],[1,2],[1],[2,2],[2]]"},
+      {"input": "nums = [4, 4, 4]", "output": "[[],[4,4,4],[4,4],[4]]"}
+    ],
+    "constraints": ["1 <= nums.length <= 8", "-10 <= nums[i] <= 10"],
+    "hints": [
+      "Sort first so duplicates are adjacent.",
+      "Within same DFS level, skip nums[i] when nums[i] === nums[i-1] and i > start.",
+      "Final lexicographic sort on JSON.stringify."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function uniqueDishSubsets(nums) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def unique_dish_subsets(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "uniqueDishSubsets",
+    "tests": [
+      {"args": [[1, 2, 2]], "expected": [[], [1, 2, 2], [1, 2], [1], [2, 2], [2]], "label": "with dup pair"},
+      {"args": [[4, 4, 4]], "expected": [[], [4, 4, 4], [4, 4], [4]], "label": "all dup"},
+      {"args": [[1]], "expected": [[], [1]], "label": "single"},
+      {"args": [[1, 2, 3]], "expected": [[], [1, 2, 3], [1, 2], [1, 3], [1], [2, 3], [2], [3]], "label": "no dup"}
+    ],
+    "editorial": "**Idea — sort + skip duplicate siblings**: After sorting, when at level `start`, skip any index `i > start` with `nums[i] === nums[i-1]` — that branch was already covered by a previous sibling.\n\n```javascript\nfunction uniqueDishSubsets(nums) {\n  const sorted = [...nums].sort((a, b) => a - b);\n  const out = []; const path = [];\n  function dfs(start) {\n    out.push([...path]);\n    for (let i = start; i < sorted.length; i++) {\n      if (i > start && sorted[i] === sorted[i - 1]) continue;\n      path.push(sorted[i]);\n      dfs(i + 1);\n      path.pop();\n    }\n  }\n  dfs(0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(n * 2^n). **Space**: O(n)."
+  },
+  {
+    "slug": "ola-driver-rotation-permutations",
+    "number": 1907,
+    "title": "Ola Driver Rotation With Duplicate Shifts",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["ola", "uber", "rapido"],
+    "description": "Ola assigns drivers to shifts; some shifts have identical labels. Given `nums` (possibly duplicated), return all unique permutations. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "nums = [1, 1, 2]", "output": "[[1,1,2],[1,2,1],[2,1,1]]"},
+      {"input": "nums = [1, 2]", "output": "[[1,2],[2,1]]"}
+    ],
+    "constraints": ["1 <= nums.length <= 6", "-10 <= nums[i] <= 10"],
+    "hints": [
+      "Sort first.",
+      "Used[] array; skip nums[i] if nums[i] === nums[i-1] && !used[i-1] (sibling already used).",
+      "Final lexicographic sort."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function driverRotations(nums) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def driver_rotations(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "driverRotations",
+    "tests": [
+      {"args": [[1, 1, 2]], "expected": [[1, 1, 2], [1, 2, 1], [2, 1, 1]], "label": "dup pair"},
+      {"args": [[1, 2]], "expected": [[1, 2], [2, 1]], "label": "no dup"},
+      {"args": [[1, 1, 1]], "expected": [[1, 1, 1]], "label": "all same"},
+      {"args": [[2, 2, 1, 1]], "expected": [[1, 1, 2, 2], [1, 2, 1, 2], [1, 2, 2, 1], [2, 1, 1, 2], [2, 1, 2, 1], [2, 2, 1, 1]], "label": "two pairs"}
+    ],
+    "editorial": "**Idea — sort + sibling-prune**: Sort. Maintain `used[]`. At each level pick an unused index; skip duplicates whose previous twin was not used in the current path (otherwise the same permutation would appear twice).\n\n```javascript\nfunction driverRotations(nums) {\n  const sorted = [...nums].sort((a, b) => a - b);\n  const out = []; const path = []; const used = new Array(sorted.length).fill(false);\n  function dfs() {\n    if (path.length === sorted.length) { out.push([...path]); return; }\n    for (let i = 0; i < sorted.length; i++) {\n      if (used[i]) continue;\n      if (i > 0 && sorted[i] === sorted[i - 1] && !used[i - 1]) continue;\n      used[i] = true; path.push(sorted[i]);\n      dfs();\n      path.pop(); used[i] = false;\n    }\n  }\n  dfs();\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(n * n!) worst. **Space**: O(n)."
+  },
+  {
+    "slug": "phonepe-otp-letter-combos",
+    "number": 1908,
+    "title": "PhonePe OTP Letter Combinations",
+    "difficulty": "Easy",
+    "topic": "Backtracking",
+    "companies": ["phonepe", "google", "amazon"],
+    "description": "PhonePe is generating mnemonic options for a digit OTP using the classic phone keypad (2->abc, 3->def, 4->ghi, 5->jkl, 6->mno, 7->pqrs, 8->tuv, 9->wxyz). Given a digit string `digits` (each digit in '2'..'9'), return all letter combinations as strings. If `digits` is empty, return `[]`. Output sorted lexicographically (use JSON.stringify ordering, which for strings equals plain lex order).",
+    "examples": [
+      {"input": "digits = \"23\"", "output": "[\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]"},
+      {"input": "digits = \"\"", "output": "[]"}
+    ],
+    "constraints": ["0 <= digits.length <= 4", "digits[i] in {'2','3','4','5','6','7','8','9'}"],
+    "hints": [
+      "Map digit to its letter group.",
+      "DFS by index; concat letter and recurse.",
+      "Sort the final array lexicographically."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function otpLetterCombos(digits) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def otp_letter_combos(digits):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "otpLetterCombos",
+    "tests": [
+      {"args": ["23"], "expected": ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"], "label": "two digits"},
+      {"args": [""], "expected": [], "label": "empty"},
+      {"args": ["2"], "expected": ["a", "b", "c"], "label": "single digit"},
+      {"args": ["7"], "expected": ["p", "q", "r", "s"], "label": "four-letter group"},
+      {"args": ["79"], "expected": ["pw", "px", "py", "pz", "qw", "qx", "qy", "qz", "rw", "rx", "ry", "rz", "sw", "sx", "sy", "sz"], "label": "two four-letter groups"}
+    ],
+    "editorial": "**Idea — DFS over digits**: For each digit, try every letter; recurse to next digit.\n\n```javascript\nfunction otpLetterCombos(digits) {\n  if (!digits.length) return [];\n  const map = { '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl', '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz' };\n  const out = [];\n  function dfs(i, path) {\n    if (i === digits.length) { out.push(path); return; }\n    for (const ch of map[digits[i]]) dfs(i + 1, path + ch);\n  }\n  dfs(0, '');\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(4^n * n). **Space**: O(n) recursion."
+  },
+  {
+    "slug": "myntra-coupon-target-sum",
+    "number": 1909,
+    "title": "Myntra Coupon Target Sum (Unique Pick)",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["myntra", "flipkart", "ajio"],
+    "description": "Myntra has a list of coupon values (may contain duplicates). Each coupon can be used at most once. Return all unique combinations whose sum equals `target`. Each combination in non-decreasing order; outer list sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "candidates = [10, 1, 2, 7, 6, 1, 5], target = 8", "output": "[[1,1,6],[1,2,5],[1,7],[2,6]]"},
+      {"input": "candidates = [2, 5, 2, 1, 2], target = 5", "output": "[[1,2,2],[5]]"}
+    ],
+    "constraints": ["1 <= candidates.length <= 8", "1 <= candidates[i] <= 30", "1 <= target <= 30"],
+    "hints": [
+      "Sort to manage duplicates and prune.",
+      "Skip nums[i] === nums[i-1] when i > start.",
+      "Recurse with start = i + 1 (each used at most once)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function couponTargetSum(candidates, target) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def coupon_target_sum(candidates, target):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "couponTargetSum",
+    "tests": [
+      {"args": [[10, 1, 2, 7, 6, 1, 5], 8], "expected": [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]], "label": "classic"},
+      {"args": [[2, 5, 2, 1, 2], 5], "expected": [[1, 2, 2], [5]], "label": "small dup"},
+      {"args": [[1, 1], 3], "expected": [], "label": "no fit"},
+      {"args": [[3, 3, 3], 6], "expected": [[3, 3]], "label": "dup pair"},
+      {"args": [[4, 4, 2, 1, 4, 2, 2, 1, 3], 6], "expected": [[1, 1, 2, 2], [1, 1, 4], [1, 2, 3], [2, 2, 2], [2, 4]], "label": "big mixed"}
+    ],
+    "editorial": "**Idea — sort + skip-sibling DFS**: Sort, then standard DFS with `start = i + 1` (no reuse); skip duplicate siblings to dedupe combinations.\n\n```javascript\nfunction couponTargetSum(candidates, target) {\n  const sorted = [...candidates].sort((a, b) => a - b);\n  const out = []; const path = [];\n  function dfs(start, remaining) {\n    if (remaining === 0) { out.push([...path]); return; }\n    for (let i = start; i < sorted.length; i++) {\n      if (i > start && sorted[i] === sorted[i - 1]) continue;\n      if (sorted[i] > remaining) break;\n      path.push(sorted[i]);\n      dfs(i + 1, remaining - sorted[i]);\n      path.pop();\n    }\n  }\n  dfs(0, target);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: exponential, but pruning + dedupe keeps it fast on small inputs."
+  },
+  {
+    "slug": "flipkart-warehouse-word-search",
+    "number": 1910,
+    "title": "Flipkart Warehouse Word Search",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["flipkart", "amazon", "google"],
+    "description": "Flipkart's bin-labels grid contains characters. Given a 2D `board` and a `word`, return `true` if the word can be formed by adjacent (up/down/left/right) cells, with each cell used at most once.",
+    "examples": [
+      {"input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"", "output": "true"},
+      {"input": "board = [[\"A\",\"B\"],[\"C\",\"D\"]], word = \"ABCD\"", "output": "false"}
+    ],
+    "constraints": ["1 <= board.length, board[0].length <= 5", "1 <= word.length <= 10", "All chars uppercase A-Z"],
+    "hints": [
+      "DFS from every cell that matches word[0].",
+      "Mark visited by overwriting with '#' temporarily; restore after.",
+      "Out-of-bounds and char mismatch → return false."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function warehouseWordSearch(board, word) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def warehouse_word_search(board, word):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "warehouseWordSearch",
+    "tests": [
+      {"args": [[["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "ABCCED"], "expected": true, "label": "L-shape match"},
+      {"args": [[["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "SEE"], "expected": true, "label": "short match"},
+      {"args": [[["A", "B"], ["C", "D"]], "ABCD"], "expected": false, "label": "non-adjacent"},
+      {"args": [[["A"]], "A"], "expected": true, "label": "single cell"},
+      {"args": [[["A"]], "B"], "expected": false, "label": "no match"}
+    ],
+    "editorial": "**Idea — DFS with in-place visited marker**: From each starting cell, recurse in 4 directions, advancing the word index. Use a sentinel ('#') to mark visited cells and restore on backtrack.\n\n```javascript\nfunction warehouseWordSearch(board, word) {\n  const m = board.length, n = board[0].length;\n  function dfs(r, c, k) {\n    if (k === word.length) return true;\n    if (r < 0 || c < 0 || r >= m || c >= n || board[r][c] !== word[k]) return false;\n    const tmp = board[r][c];\n    board[r][c] = '#';\n    const found = dfs(r + 1, c, k + 1) || dfs(r - 1, c, k + 1) || dfs(r, c + 1, k + 1) || dfs(r, c - 1, k + 1);\n    board[r][c] = tmp;\n    return found;\n  }\n  for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) if (dfs(r, c, 0)) return true;\n  return false;\n}\n```\n\n**Time**: O(m*n*4^L). **Space**: O(L) recursion."
+  },
+  {
+    "slug": "swiggy-balanced-parentheses",
+    "number": 1911,
+    "title": "Swiggy Balanced Bracket Generator",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["swiggy", "uber", "google"],
+    "description": "Swiggy's promo engine encodes nested rules with parentheses. Given `n`, return all well-formed parenthesis strings of length `2n`. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "n = 3", "output": "[\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]"},
+      {"input": "n = 1", "output": "[\"()\"]"}
+    ],
+    "constraints": ["1 <= n <= 6"],
+    "hints": [
+      "Track open and close counts.",
+      "Open '(' allowed if open < n; close ')' allowed if close < open.",
+      "Push to result when length === 2n."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function balancedBrackets(n) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def balanced_brackets(n):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "balancedBrackets",
+    "tests": [
+      {"args": [3], "expected": ["((()))", "(()())", "(())()", "()(())", "()()()"], "label": "n=3"},
+      {"args": [1], "expected": ["()"], "label": "n=1"},
+      {"args": [2], "expected": ["(())", "()()"], "label": "n=2"},
+      {"args": [4], "expected": ["(((())))", "((()()))", "((())())", "((()))()", "(()(()))", "(()()())", "(()())()", "(())(())", "(())()()", "()((()))", "()(()())", "()(())()", "()()(())", "()()()()"], "label": "n=4"}
+    ],
+    "editorial": "**Idea — counter DFS**: Maintain `(` and `)` counts. Add `(` if `open < n`; add `)` if `close < open`. Stop when string length reaches 2n.\n\n```javascript\nfunction balancedBrackets(n) {\n  const out = [];\n  function dfs(s, open, close) {\n    if (s.length === 2 * n) { out.push(s); return; }\n    if (open < n) dfs(s + '(', open + 1, close);\n    if (close < open) dfs(s + ')', open, close + 1);\n  }\n  dfs('', 0, 0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: Catalan(n) strings. **Space**: O(n) recursion."
+  },
+  {
+    "slug": "amazon-palindrome-partition",
+    "number": 1912,
+    "title": "Amazon Catalog Palindrome Partition",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["amazon", "google", "flipkart"],
+    "description": "Amazon's catalog tagger partitions a product code string `s` into substrings, each of which must be a palindrome. Return every possible palindrome partition. Each partition is a list of strings; outer list sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "s = \"aab\"", "output": "[[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]"},
+      {"input": "s = \"a\"", "output": "[[\"a\"]]"}
+    ],
+    "constraints": ["1 <= s.length <= 10", "s is lowercase a-z"],
+    "hints": [
+      "DFS over start index; for each end > start, if s[start..end] is palindrome, recurse with start = end + 1.",
+      "Helper isPalindrome with two pointers.",
+      "Final lexicographic sort."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function palindromePartitions(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def palindrome_partitions(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "palindromePartitions",
+    "tests": [
+      {"args": ["aab"], "expected": [["a", "a", "b"], ["aa", "b"]], "label": "classic"},
+      {"args": ["a"], "expected": [["a"]], "label": "single char"},
+      {"args": ["abc"], "expected": [["a", "b", "c"]], "label": "no multi-char palin"},
+      {"args": ["aaa"], "expected": [["a", "a", "a"], ["a", "aa"], ["aa", "a"], ["aaa"]], "label": "all-same"},
+      {"args": ["abba"], "expected": [["a", "b", "b", "a"], ["a", "bb", "a"], ["abba"]], "label": "even palin"}
+    ],
+    "editorial": "**Idea — DFS by partition point**: From `start`, try every prefix `s[start..end]`; if palindrome, recurse from `end + 1`. Collect at `start === n`.\n\n```javascript\nfunction palindromePartitions(s) {\n  function isPal(l, r) { while (l < r) { if (s[l] !== s[r]) return false; l++; r--; } return true; }\n  const out = []; const path = [];\n  function dfs(start) {\n    if (start === s.length) { out.push([...path]); return; }\n    for (let end = start; end < s.length; end++) {\n      if (isPal(start, end)) {\n        path.push(s.slice(start, end + 1));\n        dfs(end + 1);\n        path.pop();\n      }\n    }\n  }\n  dfs(0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(2^n * n). **Space**: O(n)."
+  },
+  {
+    "slug": "razorpay-restore-ip",
+    "number": 1913,
+    "title": "Razorpay Restore IP Addresses",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["razorpay", "stripe", "amazon"],
+    "description": "Razorpay's webhook log lost the dots in IP addresses. Given a digit string `s`, return all valid IPv4 addresses that can be formed by inserting three dots. A valid octet is 0..255 with no leading zeros (\"0\" allowed, \"01\" not allowed). Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "s = \"25525511135\"", "output": "[\"255.255.11.135\",\"255.255.111.35\"]"},
+      {"input": "s = \"0000\"", "output": "[\"0.0.0.0\"]"}
+    ],
+    "constraints": ["1 <= s.length <= 12", "s contains only digits"],
+    "hints": [
+      "DFS with 4 segments to fill.",
+      "Each segment 1..3 chars; reject leading-zero (length>1 and starts with '0') and value > 255.",
+      "Stop early if remaining > 3 * remainingSegments or < remainingSegments."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function restoreIpAddresses(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def restore_ip_addresses(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "restoreIpAddresses",
+    "tests": [
+      {"args": ["25525511135"], "expected": ["255.255.11.135", "255.255.111.35"], "label": "classic"},
+      {"args": ["0000"], "expected": ["0.0.0.0"], "label": "all zero"},
+      {"args": ["1111"], "expected": ["1.1.1.1"], "label": "all one"},
+      {"args": ["010010"], "expected": ["0.10.0.10", "0.100.1.0"], "label": "tricky zeros"},
+      {"args": ["1"], "expected": [], "label": "too short"},
+      {"args": ["101023"], "expected": ["1.0.10.23", "1.0.102.3", "10.1.0.23", "10.10.2.3", "101.0.2.3"], "label": "multiple"}
+    ],
+    "editorial": "**Idea — DFS by 4 segments**: At each step pick 1..3 chars, validate octet, recurse. Final state is segments=4 and start=length.\n\n```javascript\nfunction restoreIpAddresses(s) {\n  const out = [];\n  function valid(seg) {\n    if (seg.length === 0 || seg.length > 3) return false;\n    if (seg.length > 1 && seg[0] === '0') return false;\n    return parseInt(seg, 10) <= 255;\n  }\n  function dfs(start, parts) {\n    if (parts.length === 4) {\n      if (start === s.length) out.push(parts.join('.'));\n      return;\n    }\n    for (let len = 1; len <= 3 && start + len <= s.length; len++) {\n      const seg = s.slice(start, start + len);\n      if (valid(seg)) {\n        parts.push(seg);\n        dfs(start + len, parts);\n        parts.pop();\n      }\n    }\n  }\n  dfs(0, []);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(3^4) branches. **Space**: O(1) extra."
+  },
+  {
+    "slug": "paytm-decode-ways-list",
+    "number": 1914,
+    "title": "Paytm SMS Decode Ways Enumeration",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["paytm", "phonepe", "google"],
+    "description": "Paytm encodes SMS letters as A=1..Z=26. Given a digit string `s`, return all possible decoded strings. If `s` has a leading '0' or any unparsable group, return `[]`. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "s = \"12\"", "output": "[\"AB\",\"L\"]", "explanation": "1,2 -> AB or 12 -> L."},
+      {"input": "s = \"226\"", "output": "[\"BBF\",\"BZ\",\"VF\"]"}
+    ],
+    "constraints": ["1 <= s.length <= 8", "s digits only"],
+    "hints": [
+      "DFS by index; take 1 digit if '1'..'9'; take 2 digits if '10'..'26'.",
+      "Leading '0' or invalid group → dead end.",
+      "Final lexicographic sort."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function decodeWaysList(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def decode_ways_list(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "decodeWaysList",
+    "tests": [
+      {"args": ["12"], "expected": ["AB", "L"], "label": "two ways"},
+      {"args": ["226"], "expected": ["BBF", "BZ", "VF"], "label": "three ways"},
+      {"args": ["0"], "expected": [], "label": "leading zero"},
+      {"args": ["27"], "expected": ["BG"], "label": "second digit too big"},
+      {"args": ["10"], "expected": ["J"], "label": "exact 10"},
+      {"args": ["1234"], "expected": ["ABCD", "AWD", "LCD"], "label": "four digits"}
+    ],
+    "editorial": "**Idea — DFS over splits**: At each position try 1-digit decode (1..9) and 2-digit decode (10..26). Skip when current digit is '0' for the 1-digit path.\n\n```javascript\nfunction decodeWaysList(s) {\n  const out = [];\n  function dfs(i, path) {\n    if (i === s.length) { out.push(path); return; }\n    if (s[i] === '0') return;\n    const one = parseInt(s[i], 10);\n    dfs(i + 1, path + String.fromCharCode(64 + one));\n    if (i + 1 < s.length) {\n      const two = parseInt(s.slice(i, i + 2), 10);\n      if (two >= 10 && two <= 26) dfs(i + 2, path + String.fromCharCode(64 + two));\n    }\n  }\n  dfs(0, '');\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(2^n) worst. **Space**: O(n)."
+  },
+  {
+    "slug": "byjus-tree-paths-target",
+    "number": 1915,
+    "title": "Byju's Decision Tree Paths To Target",
+    "difficulty": "Medium",
+    "topic": "Backtracking",
+    "companies": ["byjus", "unacademy", "google"],
+    "description": "Byju's adaptive engine models student decisions as a binary tree of integers. Given a tree (as level-order array with `null` for missing children) and `target`, return every root-to-leaf path whose values sum to `target`. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "root = [5,4,8,11,null,13,4,7,2,null,null,5,1], target = 22", "output": "[[5,4,11,2],[5,8,4,5]]"},
+      {"input": "root = [1,2,3], target = 5", "output": "[]"}
+    ],
+    "constraints": ["1 <= node count <= 15", "-50 <= node.val <= 50", "-200 <= target <= 200"],
+    "hints": [
+      "Build tree from level-order with nulls (BFS using a queue).",
+      "DFS down; at each leaf check sum.",
+      "Final sort on stringified arrays."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function treePathsToTarget(root, target) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def tree_paths_to_target(root, target):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "treePathsToTarget",
+    "tests": [
+      {"args": [[5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1], 22], "expected": [[5, 4, 11, 2], [5, 8, 4, 5]], "label": "classic"},
+      {"args": [[1, 2, 3], 5], "expected": [], "label": "no match"},
+      {"args": [[1, 2, 3], 4], "expected": [[1, 3]], "label": "right leaf"},
+      {"args": [[1], 1], "expected": [[1]], "label": "single node"},
+      {"args": [[], 0], "expected": [], "label": "empty tree"}
+    ],
+    "editorial": "**Idea — build then DFS**: Convert level-order array (with nulls) into nodes via BFS. Then DFS root→leaf carrying running sum and current path. Push path on leaf when sum matches.\n\n```javascript\nfunction treePathsToTarget(arr, target) {\n  if (!arr.length || arr[0] === null || arr[0] === undefined) return [];\n  const nodes = arr.map(v => (v === null || v === undefined) ? null : { val: v, left: null, right: null });\n  const root = nodes[0];\n  let i = 1;\n  const queue = [root];\n  while (queue.length && i < arr.length) {\n    const node = queue.shift();\n    if (!node) continue;\n    if (i < arr.length) { node.left = nodes[i]; if (nodes[i]) queue.push(nodes[i]); i++; }\n    if (i < arr.length) { node.right = nodes[i]; if (nodes[i]) queue.push(nodes[i]); i++; }\n  }\n  const out = []; const path = [];\n  function dfs(node, sum) {\n    if (!node) return;\n    path.push(node.val);\n    const ns = sum + node.val;\n    if (!node.left && !node.right) {\n      if (ns === target) out.push([...path]);\n    } else {\n      dfs(node.left, ns);\n      dfs(node.right, ns);\n    }\n    path.pop();\n  }\n  dfs(root, 0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(n) traversal. **Space**: O(h) recursion."
+  },
+  {
+    "slug": "amazon-island-color-letter-case",
+    "number": 1916,
+    "title": "Amazon Coupon Code Letter-Case Permutation",
+    "difficulty": "Easy",
+    "topic": "Backtracking",
+    "companies": ["amazon", "flipkart", "google"],
+    "description": "Amazon coupon codes are case-insensitive — for analytics they want every case variant of a code. Given a string `s` (letters and digits), return all strings reachable by toggling letters' case. Digits stay fixed. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "s = \"a1b2\"", "output": "[\"a1b2\",\"a1B2\",\"A1b2\",\"A1B2\"]", "explanation": "Sorted via localeCompare on JSON-stringified strings; locale order puts lowercase before uppercase."},
+      {"input": "s = \"3z4\"", "output": "[\"3z4\",\"3Z4\"]"}
+    ],
+    "constraints": ["1 <= s.length <= 8", "s contains letters (a-z, A-Z) and digits"],
+    "hints": [
+      "DFS by index; for letter try both lower and upper; for digit only one branch.",
+      "Push complete string at i === n.",
+      "Final lexicographic sort."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function letterCaseVariants(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def letter_case_variants(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "letterCaseVariants",
+    "tests": [
+      {"args": ["a1b2"], "expected": ["a1b2", "a1B2", "A1b2", "A1B2"], "label": "two letters"},
+      {"args": ["3z4"], "expected": ["3z4", "3Z4"], "label": "one letter"},
+      {"args": ["12345"], "expected": ["12345"], "label": "no letters"},
+      {"args": ["A"], "expected": ["a", "A"], "label": "single letter"}
+    ],
+    "editorial": "**Idea — branch on letters**: Walk index by index; if `s[i]` is a letter, recurse twice (lower and upper); if digit, recurse once with same char.\n\n```javascript\nfunction letterCaseVariants(s) {\n  const out = [];\n  function dfs(i, path) {\n    if (i === s.length) { out.push(path); return; }\n    const ch = s[i];\n    if (/[a-zA-Z]/.test(ch)) {\n      dfs(i + 1, path + ch.toLowerCase());\n      dfs(i + 1, path + ch.toUpperCase());\n    } else {\n      dfs(i + 1, path + ch);\n    }\n  }\n  dfs(0, '');\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(2^L * n) where L = letter count. **Space**: O(n)."
+  },
+  {
+    "slug": "google-n-queens-positions",
+    "number": 1917,
+    "title": "Google N-Queens Board Layouts",
+    "difficulty": "Hard",
+    "topic": "Backtracking",
+    "companies": ["google", "microsoft", "amazon"],
+    "description": "Place `n` queens on an `n x n` chessboard so no two attack each other. Return every solution as a list of strings (one row per string, '.' empty, 'Q' a queen). Output sorted lexicographically on JSON.stringify (i.e. on the array-of-strings).",
+    "examples": [
+      {"input": "n = 4", "output": "[[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"],[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"]]"},
+      {"input": "n = 1", "output": "[[\"Q\"]]"}
+    ],
+    "constraints": ["1 <= n <= 6"],
+    "hints": [
+      "Place row by row.",
+      "Maintain three sets: cols, diag (r - c), anti (r + c).",
+      "Sort the final list of boards lexicographically."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function solveNQueens(n) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def solve_n_queens(n):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "solveNQueens",
+    "tests": [
+      {"args": [4], "expected": [["..Q.", "Q...", "...Q", ".Q.."], [".Q..", "...Q", "Q...", "..Q."]], "label": "n=4"},
+      {"args": [1], "expected": [["Q"]], "label": "n=1"},
+      {"args": [2], "expected": [], "label": "n=2 no solution"},
+      {"args": [3], "expected": [], "label": "n=3 no solution"}
+    ],
+    "editorial": "**Idea — row-by-row DFS with conflict sets**: For each row, try each column. Track used columns, used `r-c` diagonals, used `r+c` anti-diagonals. On row === n, build board strings.\n\n```javascript\nfunction solveNQueens(n) {\n  const out = [];\n  const cols = new Set(), d1 = new Set(), d2 = new Set();\n  const queens = new Array(n).fill(-1);\n  function dfs(r) {\n    if (r === n) {\n      const board = [];\n      for (let i = 0; i < n; i++) {\n        const row = new Array(n).fill('.');\n        row[queens[i]] = 'Q';\n        board.push(row.join(''));\n      }\n      out.push(board);\n      return;\n    }\n    for (let c = 0; c < n; c++) {\n      if (cols.has(c) || d1.has(r - c) || d2.has(r + c)) continue;\n      cols.add(c); d1.add(r - c); d2.add(r + c); queens[r] = c;\n      dfs(r + 1);\n      cols.delete(c); d1.delete(r - c); d2.delete(r + c);\n    }\n  }\n  dfs(0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(n!). **Space**: O(n)."
+  },
+  {
+    "slug": "microsoft-sudoku-solver",
+    "number": 1918,
+    "title": "Microsoft Sudoku Solver",
+    "difficulty": "Hard",
+    "topic": "Backtracking",
+    "companies": ["microsoft", "google", "amazon"],
+    "description": "Given a 9x9 sudoku `board` (2D array, '.' for empty cells, '1'..'9' otherwise), fill in the empty cells. Return the solved board. Tests use puzzles with a unique solution.",
+    "examples": [
+      {"input": "board = a 9x9 partially filled grid", "output": "the same grid filled per sudoku rules", "explanation": "Standard sudoku rules: each row/col/3x3 box contains digits 1..9 exactly once."}
+    ],
+    "constraints": ["board.length === 9", "board[i].length === 9", "Cells are '.' or '1'..'9'", "Each test has exactly one valid solution"],
+    "hints": [
+      "Maintain three sets per row, col, box.",
+      "Find the next empty cell, try digits 1..9 that don't conflict, recurse, undo on dead end.",
+      "Box index = 3*Math.floor(r/3) + Math.floor(c/3)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function solveSudoku(board) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def solve_sudoku(board):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "solveSudoku",
+    "tests": [
+      {"args": [[["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", ".", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]], "expected": [["5", "3", "4", "6", "7", "8", "9", "1", "2"], ["6", "7", "2", "1", "9", "5", "3", "4", "8"], ["1", "9", "8", "3", "4", "2", "5", "6", "7"], ["8", "5", "9", "7", "6", "1", "4", "2", "3"], ["4", "2", "6", "8", "5", "3", "7", "9", "1"], ["7", "1", "3", "9", "2", "4", "8", "5", "6"], ["9", "6", "1", "5", "3", "7", "2", "8", "4"], ["2", "8", "7", "4", "1", "9", "6", "3", "5"], ["3", "4", "5", "2", "8", "6", "1", "7", "9"]], "label": "classic puzzle"},
+      {"args": [[["1", "2", "3", "4", "5", "6", "7", "8", "."], ["4", "5", "6", "7", "8", "9", "1", "2", "3"], ["7", "8", "9", "1", "2", "3", "4", "5", "6"], ["2", "3", "4", "5", "6", "7", "8", "9", "1"], ["5", "6", "7", "8", "9", "1", "2", "3", "4"], ["8", "9", "1", "2", "3", "4", "5", "6", "7"], ["3", "4", "5", "6", "7", "8", "9", "1", "2"], ["6", "7", "8", "9", "1", "2", "3", "4", "5"], ["9", "1", "2", "3", "4", "5", "6", "7", "8"]]], "expected": [["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["4", "5", "6", "7", "8", "9", "1", "2", "3"], ["7", "8", "9", "1", "2", "3", "4", "5", "6"], ["2", "3", "4", "5", "6", "7", "8", "9", "1"], ["5", "6", "7", "8", "9", "1", "2", "3", "4"], ["8", "9", "1", "2", "3", "4", "5", "6", "7"], ["3", "4", "5", "6", "7", "8", "9", "1", "2"], ["6", "7", "8", "9", "1", "2", "3", "4", "5"], ["9", "1", "2", "3", "4", "5", "6", "7", "8"]], "label": "single empty cell"}
+    ],
+    "editorial": "**Idea — DFS with row/col/box constraint sets**: Pre-fill three boolean arrays `rows[9][10]`, `cols[9][10]`, `boxes[9][10]`. Walk cells; on empty, try digits 1..9 not yet used in row/col/box, recurse, undo on backtrack.\n\n```javascript\nfunction solveSudoku(board) {\n  const rows = Array.from({ length: 9 }, () => new Array(10).fill(false));\n  const cols = Array.from({ length: 9 }, () => new Array(10).fill(false));\n  const boxes = Array.from({ length: 9 }, () => new Array(10).fill(false));\n  for (let r = 0; r < 9; r++) for (let c = 0; c < 9; c++) {\n    if (board[r][c] !== '.') {\n      const d = +board[r][c];\n      rows[r][d] = cols[c][d] = boxes[3 * ((r / 3) | 0) + ((c / 3) | 0)][d] = true;\n    }\n  }\n  function dfs(r, c) {\n    if (r === 9) return true;\n    if (c === 9) return dfs(r + 1, 0);\n    if (board[r][c] !== '.') return dfs(r, c + 1);\n    const b = 3 * ((r / 3) | 0) + ((c / 3) | 0);\n    for (let d = 1; d <= 9; d++) {\n      if (rows[r][d] || cols[c][d] || boxes[b][d]) continue;\n      board[r][c] = String(d);\n      rows[r][d] = cols[c][d] = boxes[b][d] = true;\n      if (dfs(r, c + 1)) return true;\n      board[r][c] = '.';\n      rows[r][d] = cols[c][d] = boxes[b][d] = false;\n    }\n    return false;\n  }\n  dfs(0, 0);\n  return board;\n}\n```\n\n**Time**: exponential worst, fast in practice. **Space**: O(1) extra."
+  },
+  {
+    "slug": "uber-rider-route-words",
+    "number": 1919,
+    "title": "Uber Rider Route Word Search II",
+    "difficulty": "Hard",
+    "topic": "Backtracking",
+    "companies": ["uber", "google", "amazon"],
+    "description": "Uber's map grid contains characters representing landmarks. Given `board` and a list of `words`, return every word from the list that can be formed on the board by adjacent (up/down/left/right) cells, each cell used once per word. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]", "output": "[\"eat\",\"oath\"]"},
+      {"input": "board = [[\"a\"]], words = [\"a\",\"b\"]", "output": "[\"a\"]"}
+    ],
+    "constraints": ["1 <= board.length, board[0].length <= 5", "1 <= words.length <= 6", "1 <= words[i].length <= 6"],
+    "hints": [
+      "For each word run word-search backtracking starting from any matching cell.",
+      "Mark visited with sentinel; restore on backtrack.",
+      "Push to result if found; final sort lexicographic."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function findRouteWords(board, words) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def find_route_words(board, words):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "findRouteWords",
+    "tests": [
+      {"args": [[["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]], ["oath", "pea", "eat", "rain"]], "expected": ["eat", "oath"], "label": "classic"},
+      {"args": [[["a"]], ["a", "b"]], "expected": ["a"], "label": "tiny"},
+      {"args": [[["a", "b"], ["c", "d"]], ["abdc", "abcd"]], "expected": ["abdc"], "label": "non-adjacent fails"},
+      {"args": [[["a", "b"], ["a", "a"]], ["aba", "baa", "bab", "aaab"]], "expected": ["aaab", "aba", "baa"], "label": "multi"}
+    ],
+    "editorial": "**Idea — per-word DFS**: For each word in the list, try standard word-search backtracking from every cell. Collect found words; final sort.\n\n```javascript\nfunction findRouteWords(board, words) {\n  const m = board.length, n = board[0].length;\n  function exists(word) {\n    function dfs(r, c, k) {\n      if (k === word.length) return true;\n      if (r < 0 || c < 0 || r >= m || c >= n || board[r][c] !== word[k]) return false;\n      const tmp = board[r][c];\n      board[r][c] = '#';\n      const found = dfs(r + 1, c, k + 1) || dfs(r - 1, c, k + 1) || dfs(r, c + 1, k + 1) || dfs(r, c - 1, k + 1);\n      board[r][c] = tmp;\n      return found;\n    }\n    for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) if (dfs(r, c, 0)) return true;\n    return false;\n  }\n  const out = [];\n  for (const w of words) if (exists(w)) out.push(w);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(W * m*n*4^L). **Space**: O(L). A Trie speeds this up further on large word lists."
+  },
+  {
+    "slug": "infosys-expression-add-operators",
+    "number": 1920,
+    "title": "Infosys Expression Add Operators",
+    "difficulty": "Hard",
+    "topic": "Backtracking",
+    "companies": ["infosys", "tcs", "google"],
+    "description": "Infosys's expression engine inserts '+', '-', or '*' between digits of a numeric string `num` so that the resulting expression evaluates to `target`. Operands cannot have leading zeros (except '0' itself). Return all valid expressions. Output sorted lexicographically on JSON.stringify.",
+    "examples": [
+      {"input": "num = \"123\", target = 6", "output": "[\"1*2*3\",\"1+2+3\"]"},
+      {"input": "num = \"232\", target = 8", "output": "[\"2*3+2\",\"2+3*2\"]"}
+    ],
+    "constraints": ["1 <= num.length <= 6", "num is digits", "-1000 <= target <= 1000"],
+    "hints": [
+      "DFS over splits + operator choice.",
+      "Track running value and last operand to handle '*' correctly: newValue = val - prev + prev*cur.",
+      "Skip operands with leading zero (length > 1 and starts with '0')."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function addOperators(num, target) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def add_operators(num, target):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "addOperators",
+    "tests": [
+      {"args": ["123", 6], "expected": ["1*2*3", "1+2+3"], "label": "classic"},
+      {"args": ["232", 8], "expected": ["2*3+2", "2+3*2"], "label": "mul precedence"},
+      {"args": ["105", 5], "expected": ["1*0+5", "10-5"], "label": "leading-zero rule"},
+      {"args": ["00", 0], "expected": ["0-0", "0*0", "0+0"], "label": "two zeros (no '00')"},
+      {"args": ["3456237490", 9191], "expected": [], "label": "no solution"}
+    ],
+    "editorial": "**Idea — DFS over operand boundaries with mul fix**: Walk the string, at each position try each prefix as the next operand. Track running `value` and `prev` (last contribution) — when applying `*`, undo `prev` and apply `prev * cur`.\n\n```javascript\nfunction addOperators(num, target) {\n  const out = [];\n  function dfs(i, expr, value, prev) {\n    if (i === num.length) { if (value === target) out.push(expr); return; }\n    for (let j = i + 1; j <= num.length; j++) {\n      const seg = num.slice(i, j);\n      if (seg.length > 1 && seg[0] === '0') break;\n      const cur = parseInt(seg, 10);\n      if (i === 0) {\n        dfs(j, seg, cur, cur);\n      } else {\n        dfs(j, expr + '+' + seg, value + cur, cur);\n        dfs(j, expr + '-' + seg, value - cur, -cur);\n        dfs(j, expr + '*' + seg, value - prev + prev * cur, prev * cur);\n      }\n    }\n  }\n  dfs(0, '', 0, 0);\n  return out.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));\n}\n```\n\n**Time**: O(n * 4^n). **Space**: O(n)."
+  }
+]

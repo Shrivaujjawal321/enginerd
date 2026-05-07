@@ -1,0 +1,3517 @@
+[
+  {
+    "slug": "bookmyshow-seat-finder",
+    "number": 1401,
+    "title": "BookMyShow Seat Finder",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "bookmyshow",
+      "amazon",
+      "flipkart"
+    ],
+    "description": "BookMyShow stores seat numbers of a sold-out PVR show in ascending order. Given the sorted array `seats` and a query `target`, return the index of the seat if found, else -1. Must run in O(log n).",
+    "examples": [
+      {
+        "input": "seats = [3,7,12,18,25,40], target = 18",
+        "output": "3",
+        "explanation": "Seat 18 is at index 3."
+      },
+      {
+        "input": "seats = [1,2,3,4,5], target = 10",
+        "output": "-1",
+        "explanation": "Not present."
+      }
+    ],
+    "constraints": [
+      "1 <= seats.length <= 1e5",
+      "-1e9 <= seats[i], target <= 1e9",
+      "seats is strictly increasing"
+    ],
+    "hints": [
+      "sorted hai toh classic binary search soch",
+      "lo=0, hi=n-1; mid = lo + (hi-lo)/2",
+      "match mile toh return mid, warna lo/hi adjust kar"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findSeat(seats, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_seat(seats, target):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findSeat(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findSeat(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findSeat(seats, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findSeat(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findSeat",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            7,
+            12,
+            18,
+            25,
+            40
+          ],
+          18
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          10
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          5
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          7
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            3,
+            7,
+            12,
+            18,
+            25,
+            40
+          ],
+          3
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            3,
+            7,
+            12,
+            18,
+            25,
+            40
+          ],
+          40
+        ],
+        "expected": 5
+      }
+    ],
+    "editorial": "**Brute force**: Linear scan O(n) — too slow for 1e5 queries in production.\n\n**Binary search O(log n)**: Sorted hai toh halve karte raho. Maintain `lo` and `hi` pointers; compute `mid = lo + Math.floor((hi - lo) / 2)` (overflow se bachne ke liye, yeh standard pattern hai). Agar `seats[mid] === target` return mid. Agar `seats[mid] < target` toh answer right half mein hai, `lo = mid + 1`. Else `hi = mid - 1`. Loop tab tak chalao jab tak `lo <= hi`.\n\n```js\nfunction findSeat(seats, target) {\n  let lo = 0, hi = seats.length - 1;\n  while (lo <= hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe\n    if (seats[mid] === target) return mid;\n    if (seats[mid] < target) lo = mid + 1;\n    else hi = mid - 1;\n  }\n  return -1;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1). Perfect for high-throughput seat lookups."
+  },
+  {
+    "slug": "razorpay-fee-floor-index",
+    "number": 1402,
+    "title": "Razorpay Fee Floor Index",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
+    "description": "Razorpay's fee tiers are stored sorted ascending in `fees`. Given a transaction amount `amt`, return the index of the smallest fee that is >= `amt` (lower bound). If no such fee exists return `fees.length`.",
+    "examples": [
+      {
+        "input": "fees = [10,20,30,40], amt = 25",
+        "output": "2",
+        "explanation": "30 is smallest >= 25, at index 2."
+      },
+      {
+        "input": "fees = [10,20,30,40], amt = 50",
+        "output": "4",
+        "explanation": "Nothing >= 50."
+      }
+    ],
+    "constraints": [
+      "0 <= fees.length <= 1e5",
+      "fees sorted ascending",
+      "0 <= fees[i], amt <= 1e9"
+    ],
+    "hints": [
+      "lower_bound classic",
+      "agar fees[mid] >= amt toh hi = mid (mid bhi candidate hai)",
+      "loop condition lo < hi rakh, return lo"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function feeFloor(fees, amt) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def fee_floor(fees, amt):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object feeFloor(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson feeFloor(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function feeFloor(fees, amt): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc feeFloor(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "feeFloor",
+    "tests": [
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40
+          ],
+          25
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40
+          ],
+          50
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40
+          ],
+          10
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40
+          ],
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [],
+          5
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5
+          ],
+          5
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "**Brute force**: Linear scan O(n).\n\n**Binary search lower-bound O(log n)**: We want first index `i` such that `fees[i] >= amt`. Use half-open style: `lo = 0`, `hi = n` (n is valid sentinel meaning 'not found'). Loop while `lo < hi`. `mid = lo + Math.floor((hi - lo) / 2)` — overflow se bachne ke liye. Agar `fees[mid] >= amt` toh mid candidate hai, `hi = mid`. Else `lo = mid + 1`.\n\n```js\nfunction feeFloor(fees, amt) {\n  let lo = 0, hi = fees.length;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2);\n    if (fees[mid] >= amt) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "zomato-cuisine-ceiling",
+    "number": 1403,
+    "title": "Zomato Cuisine Price Ceiling",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "zomato",
+      "swiggy",
+      "uber"
+    ],
+    "description": "Zomato sorts dish prices ascending in `prices`. Given a budget `b`, return the index of the smallest price strictly greater than `b` (upper bound). If none, return `prices.length`.",
+    "examples": [
+      {
+        "input": "prices = [50,100,150,200], b = 100",
+        "output": "2",
+        "explanation": "150 is smallest > 100."
+      },
+      {
+        "input": "prices = [50,100,150,200], b = 200",
+        "output": "4",
+        "explanation": "Nothing > 200."
+      }
+    ],
+    "constraints": [
+      "0 <= prices.length <= 1e5",
+      "prices sorted ascending",
+      "0 <= prices[i], b <= 1e9"
+    ],
+    "hints": [
+      "upper_bound: pehla index jahan value > b ho",
+      "fees[mid] > b -> hi = mid, warna lo = mid+1",
+      "half-open hi = n use kar"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function priceCeiling(prices, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def price_ceiling(prices, b):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object priceCeiling(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson priceCeiling(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function priceCeiling(prices, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc priceCeiling(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "priceCeiling",
+    "tests": [
+      {
+        "args": [
+          [
+            50,
+            100,
+            150,
+            200
+          ],
+          100
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            50,
+            100,
+            150,
+            200
+          ],
+          200
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            50,
+            100,
+            150,
+            200
+          ],
+          49
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [],
+          100
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            7,
+            7,
+            7,
+            7
+          ],
+          7
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            7,
+            7,
+            7,
+            7
+          ],
+          6
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan.\n\n**Binary search upper-bound O(log n)**: First index where `prices[mid] > b`. Use half-open `[lo, hi)` with `lo=0, hi=n`. Loop while `lo < hi`. `mid = lo + Math.floor((hi - lo) / 2)` — overflow safe. Condition `prices[mid] > b` toh `hi = mid`, else `lo = mid + 1`.\n\n```js\nfunction priceCeiling(prices, b) {\n  let lo = 0, hi = prices.length;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid index\n    if (prices[mid] > b) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "flipkart-stock-count",
+    "number": 1404,
+    "title": "Flipkart Stock Count by SKU",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "flipkart",
+      "meesho",
+      "amazon"
+    ],
+    "description": "Flipkart's warehouse log stores SKU IDs in non-decreasing order; duplicates indicate multiple units of the same SKU. Given `log` and a SKU `q`, return how many units exist (count of `q` in the array) using O(log n).",
+    "examples": [
+      {
+        "input": "log = [1,2,2,2,3,4,4], q = 2",
+        "output": "3",
+        "explanation": "Three 2s."
+      },
+      {
+        "input": "log = [1,2,3], q = 5",
+        "output": "0",
+        "explanation": "Not present."
+      }
+    ],
+    "constraints": [
+      "0 <= log.length <= 1e5",
+      "log sorted non-decreasing",
+      "1 <= log[i], q <= 1e9"
+    ],
+    "hints": [
+      "upper_bound(q) - lower_bound(q) = count",
+      "do binary searches: first occurrence aur last+1",
+      "edge: empty array return 0"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function stockCount(log, q) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def stock_count(log, q):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object stockCount(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson stockCount(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function stockCount(log, q): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc stockCount(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "stockCount",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            2,
+            2,
+            3,
+            4,
+            4
+          ],
+          2
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          5
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          5
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            2,
+            2,
+            3,
+            3
+          ],
+          4
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "**Brute force**: O(n) linear count.\n\n**Binary search O(log n)**: Compute `upperBound(q) - lowerBound(q)`. lowerBound = first index where `arr[i] >= q`; upperBound = first index where `arr[i] > q`. Difference = count.\n\n```js\nfunction stockCount(log, q) {\n  const lb = (a, x) => {\n    let lo = 0, hi = a.length;\n    while (lo < hi) {\n      const m = lo + Math.floor((hi - lo) / 2); // mid\n      if (a[m] >= x) hi = m; else lo = m + 1;\n    }\n    return lo;\n  };\n  const ub = (a, x) => {\n    let lo = 0, hi = a.length;\n    while (lo < hi) {\n      const m = lo + Math.floor((hi - lo) / 2);\n      if (a[m] > x) hi = m; else lo = m + 1;\n    }\n    return lo;\n  };\n  return ub(log, q) - lb(log, q);\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "swiggy-delivery-sqrt",
+    "number": 1405,
+    "title": "Swiggy Delivery Radius Sqrt",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
+    "description": "Swiggy needs the integer floor of square root of `area` to size delivery zones (no Math.sqrt allowed). Given non-negative integer `area`, return floor(sqrt(area)) using binary search on answer space.",
+    "examples": [
+      {
+        "input": "area = 16",
+        "output": "4",
+        "explanation": "4*4=16."
+      },
+      {
+        "input": "area = 20",
+        "output": "4",
+        "explanation": "4*4=16 <= 20 < 25=5*5."
+      }
+    ],
+    "constraints": [
+      "0 <= area <= 2^31 - 1"
+    ],
+    "hints": [
+      "answer space [0, area]",
+      "mid*mid compare karne se overflow ho sakta — use BigInt ya mid <= area/mid",
+      "largest mid jahan mid*mid <= area"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function intSqrt(area) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def int_sqrt(area):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object intSqrt(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson intSqrt(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function intSqrt(area): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc intSqrt(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "intSqrt",
+    "tests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          16
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          20
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          2147395599
+        ],
+        "expected": 46339
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          99
+        ],
+        "expected": 9
+      }
+    ],
+    "editorial": "**Brute force**: Linear scan from 0 — O(sqrt(n)) but can be slow at 2^31.\n\n**Binary search on answer O(log n)**: Search largest integer `m` such that `m*m <= area`. Range `[0, area]`. Avoid overflow by comparing `m <= area / m` (integer division).\n\n```js\nfunction intSqrt(area) {\n  if (area < 2) return area;\n  let lo = 1, hi = area, ans = 0;\n  while (lo <= hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe mid\n    if (mid <= Math.floor(area / mid)) { ans = mid; lo = mid + 1; }\n    else hi = mid - 1;\n  }\n  return ans;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "meesho-price-bucket-first",
+    "number": 1406,
+    "title": "Meesho Price Bucket First Match",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "meesho",
+      "flipkart",
+      "paytm"
+    ],
+    "description": "Meesho's catalog `prices` is sorted with possible duplicates (same item priced same across resellers). Find the first index where `prices[i] === target`, else -1.",
+    "examples": [
+      {
+        "input": "prices = [100,200,200,200,300], target = 200",
+        "output": "1",
+        "explanation": "First 200 at index 1."
+      },
+      {
+        "input": "prices = [100,200,300], target = 250",
+        "output": "-1",
+        "explanation": "Not present."
+      }
+    ],
+    "constraints": [
+      "0 <= prices.length <= 1e5",
+      "prices sorted non-decreasing",
+      "0 <= prices[i], target <= 1e9"
+    ],
+    "hints": [
+      "lower_bound nikaalo, phir verify karo arr[lb] === target",
+      "agar lb === n ya arr[lb] !== target return -1",
+      "duplicates handle karna important"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function firstMatch(prices, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def first_match(prices, target):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object firstMatch(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson firstMatch(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function firstMatch(prices, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc firstMatch(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "firstMatch",
+    "tests": [
+      {
+        "args": [
+          [
+            100,
+            200,
+            200,
+            200,
+            300
+          ],
+          200
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            100,
+            200,
+            300
+          ],
+          250
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [],
+          100
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5
+          ],
+          5
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          1
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan.\n\n**Binary search O(log n)**: Compute lower bound — first index `i` such that `prices[i] >= target`. Then check if `i < n && prices[i] === target`.\n\n```js\nfunction firstMatch(prices, target) {\n  let lo = 0, hi = prices.length;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid\n    if (prices[mid] >= target) hi = mid;\n    else lo = mid + 1;\n  }\n  if (lo < prices.length && prices[lo] === target) return lo;\n  return -1;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "atlassian-jira-last-occurrence",
+    "number": 1407,
+    "title": "Atlassian Jira Last Status Index",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "atlassian",
+      "postman",
+      "microsoft"
+    ],
+    "description": "Atlassian ranks tickets by status code stored sorted ascending in `codes`. Given `q`, return the LAST index where `codes[i] === q`. If absent, return -1.",
+    "examples": [
+      {
+        "input": "codes = [1,2,2,2,3], q = 2",
+        "output": "3",
+        "explanation": "Last 2 at index 3."
+      },
+      {
+        "input": "codes = [1,2,3], q = 4",
+        "output": "-1",
+        "explanation": "Not present."
+      }
+    ],
+    "constraints": [
+      "0 <= codes.length <= 1e5",
+      "codes sorted non-decreasing"
+    ],
+    "hints": [
+      "upper_bound - 1 candidate hai",
+      "verify karo codes[ub-1] === q",
+      "edge: ub === 0 means absent"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function lastOccurrence(codes, q) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def last_occurrence(codes, q):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object lastOccurrence(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson lastOccurrence(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function lastOccurrence(codes, q): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc lastOccurrence(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "lastOccurrence",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            2,
+            2,
+            3
+          ],
+          2
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          4
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [],
+          1
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5
+          ],
+          5
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": 4
+      }
+    ],
+    "editorial": "**Brute force**: O(n) reverse scan.\n\n**Binary search O(log n)**: Compute upper bound (first index where value > q). Last occurrence index = `ub - 1` if `ub > 0 && codes[ub-1] === q`.\n\n```js\nfunction lastOccurrence(codes, q) {\n  let lo = 0, hi = codes.length;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid index\n    if (codes[mid] > q) hi = mid;\n    else lo = mid + 1;\n  }\n  // lo === ub\n  if (lo > 0 && codes[lo - 1] === q) return lo - 1;\n  return -1;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "postman-api-version-insert",
+    "number": 1408,
+    "title": "Postman API Version Insert Position",
+    "difficulty": "Easy",
+    "topic": "Binary Search",
+    "companies": [
+      "postman",
+      "atlassian",
+      "google"
+    ],
+    "description": "Postman maintains sorted API version numbers in `versions`. Given a new version `v`, return the index where it should be inserted to keep order (leftmost valid). If `v` already exists, return its first index.",
+    "examples": [
+      {
+        "input": "versions = [1,3,5,6], v = 5",
+        "output": "2",
+        "explanation": "5 already at index 2."
+      },
+      {
+        "input": "versions = [1,3,5,6], v = 2",
+        "output": "1",
+        "explanation": "Insert before 3."
+      }
+    ],
+    "constraints": [
+      "0 <= versions.length <= 1e5",
+      "versions sorted ascending"
+    ],
+    "hints": [
+      "yeh exactly lower_bound hai",
+      "answer 0 se n tak ho sakta",
+      "no need to handle 'not found' separately"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function insertPos(versions, v) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def insert_pos(versions, v):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object insertPos(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson insertPos(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function insertPos(versions, v): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc insertPos(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "insertPos",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            6
+          ],
+          5
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            6
+          ],
+          2
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            6
+          ],
+          7
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            6
+          ],
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          1
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan.\n\n**Binary search lower-bound O(log n)**: Find first index where `versions[i] >= v`.\n\n```js\nfunction insertPos(versions, v) {\n  let lo = 0, hi = versions.length;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid avoids overflow\n    if (versions[mid] >= v) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "phonepe-rotated-balance-search",
+    "number": 1409,
+    "title": "PhonePe Rotated Balance Log Search",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "phonepe",
+      "paytm",
+      "razorpay"
+    ],
+    "description": "PhonePe's daily settlement log is a strictly increasing array that has been rotated once at an unknown pivot. All elements are unique. Given `log` and a `target`, return its index, else -1, in O(log n).",
+    "examples": [
+      {
+        "input": "log = [40,50,60,10,20,30], target = 20",
+        "output": "4",
+        "explanation": "20 found at index 4."
+      },
+      {
+        "input": "log = [40,50,60,10,20,30], target = 35",
+        "output": "-1",
+        "explanation": "Not present."
+      }
+    ],
+    "constraints": [
+      "1 <= log.length <= 1e5",
+      "all values unique",
+      "rotated 0 or more times"
+    ],
+    "hints": [
+      "mid pe ek half guaranteed sorted hota hai",
+      "check arr[lo] <= arr[mid] for left-sorted",
+      "target us sorted half mein hai? haan toh wahi search, warna doosra"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function rotatedSearch(log, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def rotated_search(log, target):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object rotatedSearch(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson rotatedSearch(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function rotatedSearch(log, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc rotatedSearch(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "rotatedSearch",
+    "tests": [
+      {
+        "args": [
+          [
+            40,
+            50,
+            60,
+            10,
+            20,
+            30
+          ],
+          20
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            40,
+            50,
+            60,
+            10,
+            20,
+            30
+          ],
+          35
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            40,
+            50,
+            60,
+            10,
+            20,
+            30
+          ],
+          40
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            40,
+            50,
+            60,
+            10,
+            20,
+            30
+          ],
+          30
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          2
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            3,
+            1
+          ],
+          1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          4
+        ],
+        "expected": 3
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan.\n\n**Modified binary search O(log n)**: Rotated sorted array mein, kisi bhi mid pe at least ek side fully sorted hai. Check kar `arr[lo] <= arr[mid]` — agar haan, left half sorted; check target in `[arr[lo], arr[mid])` aur accordingly hi/lo move kar. Else right half sorted, check target in `(arr[mid], arr[hi]]`.\n\n```js\nfunction rotatedSearch(log, target) {\n  let lo = 0, hi = log.length - 1;\n  while (lo <= hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe mid\n    if (log[mid] === target) return mid;\n    if (log[lo] <= log[mid]) { // left sorted\n      if (log[lo] <= target && target < log[mid]) hi = mid - 1;\n      else lo = mid + 1;\n    } else { // right sorted\n      if (log[mid] < target && target <= log[hi]) lo = mid + 1;\n      else hi = mid - 1;\n    }\n  }\n  return -1;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "cred-min-rotated",
+    "number": 1410,
+    "title": "Cred Minimum Reward Pivot",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "cred",
+      "phonepe",
+      "razorpay"
+    ],
+    "description": "Cred's reward array was originally sorted ascending then rotated once. All elements unique. Return the minimum value in O(log n).",
+    "examples": [
+      {
+        "input": "rewards = [40,50,60,10,20,30]",
+        "output": "10",
+        "explanation": "Pivot value is 10."
+      },
+      {
+        "input": "rewards = [1,2,3,4,5]",
+        "output": "1",
+        "explanation": "Not rotated."
+      }
+    ],
+    "constraints": [
+      "1 <= rewards.length <= 1e5",
+      "elements unique"
+    ],
+    "hints": [
+      "compare arr[mid] with arr[hi]",
+      "agar arr[mid] > arr[hi] toh min right half mein",
+      "warna mid candidate hai, hi = mid"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findMinPivot(rewards) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_min_pivot(rewards):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findMinPivot(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findMinPivot(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findMinPivot(rewards): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findMinPivot(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findMinPivot",
+    "tests": [
+      {
+        "args": [
+          [
+            40,
+            50,
+            60,
+            10,
+            20,
+            30
+          ]
+        ],
+        "expected": 10
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            2,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            3,
+            4,
+            5,
+            1,
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            7,
+            8,
+            9,
+            10,
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 1
+      }
+    ],
+    "editorial": "**Brute force**: O(n) min scan.\n\n**Binary search O(log n)**: Compare `arr[mid]` with `arr[hi]`. Agar `arr[mid] > arr[hi]`, minimum strictly to the right, so `lo = mid + 1`. Else, minimum is at mid or to its left, so `hi = mid`. Loop while `lo < hi`.\n\n```js\nfunction findMinPivot(rewards) {\n  let lo = 0, hi = rewards.length - 1;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe mid\n    if (rewards[mid] > rewards[hi]) lo = mid + 1;\n    else hi = mid;\n  }\n  return rewards[lo];\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "uber-surge-peak",
+    "number": 1411,
+    "title": "Uber Surge Peak Hour",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "uber",
+      "swiggy",
+      "bookmyshow"
+    ],
+    "description": "Uber's hourly demand `demand[i]` differs from neighbors (`demand[i] !== demand[i+1]`). A peak is any index `i` where `demand[i]` is strictly greater than both neighbors (treat out-of-bounds as -Infinity). Return the index of ANY peak in O(log n).",
+    "examples": [
+      {
+        "input": "demand = [1,3,2]",
+        "output": "1",
+        "explanation": "3 is a peak."
+      },
+      {
+        "input": "demand = [5,4,3,2,1]",
+        "output": "0",
+        "explanation": "5 > -inf and > 4."
+      }
+    ],
+    "constraints": [
+      "1 <= demand.length <= 1e5",
+      "demand[i] != demand[i+1]"
+    ],
+    "hints": [
+      "climb up: agar arr[mid] < arr[mid+1] toh peak right mein hai",
+      "warna left half mein",
+      "hi = mid (mid khud peak ho sakta), lo = mid+1"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findPeak(demand) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_peak(demand):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findPeak(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findPeak(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findPeak(demand): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findPeak(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findPeak",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            2,
+            1
+          ]
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan and check neighbors.\n\n**Binary search O(log n)**: Always exists ek peak (proven by mountain property). Compare `arr[mid]` with `arr[mid+1]`. Agar `arr[mid] < arr[mid+1]`, ascending slope on right — peak right mein hai (or at mid+1), so `lo = mid + 1`. Else descending — peak at mid or to its left, `hi = mid`.\n\n```js\nfunction findPeak(demand) {\n  let lo = 0, hi = demand.length - 1;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe\n    if (demand[mid] < demand[mid + 1]) lo = mid + 1;\n    else hi = mid;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "amazon-warehouse-2d-search",
+    "number": 1412,
+    "title": "Amazon Warehouse Grid Lookup",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "amazon",
+      "flipkart",
+      "microsoft"
+    ],
+    "description": "Amazon's warehouse grid `grid` (m x n) has each row sorted ascending and the first element of each row greater than the last of previous row (so flattening yields a sorted array). Given `target`, return true if present.",
+    "examples": [
+      {
+        "input": "grid = [[1,3,5],[7,9,11],[13,15,17]], target = 9",
+        "output": "true",
+        "explanation": "9 in row 1 col 1."
+      },
+      {
+        "input": "grid = [[1,3]], target = 2",
+        "output": "false",
+        "explanation": "Not present."
+      }
+    ],
+    "constraints": [
+      "1 <= m, n <= 300",
+      "-1e9 <= grid[i][j], target <= 1e9"
+    ],
+    "hints": [
+      "treat as 1D sorted array of length m*n",
+      "index k -> (k/n, k%n) mapping",
+      "ek hi binary search, O(log(m*n))"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function searchMatrix(grid, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def search_matrix(grid, target):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object searchMatrix(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson searchMatrix(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function searchMatrix(grid, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc searchMatrix(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "searchMatrix",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              7,
+              9,
+              11
+            ],
+            [
+              13,
+              15,
+              17
+            ]
+          ],
+          9
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ]
+          ],
+          2
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ],
+          1
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ],
+          0
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3,
+              5,
+              7
+            ],
+            [
+              10,
+              11,
+              16,
+              20
+            ],
+            [
+              23,
+              30,
+              34,
+              60
+            ]
+          ],
+          3
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3,
+              5,
+              7
+            ],
+            [
+              10,
+              11,
+              16,
+              20
+            ],
+            [
+              23,
+              30,
+              34,
+              60
+            ]
+          ],
+          13
+        ],
+        "expected": false
+      }
+    ],
+    "editorial": "**Brute force**: O(m*n) scan.\n\n**Binary search O(log(m*n))**: Treat the matrix as a 1D sorted array of length `m*n`. Map index `k` to `(k / n, k % n)`. Run standard binary search.\n\n```js\nfunction searchMatrix(grid, target) {\n  const m = grid.length, n = grid[0].length;\n  let lo = 0, hi = m * n - 1;\n  while (lo <= hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe\n    const val = grid[Math.floor(mid / n)][mid % n];\n    if (val === target) return true;\n    if (val < target) lo = mid + 1;\n    else hi = mid - 1;\n  }\n  return false;\n}\n```\n\n**Complexity**: Time O(log(m*n)), Space O(1)."
+  },
+  {
+    "slug": "google-koko-server-rate",
+    "number": 1413,
+    "title": "Google Koko-style Server Throughput",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "google",
+      "amazon",
+      "microsoft"
+    ],
+    "description": "Google has `piles` of pending log batches and `H` hours to finish. Each hour the server processes up to `k` items from one pile (if pile has fewer, it finishes that pile and moves on next hour). Return the minimum integer `k` such that all piles are processed within `H` hours.",
+    "examples": [
+      {
+        "input": "piles = [3,6,7,11], H = 8",
+        "output": "4",
+        "explanation": "k=4 needs 1+2+2+3=8 hours."
+      },
+      {
+        "input": "piles = [30,11,23,4,20], H = 6",
+        "output": "23",
+        "explanation": "k=23 -> 2+1+1+1+1=6."
+      }
+    ],
+    "constraints": [
+      "1 <= piles.length <= 1e4",
+      "piles.length <= H <= 1e9",
+      "1 <= piles[i] <= 1e9"
+    ],
+    "hints": [
+      "binary search on answer space [1, max(piles)]",
+      "feasible(k) = sum(ceil(p/k)) <= H",
+      "smallest k jahan feasible true ho"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minRate(piles, H) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_rate(piles, H):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minRate(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minRate(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minRate(piles, H): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minRate(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minRate",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            6,
+            7,
+            11
+          ],
+          8
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            30,
+            11,
+            23,
+            4,
+            20
+          ],
+          6
+        ],
+        "expected": 23
+      },
+      {
+        "args": [
+          [
+            30,
+            11,
+            23,
+            4,
+            20
+          ],
+          5
+        ],
+        "expected": 30
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1000000000
+          ],
+          2
+        ],
+        "expected": 500000000
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          4
+        ],
+        "expected": 1
+      }
+    ],
+    "editorial": "**Brute force**: Try k = 1, 2, ... until feasible — O(max * n).\n\n**Binary search on answer O(n log max)**: Smallest `k` such that `sum(ceil(p / k)) <= H`. Monotonic — bigger `k` -> fewer hours. Search range `[1, max(piles)]`.\n\n```js\nfunction minRate(piles, H) {\n  const feasible = (k) => {\n    let h = 0;\n    for (const p of piles) h += Math.ceil(p / k);\n    return h <= H;\n  };\n  let lo = 1, hi = Math.max(...piles);\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid = candidate rate\n    if (feasible(mid)) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(n log max), Space O(1)."
+  },
+  {
+    "slug": "swiggy-delivery-capacity",
+    "number": 1414,
+    "title": "Swiggy Delivery Capacity Allocator",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "amazon"
+    ],
+    "description": "Swiggy must dispatch packages `weights` IN ORDER over `D` days using a single truck. Each day, the truck carries some prefix of remaining packages whose sum <= capacity. Return the minimum truck capacity to finish in `D` days.",
+    "examples": [
+      {
+        "input": "weights = [1,2,3,4,5,6,7,8,9,10], D = 5",
+        "output": "15",
+        "explanation": "Splits sums (1+2+3+4+5)/(6+7)/(8)/(9)/(10) all <= 15."
+      },
+      {
+        "input": "weights = [3,2,2,4,1,4], D = 3",
+        "output": "6",
+        "explanation": "(3+2)/(2+4)/(1+4) all <= 6."
+      }
+    ],
+    "constraints": [
+      "1 <= weights.length <= 5e4",
+      "1 <= D <= weights.length",
+      "1 <= weights[i] <= 500"
+    ],
+    "hints": [
+      "lo = max(weights), hi = sum(weights)",
+      "feasible(cap): greedy split, count days needed",
+      "smallest cap jahan days <= D"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function shipCapacity(weights, D) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def ship_capacity(weights, D):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object shipCapacity(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson shipCapacity(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function shipCapacity(weights, D): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc shipCapacity(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "shipCapacity",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          5
+        ],
+        "expected": 15
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            2,
+            4,
+            1,
+            4
+          ],
+          3
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            1,
+            1
+          ],
+          4
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          1
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          4
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          1
+        ],
+        "expected": 4
+      }
+    ],
+    "editorial": "**Brute force**: Try cap from max(weights) upward — O(sum * n).\n\n**Binary search on answer O(n log sum)**: Range `[max(weights), sum(weights)]`. Feasibility check: greedy — keep packing the next weight; if it overflows current day, increment day counter, start new day. If days <= D, feasible.\n\n```js\nfunction shipCapacity(weights, D) {\n  const feasible = (cap) => {\n    let days = 1, load = 0;\n    for (const w of weights) {\n      if (load + w > cap) { days++; load = 0; }\n      load += w;\n    }\n    return days <= D;\n  };\n  let lo = Math.max(...weights);\n  let hi = weights.reduce((a, b) => a + b, 0);\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid = candidate cap\n    if (feasible(mid)) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(n log sum), Space O(1)."
+  },
+  {
+    "slug": "zomato-rotated-with-dupes",
+    "number": 1415,
+    "title": "Zomato Rotated Restaurant Ratings",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "zomato",
+      "swiggy",
+      "bookmyshow"
+    ],
+    "description": "Zomato's ratings array (with possible duplicates) was sorted ascending and rotated once. Given `ratings` and `target`, return true if target exists.",
+    "examples": [
+      {
+        "input": "ratings = [2,5,6,0,0,1,2], target = 0",
+        "output": "true",
+        "explanation": "0 present."
+      },
+      {
+        "input": "ratings = [2,5,6,0,0,1,2], target = 3",
+        "output": "false",
+        "explanation": "3 absent."
+      }
+    ],
+    "constraints": [
+      "1 <= ratings.length <= 1e5",
+      "duplicates allowed"
+    ],
+    "hints": [
+      "duplicates ki wajah se arr[lo] === arr[mid] === arr[hi] case mein lo++/hi--",
+      "warna usual rotated logic",
+      "worst case O(n) jab saare duplicates"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function rotatedSearchDup(ratings, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def rotated_search_dup(ratings, target):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object rotatedSearchDup(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson rotatedSearchDup(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function rotatedSearchDup(ratings, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc rotatedSearchDup(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "rotatedSearchDup",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            5,
+            6,
+            0,
+            0,
+            1,
+            2
+          ],
+          0
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            2,
+            5,
+            6,
+            0,
+            0,
+            1,
+            2
+          ],
+          3
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          1
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          2
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          0
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          0
+        ],
+        "expected": true
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan.\n\n**Modified binary search O(log n) avg, O(n) worst**: Duplicates dikkat karte hain — agar `arr[lo] === arr[mid] === arr[hi]`, sorted half identify nahi hota; tab `lo++; hi--` aur retry. Else standard rotated logic: ek half sorted hai, decide which side target lies in.\n\n```js\nfunction rotatedSearchDup(ratings, target) {\n  let lo = 0, hi = ratings.length - 1;\n  while (lo <= hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid\n    if (ratings[mid] === target) return true;\n    if (ratings[lo] === ratings[mid] && ratings[mid] === ratings[hi]) { lo++; hi--; continue; }\n    if (ratings[lo] <= ratings[mid]) {\n      if (ratings[lo] <= target && target < ratings[mid]) hi = mid - 1;\n      else lo = mid + 1;\n    } else {\n      if (ratings[mid] < target && target <= ratings[hi]) lo = mid + 1;\n      else hi = mid - 1;\n    }\n  }\n  return false;\n}\n```\n\n**Complexity**: Time O(log n) average, O(n) worst, Space O(1)."
+  },
+  {
+    "slug": "microsoft-firstbad-deploy",
+    "number": 1416,
+    "title": "Microsoft First Bad Deploy",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "microsoft",
+      "google",
+      "atlassian"
+    ],
+    "description": "Microsoft has `n` sequential deploys; once a deploy goes bad, all subsequent are bad. Given `n` and a boolean array `bad` (1-indexed conceptually but here 0-indexed) where `bad[i]` is true if deploy `i+1` is bad, return the 1-indexed number of the first bad deploy. Guaranteed at least one bad.",
+    "examples": [
+      {
+        "input": "n = 5, bad = [false,false,true,true,true]",
+        "output": "3",
+        "explanation": "Deploy 3 first bad."
+      },
+      {
+        "input": "n = 1, bad = [true]",
+        "output": "1",
+        "explanation": "Only deploy is bad."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 1e9 (we test smaller)",
+      "exactly one transition false->true"
+    ],
+    "hints": [
+      "monotonic predicate isBad(i)",
+      "find first index where isBad true",
+      "return index+1 (1-indexed)"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function firstBad(n, bad) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def first_bad(n, bad):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object firstBad(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson firstBad(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function firstBad(n, bad): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc firstBad(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "firstBad",
+    "tests": [
+      {
+        "args": [
+          5,
+          [
+            false,
+            false,
+            true,
+            true,
+            true
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          1,
+          [
+            true
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          4,
+          [
+            true,
+            true,
+            true,
+            true
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          4,
+          [
+            false,
+            false,
+            false,
+            true
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          10,
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          2,
+          [
+            false,
+            true
+          ]
+        ],
+        "expected": 2
+      }
+    ],
+    "editorial": "**Brute force**: Linear scan O(n).\n\n**Binary search O(log n)**: Predicate `bad[i]` is monotonic false...false,true...true. Find first true index. Half-open `[lo=0, hi=n)`; `mid = lo + Math.floor((hi - lo) / 2)`. Agar `bad[mid]` true toh `hi = mid`, else `lo = mid + 1`. Return `lo + 1` (1-indexed).\n\n```js\nfunction firstBad(n, bad) {\n  let lo = 0, hi = n;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe mid\n    if (bad[mid]) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo + 1;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "paytm-mountain-summit",
+    "number": 1417,
+    "title": "Paytm Transaction Mountain Summit",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "paytm",
+      "phonepe",
+      "cred"
+    ],
+    "description": "Paytm's hourly transaction array `tx` strictly increases up to a peak then strictly decreases (mountain). Length >= 3. Return the index of the peak in O(log n).",
+    "examples": [
+      {
+        "input": "tx = [1,3,5,4,2]",
+        "output": "2",
+        "explanation": "5 is peak."
+      },
+      {
+        "input": "tx = [0,10,5,2]",
+        "output": "1",
+        "explanation": "10 peak."
+      }
+    ],
+    "constraints": [
+      "3 <= tx.length <= 1e5",
+      "strict mountain"
+    ],
+    "hints": [
+      "compare tx[mid] with tx[mid+1]",
+      "ascending ho toh peak right (lo = mid+1)",
+      "descending ho toh peak at mid or left (hi = mid)"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function mountainPeak(tx) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def mountain_peak(tx):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object mountainPeak(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson mountainPeak(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function mountainPeak(tx): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc mountainPeak(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "mountainPeak",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            4,
+            2
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            0,
+            10,
+            5,
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            3,
+            1
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            3,
+            5,
+            3
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            8,
+            7,
+            6,
+            5,
+            4,
+            3,
+            2,
+            1,
+            0
+          ]
+        ],
+        "expected": 9
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan.\n\n**Binary search O(log n)**: Mountain mein peak unique hai. Compare neighbors at mid: agar `tx[mid] < tx[mid+1]` we're on the ascending slope, peak is to the right (`lo = mid + 1`). Else descending slope, peak at mid or left (`hi = mid`).\n\n```js\nfunction mountainPeak(tx) {\n  let lo = 0, hi = tx.length - 1;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // overflow safe\n    if (tx[mid] < tx[mid + 1]) lo = mid + 1;\n    else hi = mid;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "flipkart-nth-root",
+    "number": 1418,
+    "title": "Flipkart Nth Root Bucket",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "flipkart",
+      "meesho",
+      "amazon"
+    ],
+    "description": "Flipkart sizes warehouse buckets by `floor(x^(1/n))`. Given non-negative integer `x` and integer `n` (1 <= n <= 30), return floor of the n-th root of x using binary search.",
+    "examples": [
+      {
+        "input": "x = 27, n = 3",
+        "output": "3",
+        "explanation": "3^3 = 27."
+      },
+      {
+        "input": "x = 30, n = 3",
+        "output": "3",
+        "explanation": "3^3=27 <= 30 < 64."
+      }
+    ],
+    "constraints": [
+      "0 <= x <= 1e15",
+      "1 <= n <= 30"
+    ],
+    "hints": [
+      "answer space [0, x]; for n>=2 narrow to [0, x] still works",
+      "compute mid^n iteratively, break early if exceeds x",
+      "watch overflow with BigInt or early break"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function nthRoot(x, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def nth_root(x, n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object nthRoot(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson nthRoot(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function nthRoot(x, n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc nthRoot(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "nthRoot",
+    "tests": [
+      {
+        "args": [
+          27,
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          30,
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          0,
+          5
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          1,
+          10
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          1024,
+          10
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          1000000,
+          2
+        ],
+        "expected": 1000
+      },
+      {
+        "args": [
+          8,
+          3
+        ],
+        "expected": 2
+      }
+    ],
+    "editorial": "**Brute force**: Linear scan up to x — O(x).\n\n**Binary search on answer O(log x * n)**: Find largest `m` such that `m^n <= x`. Use BigInt to avoid 2^53 overflow when n is large.\n\n```js\nfunction nthRoot(x, n) {\n  if (x < 2) return x;\n  let lo = 1n, hi = BigInt(x), ans = 0n;\n  const X = BigInt(x), N = BigInt(n);\n  while (lo <= hi) {\n    const mid = lo + (hi - lo) / 2n; // overflow safe mid\n    let p = 1n, exceeded = false;\n    for (let i = 0n; i < N; i++) {\n      p *= mid;\n      if (p > X) { exceeded = true; break; }\n    }\n    if (!exceeded) { ans = mid; lo = mid + 1n; }\n    else hi = mid - 1n;\n  }\n  return Number(ans);\n}\n```\n\n**Complexity**: Time O(n log x), Space O(1)."
+  },
+  {
+    "slug": "amazon-fixed-point",
+    "number": 1419,
+    "title": "Amazon Fixed Point Magic Index",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Amazon's distinct sorted array `arr` may contain a magic index where `arr[i] === i`. Return the smallest such index, else -1, in O(log n).",
+    "examples": [
+      {
+        "input": "arr = [-3,-1,1,3,5]",
+        "output": "3",
+        "explanation": "arr[3]=3."
+      },
+      {
+        "input": "arr = [1,2,3,4,5]",
+        "output": "-1",
+        "explanation": "None match."
+      }
+    ],
+    "constraints": [
+      "1 <= arr.length <= 1e5",
+      "all distinct, sorted ascending"
+    ],
+    "hints": [
+      "arr distinct sorted -> arr[i]-i is non-decreasing",
+      "find smallest i where arr[i]-i >= 0 AND arr[i]-i === 0",
+      "binary search for arr[i] === i"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function magicIndex(arr) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def magic_index(arr):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object magicIndex(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson magicIndex(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function magicIndex(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc magicIndex(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "magicIndex",
+    "tests": [
+      {
+        "args": [
+          [
+            -3,
+            -1,
+            1,
+            3,
+            5
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            -1
+          ]
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            0,
+            2,
+            5,
+            8,
+            17
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            -10,
+            -5,
+            0,
+            3,
+            7
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            -1,
+            0,
+            1,
+            2,
+            4,
+            10
+          ]
+        ],
+        "expected": 4
+      }
+    ],
+    "editorial": "**Brute force**: O(n) scan.\n\n**Binary search O(log n)**: Distinct sorted array mein, `f(i) = arr[i] - i` is non-decreasing (kyunki arr strictly increases by at least 1 per step). So we can binary search for the smallest i where `f(i) === 0` by finding smallest i with `f(i) >= 0`, then verify.\n\n```js\nfunction magicIndex(arr) {\n  let lo = 0, hi = arr.length;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // mid\n    if (arr[mid] - mid >= 0) hi = mid;\n    else lo = mid + 1;\n  }\n  if (lo < arr.length && arr[lo] === lo) return lo;\n  return -1;\n}\n```\n\n**Complexity**: Time O(log n), Space O(1)."
+  },
+  {
+    "slug": "google-aggressive-cows",
+    "number": 1420,
+    "title": "Google EV Charging Station Spread",
+    "difficulty": "Medium",
+    "topic": "Binary Search",
+    "companies": [
+      "google",
+      "uber",
+      "amazon"
+    ],
+    "description": "Google maps has `n` candidate parking spots at positions `pos` (sorted ascending). You must place `k` EV chargers at distinct spots so that the minimum distance between any two chargers is maximized. Return that max min-distance.",
+    "examples": [
+      {
+        "input": "pos = [1,2,4,8,9], k = 3",
+        "output": "3",
+        "explanation": "Place at 1,4,8 -> min dist 3."
+      },
+      {
+        "input": "pos = [1,2,3,4,7], k = 2",
+        "output": "6",
+        "explanation": "Place at 1 and 7."
+      }
+    ],
+    "constraints": [
+      "2 <= k <= pos.length <= 1e5",
+      "0 <= pos[i] <= 1e9, sorted, distinct"
+    ],
+    "hints": [
+      "binary search on distance d in [1, max-min]",
+      "feasible(d): greedy place at first, then next pos >= last+d",
+      "agar count >= k toh feasible"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function maxMinDistance(pos, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_min_distance(pos, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object maxMinDistance(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson maxMinDistance(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function maxMinDistance(pos, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc maxMinDistance(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "maxMinDistance",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            4,
+            8,
+            9
+          ],
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            7
+          ],
+          2
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            7
+          ],
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            0,
+            5,
+            10,
+            15,
+            20
+          ],
+          5
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          2
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          4
+        ],
+        "expected": 3
+      }
+    ],
+    "editorial": "**Brute force**: Try every distance from 1 to max — O(max * n).\n\n**Binary search on answer O(n log range)**: Search largest `d` such that we can place all k chargers with pairwise distance >= d. Greedy feasibility: place at `pos[0]`, then take next position with `pos[i] - last >= d`.\n\n```js\nfunction maxMinDistance(pos, k) {\n  const feasible = (d) => {\n    let count = 1, last = pos[0];\n    for (let i = 1; i < pos.length; i++) {\n      if (pos[i] - last >= d) { count++; last = pos[i]; }\n    }\n    return count >= k;\n  };\n  let lo = 1, hi = pos[pos.length - 1] - pos[0], ans = 0;\n  while (lo <= hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // candidate distance\n    if (feasible(mid)) { ans = mid; lo = mid + 1; }\n    else hi = mid - 1;\n  }\n  return ans;\n}\n```\n\n**Complexity**: Time O(n log range), Space O(1)."
+  },
+  {
+    "slug": "bookmyshow-median-two-shows",
+    "number": 1421,
+    "title": "BookMyShow Combined Show Median",
+    "difficulty": "Hard",
+    "topic": "Binary Search",
+    "companies": [
+      "bookmyshow",
+      "google",
+      "amazon"
+    ],
+    "description": "BookMyShow merges sorted ticket-price arrays from two shows: `a` and `b`. Return the median of the combined sorted list in O(log(min(m,n))). If total length is even, return the average of the two middle values.",
+    "examples": [
+      {
+        "input": "a = [1,3], b = [2]",
+        "output": "2",
+        "explanation": "Combined [1,2,3], median 2."
+      },
+      {
+        "input": "a = [1,2], b = [3,4]",
+        "output": "2.5",
+        "explanation": "Combined [1,2,3,4], median 2.5."
+      }
+    ],
+    "constraints": [
+      "0 <= a.length, b.length <= 1000",
+      "1 <= a.length + b.length",
+      "-1e6 <= values <= 1e6"
+    ],
+    "hints": [
+      "partition both arrays so left half has (m+n+1)/2 elems",
+      "binary search on shorter array's partition",
+      "max(left_a, left_b) <= min(right_a, right_b) means valid partition"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function combinedMedian(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def combined_median(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object combinedMedian(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson combinedMedian(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function combinedMedian(a, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc combinedMedian(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "combinedMedian",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3
+          ],
+          [
+            2
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "expected": 2.5
+      },
+      {
+        "args": [
+          [],
+          [
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            2
+          ],
+          []
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        ],
+        "expected": 5.5
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "**Brute force**: Merge in O(m+n) and pick middle.\n\n**Binary search O(log(min(m,n)))**: Always binary search on the SHORTER array. Partition `a` at index `i` and `b` at index `j = (m+n+1)/2 - i` so that left side has half elements. Valid iff `a[i-1] <= b[j]` and `b[j-1] <= a[i]`. Use ±Infinity for boundaries.\n\n```js\nfunction combinedMedian(a, b) {\n  if (a.length > b.length) return combinedMedian(b, a);\n  const m = a.length, n = b.length;\n  let lo = 0, hi = m;\n  const half = Math.floor((m + n + 1) / 2);\n  while (lo <= hi) {\n    const i = lo + Math.floor((hi - lo) / 2); // mid in shorter\n    const j = half - i;\n    const aL = i === 0 ? -Infinity : a[i - 1];\n    const aR = i === m ? Infinity : a[i];\n    const bL = j === 0 ? -Infinity : b[j - 1];\n    const bR = j === n ? Infinity : b[j];\n    if (aL <= bR && bL <= aR) {\n      if ((m + n) % 2 === 1) return Math.max(aL, bL);\n      return (Math.max(aL, bL) + Math.min(aR, bR)) / 2;\n    } else if (aL > bR) hi = i - 1;\n    else lo = i + 1;\n  }\n  return 0;\n}\n```\n\n**Complexity**: Time O(log(min(m,n))), Space O(1)."
+  },
+  {
+    "slug": "amazon-allocate-shipping-bins",
+    "number": 1422,
+    "title": "Amazon Allocate Shipping Bins",
+    "difficulty": "Hard",
+    "topic": "Binary Search",
+    "companies": [
+      "amazon",
+      "flipkart",
+      "meesho"
+    ],
+    "description": "Amazon has `n` packages with weights `pkg` (in given order) to distribute to `k` workers. Each worker takes a CONTIGUOUS subarray; every package must go to exactly one worker; each worker gets >= 1 package. Minimize the maximum total weight assigned to any worker. Return -1 if k > n.",
+    "examples": [
+      {
+        "input": "pkg = [10,20,30,40], k = 2",
+        "output": "60",
+        "explanation": "Split as [10,20,30][40] -> max 60."
+      },
+      {
+        "input": "pkg = [12,34,67,90], k = 2",
+        "output": "113",
+        "explanation": "Split [12,34,67][90] -> max 113."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 1e4",
+      "1 <= k <= 1e3",
+      "1 <= pkg[i] <= 1e7"
+    ],
+    "hints": [
+      "binary search on max_load in [max(pkg), sum(pkg)]",
+      "feasible(L): greedy partition, count workers needed",
+      "agar workers <= k toh feasible"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function allocateBins(pkg, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def allocate_bins(pkg, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object allocateBins(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson allocateBins(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function allocateBins(pkg, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc allocateBins(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "allocateBins",
+    "tests": [
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40
+          ],
+          2
+        ],
+        "expected": 60
+      },
+      {
+        "args": [
+          [
+            12,
+            34,
+            67,
+            90
+          ],
+          2
+        ],
+        "expected": 113
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          1
+        ],
+        "expected": 15
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          6
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            7,
+            2,
+            5,
+            10,
+            8
+          ],
+          2
+        ],
+        "expected": 18
+      },
+      {
+        "args": [
+          [
+            1,
+            4,
+            4
+          ],
+          3
+        ],
+        "expected": 4
+      }
+    ],
+    "editorial": "**Brute force**: Try every partition combo — exponential.\n\n**Binary search on answer O(n log sum)**: Search smallest `L` (max load per worker) such that we can split into <= k contiguous groups, each summing <= L. Range `[max(pkg), sum(pkg)]`. Feasibility: greedy — accumulate; reset when exceeding L.\n\n```js\nfunction allocateBins(pkg, k) {\n  const n = pkg.length;\n  if (k > n) return -1;\n  const feasible = (L) => {\n    let groups = 1, cur = 0;\n    for (const w of pkg) {\n      if (cur + w > L) { groups++; cur = 0; }\n      cur += w;\n    }\n    return groups <= k;\n  };\n  let lo = Math.max(...pkg);\n  let hi = pkg.reduce((a, b) => a + b, 0);\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // candidate max load\n    if (feasible(mid)) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(n log sum), Space O(1)."
+  },
+  {
+    "slug": "google-paint-fences",
+    "number": 1423,
+    "title": "Google Paint Fence Partition",
+    "difficulty": "Hard",
+    "topic": "Binary Search",
+    "companies": [
+      "google",
+      "microsoft",
+      "atlassian"
+    ],
+    "description": "Google has fence boards with lengths `boards` to be painted by `painters`. Each painter paints a CONTIGUOUS sequence of boards at 1 unit time per length unit, all in parallel. Minimize total finish time = max painter load. Return -1 if painters > boards.length.",
+    "examples": [
+      {
+        "input": "boards = [10,20,30,40], painters = 2",
+        "output": "60",
+        "explanation": "Same as splitting; max 60."
+      },
+      {
+        "input": "boards = [5,5,5,5], painters = 2",
+        "output": "10",
+        "explanation": "Two painters do 10 each."
+      }
+    ],
+    "constraints": [
+      "1 <= boards.length <= 1e4",
+      "1 <= painters <= 1e3",
+      "1 <= boards[i] <= 1e7"
+    ],
+    "hints": [
+      "classic binary search on time T",
+      "feasible(T): greedy assign, count painters",
+      "lo = max(boards), hi = sum"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function paintTime(boards, painters) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def paint_time(boards, painters):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object paintTime(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson paintTime(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function paintTime(boards, painters): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc paintTime(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "paintTime",
+    "tests": [
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40
+          ],
+          2
+        ],
+        "expected": 60
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5
+          ],
+          2
+        ],
+        "expected": 10
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5
+          ],
+          4
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            100
+          ],
+          1
+        ],
+        "expected": 100
+      },
+      {
+        "args": [
+          [
+            100
+          ],
+          2
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            10,
+            10,
+            10,
+            10
+          ],
+          3
+        ],
+        "expected": 20
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          3
+        ],
+        "expected": 17
+      }
+    ],
+    "editorial": "**Brute force**: Enumerate partitions — exponential.\n\n**Binary search on answer O(n log sum)**: Search smallest `T` such that at most `painters` painters can finish within time `T`. Feasibility: walk boards left to right, pack until adding next board would exceed `T`; then increment painter count.\n\n```js\nfunction paintTime(boards, painters) {\n  if (painters > boards.length) return -1;\n  const feasible = (T) => {\n    let count = 1, cur = 0;\n    for (const b of boards) {\n      if (cur + b > T) { count++; cur = 0; }\n      cur += b;\n    }\n    return count <= painters;\n  };\n  let lo = Math.max(...boards);\n  let hi = boards.reduce((a, b) => a + b, 0);\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // candidate time\n    if (feasible(mid)) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(n log sum), Space O(1)."
+  },
+  {
+    "slug": "razorpay-kth-smallest-pair-sum",
+    "number": 1424,
+    "title": "Razorpay Kth Smallest Settlement Pair",
+    "difficulty": "Hard",
+    "topic": "Binary Search",
+    "companies": [
+      "razorpay",
+      "phonepe",
+      "google"
+    ],
+    "description": "Razorpay has two sorted (ascending) settlement arrays `a` and `b`. For every pair (i, j), define sum = a[i] + b[j]. Return the k-th SMALLEST such pair sum (1-indexed).",
+    "examples": [
+      {
+        "input": "a = [1,7,11], b = [2,4,6], k = 3",
+        "output": "7",
+        "explanation": "Sums sorted: 3,5,7,..."
+      },
+      {
+        "input": "a = [1,2], b = [3], k = 2",
+        "output": "5",
+        "explanation": "Sums 4,5; second is 5."
+      }
+    ],
+    "constraints": [
+      "1 <= a.length, b.length <= 200",
+      "1 <= k <= a.length * b.length",
+      "0 <= values <= 1e6"
+    ],
+    "hints": [
+      "binary search on answer S",
+      "count pairs with sum <= S using two-pointer in O(m+n)",
+      "smallest S where count >= k"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function kthPairSum(a, b, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def kth_pair_sum(a, b, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object kthPairSum(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson kthPairSum(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function kthPairSum(a, b, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc kthPairSum(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "kthPairSum",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            7,
+            11
+          ],
+          [
+            2,
+            4,
+            6
+          ],
+          3
+        ],
+        "expected": 7
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          [
+            3
+          ],
+          2
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          2
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            0
+          ],
+          [
+            0
+          ],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          5
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          9
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          [
+            5,
+            10,
+            15
+          ],
+          2
+        ],
+        "expected": 15
+      }
+    ],
+    "editorial": "**Brute force**: Enumerate all m*n pairs, sort — O(mn log mn).\n\n**Binary search on answer O((m+n) log range)**: The answer lies in `[a[0]+b[0], a[m-1]+b[n-1]]`. For a candidate `S`, count pairs with sum <= S using two-pointer technique: for each `a[i]`, count how many `b[j]` satisfy `a[i] + b[j] <= S` by walking `j` downward. Find smallest `S` where count >= k.\n\n```js\nfunction kthPairSum(a, b, k) {\n  const m = a.length, n = b.length;\n  const countLE = (S) => {\n    let cnt = 0, j = n - 1;\n    for (let i = 0; i < m; i++) {\n      while (j >= 0 && a[i] + b[j] > S) j--;\n      cnt += j + 1;\n    }\n    return cnt;\n  };\n  let lo = a[0] + b[0], hi = a[m - 1] + b[n - 1];\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // candidate sum\n    if (countLE(mid) >= k) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O((m+n) log range), Space O(1)."
+  },
+  {
+    "slug": "uber-min-time-trips",
+    "number": 1425,
+    "title": "Uber Minimum Time to Complete Trips",
+    "difficulty": "Hard",
+    "topic": "Binary Search",
+    "companies": [
+      "uber",
+      "swiggy",
+      "bookmyshow"
+    ],
+    "description": "Uber has drivers; driver `i` takes `time[i]` minutes per trip and works without breaks. Given `totalTrips` to be completed across the fleet, return the minimum total minutes needed (driver i completes floor(t / time[i]) trips by minute t).",
+    "examples": [
+      {
+        "input": "time = [1,2,3], totalTrips = 5",
+        "output": "3",
+        "explanation": "By minute 3: 3+1+1 = 5."
+      },
+      {
+        "input": "time = [2], totalTrips = 1",
+        "output": "2",
+        "explanation": "Single driver, 2 mins per trip."
+      }
+    ],
+    "constraints": [
+      "1 <= time.length <= 1e5",
+      "1 <= time[i] <= 1e7",
+      "1 <= totalTrips <= 1e7"
+    ],
+    "hints": [
+      "binary search on minutes t",
+      "feasible(t) = sum(floor(t / time[i])) >= totalTrips",
+      "lo=1, hi=min(time) * totalTrips"
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minMinutesForTrips(time, totalTrips) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_minutes_for_trips(time, total_trips):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minMinutesForTrips(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minMinutesForTrips(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minMinutesForTrips(time, totalTrips): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minMinutesForTrips(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minMinutesForTrips",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          5
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            2
+          ],
+          1
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            5,
+            10,
+            10
+          ],
+          9
+        ],
+        "expected": 25
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1000
+        ],
+        "expected": 1000
+      },
+      {
+        "args": [
+          [
+            10000000
+          ],
+          10000000
+        ],
+        "expected": 100000000000000
+      },
+      {
+        "args": [
+          [
+            2,
+            3,
+            4
+          ],
+          12
+        ],
+        "expected": 12
+      }
+    ],
+    "editorial": "**Brute force**: Increment time minute by minute checking sum — way too slow.\n\n**Binary search on answer O(n log(min*totalTrips))**: Predicate `feasible(t)` = `sum(floor(t / time[i])) >= totalTrips` is monotonic in t. Binary search smallest t. Upper bound = `min(time) * totalTrips` (a single fastest driver alone could do it by then).\n\n```js\nfunction minMinutesForTrips(time, totalTrips) {\n  const minT = Math.min(...time);\n  let lo = 1, hi = minT * totalTrips;\n  const feasible = (t) => {\n    let s = 0;\n    for (const x of time) {\n      s += Math.floor(t / x);\n      if (s >= totalTrips) return true;\n    }\n    return s >= totalTrips;\n  };\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2); // candidate minutes\n    if (feasible(mid)) hi = mid;\n    else lo = mid + 1;\n  }\n  return lo;\n}\n```\n\n**Complexity**: Time O(n log(min*totalTrips)), Space O(1)."
+  }
+]

@@ -1,0 +1,2732 @@
+[
+  {
+    "slug": "razorpay-gst-percentage-rounding",
+    "number": 2601,
+    "title": "Razorpay GST Percentage Rounding",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
+    "description": "Razorpay needs to compute GST tax on a base amount. Given an integer `amount` (in paise) and an integer `gstPercent` (0..28), return the GST tax rounded to the nearest paisa using banker-free standard rounding (round half away from zero). Use only integer math; do not rely on floating point for the final round.",
+    "examples": [
+      {
+        "input": "amount = 10000, gstPercent = 18",
+        "output": "1800",
+        "explanation": "10000 * 18 / 100 = 1800."
+      },
+      {
+        "input": "amount = 12345, gstPercent = 5",
+        "output": "617",
+        "explanation": "12345 * 5 = 61725; /100 = 617.25 → 617."
+      }
+    ],
+    "constraints": [
+      "0 <= amount <= 10^9",
+      "0 <= gstPercent <= 28"
+    ],
+    "hints": [
+      "Multiply first, then divide — agar pehle divide karega toh precision khone ka risk.",
+      "Round-half-away: (numerator + 50) / 100 with integer division when non-negative.",
+      "amount aur percent dono non-negative hain, simple."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function gstRound(amount, gstPercent) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def gst_round(amount, gst_percent):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object gstRound(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson gstRound(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function gstRound(amount, gstPercent): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc gstRound(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "gstRound",
+    "tests": [
+      {
+        "args": [
+          10000,
+          18
+        ],
+        "expected": 1800,
+        "label": "exact"
+      },
+      {
+        "args": [
+          12345,
+          5
+        ],
+        "expected": 617,
+        "label": "round down"
+      },
+      {
+        "args": [
+          150,
+          18
+        ],
+        "expected": 27,
+        "label": "27.0"
+      },
+      {
+        "args": [
+          333,
+          18
+        ],
+        "expected": 60,
+        "label": "round half up (59.94)"
+      },
+      {
+        "args": [
+          0,
+          18
+        ],
+        "expected": 0,
+        "label": "zero amount"
+      },
+      {
+        "args": [
+          99,
+          28
+        ],
+        "expected": 28,
+        "label": "small with high pct"
+      }
+    ],
+    "editorial": "**Idea — integer math, rounded division**: Compute `numerator = amount * gstPercent`. To round-half-away from zero on division by 100, add 50 before integer division: `Math.floor((numerator + 50) / 100)` (since both inputs are non-negative).\n\n```javascript\nfunction gstRound(amount, gstPercent) {\n  const num = amount * gstPercent;\n  return Math.floor((num + 50) / 100);\n}\n```\n\n**Time**: O(1). **Space**: O(1).\n\nFloating math (`amount * pct / 100`) chhote inputs ke liye fine hai but bigger precision pitfalls avoid karne ke liye integer math hi shuddh."
+  },
+  {
+    "slug": "paytm-lakh-crore-conversion",
+    "number": 2602,
+    "title": "Paytm Lakh to Crore Conversion",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "paytm",
+      "razorpay",
+      "flipkart"
+    ],
+    "description": "Paytm shows revenue in Indian numbering. 1 crore = 100 lakh. Given `lakhs` (integer), return an array `[crores, remainingLakhs]` such that `lakhs = crores * 100 + remainingLakhs` and `0 <= remainingLakhs < 100`. For negative input, return `[0, 0]` (treated as invalid).",
+    "examples": [
+      {
+        "input": "lakhs = 250",
+        "output": "[2, 50]",
+        "explanation": "2 crore + 50 lakh."
+      },
+      {
+        "input": "lakhs = 99",
+        "output": "[0, 99]",
+        "explanation": "Less than 1 crore."
+      }
+    ],
+    "constraints": [
+      "-10^9 <= lakhs <= 10^9"
+    ],
+    "hints": [
+      "Math.floor(lakhs/100) gives crores; lakhs % 100 gives remaining.",
+      "Negative case ko alag handle kar.",
+      "Integer division — don't be tempted by ` / `."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function lakhToCrore(lakhs) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def lakh_to_crore(lakhs):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object lakhToCrore(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson lakhToCrore(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function lakhToCrore(lakhs): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc lakhToCrore(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "lakhToCrore",
+    "tests": [
+      {
+        "args": [
+          250
+        ],
+        "expected": [
+          2,
+          50
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          99
+        ],
+        "expected": [
+          0,
+          99
+        ],
+        "label": "below crore"
+      },
+      {
+        "args": [
+          100
+        ],
+        "expected": [
+          1,
+          0
+        ],
+        "label": "exactly one crore"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": [
+          0,
+          0
+        ],
+        "label": "zero"
+      },
+      {
+        "args": [
+          -5
+        ],
+        "expected": [
+          0,
+          0
+        ],
+        "label": "negative invalid"
+      },
+      {
+        "args": [
+          10000
+        ],
+        "expected": [
+          100,
+          0
+        ],
+        "label": "100 crore"
+      }
+    ],
+    "editorial": "**Approach — integer division & modulo**: For non-negative input, the answer is `[Math.floor(lakhs/100), lakhs%100]`. For negative input the problem says return `[0,0]`.\n\n```javascript\nfunction lakhToCrore(lakhs) {\n  if (lakhs < 0) return [0, 0];\n  const crores = Math.floor(lakhs / 100);\n  const rem = lakhs % 100;\n  return [crores, rem];\n}\n```\n\n**Time**: O(1). **Space**: O(1)."
+  },
+  {
+    "slug": "flipkart-plus-one-array",
+    "number": 2603,
+    "title": "Flipkart Plus One",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "uber"
+    ],
+    "description": "Flipkart's order-counter stores the next order number as a digit array (most-significant digit first). Given `digits`, increment the represented integer by 1 and return the new digit array. Each entry is in [0,9]; the leading digit is non-zero unless the number is 0.",
+    "examples": [
+      {
+        "input": "digits = [1, 2, 3]",
+        "output": "[1, 2, 4]"
+      },
+      {
+        "input": "digits = [9, 9]",
+        "output": "[1, 0, 0]"
+      }
+    ],
+    "constraints": [
+      "1 <= digits.length <= 100",
+      "0 <= digits[i] <= 9"
+    ],
+    "hints": [
+      "Right-to-left carry propagation.",
+      "Agar last digit < 9 toh +1 karke return.",
+      "Sab 9 ho toh aage ek nayi 1 prepend karna padta hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function plusOne(digits) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def plus_one(digits):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object plusOne(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson plusOne(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function plusOne(digits): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc plusOne(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "plusOne",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          4
+        ],
+        "label": "no carry"
+      },
+      {
+        "args": [
+          [
+            9,
+            9
+          ]
+        ],
+        "expected": [
+          1,
+          0,
+          0
+        ],
+        "label": "all nines"
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "zero"
+      },
+      {
+        "args": [
+          [
+            1,
+            9,
+            9
+          ]
+        ],
+        "expected": [
+          2,
+          0,
+          0
+        ],
+        "label": "partial carry"
+      },
+      {
+        "args": [
+          [
+            9
+          ]
+        ],
+        "expected": [
+          1,
+          0
+        ],
+        "label": "single nine"
+      }
+    ],
+    "editorial": "**Approach — right-to-left carry**: Walk from the last index. If digit < 9, increment and return. Otherwise set 0 and continue. If we fall off the front, prepend a `1`.\n\n```javascript\nfunction plusOne(digits) {\n  const a = digits.slice();\n  for (let i = a.length - 1; i >= 0; i--) {\n    if (a[i] < 9) { a[i]++; return a; }\n    a[i] = 0;\n  }\n  return [1, ...a];\n}\n```\n\n**Time**: O(n). **Space**: O(n) (for the copy).\n\nTrick: avoid mutating the caller's array — slice first."
+  },
+  {
+    "slug": "swiggy-happy-number",
+    "number": 2604,
+    "title": "Swiggy Happy Order Number",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "google"
+    ],
+    "description": "Swiggy marks an order number 'happy' if iterating digit-square-sum eventually reaches 1 (else it cycles). Given a positive integer `n`, return `true` if `n` is happy. Detect cycles using Floyd's tortoise-and-hare or a hash set.",
+    "examples": [
+      {
+        "input": "n = 19",
+        "output": "true",
+        "explanation": "1²+9²=82 → 8²+2²=68 → 6²+8²=100 → 1²+0²+0²=1."
+      },
+      {
+        "input": "n = 2",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 2^31 - 1"
+    ],
+    "hints": [
+      "Helper: digit square sum.",
+      "Set me visit kar; agar 1 mila → true, agar duplicate aaya → false.",
+      "Floyd ka cycle detection bhi chalega — slow & fast pointer."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function isHappy(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_happy(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object isHappy(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson isHappy(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function isHappy(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc isHappy(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "isHappy",
+    "tests": [
+      {
+        "args": [
+          19
+        ],
+        "expected": true,
+        "label": "classic happy"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": false,
+        "label": "unhappy small"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": true,
+        "label": "trivially happy"
+      },
+      {
+        "args": [
+          7
+        ],
+        "expected": true,
+        "label": "another happy"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": false,
+        "label": "unhappy"
+      },
+      {
+        "args": [
+          100
+        ],
+        "expected": true,
+        "label": "happy 100"
+      }
+    ],
+    "editorial": "**Idea — cycle detection on digit-square-sum**: Define `step(n)` = sum of squares of decimal digits. Iterate; either we hit `1` (happy) or a cycle (unhappy). A `Set` of visited values is simplest.\n\n```javascript\nfunction isHappy(n) {\n  function step(x) {\n    let s = 0;\n    while (x > 0) {\n      const d = x % 10;\n      s += d * d;\n      x = Math.floor(x / 10);\n    }\n    return s;\n  }\n  const seen = new Set();\n  while (n !== 1 && !seen.has(n)) {\n    seen.add(n);\n    n = step(n);\n  }\n  return n === 1;\n}\n```\n\n**Time**: O(log n) per step, bounded total iterations (sequences quickly stabilize). **Space**: O(k) for set.\n\nFloyd's cycle detection achieves O(1) extra space — same logic but with slow/fast pointers."
+  },
+  {
+    "slug": "phonepe-palindrome-number",
+    "number": 2605,
+    "title": "PhonePe Palindrome Order ID",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "phonepe",
+      "paytm",
+      "amazon"
+    ],
+    "description": "PhonePe wants to flag order IDs that are numeric palindromes (read the same forward and backward). Given an integer `x`, return `true` if it's a palindrome. Negative numbers are NOT palindromes (because of the sign). Solve WITHOUT converting to a string.",
+    "examples": [
+      {
+        "input": "x = 121",
+        "output": "true"
+      },
+      {
+        "input": "x = -121",
+        "output": "false",
+        "explanation": "Reads as -121 vs 121-; not a palindrome."
+      },
+      {
+        "input": "x = 10",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "-2^31 <= x <= 2^31 - 1"
+    ],
+    "hints": [
+      "Negative ya non-zero ending in 0 → false (except 0 itself).",
+      "Half-reverse trick: build reverse of bottom half, stop when reversed >= remaining.",
+      "Match: top == reversed OR top == reversed/10 (odd-length case)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function isPalindromeNumber(x) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_palindrome_number(x):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object isPalindromeNumber(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson isPalindromeNumber(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function isPalindromeNumber(x): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc isPalindromeNumber(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "isPalindromeNumber",
+    "tests": [
+      {
+        "args": [
+          121
+        ],
+        "expected": true,
+        "label": "odd-length"
+      },
+      {
+        "args": [
+          -121
+        ],
+        "expected": false,
+        "label": "negative"
+      },
+      {
+        "args": [
+          10
+        ],
+        "expected": false,
+        "label": "trailing zero"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": true,
+        "label": "zero"
+      },
+      {
+        "args": [
+          1221
+        ],
+        "expected": true,
+        "label": "even-length"
+      },
+      {
+        "args": [
+          12321
+        ],
+        "expected": true,
+        "label": "longer odd"
+      },
+      {
+        "args": [
+          123
+        ],
+        "expected": false,
+        "label": "non-palindrome"
+      }
+    ],
+    "editorial": "**Idea — half-reverse**: Reverse only the lower half of the digits. When the reversed value reaches or surpasses the remaining upper portion, we've consumed half. Equal halves (or upper == reversed/10 for odd length) → palindrome.\n\n```javascript\nfunction isPalindromeNumber(x) {\n  if (x < 0 || (x % 10 === 0 && x !== 0)) return false;\n  let rev = 0;\n  while (x > rev) {\n    rev = rev * 10 + (x % 10);\n    x = Math.floor(x / 10);\n  }\n  return x === rev || x === Math.floor(rev / 10);\n}\n```\n\n**Time**: O(log10 n). **Space**: O(1).\n\nDry run 1221: x=1221,rev=0 → x=122,rev=1 → x=12,rev=12 (loop stop). 12==12 ✓.\nDry run 12321: x=1232,rev=1 → x=123,rev=12 → x=12,rev=123 (stop). 12 == 123/10 = 12 ✓."
+  },
+  {
+    "slug": "zomato-reverse-integer",
+    "number": 2606,
+    "title": "Zomato Reverse Integer",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "zomato",
+      "amazon",
+      "microsoft"
+    ],
+    "description": "Zomato's analytics flips signed 32-bit ints to obfuscate IDs. Given a signed integer `x`, return the integer formed by reversing its decimal digits. If reversing causes a 32-bit overflow (outside [-2^31, 2^31 - 1]), return 0. Sign is preserved.",
+    "examples": [
+      {
+        "input": "x = 123",
+        "output": "321"
+      },
+      {
+        "input": "x = -123",
+        "output": "-321"
+      },
+      {
+        "input": "x = 120",
+        "output": "21"
+      },
+      {
+        "input": "x = 1534236469",
+        "output": "0",
+        "explanation": "Reversed value overflows 32-bit."
+      }
+    ],
+    "constraints": [
+      "-2^31 <= x <= 2^31 - 1"
+    ],
+    "hints": [
+      "Pop digits with mod, push to result with multiply-add.",
+      "Pre-overflow check: result kabhi (INT_MAX-d)/10 se zyada nahi hona chahiye.",
+      "Negative sign khud manage karta hai mod operator JS me, but check carefully."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function reverseInteger(x) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reverse_integer(x):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object reverseInteger(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson reverseInteger(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function reverseInteger(x): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc reverseInteger(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "reverseInteger",
+    "tests": [
+      {
+        "args": [
+          123
+        ],
+        "expected": 321,
+        "label": "positive"
+      },
+      {
+        "args": [
+          -123
+        ],
+        "expected": -321,
+        "label": "negative"
+      },
+      {
+        "args": [
+          120
+        ],
+        "expected": 21,
+        "label": "trailing zero"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0,
+        "label": "zero"
+      },
+      {
+        "args": [
+          1534236469
+        ],
+        "expected": 0,
+        "label": "overflow positive"
+      },
+      {
+        "args": [
+          -2147483648
+        ],
+        "expected": 0,
+        "label": "min int overflow"
+      },
+      {
+        "args": [
+          7
+        ],
+        "expected": 7,
+        "label": "single digit"
+      }
+    ],
+    "editorial": "**Idea — digit-by-digit reverse with overflow guard**: Pop the lowest digit (`x % 10`), push to `res = res*10 + d`. Before each push, verify `res` won't overflow.\n\n```javascript\nfunction reverseInteger(x) {\n  const INT_MAX = 2147483647;\n  const INT_MIN = -2147483648;\n  let res = 0;\n  while (x !== 0) {\n    const d = x % 10;\n    x = (x - d) / 10; // safe truncation toward zero\n    if (res > INT_MAX / 10 || (res === Math.floor(INT_MAX / 10) && d > 7)) return 0;\n    if (res < INT_MIN / 10 || (res === Math.ceil(INT_MIN / 10) && d < -8)) return 0;\n    res = res * 10 + d;\n  }\n  return res;\n}\n```\n\n**Time**: O(log10 n). **Space**: O(1).\n\nNote: JS `%` keeps the sign of the dividend; `(x - d) / 10` truncates toward zero correctly for negatives because `x - d` is exactly divisible."
+  },
+  {
+    "slug": "amazon-pow-fast-exponentiation",
+    "number": 2607,
+    "title": "Amazon Fast Power",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Amazon's pricing engine needs `pow(x, n)` — `x` raised to integer power `n` — without using `Math.pow`. Use fast-exponentiation (binary exponentiation). For negative `n`, return `1 / pow(x, -n)`. Return result as a finite-precision `number`.",
+    "examples": [
+      {
+        "input": "x = 2.0, n = 10",
+        "output": "1024.0"
+      },
+      {
+        "input": "x = 2.0, n = -2",
+        "output": "0.25"
+      },
+      {
+        "input": "x = 2.1, n = 3",
+        "output": "9.261"
+      }
+    ],
+    "constraints": [
+      "-100.0 < x < 100.0",
+      "-2^31 <= n <= 2^31 - 1"
+    ],
+    "hints": [
+      "Iterative binary exponentiation: while n>0, if n odd multiply result.",
+      "Handle negative n separately (compute positive power, invert).",
+      "INT_MIN ka special case — use BigInt or convert carefully."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function myPow(x, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def my_pow(x, n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object myPow(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson myPow(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function myPow(x, n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc myPow(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "myPow",
+    "tests": [
+      {
+        "args": [
+          2,
+          10
+        ],
+        "expected": 1024,
+        "label": "basic positive"
+      },
+      {
+        "args": [
+          2,
+          -2
+        ],
+        "expected": 0.25,
+        "label": "negative exponent"
+      },
+      {
+        "args": [
+          1,
+          1000000
+        ],
+        "expected": 1,
+        "label": "one to anything"
+      },
+      {
+        "args": [
+          2,
+          0
+        ],
+        "expected": 1,
+        "label": "zero exponent"
+      },
+      {
+        "args": [
+          3,
+          4
+        ],
+        "expected": 81,
+        "label": "larger base"
+      },
+      {
+        "args": [
+          0.5,
+          4
+        ],
+        "expected": 0.0625,
+        "label": "fractional base"
+      }
+    ],
+    "editorial": "**Idea — binary exponentiation**: Express the exponent in binary. Square the base each step; if the current bit is 1, multiply the running product.\n\n```javascript\nfunction myPow(x, n) {\n  if (n === 0) return 1;\n  let N = n;\n  if (N < 0) { x = 1 / x; N = -N; }\n  let result = 1, base = x;\n  while (N > 0) {\n    if (N % 2 === 1) result = result * base;\n    base = base * base;\n    N = Math.floor(N / 2);\n  }\n  return result;\n}\n```\n\n**Time**: O(log |n|). **Space**: O(1).\n\nIterative beats recursion by avoiding stack overflow when n is huge. `Math.pow` precision can drift for large exponents; binary expo is exact for integer powers of small bases."
+  },
+  {
+    "slug": "google-sqrt-binary-search",
+    "number": 2608,
+    "title": "Google Integer Sqrt",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "google",
+      "microsoft",
+      "uber"
+    ],
+    "description": "Given a non-negative integer `x`, return `floor(sqrt(x))` as an integer. Don't use `Math.sqrt` or `**0.5`. Use binary search.",
+    "examples": [
+      {
+        "input": "x = 4",
+        "output": "2"
+      },
+      {
+        "input": "x = 8",
+        "output": "2",
+        "explanation": "sqrt(8)=2.828..., floored to 2."
+      },
+      {
+        "input": "x = 0",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "0 <= x <= 2^31 - 1"
+    ],
+    "hints": [
+      "Binary search for the largest k such that k*k <= x.",
+      "Search range: [0, x]. Early prune: x >= 2 → upper bound x/2 + 1.",
+      "Watch overflow when multiplying mid*mid for very large x — use BigInt or compare via division."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function mySqrt(x) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def my_sqrt(x):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object mySqrt(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson mySqrt(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function mySqrt(x): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc mySqrt(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "mySqrt",
+    "tests": [
+      {
+        "args": [
+          4
+        ],
+        "expected": 2,
+        "label": "perfect square"
+      },
+      {
+        "args": [
+          8
+        ],
+        "expected": 2,
+        "label": "non-perfect"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0,
+        "label": "zero"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1,
+        "label": "one"
+      },
+      {
+        "args": [
+          2147395599
+        ],
+        "expected": 46339,
+        "label": "near int max"
+      },
+      {
+        "args": [
+          100
+        ],
+        "expected": 10,
+        "label": "perfect 100"
+      }
+    ],
+    "editorial": "**Idea — binary search on answer**: We want the largest `k` with `k * k <= x`. JS numbers are 64-bit doubles, so `k * k` for `k` up to ~46340 is exact. For very large `x`, comparing via `mid <= Math.floor(x / mid)` avoids overflow.\n\n```javascript\nfunction mySqrt(x) {\n  if (x < 2) return x;\n  let lo = 1, hi = Math.floor(x / 2) + 1, ans = 1;\n  while (lo <= hi) {\n    const mid = Math.floor((lo + hi) / 2);\n    if (mid <= Math.floor(x / mid)) { ans = mid; lo = mid + 1; }\n    else hi = mid - 1;\n  }\n  return ans;\n}\n```\n\n**Time**: O(log x). **Space**: O(1).\n\nNewton's method converges faster but binary search is more robust to integer overflow concerns and easier to reason about."
+  },
+  {
+    "slug": "microsoft-divide-without-divide",
+    "number": 2609,
+    "title": "Microsoft Divide Without Division",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "microsoft",
+      "amazon",
+      "google"
+    ],
+    "description": "Implement integer division of `dividend` by `divisor` without using `*`, `/`, or `%`. Truncate toward zero. The result must fit in a signed 32-bit integer; if `dividend / divisor` would exceed `2^31 - 1`, clamp to `2^31 - 1`. If it would underflow `-2^31`, clamp to `-2^31`.",
+    "examples": [
+      {
+        "input": "dividend = 10, divisor = 3",
+        "output": "3"
+      },
+      {
+        "input": "dividend = 7, divisor = -3",
+        "output": "-2",
+        "explanation": "Truncates toward zero."
+      },
+      {
+        "input": "dividend = -2147483648, divisor = -1",
+        "output": "2147483647",
+        "explanation": "Would overflow — clamped."
+      }
+    ],
+    "constraints": [
+      "-2^31 <= dividend, divisor <= 2^31 - 1",
+      "divisor != 0"
+    ],
+    "hints": [
+      "Sign nikaal aur dono ko absolute kar.",
+      "Doubling-divisor trick: subtract largest 2^k * divisor that fits.",
+      "Overflow check at the end."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function divide(dividend, divisor) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def divide(dividend, divisor):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object divide(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson divide(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function divide(dividend, divisor): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc divide(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "divide",
+    "tests": [
+      {
+        "args": [
+          10,
+          3
+        ],
+        "expected": 3,
+        "label": "basic"
+      },
+      {
+        "args": [
+          7,
+          -3
+        ],
+        "expected": -2,
+        "label": "negative result"
+      },
+      {
+        "args": [
+          -2147483648,
+          -1
+        ],
+        "expected": 2147483647,
+        "label": "overflow clamp"
+      },
+      {
+        "args": [
+          0,
+          5
+        ],
+        "expected": 0,
+        "label": "zero dividend"
+      },
+      {
+        "args": [
+          1,
+          1
+        ],
+        "expected": 1,
+        "label": "self"
+      },
+      {
+        "args": [
+          -2147483648,
+          1
+        ],
+        "expected": -2147483648,
+        "label": "min int / 1"
+      },
+      {
+        "args": [
+          100,
+          10
+        ],
+        "expected": 10,
+        "label": "exact"
+      }
+    ],
+    "editorial": "**Idea — subtract doublings**: Compute the sign, then operate on absolute values. While `a >= b`, find the largest `b * 2^k` that fits in `a`, subtract, add `2^k` to the quotient. Use addition (`+= self`) to avoid `*`.\n\n```javascript\nfunction divide(dividend, divisor) {\n  const INT_MAX = 2147483647, INT_MIN = -2147483648;\n  if (dividend === INT_MIN && divisor === -1) return INT_MAX;\n  const negative = (dividend < 0) !== (divisor < 0);\n  let a = Math.abs(dividend), b = Math.abs(divisor), q = 0;\n  while (a >= b) {\n    let temp = b, multiple = 1;\n    while (a >= (temp + temp) && (temp + temp) > 0) {\n      temp = temp + temp;\n      multiple = multiple + multiple;\n    }\n    a = a - temp;\n    q = q + multiple;\n  }\n  q = negative ? -q : q;\n  if (q > INT_MAX) return INT_MAX;\n  if (q < INT_MIN) return INT_MIN;\n  return q;\n}\n```\n\n**Time**: O(log² |dividend|). **Space**: O(1).\n\nGuard `(temp + temp) > 0` prevents subtle overflow when doubling near INT_MAX (in JS doubles this is fine but the pattern matters)."
+  },
+  {
+    "slug": "uber-roman-to-integer",
+    "number": 2610,
+    "title": "Uber Roman to Integer",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "uber",
+      "amazon",
+      "facebook"
+    ],
+    "description": "Uber's billing module sometimes receives Roman numeral codes (legacy clients). Convert a valid Roman numeral string `s` (1..3999) to an integer. Use the rule: subtract when a smaller numeral precedes a larger (e.g., IV = 4, IX = 9).",
+    "examples": [
+      {
+        "input": "s = \"III\"",
+        "output": "3"
+      },
+      {
+        "input": "s = \"IV\"",
+        "output": "4"
+      },
+      {
+        "input": "s = \"MCMXCIV\"",
+        "output": "1994",
+        "explanation": "M=1000, CM=900, XC=90, IV=4."
+      }
+    ],
+    "constraints": [
+      "1 <= s.length <= 15",
+      "s consists of I, V, X, L, C, D, M only",
+      "s represents a valid Roman numeral 1..3999"
+    ],
+    "hints": [
+      "Map each char to value.",
+      "Iterate left→right; if current < next, subtract; else add.",
+      "Last char always added."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function romanToInt(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def roman_to_int(s):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object romanToInt(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson romanToInt(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function romanToInt(s): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc romanToInt(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "romanToInt",
+    "tests": [
+      {
+        "args": [
+          "III"
+        ],
+        "expected": 3,
+        "label": "simple"
+      },
+      {
+        "args": [
+          "IV"
+        ],
+        "expected": 4,
+        "label": "subtractive 4"
+      },
+      {
+        "args": [
+          "IX"
+        ],
+        "expected": 9,
+        "label": "subtractive 9"
+      },
+      {
+        "args": [
+          "LVIII"
+        ],
+        "expected": 58,
+        "label": "mixed"
+      },
+      {
+        "args": [
+          "MCMXCIV"
+        ],
+        "expected": 1994,
+        "label": "complex"
+      },
+      {
+        "args": [
+          "MMMCMXCIX"
+        ],
+        "expected": 3999,
+        "label": "max value"
+      }
+    ],
+    "editorial": "**Idea — single pass with lookahead**: Use a value table. If the current char's value is less than the next char's, subtract it; otherwise add. Last char is always added.\n\n```javascript\nfunction romanToInt(s) {\n  const v = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };\n  let total = 0;\n  for (let i = 0; i < s.length; i++) {\n    const cur = v[s[i]];\n    const next = i + 1 < s.length ? v[s[i + 1]] : 0;\n    total += cur < next ? -cur : cur;\n  }\n  return total;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "infosys-excel-column-title",
+    "number": 2611,
+    "title": "Infosys Excel Column Title",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "infosys",
+      "tcs",
+      "microsoft"
+    ],
+    "description": "Infosys's spreadsheet utility converts a 1-based column number to its Excel column title. Examples: 1→'A', 26→'Z', 27→'AA', 28→'AB', 701→'ZY', 702→'ZZ', 703→'AAA'. Note: this is bijective base-26 (no zero digit), so subtract 1 each step.",
+    "examples": [
+      {
+        "input": "n = 1",
+        "output": "\"A\""
+      },
+      {
+        "input": "n = 28",
+        "output": "\"AB\""
+      },
+      {
+        "input": "n = 701",
+        "output": "\"ZY\""
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 2^31 - 1"
+    ],
+    "hints": [
+      "Bijective base 26 — no zero digit. So before mod, do n-=1.",
+      "Loop: char = (n-1) % 26 + 'A', then n = (n-1)/26.",
+      "Build chars in reverse, then reverse string."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function excelColumnTitle(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def excel_column_title(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object excelColumnTitle(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson excelColumnTitle(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function excelColumnTitle(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc excelColumnTitle(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "excelColumnTitle",
+    "tests": [
+      {
+        "args": [
+          1
+        ],
+        "expected": "A",
+        "label": "first"
+      },
+      {
+        "args": [
+          26
+        ],
+        "expected": "Z",
+        "label": "single Z"
+      },
+      {
+        "args": [
+          27
+        ],
+        "expected": "AA",
+        "label": "first AA"
+      },
+      {
+        "args": [
+          28
+        ],
+        "expected": "AB",
+        "label": "AB"
+      },
+      {
+        "args": [
+          701
+        ],
+        "expected": "ZY",
+        "label": "ZY"
+      },
+      {
+        "args": [
+          702
+        ],
+        "expected": "ZZ",
+        "label": "ZZ"
+      },
+      {
+        "args": [
+          703
+        ],
+        "expected": "AAA",
+        "label": "AAA"
+      }
+    ],
+    "editorial": "**Idea — bijective base-26**: At each step, the rightmost letter is `(n-1) % 26` (0..25 → 'A'..'Z'). Then divide: `n = (n-1) / 26`. Repeat until 0.\n\n```javascript\nfunction excelColumnTitle(n) {\n  let out = '';\n  while (n > 0) {\n    n -= 1;\n    out = String.fromCharCode(65 + (n % 26)) + out;\n    n = Math.floor(n / 26);\n  }\n  return out;\n}\n```\n\n**Time**: O(log26 n). **Space**: O(log26 n) for the string.\n\nDry run 28: n=28 → n=27, char=27%26=1→'B', out='B', n=27/26=1. n=1 → n=0, char=0→'A', out='AB', n=0. Stop. ✓"
+  },
+  {
+    "slug": "tcs-count-primes-sieve",
+    "number": 2612,
+    "title": "TCS Count Primes",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "tcs",
+      "infosys",
+      "wipro"
+    ],
+    "description": "TCS's interview asks: given a non-negative integer `n`, count the number of prime numbers strictly less than `n`. Use the Sieve of Eratosthenes for O(n log log n).",
+    "examples": [
+      {
+        "input": "n = 10",
+        "output": "4",
+        "explanation": "Primes < 10: 2,3,5,7."
+      },
+      {
+        "input": "n = 0",
+        "output": "0"
+      },
+      {
+        "input": "n = 1",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 5 * 10^6"
+    ],
+    "hints": [
+      "Boolean array of length n; mark composites.",
+      "Outer loop i from 2 to sqrt(n); for each prime, mark multiples starting at i*i.",
+      "Count remaining trues from 2 to n-1."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countPrimes(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_primes(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countPrimes(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countPrimes(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countPrimes(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countPrimes(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countPrimes",
+    "tests": [
+      {
+        "args": [
+          10
+        ],
+        "expected": 4,
+        "label": "basic"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0,
+        "label": "zero"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 0,
+        "label": "one"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": 0,
+        "label": "no primes < 2"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": 1,
+        "label": "just 2"
+      },
+      {
+        "args": [
+          100
+        ],
+        "expected": 25,
+        "label": "100"
+      },
+      {
+        "args": [
+          1000
+        ],
+        "expected": 168,
+        "label": "thousand"
+      }
+    ],
+    "editorial": "**Idea — Sieve of Eratosthenes**: Allocate a boolean array `isComposite[0..n-1]`. For `i` from 2 up to `√n`, if `i` is still prime, mark `i*i, i*i+i, i*i+2i, ...` as composite. Count `false` entries from index 2 to n-1.\n\n```javascript\nfunction countPrimes(n) {\n  if (n < 3) return 0;\n  const isComp = new Uint8Array(n);\n  let count = 0;\n  for (let i = 2; i < n; i++) {\n    if (isComp[i]) continue;\n    count++;\n    if (i * i < n) {\n      for (let j = i * i; j < n; j += i) isComp[j] = 1;\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(n log log n). **Space**: O(n).\n\n`Uint8Array` is much faster than a regular array of booleans for this size."
+  },
+  {
+    "slug": "google-gcd-bezout",
+    "number": 2613,
+    "title": "Google GCD",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "google",
+      "amazon",
+      "microsoft"
+    ],
+    "description": "Compute the greatest common divisor (GCD) of two non-negative integers `a` and `b`. By convention, `gcd(0, 0) = 0`. Use the Euclidean algorithm.",
+    "examples": [
+      {
+        "input": "a = 12, b = 18",
+        "output": "6"
+      },
+      {
+        "input": "a = 7, b = 1",
+        "output": "1"
+      },
+      {
+        "input": "a = 0, b = 5",
+        "output": "5"
+      }
+    ],
+    "constraints": [
+      "0 <= a, b <= 10^9"
+    ],
+    "hints": [
+      "gcd(a, b) = gcd(b, a%b).",
+      "Base: b == 0 → return a.",
+      "Iterative > recursive for huge inputs."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function gcd(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def gcd(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object gcd(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson gcd(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function gcd(a, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc gcd(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "gcd",
+    "tests": [
+      {
+        "args": [
+          12,
+          18
+        ],
+        "expected": 6,
+        "label": "basic"
+      },
+      {
+        "args": [
+          7,
+          1
+        ],
+        "expected": 1,
+        "label": "coprime"
+      },
+      {
+        "args": [
+          0,
+          5
+        ],
+        "expected": 5,
+        "label": "one zero"
+      },
+      {
+        "args": [
+          5,
+          0
+        ],
+        "expected": 5,
+        "label": "other zero"
+      },
+      {
+        "args": [
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "both zero"
+      },
+      {
+        "args": [
+          100,
+          75
+        ],
+        "expected": 25,
+        "label": "100 75"
+      },
+      {
+        "args": [
+          1000000000,
+          999999999
+        ],
+        "expected": 1,
+        "label": "large coprime"
+      }
+    ],
+    "editorial": "**Approach — Euclidean algorithm (iterative)**: Repeatedly replace `(a, b)` with `(b, a mod b)` until `b == 0`. The remaining `a` is the GCD.\n\n```javascript\nfunction gcd(a, b) {\n  while (b !== 0) {\n    const t = b;\n    b = a % b;\n    a = t;\n  }\n  return a;\n}\n```\n\n**Time**: O(log min(a, b)). **Space**: O(1).\n\nGCD of (0, 5) → loop: b=5, swap → a=5, b=0%5=0; exit. Return 5. ✓\nGCD of (0, 0) → loop never runs, return 0."
+  },
+  {
+    "slug": "swiggy-spiral-matrix",
+    "number": 2614,
+    "title": "Swiggy Spiral Order Traversal",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "amazon"
+    ],
+    "description": "Swiggy's heatmap visualizer reads an `m x n` grid in spiral order (right → down → left → up, peeling layers). Given the matrix, return the spiral order as a flat array.",
+    "examples": [
+      {
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "output": "[1,2,3,6,9,8,7,4,5]"
+      },
+      {
+        "input": "matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]",
+        "output": "[1,2,3,4,8,12,11,10,9,5,6,7]"
+      }
+    ],
+    "constraints": [
+      "1 <= m, n <= 10",
+      "-100 <= matrix[i][j] <= 100"
+    ],
+    "hints": [
+      "Maintain four boundaries: top, bottom, left, right.",
+      "Walk one direction, shrink the corresponding boundary, repeat.",
+      "Stop when boundaries cross."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function spiralOrder(matrix) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def spiral_order(matrix):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object spiralOrder(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson spiralOrder(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function spiralOrder(matrix): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc spiralOrder(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "spiralOrder",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          6,
+          9,
+          8,
+          7,
+          4,
+          5
+        ],
+        "label": "3x3"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3,
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ],
+            [
+              9,
+              10,
+              11,
+              12
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4,
+          8,
+          12,
+          11,
+          10,
+          9,
+          5,
+          6,
+          7
+        ],
+        "label": "3x4"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "1x1"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "single row"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "single column"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          4,
+          3
+        ],
+        "label": "2x2"
+      }
+    ],
+    "editorial": "**Idea — peel layers via 4 boundaries**: Maintain `top, bottom, left, right`. Walk right across `top`, then down on `right`, then left across `bottom` (if still valid), then up on `left` (if still valid). Shrink boundaries; loop while `top <= bottom && left <= right`.\n\n```javascript\nfunction spiralOrder(matrix) {\n  const out = [];\n  if (matrix.length === 0) return out;\n  let top = 0, bottom = matrix.length - 1;\n  let left = 0, right = matrix[0].length - 1;\n  while (top <= bottom && left <= right) {\n    for (let c = left; c <= right; c++) out.push(matrix[top][c]);\n    top++;\n    for (let r = top; r <= bottom; r++) out.push(matrix[r][right]);\n    right--;\n    if (top <= bottom) {\n      for (let c = right; c >= left; c--) out.push(matrix[bottom][c]);\n      bottom--;\n    }\n    if (left <= right) {\n      for (let r = bottom; r >= top; r--) out.push(matrix[r][left]);\n      left++;\n    }\n  }\n  return out;\n}\n```\n\n**Time**: O(m·n). **Space**: O(1) extra (output not counted).\n\nSingle-row & single-column edge cases zaroori — second pair of loops conditional rakho warna duplicate ho jaayegi."
+  },
+  {
+    "slug": "amazon-rotate-matrix-90",
+    "number": 2615,
+    "title": "Amazon Rotate Image In Place",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Amazon's image SDK rotates an `n x n` pixel matrix 90° clockwise IN PLACE (no new matrix). Modify the input. After rotation return the same reference.",
+    "examples": [
+      {
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "output": "[[7,4,1],[8,5,2],[9,6,3]]"
+      },
+      {
+        "input": "matrix = [[1,2],[3,4]]",
+        "output": "[[3,1],[4,2]]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 20",
+      "-1000 <= matrix[i][j] <= 1000"
+    ],
+    "hints": [
+      "Trick: transpose, then reverse each row.",
+      "Transpose: swap matrix[i][j] with matrix[j][i] for i<j.",
+      "In-place — extra matrix banaane ki zaroorat nahi."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function rotate(matrix) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def rotate(matrix):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object rotate(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson rotate(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function rotate(matrix): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc rotate(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "rotate",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            7,
+            4,
+            1
+          ],
+          [
+            8,
+            5,
+            2
+          ],
+          [
+            9,
+            6,
+            3
+          ]
+        ],
+        "label": "3x3"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "label": "2x2"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1
+          ]
+        ],
+        "label": "1x1"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3,
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ],
+            [
+              9,
+              10,
+              11,
+              12
+            ],
+            [
+              13,
+              14,
+              15,
+              16
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            13,
+            9,
+            5,
+            1
+          ],
+          [
+            14,
+            10,
+            6,
+            2
+          ],
+          [
+            15,
+            11,
+            7,
+            3
+          ],
+          [
+            16,
+            12,
+            8,
+            4
+          ]
+        ],
+        "label": "4x4"
+      },
+      {
+        "args": [
+          [
+            [
+              5,
+              1,
+              9,
+              11
+            ],
+            [
+              2,
+              4,
+              8,
+              10
+            ],
+            [
+              13,
+              3,
+              6,
+              7
+            ],
+            [
+              15,
+              14,
+              12,
+              16
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            15,
+            13,
+            2,
+            5
+          ],
+          [
+            14,
+            3,
+            4,
+            1
+          ],
+          [
+            12,
+            6,
+            8,
+            9
+          ],
+          [
+            16,
+            7,
+            10,
+            11
+          ]
+        ],
+        "label": "4x4 mixed"
+      }
+    ],
+    "editorial": "**Idea — transpose then reverse rows**: A 90° clockwise rotation equals reflect over the main diagonal followed by horizontal flip per row.\n\n```javascript\nfunction rotate(matrix) {\n  const n = matrix.length;\n  for (let i = 0; i < n; i++) {\n    for (let j = i + 1; j < n; j++) {\n      const t = matrix[i][j];\n      matrix[i][j] = matrix[j][i];\n      matrix[j][i] = t;\n    }\n  }\n  for (let i = 0; i < n; i++) matrix[i].reverse();\n  return matrix;\n}\n```\n\n**Time**: O(n²). **Space**: O(1).\n\nWhy transpose+reverse: pixel at `(i,j)` lands at `(j, n-1-i)`. Transpose puts `(i,j)` at `(j,i)`; reversing row `j` sends column `i` to `n-1-i`. ✓"
+  },
+  {
+    "slug": "google-set-matrix-zeroes",
+    "number": 2616,
+    "title": "Google Set Matrix Zeroes",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
+    "description": "Google asks: given an `m x n` integer matrix, if any element is 0, set its ENTIRE row and column to 0. Modify in place and return the matrix. Use O(1) extra space (besides the input).",
+    "examples": [
+      {
+        "input": "matrix = [[1,1,1],[1,0,1],[1,1,1]]",
+        "output": "[[1,0,1],[0,0,0],[1,0,1]]"
+      },
+      {
+        "input": "matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]",
+        "output": "[[0,0,0,0],[0,4,5,0],[0,3,1,0]]"
+      }
+    ],
+    "constraints": [
+      "1 <= m, n <= 200",
+      "-2^31 <= matrix[i][j] <= 2^31 - 1"
+    ],
+    "hints": [
+      "Use first row & first column themselves as marker arrays.",
+      "Track separately whether row 0 / col 0 originally contained a zero.",
+      "Final pass: zero out cells based on markers; finally zero row 0 / col 0 if needed."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function setZeroes(matrix) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def set_zeroes(matrix):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object setZeroes(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson setZeroes(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function setZeroes(matrix): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc setZeroes(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "setZeroes",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "label": "single zero"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              1,
+              2,
+              0
+            ],
+            [
+              3,
+              4,
+              5,
+              2
+            ],
+            [
+              1,
+              3,
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            4,
+            5,
+            0
+          ],
+          [
+            0,
+            3,
+            1,
+            0
+          ]
+        ],
+        "label": "multi zeroes"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1
+          ]
+        ],
+        "label": "1x1 nonzero"
+      },
+      {
+        "args": [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0
+          ]
+        ],
+        "label": "1x1 zero"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ],
+        "label": "no zeros"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "label": "corner zero"
+      }
+    ],
+    "editorial": "**Idea — markers in first row & column**: Use `matrix[0][*]` to flag which columns must zero, and `matrix[*][0]` for rows. But row 0 / col 0 themselves need separate booleans `firstRow`/`firstCol` so we don't lose their original state.\n\n```javascript\nfunction setZeroes(matrix) {\n  const m = matrix.length, n = matrix[0].length;\n  let firstRow = false, firstCol = false;\n  for (let j = 0; j < n; j++) if (matrix[0][j] === 0) firstRow = true;\n  for (let i = 0; i < m; i++) if (matrix[i][0] === 0) firstCol = true;\n  for (let i = 1; i < m; i++) {\n    for (let j = 1; j < n; j++) {\n      if (matrix[i][j] === 0) {\n        matrix[i][0] = 0;\n        matrix[0][j] = 0;\n      }\n    }\n  }\n  for (let i = 1; i < m; i++) {\n    for (let j = 1; j < n; j++) {\n      if (matrix[i][0] === 0 || matrix[0][j] === 0) matrix[i][j] = 0;\n    }\n  }\n  if (firstRow) for (let j = 0; j < n; j++) matrix[0][j] = 0;\n  if (firstCol) for (let i = 0; i < m; i++) matrix[i][0] = 0;\n  return matrix;\n}\n```\n\n**Time**: O(m·n). **Space**: O(1)."
+  },
+  {
+    "slug": "infosys-pin-code-grid-distance",
+    "number": 2617,
+    "title": "Infosys Pin Code Grid Distance",
+    "difficulty": "Easy",
+    "topic": "Math & Geometry",
+    "companies": [
+      "infosys",
+      "tcs",
+      "wipro"
+    ],
+    "description": "Infosys's logistics team has waypoints on a grid (each integer coordinate). Given an array `points` of `[x, y]` waypoints visited in order, compute the MINIMUM number of unit steps to traverse them all. Each step moves one unit in any of the 8 directions (so the optimal between two points is `max(|dx|, |dy|)` — Chebyshev distance).",
+    "examples": [
+      {
+        "input": "points = [[1,1],[3,4],[-1,0]]",
+        "output": "7",
+        "explanation": "max(2,3)=3 then max(4,4)=4."
+      },
+      {
+        "input": "points = [[0,0]]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= points.length <= 100",
+      "-1000 <= points[i][j] <= 1000"
+    ],
+    "hints": [
+      "8-direction grid → Chebyshev distance = max(|dx|, |dy|).",
+      "Sum over consecutive pairs.",
+      "Single point → 0."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minStepsGrid(points) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_steps_grid(points):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minStepsGrid(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minStepsGrid(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minStepsGrid(points): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minStepsGrid(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minStepsGrid",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              -1,
+              0
+            ]
+          ]
+        ],
+        "expected": 7,
+        "label": "three points"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              5,
+              0
+            ]
+          ]
+        ],
+        "expected": 5,
+        "label": "horizontal only"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              3,
+              3
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "diagonal exact"
+      },
+      {
+        "args": [
+          [
+            [
+              -2,
+              -3
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "negative range"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "stationary"
+      }
+    ],
+    "editorial": "**Idea — Chebyshev distance**: With diagonal moves allowed, each pair contributes `max(|dx|, |dy|)`. Sum over consecutive pairs.\n\n```javascript\nfunction minStepsGrid(points) {\n  let total = 0;\n  for (let i = 1; i < points.length; i++) {\n    const dx = Math.abs(points[i][0] - points[i - 1][0]);\n    const dy = Math.abs(points[i][1] - points[i - 1][1]);\n    total += Math.max(dx, dy);\n  }\n  return total;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "amazon-multiply-strings",
+    "number": 2618,
+    "title": "Amazon Multiply Big Number Strings",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Multiply two non-negative integers represented as strings `num1` and `num2`. Return the product as a string. Do NOT use BigInt or convert directly to numbers (the inputs may be longer than safe integer range).",
+    "examples": [
+      {
+        "input": "num1 = \"2\", num2 = \"3\"",
+        "output": "\"6\""
+      },
+      {
+        "input": "num1 = \"123\", num2 = \"456\"",
+        "output": "\"56088\""
+      },
+      {
+        "input": "num1 = \"0\", num2 = \"99999\"",
+        "output": "\"0\""
+      }
+    ],
+    "constraints": [
+      "1 <= num1.length, num2.length <= 200",
+      "num1 and num2 consist of digits only",
+      "Neither has leading zeros except '0' itself"
+    ],
+    "hints": [
+      "Allocate result array of size m+n; digit-by-digit multiplication.",
+      "Position rule: num1[i] * num2[j] contributes to result[i+j+1] with carry to result[i+j].",
+      "Skip leading zeros in final string; '0' edge case."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function multiplyStrings(num1, num2) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def multiply_strings(num1, num2):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object multiplyStrings(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson multiplyStrings(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function multiplyStrings(num1, num2): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc multiplyStrings(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "multiplyStrings",
+    "tests": [
+      {
+        "args": [
+          "2",
+          "3"
+        ],
+        "expected": "6",
+        "label": "single digits"
+      },
+      {
+        "args": [
+          "123",
+          "456"
+        ],
+        "expected": "56088",
+        "label": "three digit"
+      },
+      {
+        "args": [
+          "0",
+          "99999"
+        ],
+        "expected": "0",
+        "label": "zero factor"
+      },
+      {
+        "args": [
+          "99",
+          "99"
+        ],
+        "expected": "9801",
+        "label": "two-digit max"
+      },
+      {
+        "args": [
+          "1",
+          "1000000000"
+        ],
+        "expected": "1000000000",
+        "label": "identity"
+      },
+      {
+        "args": [
+          "12345678901234567890",
+          "98765432109876543210"
+        ],
+        "expected": "1219326311370217952237463801111263526900",
+        "label": "very large"
+      }
+    ],
+    "editorial": "**Idea — schoolbook multiplication into a result array**: For digits at positions `i` (from right in num1) and `j` (from right in num2), their product contributes to two cells of the result: `i+j` and `i+j+1` (lower of the two has the unit, higher carries up).\n\n```javascript\nfunction multiplyStrings(num1, num2) {\n  if (num1 === '0' || num2 === '0') return '0';\n  const m = num1.length, n = num2.length;\n  const res = new Array(m + n).fill(0);\n  for (let i = m - 1; i >= 0; i--) {\n    const a = num1.charCodeAt(i) - 48;\n    for (let j = n - 1; j >= 0; j--) {\n      const b = num2.charCodeAt(j) - 48;\n      const sum = a * b + res[i + j + 1];\n      res[i + j + 1] = sum % 10;\n      res[i + j] += Math.floor(sum / 10);\n    }\n  }\n  let start = 0;\n  while (start < res.length - 1 && res[start] === 0) start++;\n  return res.slice(start).join('');\n}\n```\n\n**Time**: O(m·n). **Space**: O(m+n).\n\nIndividual products `a*b` ≤ 81; `+ res[i+j+1]` keeps cells well within JS safe integer range during the sweep."
+  },
+  {
+    "slug": "google-fraction-to-recurring-decimal",
+    "number": 2619,
+    "title": "Google Fraction to Recurring Decimal",
+    "difficulty": "Medium",
+    "topic": "Math & Geometry",
+    "companies": [
+      "google",
+      "amazon",
+      "microsoft"
+    ],
+    "description": "Given two integers `numerator` and `denominator` (denominator != 0), return the fraction's decimal representation as a string. If the fractional part repeats, enclose the repeating block in parentheses. Examples: 1/2 → '0.5', 2/1 → '2', 1/3 → '0.(3)', 4/333 → '0.(012)'.",
+    "examples": [
+      {
+        "input": "numerator = 1, denominator = 2",
+        "output": "\"0.5\""
+      },
+      {
+        "input": "numerator = 2, denominator = 1",
+        "output": "\"2\""
+      },
+      {
+        "input": "numerator = 4, denominator = 333",
+        "output": "\"0.(012)\""
+      }
+    ],
+    "constraints": [
+      "-2^31 <= numerator, denominator <= 2^31 - 1",
+      "denominator != 0"
+    ],
+    "hints": [
+      "Sign determine kar, fir absolute values pe long division.",
+      "Map<remainder, indexInResult> — repeat remainder mile toh yahin loop start.",
+      "Watch INT_MIN; absolute value safe rakhne ke liye Number ya BigInt sambhal."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function fractionToDecimal(numerator, denominator) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def fraction_to_decimal(numerator, denominator):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object fractionToDecimal(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson fractionToDecimal(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function fractionToDecimal(numerator, denominator): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc fractionToDecimal(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "fractionToDecimal",
+    "tests": [
+      {
+        "args": [
+          1,
+          2
+        ],
+        "expected": "0.5",
+        "label": "terminating"
+      },
+      {
+        "args": [
+          2,
+          1
+        ],
+        "expected": "2",
+        "label": "integer"
+      },
+      {
+        "args": [
+          1,
+          3
+        ],
+        "expected": "0.(3)",
+        "label": "single recurring"
+      },
+      {
+        "args": [
+          4,
+          333
+        ],
+        "expected": "0.(012)",
+        "label": "long recurring"
+      },
+      {
+        "args": [
+          -1,
+          4
+        ],
+        "expected": "-0.25",
+        "label": "negative numerator"
+      },
+      {
+        "args": [
+          -50,
+          8
+        ],
+        "expected": "-6.25",
+        "label": "negative integer.frac"
+      },
+      {
+        "args": [
+          7,
+          -12
+        ],
+        "expected": "-0.58(3)",
+        "label": "mixed terminate then recur"
+      },
+      {
+        "args": [
+          0,
+          5
+        ],
+        "expected": "0",
+        "label": "zero numerator"
+      }
+    ],
+    "editorial": "**Idea — long division with a remainder map**: Compute integer part, then keep dividing the remainder by 10. Each remainder is uniquely tied to a position in the output; if we ever see the same remainder twice, the digits between are the recurring block.\n\n```javascript\nfunction fractionToDecimal(numerator, denominator) {\n  if (numerator === 0) return '0';\n  let res = '';\n  if ((numerator < 0) !== (denominator < 0)) res += '-';\n  let n = Math.abs(numerator);\n  let d = Math.abs(denominator);\n  res += Math.floor(n / d).toString();\n  let rem = n % d;\n  if (rem === 0) return res;\n  res += '.';\n  const map = new Map();\n  while (rem !== 0) {\n    if (map.has(rem)) {\n      const idx = map.get(rem);\n      return res.slice(0, idx) + '(' + res.slice(idx) + ')';\n    }\n    map.set(rem, res.length);\n    rem *= 10;\n    res += Math.floor(rem / d).toString();\n    rem = rem % d;\n  }\n  return res;\n}\n```\n\n**Time**: O(d) worst case (number of distinct remainders ≤ d). **Space**: O(d).\n\nDry run 4/333: integer 0; rem 4. Loop: rem=4 stored at idx 2, *10=40, digit=0, rem=40. rem=40 at idx 3, *10=400, digit=1, rem=67. rem=67 at idx 4, *10=670, digit=2, rem=4. Now rem=4 already in map at idx 2 → wrap. Result `0.(012)`. ✓"
+  },
+  {
+    "slug": "atlassian-permutation-sequence",
+    "number": 2620,
+    "title": "Atlassian Kth Permutation Sequence",
+    "difficulty": "Hard",
+    "topic": "Math & Geometry",
+    "companies": [
+      "atlassian",
+      "google",
+      "microsoft"
+    ],
+    "description": "The set [1, 2, ..., n] has n! permutations. Listed in lexicographic order, return the `k`-th permutation as a string of digits (1-indexed). Compute directly using factorials — do NOT enumerate permutations.",
+    "examples": [
+      {
+        "input": "n = 3, k = 3",
+        "output": "\"213\"",
+        "explanation": "Permutations: 123, 132, 213, 231, 312, 321."
+      },
+      {
+        "input": "n = 4, k = 9",
+        "output": "\"2314\""
+      },
+      {
+        "input": "n = 1, k = 1",
+        "output": "\"1\""
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 9",
+      "1 <= k <= n!"
+    ],
+    "hints": [
+      "Determine each digit by quotient with (n-1)! block size.",
+      "Maintain available-digit list; remove the chosen one each step.",
+      "0-index k internally (k -= 1) to make math clean."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function getPermutation(n, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def get_permutation(n, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object getPermutation(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson getPermutation(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function getPermutation(n, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc getPermutation(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "getPermutation",
+    "tests": [
+      {
+        "args": [
+          3,
+          3
+        ],
+        "expected": "213",
+        "label": "n=3"
+      },
+      {
+        "args": [
+          4,
+          9
+        ],
+        "expected": "2314",
+        "label": "n=4 mid"
+      },
+      {
+        "args": [
+          1,
+          1
+        ],
+        "expected": "1",
+        "label": "trivial"
+      },
+      {
+        "args": [
+          3,
+          1
+        ],
+        "expected": "123",
+        "label": "first perm"
+      },
+      {
+        "args": [
+          3,
+          6
+        ],
+        "expected": "321",
+        "label": "last perm"
+      },
+      {
+        "args": [
+          4,
+          24
+        ],
+        "expected": "4321",
+        "label": "n=4 last"
+      },
+      {
+        "args": [
+          9,
+          362880
+        ],
+        "expected": "987654321",
+        "label": "n=9 last"
+      }
+    ],
+    "editorial": "**Idea — factorial decomposition**: Among n! permutations, the first (n-1)! start with the smallest available digit, the next (n-1)! with the second smallest, etc. So the leading digit is `digits[(k-1) / (n-1)!]` — remove it and recurse on the remainder.\n\n```javascript\nfunction getPermutation(n, k) {\n  const fact = [1];\n  for (let i = 1; i <= n; i++) fact.push(fact[i - 1] * i);\n  const digits = [];\n  for (let i = 1; i <= n; i++) digits.push(i);\n  let rem = k - 1;\n  let out = '';\n  for (let i = n; i >= 1; i--) {\n    const block = fact[i - 1];\n    const idx = Math.floor(rem / block);\n    out += digits[idx].toString();\n    digits.splice(idx, 1);\n    rem = rem % block;\n  }\n  return out;\n}\n```\n\n**Time**: O(n²) due to splice. **Space**: O(n).\n\nDry run n=4,k=9: 0-index k=8. fact=[1,1,2,6,24]. digits=[1,2,3,4]. i=4: block=6; idx=8/6=1; pick 2; rem=2. i=3: block=2; idx=1; digits=[1,3,4] → pick 3; rem=0. i=2: block=1; idx=0; digits=[1,4] → pick 1; rem=0. i=1: pick 4. Result '2314'. ✓"
+  }
+]

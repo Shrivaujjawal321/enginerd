@@ -1,0 +1,3445 @@
+[
+  {
+    "slug": "swiggy-delivery-stair-climb",
+    "number": 2201,
+    "title": "Swiggy Delivery Stair Climb",
+    "difficulty": "Easy",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "dunzo"
+    ],
+    "description": "A Swiggy delivery executive must climb `n` stairs to reach a customer's flat. Each step they can climb either 1 or 2 stairs at a time. Return the total number of distinct ways to reach the top.",
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "3",
+        "explanation": "1+1+1, 1+2, 2+1."
+      },
+      {
+        "input": "n = 5",
+        "output": "8"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 45"
+    ],
+    "hints": [
+      "ways(n) = ways(n-1) + ways(n-2) — classic Fibonacci recurrence.",
+      "Base: ways(0)=1, ways(1)=1.",
+      "Two variables enough — O(1) space."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function deliveryStairClimb(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def delivery_stair_climb(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object deliveryStairClimb(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson deliveryStairClimb(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function deliveryStairClimb(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc deliveryStairClimb(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "deliveryStairClimb",
+    "tests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": 1,
+        "label": "zero stairs"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1,
+        "label": "single stair"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": 2,
+        "label": "two stairs"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": 3,
+        "label": "three stairs"
+      },
+      {
+        "args": [
+          5
+        ],
+        "expected": 8,
+        "label": "five stairs"
+      },
+      {
+        "args": [
+          10
+        ],
+        "expected": 89,
+        "label": "ten stairs"
+      }
+    ],
+    "editorial": "**Recurrence**: To reach step `n`, the last move was either a 1-step from `n-1` or a 2-step from `n-2`. So `ways(n) = ways(n-1) + ways(n-2)` — pure Fibonacci.\n\n**Base**: `ways(0) = 1` (one way: stand still), `ways(1) = 1`.\n\n**O(n) DP array**:\n```javascript\nfunction deliveryStairClimb(n) {\n  if (n <= 1) return 1;\n  const dp = new Array(n + 1);\n  dp[0] = 1; dp[1] = 1;\n  for (let i = 2; i <= n; i++) dp[i] = dp[i-1] + dp[i-2];\n  return dp[n];\n}\n```\n\n**O(1) space optimization**:\n```javascript\nfunction deliveryStairClimb(n) {\n  if (n <= 1) return 1;\n  let a = 1, b = 1;\n  for (let i = 2; i <= n; i++) { const c = a + b; a = b; b = c; }\n  return b;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nHinglish tip: jab bhi 'kitne tareeke' aur do choices ho, Fibonacci-type recurrence pehle try kar."
+  },
+  {
+    "slug": "razorpay-k-step-subscription",
+    "number": 2202,
+    "title": "Razorpay K-Step Subscription Ladder",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "razorpay",
+      "stripe",
+      "paytm"
+    ],
+    "description": "Razorpay offers a tiered subscription with `n` levels. From any level a customer can upgrade by 1, 2, ..., up to `k` levels in one move. Starting at level 0, return the number of distinct upgrade paths to reach exactly level `n`.",
+    "examples": [
+      {
+        "input": "n = 3, k = 2",
+        "output": "3",
+        "explanation": "1+1+1, 1+2, 2+1."
+      },
+      {
+        "input": "n = 4, k = 3",
+        "output": "7"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 30",
+      "1 <= k <= n or k = 1 when n = 0"
+    ],
+    "hints": [
+      "dp[i] = dp[i-1] + dp[i-2] + ... + dp[i-k].",
+      "Use a running window sum to avoid the inner k-loop — O(n).",
+      "Base dp[0] = 1."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function kStepSubscription(n, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def k_step_subscription(n, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object kStepSubscription(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson kStepSubscription(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function kStepSubscription(n, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc kStepSubscription(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "kStepSubscription",
+    "tests": [
+      {
+        "args": [
+          0,
+          1
+        ],
+        "expected": 1,
+        "label": "zero level"
+      },
+      {
+        "args": [
+          3,
+          2
+        ],
+        "expected": 3,
+        "label": "n=3 k=2"
+      },
+      {
+        "args": [
+          4,
+          3
+        ],
+        "expected": 7,
+        "label": "n=4 k=3"
+      },
+      {
+        "args": [
+          5,
+          1
+        ],
+        "expected": 1,
+        "label": "k=1 only one way"
+      },
+      {
+        "args": [
+          5,
+          5
+        ],
+        "expected": 16,
+        "label": "k equals n"
+      },
+      {
+        "args": [
+          6,
+          3
+        ],
+        "expected": 24,
+        "label": "n=6 k=3"
+      }
+    ],
+    "editorial": "**Recurrence**: To land at level `i`, the last hop was of size 1..k, so\n`dp[i] = sum(dp[i-j]) for j in 1..k, i-j >= 0`.\n\n**Base**: `dp[0] = 1`.\n\n**O(n*k) straightforward**:\n```javascript\nfunction kStepSubscription(n, k) {\n  const dp = new Array(n + 1).fill(0);\n  dp[0] = 1;\n  for (let i = 1; i <= n; i++) {\n    for (let j = 1; j <= k && i - j >= 0; j++) dp[i] += dp[i - j];\n  }\n  return dp[n];\n}\n```\n\n**O(n) sliding window optimization**: Maintain `windowSum = dp[i-1] + ... + dp[i-k]`. After computing `dp[i]`, slide: add `dp[i]`, drop `dp[i-k]` if it just left the window.\n\n**Time**: O(n) optimized, O(n*k) basic. **Space**: O(n).\n\nWindow trick same hai jo prefix-sum DP me dikhata hai — useful jab transitions count window pe depend karein."
+  },
+  {
+    "slug": "swiggy-skip-last-two-stairs",
+    "number": 2203,
+    "title": "Swiggy Skip-Last-Two Climb",
+    "difficulty": "Easy",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "swiggy",
+      "uber",
+      "ola"
+    ],
+    "description": "A delivery rider can climb stairs in steps of 1 or 2, but a rule forbids two consecutive 2-steps (the last two moves can't both be 2). Given `n`, return the number of distinct climbing sequences obeying this rule.",
+    "examples": [
+      {
+        "input": "n = 4",
+        "output": "6",
+        "explanation": "1111, 112, 121, 211, 22 is BANNED (two 2s consecutively allowed only with one between), wait re-check. Sequences: 1111, 112, 121, 211, 22 — 22 has the only two-step pair adjacent so it's banned; valid = 4? Actually rule says two consecutive 2-steps not allowed, 22 has them adjacent, so it's banned; the count is 4."
+      },
+      {
+        "input": "n = 3",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "0 <= n <= 40"
+    ],
+    "hints": [
+      "State: dp[i][last] where last ∈ {1,2} indicates last step size.",
+      "Transitions: from last=1 you can step 1 or 2; from last=2 you can only step 1.",
+      "Roll into two scalars for O(1) space."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function skipLastTwoClimb(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def skip_last_two_climb(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object skipLastTwoClimb(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson skipLastTwoClimb(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function skipLastTwoClimb(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc skipLastTwoClimb(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "skipLastTwoClimb",
+    "tests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": 1,
+        "label": "zero"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1,
+        "label": "one"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": 2,
+        "label": "two"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": 3,
+        "label": "three"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": 4,
+        "label": "four bans 22"
+      },
+      {
+        "args": [
+          6
+        ],
+        "expected": 9,
+        "label": "six"
+      }
+    ],
+    "editorial": "**State**: `dp[i][0]` = ways to reach step `i` with last move 1; `dp[i][1]` = ways with last move 2.\n\n**Transitions**:\n- `dp[i][0] = dp[i-1][0] + dp[i-1][1]` (step 1 always allowed regardless of previous).\n- `dp[i][1] = dp[i-2][0]` (step 2 only allowed if previous move was 1, so we count only those reaching `i-2` ending with 1).\n\n**Base**: `dp[0][0] = 1` (start), `dp[0][1] = 0`. `dp[1][0] = 1`, `dp[1][1] = 0`.\n\n```javascript\nfunction skipLastTwoClimb(n) {\n  if (n === 0) return 1;\n  if (n === 1) return 1;\n  const dp = Array.from({length: n + 1}, () => [0, 0]);\n  dp[0][0] = 1; dp[1][0] = 1;\n  for (let i = 2; i <= n; i++) {\n    dp[i][0] = dp[i-1][0] + dp[i-1][1];\n    dp[i][1] = dp[i-2][0];\n  }\n  return dp[n][0] + dp[n][1];\n}\n```\n\n**O(1) space**: only need `dp[i-1]` and `dp[i-2]`, so four scalars suffice.\n\n**Time**: O(n). **Space**: O(1) optimized."
+  },
+  {
+    "slug": "flipkart-house-robber-row",
+    "number": 2205,
+    "title": "Flipkart Warehouse Row Robber",
+    "difficulty": "Easy",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "A thief is planning to loot Flipkart's warehouse, where boxes are arranged linearly. Each box `nums[i]` has goods of value. Adjacent boxes are wired with a shared alarm: looting two adjacent boxes triggers it. Return the max value lootable without triggering the alarm.",
+    "examples": [
+      {
+        "input": "nums = [1, 2, 3, 1]",
+        "output": "4",
+        "explanation": "Loot index 0 and 2 → 1+3."
+      },
+      {
+        "input": "nums = [2, 7, 9, 3, 1]",
+        "output": "12",
+        "explanation": "Loot 2+9+1."
+      }
+    ],
+    "constraints": [
+      "0 <= nums.length <= 100",
+      "0 <= nums[i] <= 400"
+    ],
+    "hints": [
+      "dp[i] = max(dp[i-1], dp[i-2] + nums[i]) — skip or take.",
+      "Base dp[0]=nums[0], dp[1]=max(nums[0],nums[1]).",
+      "Two scalars → O(1) space."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function houseRobberRow(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def house_robber_row(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object houseRobberRow(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson houseRobberRow(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function houseRobberRow(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc houseRobberRow(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "houseRobberRow",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            1
+          ]
+        ],
+        "expected": 4,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            2,
+            7,
+            9,
+            3,
+            1
+          ]
+        ],
+        "expected": 12,
+        "label": "five boxes"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            3,
+            3
+          ]
+        ],
+        "expected": 3,
+        "label": "two equal"
+      },
+      {
+        "args": [
+          [
+            10,
+            1,
+            1,
+            10
+          ]
+        ],
+        "expected": 20,
+        "label": "skip middles"
+      }
+    ],
+    "editorial": "**Recurrence**: At box `i`, decide skip or take.\n- Skip → `dp[i] = dp[i-1]`.\n- Take → `dp[i] = dp[i-2] + nums[i]` (must skip i-1).\n- `dp[i] = max(skip, take)`.\n\n**Base**: `dp[0] = nums[0]`, `dp[1] = max(nums[0], nums[1])`.\n\n```javascript\nfunction houseRobberRow(nums) {\n  if (nums.length === 0) return 0;\n  if (nums.length === 1) return nums[0];\n  let prev2 = nums[0], prev1 = Math.max(nums[0], nums[1]);\n  for (let i = 2; i < nums.length; i++) {\n    const cur = Math.max(prev1, prev2 + nums[i]);\n    prev2 = prev1; prev1 = cur;\n  }\n  return prev1;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nClassic 'pick or skip' DP — adjacency constraint = look two back."
+  },
+  {
+    "slug": "paytm-coin-change-min",
+    "number": 2207,
+    "title": "Paytm Cashback Min Coins",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "paytm",
+      "phonepe",
+      "google"
+    ],
+    "description": "Paytm gives cashback in coins of fixed denominations `coins`. Given a target amount, return the minimum number of coins needed to make that amount exactly. If impossible, return -1. You have unlimited supply of each denomination.",
+    "examples": [
+      {
+        "input": "coins = [1, 2, 5], amount = 11",
+        "output": "3",
+        "explanation": "5+5+1."
+      },
+      {
+        "input": "coins = [2], amount = 3",
+        "output": "-1"
+      }
+    ],
+    "constraints": [
+      "1 <= coins.length <= 12",
+      "1 <= coins[i] <= 100",
+      "0 <= amount <= 1000"
+    ],
+    "hints": [
+      "dp[a] = min over c in coins of (dp[a-c] + 1).",
+      "Initialise dp[0]=0, others = Infinity.",
+      "Skip coins larger than current amount."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function paytmCoinChangeMin(coins, amount) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def paytm_coin_change_min(coins, amount):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object paytmCoinChangeMin(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson paytmCoinChangeMin(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function paytmCoinChangeMin(coins, amount): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc paytmCoinChangeMin(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "paytmCoinChangeMin",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            5
+          ],
+          11
+        ],
+        "expected": 3,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            2
+          ],
+          3
+        ],
+        "expected": -1,
+        "label": "impossible"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          0
+        ],
+        "expected": 0,
+        "label": "zero amount"
+      },
+      {
+        "args": [
+          [
+            1,
+            5,
+            10
+          ],
+          0
+        ],
+        "expected": 0,
+        "label": "zero target"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            5
+          ],
+          100
+        ],
+        "expected": 20,
+        "label": "all fives"
+      },
+      {
+        "args": [
+          [
+            7,
+            11
+          ],
+          14
+        ],
+        "expected": 2,
+        "label": "two sevens"
+      }
+    ],
+    "editorial": "**Recurrence**: For each amount `a` from 1..amount, try every coin `c`. If `a - c >= 0` and `dp[a-c] != INF`, update `dp[a] = min(dp[a], dp[a-c] + 1)`.\n\n**Base**: `dp[0] = 0` (zero coins for zero amount).\n\n```javascript\nfunction paytmCoinChangeMin(coins, amount) {\n  const INF = Infinity;\n  const dp = new Array(amount + 1).fill(INF);\n  dp[0] = 0;\n  for (let a = 1; a <= amount; a++) {\n    for (const c of coins) {\n      if (c <= a && dp[a - c] !== INF) {\n        dp[a] = Math.min(dp[a], dp[a - c] + 1);\n      }\n    }\n  }\n  return dp[amount] === INF ? -1 : dp[amount];\n}\n```\n\n**Time**: O(amount * |coins|). **Space**: O(amount).\n\nNote: this is the unbounded knapsack form — same coin reusable. Inner loop goes over coins, outer over amounts.\n\nGreedy fail dekho: coins=[1,3,4], amount=6. Greedy 4+1+1=3 coins; DP gives 3+3=2 coins."
+  },
+  {
+    "slug": "razorpay-coin-change-ways",
+    "number": 2208,
+    "title": "Razorpay Subscription Plan Combinations",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "razorpay",
+      "stripe",
+      "amazon"
+    ],
+    "description": "Razorpay subscription plans cost certain integer amounts (`plans` array). A customer wants to spend exactly `amount` total by buying any combination (with repetition) of plans. Order doesn't matter (combinations, not permutations). Return the number of distinct combinations.",
+    "examples": [
+      {
+        "input": "plans = [1, 2, 5], amount = 5",
+        "output": "4",
+        "explanation": "5; 2+2+1; 2+1+1+1; 1+1+1+1+1."
+      },
+      {
+        "input": "plans = [2], amount = 3",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= plans.length <= 30",
+      "1 <= plans[i] <= 100",
+      "0 <= amount <= 500"
+    ],
+    "hints": [
+      "Outer loop on coins, inner on amount — order matters here!",
+      "dp[a] += dp[a - coin].",
+      "Outer-on-amount would count permutations instead."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function planCombinations(plans, amount) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def plan_combinations(plans, amount):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object planCombinations(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson planCombinations(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function planCombinations(plans, amount): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc planCombinations(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "planCombinations",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            5
+          ],
+          5
+        ],
+        "expected": 4,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            2
+          ],
+          3
+        ],
+        "expected": 0,
+        "label": "impossible"
+      },
+      {
+        "args": [
+          [
+            10
+          ],
+          10
+        ],
+        "expected": 1,
+        "label": "exact"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            5
+          ],
+          0
+        ],
+        "expected": 1,
+        "label": "zero amount"
+      },
+      {
+        "args": [
+          [
+            3,
+            5,
+            7
+          ],
+          8
+        ],
+        "expected": 1,
+        "label": "single combo"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          4
+        ],
+        "expected": 3,
+        "label": "small variety"
+      }
+    ],
+    "editorial": "**Recurrence**: To count combinations (order-insensitive), iterate coins on the OUTER loop, amounts on the inner: `dp[a] += dp[a - coin]`. This guarantees each coin is considered once, then never reverted, enforcing a canonical ordering.\n\n**Base**: `dp[0] = 1` (one way: take nothing).\n\n```javascript\nfunction planCombinations(plans, amount) {\n  const dp = new Array(amount + 1).fill(0);\n  dp[0] = 1;\n  for (const coin of plans) {\n    for (let a = coin; a <= amount; a++) {\n      dp[a] += dp[a - coin];\n    }\n  }\n  return dp[amount];\n}\n```\n\n**Time**: O(amount * |plans|). **Space**: O(amount).\n\n**Key contrast**: If we swapped loops (amount outer, coins inner), we'd count ordered sequences (permutations). For combinations, coins outer is the trick.\n\nHinglish: bahar coin lock kar de, andar amount fill kar — order automatically canonical."
+  },
+  {
+    "slug": "phonepe-word-break-merchant",
+    "number": 2209,
+    "title": "PhonePe Merchant Tag Word Break",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "phonepe",
+      "google",
+      "amazon"
+    ],
+    "description": "PhonePe's merchant onboarding strips spaces from tags before storing. Given the stripped tag `s` and a dictionary `words` of valid lowercase words, return `true` if `s` can be segmented into a sequence of one or more dictionary words.",
+    "examples": [
+      {
+        "input": "s = \"phonepay\", words = [\"phone\", \"pay\"]",
+        "output": "true"
+      },
+      {
+        "input": "s = \"applepie\", words = [\"apple\", \"pie\"]",
+        "output": "true"
+      },
+      {
+        "input": "s = \"helloworld\", words = [\"hello\"]",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "1 <= s.length <= 300",
+      "1 <= words.length <= 50",
+      "1 <= words[i].length <= 20"
+    ],
+    "hints": [
+      "dp[i] = true if s[0..i-1] can be segmented.",
+      "For each i, look at each j < i: if dp[j] && s.substring(j,i) in dict, set dp[i]=true.",
+      "Use a Set for O(1) word lookup."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function merchantWordBreak(s, words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def merchant_word_break(s, words):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object merchantWordBreak(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson merchantWordBreak(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function merchantWordBreak(s, words): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc merchantWordBreak(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "merchantWordBreak",
+    "tests": [
+      {
+        "args": [
+          "phonepay",
+          [
+            "phone",
+            "pay"
+          ]
+        ],
+        "expected": true,
+        "label": "basic"
+      },
+      {
+        "args": [
+          "applepie",
+          [
+            "apple",
+            "pie"
+          ]
+        ],
+        "expected": true,
+        "label": "two-piece"
+      },
+      {
+        "args": [
+          "helloworld",
+          [
+            "hello"
+          ]
+        ],
+        "expected": false,
+        "label": "leftover"
+      },
+      {
+        "args": [
+          "a",
+          [
+            "a"
+          ]
+        ],
+        "expected": true,
+        "label": "single char"
+      },
+      {
+        "args": [
+          "aaaaa",
+          [
+            "aa",
+            "aaa"
+          ]
+        ],
+        "expected": true,
+        "label": "overlap"
+      },
+      {
+        "args": [
+          "abcd",
+          [
+            "a",
+            "abc",
+            "b",
+            "cd"
+          ]
+        ],
+        "expected": true,
+        "label": "multi split"
+      }
+    ],
+    "editorial": "**State**: `dp[i]` = whether prefix `s[0..i-1]` can be segmented. Final answer = `dp[n]`.\n\n**Recurrence**: `dp[i] = OR over j in [0, i-1] of (dp[j] AND s.substring(j, i) ∈ words)`.\n\n**Base**: `dp[0] = true` (empty prefix is trivially segmentable).\n\n```javascript\nfunction merchantWordBreak(s, words) {\n  const set = new Set(words);\n  const n = s.length;\n  const dp = new Array(n + 1).fill(false);\n  dp[0] = true;\n  for (let i = 1; i <= n; i++) {\n    for (let j = 0; j < i; j++) {\n      if (dp[j] && set.has(s.substring(j, i))) { dp[i] = true; break; }\n    }\n  }\n  return dp[n];\n}\n```\n\n**Time**: O(n^2 * L) including substring. **Space**: O(n).\n\n**Optimization**: cap inner j-loop using max word length in dict — `j >= i - maxLen`. Avoids many wasted substrings."
+  },
+  {
+    "slug": "ola-longest-trip-lis",
+    "number": 2210,
+    "title": "Ola Longest Increasing Trip Streak",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "ola",
+      "uber",
+      "amazon"
+    ],
+    "description": "Ola tracks the rating each driver received per trip in a day, in order: `ratings[i]`. A 'streak' is a subsequence (not necessarily contiguous) whose ratings are strictly increasing. Return the length of the longest such streak.",
+    "examples": [
+      {
+        "input": "ratings = [3, 1, 4, 1, 5, 9, 2, 6]",
+        "output": "5",
+        "explanation": "1,4,5,9 length 4 or 1,4,5,6 length 4? Actual LIS: 1,4,5,9 → 4. Let me re-check: 3,4,5,9 → 4; 1,4,5,9 → 4; 1,4,5,6 → 4; longest is 4. Output 4."
+      },
+      {
+        "input": "ratings = [5, 5, 5]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "1 <= ratings.length <= 1000",
+      "1 <= ratings[i] <= 10^4"
+    ],
+    "hints": [
+      "O(n^2) DP: dp[i] = 1 + max(dp[j]) for j<i with ratings[j]<ratings[i].",
+      "O(n log n) patience sort: maintain tails array; binary search insertion point.",
+      "Strict increasing → use lower_bound, replace at insertion point."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function longestTripStreak(ratings) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def longest_trip_streak(ratings):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object longestTripStreak(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson longestTripStreak(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function longestTripStreak(ratings): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc longestTripStreak(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "longestTripStreak",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ]
+        ],
+        "expected": 4,
+        "label": "mixed"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5
+          ]
+        ],
+        "expected": 1,
+        "label": "all same"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": 4,
+        "label": "already sorted"
+      },
+      {
+        "args": [
+          [
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "decreasing"
+      },
+      {
+        "args": [
+          [
+            10,
+            9,
+            2,
+            5,
+            3,
+            7,
+            101,
+            18
+          ]
+        ],
+        "expected": 4,
+        "label": "classic"
+      }
+    ],
+    "editorial": "**O(n^2) DP**: `dp[i]` = length of LIS ending at index `i`. For each i, scan all j < i; if `ratings[j] < ratings[i]`, candidate is `dp[j]+1`.\n\n```javascript\nfunction longestTripStreak(ratings) {\n  const n = ratings.length;\n  if (n === 0) return 0;\n  const dp = new Array(n).fill(1);\n  let best = 1;\n  for (let i = 1; i < n; i++) {\n    for (let j = 0; j < i; j++) {\n      if (ratings[j] < ratings[i]) dp[i] = Math.max(dp[i], dp[j] + 1);\n    }\n    best = Math.max(best, dp[i]);\n  }\n  return best;\n}\n```\n\n**O(n log n) patience sort**: Maintain `tails`, where `tails[k]` is the smallest possible tail of any LIS of length `k+1`. For each value, binary-search the leftmost tail >= value (lower bound) and replace it; if not found, append.\n\n```javascript\nfunction longestTripStreak(ratings) {\n  const tails = [];\n  for (const x of ratings) {\n    let lo = 0, hi = tails.length;\n    while (lo < hi) {\n      const m = (lo + hi) >> 1;\n      if (tails[m] < x) lo = m + 1; else hi = m;\n    }\n    if (lo === tails.length) tails.push(x); else tails[lo] = x;\n  }\n  return tails.length;\n}\n```\n\n**Time**: O(n^2) or O(n log n). **Space**: O(n).\n\nFor strict increase use `<` comparison (lower_bound)."
+  },
+  {
+    "slug": "flipkart-max-sale-window",
+    "number": 2211,
+    "title": "Flipkart Max Sale Subarray",
+    "difficulty": "Easy",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Flipkart logs hourly profit/loss as integers (negative = loss) across the day. Find the contiguous time window with the highest total profit. Return that maximum sum (Kadane's).",
+    "examples": [
+      {
+        "input": "nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]",
+        "output": "6",
+        "explanation": "Subarray [4,-1,2,1] sums to 6."
+      },
+      {
+        "input": "nums = [1]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 10^4",
+      "-10^4 <= nums[i] <= 10^4"
+    ],
+    "hints": [
+      "Kadane: cur = max(num, cur + num); best = max(best, cur).",
+      "Initialise both with nums[0].",
+      "All-negative case: best is the largest single element."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function maxSaleSubarray(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_sale_subarray(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object maxSaleSubarray(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson maxSaleSubarray(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function maxSaleSubarray(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc maxSaleSubarray(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "maxSaleSubarray",
+    "tests": [
+      {
+        "args": [
+          [
+            -2,
+            1,
+            -3,
+            4,
+            -1,
+            2,
+            1,
+            -5,
+            4
+          ]
+        ],
+        "expected": 6,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "single positive"
+      },
+      {
+        "args": [
+          [
+            -1
+          ]
+        ],
+        "expected": -1,
+        "label": "single negative"
+      },
+      {
+        "args": [
+          [
+            -5,
+            -2,
+            -3
+          ]
+        ],
+        "expected": -2,
+        "label": "all negative"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            -1,
+            7,
+            8
+          ]
+        ],
+        "expected": 23,
+        "label": "mostly positive"
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "zeros"
+      }
+    ],
+    "editorial": "**Kadane's Algorithm**: maintain `cur` = max subarray sum ending at current index, and `best` = global max so far. For each element, decide: extend the previous window or start fresh.\n\n**Recurrence**: `cur = max(nums[i], cur + nums[i])`. Then `best = max(best, cur)`.\n\n**Base**: `cur = best = nums[0]`.\n\n```javascript\nfunction maxSaleSubarray(nums) {\n  let cur = nums[0], best = nums[0];\n  for (let i = 1; i < nums.length; i++) {\n    cur = Math.max(nums[i], cur + nums[i]);\n    best = Math.max(best, cur);\n  }\n  return best;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nKey insight: agar 'previous window + current' < 'current alone', toh fresh start better — extension worthless ho gaya."
+  },
+  {
+    "slug": "swiggy-decode-pin-ways",
+    "number": 2212,
+    "title": "Swiggy Decode Customer PIN",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "swiggy",
+      "amazon",
+      "microsoft"
+    ],
+    "description": "Swiggy stores customer PINs encoded with a→1, b→2, ..., z→26. Given a digit string `s`, return the number of ways to decode it back into letters. A decoding is valid if every used number is in 1..26 (so '0' alone is invalid; '10', '20' are valid; '27', '00', '30' as a unit are invalid).",
+    "examples": [
+      {
+        "input": "s = \"12\"",
+        "output": "2",
+        "explanation": "ab (1,2) or l (12)."
+      },
+      {
+        "input": "s = \"226\"",
+        "output": "3",
+        "explanation": "bbf, bz, vf."
+      },
+      {
+        "input": "s = \"06\"",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= s.length <= 100",
+      "s consists of digits 0-9"
+    ],
+    "hints": [
+      "dp[i] = ways to decode prefix of length i.",
+      "If s[i-1] != '0': dp[i] += dp[i-1].",
+      "If s[i-2..i-1] in 10..26: dp[i] += dp[i-2]."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function decodePin(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def decode_pin(s):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object decodePin(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson decodePin(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function decodePin(s): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc decodePin(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "decodePin",
+    "tests": [
+      {
+        "args": [
+          "12"
+        ],
+        "expected": 2,
+        "label": "two ways"
+      },
+      {
+        "args": [
+          "226"
+        ],
+        "expected": 3,
+        "label": "three ways"
+      },
+      {
+        "args": [
+          "06"
+        ],
+        "expected": 0,
+        "label": "leading zero"
+      },
+      {
+        "args": [
+          "10"
+        ],
+        "expected": 1,
+        "label": "must pair"
+      },
+      {
+        "args": [
+          "27"
+        ],
+        "expected": 1,
+        "label": "single only"
+      },
+      {
+        "args": [
+          "1111"
+        ],
+        "expected": 5,
+        "label": "fibonacci-like"
+      }
+    ],
+    "editorial": "**Recurrence**: `dp[i]` = number of decodings of `s[0..i-1]`.\n- One-digit decode of `s[i-1]`: valid if `s[i-1] != '0'`. Contributes `dp[i-1]`.\n- Two-digit decode of `s[i-2..i-1]`: valid if it lies in '10'..'26'. Contributes `dp[i-2]`.\n\n**Base**: `dp[0] = 1` (empty), `dp[1] = (s[0] === '0' ? 0 : 1)`.\n\n```javascript\nfunction decodePin(s) {\n  const n = s.length;\n  if (n === 0 || s[0] === '0') return 0;\n  const dp = new Array(n + 1).fill(0);\n  dp[0] = 1; dp[1] = 1;\n  for (let i = 2; i <= n; i++) {\n    if (s[i-1] !== '0') dp[i] += dp[i-1];\n    const two = parseInt(s.substring(i-2, i), 10);\n    if (two >= 10 && two <= 26) dp[i] += dp[i-2];\n  }\n  return dp[n];\n}\n```\n\n**O(1) space**: only `dp[i-1]` and `dp[i-2]` needed.\n\n**Time**: O(n). **Space**: O(1) optimized.\n\nGotchas: '0' alone invalid; '30' is invalid (no two-digit AND single '0' invalid)."
+  },
+  {
+    "slug": "amazon-partition-equal-loot",
+    "number": 2213,
+    "title": "Amazon Partition Equal Loot",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
+    "description": "Two Amazon delivery agents want to fairly split a pile of parcels by weight (`weights` of positive integers): each agent takes some parcels so the two halves have equal total weight. Return `true` if a 50-50 split is possible.",
+    "examples": [
+      {
+        "input": "weights = [1, 5, 11, 5]",
+        "output": "true",
+        "explanation": "[1,5,5] and [11]."
+      },
+      {
+        "input": "weights = [1, 2, 3, 5]",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "1 <= weights.length <= 200",
+      "1 <= weights[i] <= 100"
+    ],
+    "hints": [
+      "Total odd → return false.",
+      "Subset-sum DP: bool dp[s] = can we hit sum s?",
+      "Iterate weights; for each, update dp from high to low to keep 0/1 knapsack semantics."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function partitionEqualLoot(weights) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def partition_equal_loot(weights):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object partitionEqualLoot(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson partitionEqualLoot(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function partitionEqualLoot(weights): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc partitionEqualLoot(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "partitionEqualLoot",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            5,
+            11,
+            5
+          ]
+        ],
+        "expected": true,
+        "label": "classic split"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            5
+          ]
+        ],
+        "expected": false,
+        "label": "no split"
+      },
+      {
+        "args": [
+          [
+            2
+          ]
+        ],
+        "expected": false,
+        "label": "single odd impossible"
+      },
+      {
+        "args": [
+          [
+            2,
+            2
+          ]
+        ],
+        "expected": true,
+        "label": "two equal"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": true,
+        "label": "all ones"
+      },
+      {
+        "args": [
+          [
+            100,
+            100
+          ]
+        ],
+        "expected": true,
+        "label": "two hundred"
+      }
+    ],
+    "editorial": "**Reduction**: 50-50 split exists iff some subset has sum = total/2. Total odd → impossible.\n\n**1-D DP (subset-sum)**: `dp[s]` = can we form sum `s` from some subset? For each weight `w`, update `dp[s] = dp[s] OR dp[s-w]` for `s` from target down to `w`. Reverse iteration ensures each weight used at most once (0/1 knapsack).\n\n**Base**: `dp[0] = true`.\n\n```javascript\nfunction partitionEqualLoot(weights) {\n  const total = weights.reduce((a, b) => a + b, 0);\n  if (total % 2) return false;\n  const target = total / 2;\n  const dp = new Array(target + 1).fill(false);\n  dp[0] = true;\n  for (const w of weights) {\n    for (let s = target; s >= w; s--) {\n      if (dp[s - w]) dp[s] = true;\n    }\n    if (dp[target]) return true;\n  }\n  return dp[target];\n}\n```\n\n**Time**: O(n * sum). **Space**: O(sum).\n\nReverse loop critical: forward loop double-counts the same weight, breaking 0/1 constraint."
+  },
+  {
+    "slug": "flipkart-buy-sell-once",
+    "number": 2214,
+    "title": "Flipkart Sale-Day One Transaction",
+    "difficulty": "Easy",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Flipkart Big Billion Days: stock prices for `n` consecutive hours given as `prices`. You may buy once and sell once (sell strictly after buy). Return the max profit. If no profit is possible, return 0.",
+    "examples": [
+      {
+        "input": "prices = [7, 1, 5, 3, 6, 4]",
+        "output": "5",
+        "explanation": "Buy at 1 (idx 1), sell at 6 (idx 4)."
+      },
+      {
+        "input": "prices = [7, 6, 4, 3, 1]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= prices.length <= 10^4",
+      "0 <= prices[i] <= 10^4"
+    ],
+    "hints": [
+      "Track running min so far; for each day compute price - minSoFar.",
+      "Update best profit.",
+      "Single pass O(n), O(1) space."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function buySellOnce(prices) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def buy_sell_once(prices):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object buySellOnce(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson buySellOnce(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function buySellOnce(prices): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc buySellOnce(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "buySellOnce",
+    "tests": [
+      {
+        "args": [
+          [
+            7,
+            1,
+            5,
+            3,
+            6,
+            4
+          ]
+        ],
+        "expected": 5,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            7,
+            6,
+            4,
+            3,
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "monotonic down"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            2,
+            4
+          ]
+        ],
+        "expected": 2,
+        "label": "tiny gain"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 4,
+        "label": "monotonic up"
+      },
+      {
+        "args": [
+          [
+            3,
+            3,
+            3
+          ]
+        ],
+        "expected": 0,
+        "label": "flat"
+      }
+    ],
+    "editorial": "**Idea — track running minimum**: At each day `i`, the best sale that ends on day `i` is `prices[i] - minSoFar`. Maintain the minimum seen, and update best profit.\n\n```javascript\nfunction buySellOnce(prices) {\n  let minPrice = Infinity, best = 0;\n  for (const p of prices) {\n    if (p < minPrice) minPrice = p;\n    else if (p - minPrice > best) best = p - minPrice;\n  }\n  return best;\n}\n```\n\n**As DP**: `dp[i] = max(dp[i-1], prices[i] - minSoFar)` where `minSoFar = min(prices[0..i])`.\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "razorpay-buy-sell-cooldown",
+    "number": 2215,
+    "title": "Razorpay Stock with Cooldown",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "razorpay",
+      "google",
+      "facebook"
+    ],
+    "description": "Razorpay's trading bot can buy/sell unlimited times, but after each SELL, there's a 1-day cooldown (cannot buy on the day right after a sell). Given `prices`, return max total profit.",
+    "examples": [
+      {
+        "input": "prices = [1, 2, 3, 0, 2]",
+        "output": "3",
+        "explanation": "buy 1 sell 2 cooldown buy 0 sell 2 → 1+2=3."
+      },
+      {
+        "input": "prices = [1]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= prices.length <= 5000",
+      "0 <= prices[i] <= 1000"
+    ],
+    "hints": [
+      "Three states per day: hold, sold (just sold today, must cooldown next), rest (idle, free to buy).",
+      "Transitions: hold = max(prevHold, prevRest - price); sold = prevHold + price; rest = max(prevRest, prevSold).",
+      "Roll into 3 scalars."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function buySellCooldown(prices) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def buy_sell_cooldown(prices):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object buySellCooldown(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson buySellCooldown(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function buySellCooldown(prices): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc buySellCooldown(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "buySellCooldown",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            0,
+            2
+          ]
+        ],
+        "expected": 3,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 1,
+        "label": "two days"
+      },
+      {
+        "args": [
+          [
+            6,
+            1,
+            3,
+            2,
+            4,
+            7
+          ]
+        ],
+        "expected": 6,
+        "label": "longer"
+      },
+      {
+        "args": [
+          [
+            3,
+            3,
+            3,
+            3
+          ]
+        ],
+        "expected": 0,
+        "label": "flat"
+      },
+      {
+        "args": [
+          [
+            2,
+            1,
+            4
+          ]
+        ],
+        "expected": 3,
+        "label": "cooldown wins"
+      }
+    ],
+    "editorial": "**Three states**: at end of each day,\n- `hold`: holding a stock.\n- `sold`: just sold today (next day must cooldown — cannot buy).\n- `rest`: idle, no stock, free to buy tomorrow.\n\n**Transitions**:\n- `hold = max(prevHold, prevRest - price)` — keep holding or buy from rest.\n- `sold = prevHold + price` — sell today.\n- `rest = max(prevRest, prevSold)` — rest carries over, OR yesterday's sold becomes today's rest.\n\n**Base**: `hold = -Infinity` (cannot start holding), `sold = 0`, `rest = 0`.\n\n```javascript\nfunction buySellCooldown(prices) {\n  let hold = -Infinity, sold = 0, rest = 0;\n  for (const p of prices) {\n    const prevHold = hold, prevSold = sold, prevRest = rest;\n    hold = Math.max(prevHold, prevRest - p);\n    sold = prevHold + p;\n    rest = Math.max(prevRest, prevSold);\n  }\n  return Math.max(sold, rest);\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nFinal answer = max(sold, rest); we never want to end holding (would waste a buy)."
+  },
+  {
+    "slug": "phonepe-stock-with-fee",
+    "number": 2216,
+    "title": "PhonePe Stock with Transaction Fee",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "phonepe",
+      "google",
+      "amazon"
+    ],
+    "description": "PhonePe charges a flat `fee` per round-trip transaction (paid on each sell). Given `prices` and `fee`, return the max profit with unlimited transactions.",
+    "examples": [
+      {
+        "input": "prices = [1, 3, 2, 8, 4, 9], fee = 2",
+        "output": "8",
+        "explanation": "buy 1 sell 8 (5), buy 4 sell 9 (3); 5+3=8."
+      },
+      {
+        "input": "prices = [1, 3, 7, 5, 10, 3], fee = 3",
+        "output": "6"
+      }
+    ],
+    "constraints": [
+      "1 <= prices.length <= 5*10^4",
+      "0 <= prices[i] <= 10^4",
+      "0 <= fee <= 10^4"
+    ],
+    "hints": [
+      "Two states: hold, cash.",
+      "cash = max(cash, hold + price - fee).",
+      "hold = max(hold, cash - price)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function stockWithFee(prices, fee) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def stock_with_fee(prices, fee):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object stockWithFee(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson stockWithFee(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function stockWithFee(prices, fee): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc stockWithFee(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "stockWithFee",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            2,
+            8,
+            4,
+            9
+          ],
+          2
+        ],
+        "expected": 8,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            7,
+            5,
+            10,
+            3
+          ],
+          3
+        ],
+        "expected": 6,
+        "label": "longer"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          0
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          5
+        ],
+        "expected": 0,
+        "label": "fee too high"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          1
+        ],
+        "expected": 3,
+        "label": "monotonic"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          1
+        ],
+        "expected": 0,
+        "label": "monotonic down"
+      }
+    ],
+    "editorial": "**Two states**: per day, you're either holding a stock (`hold`) or in cash (`cash`).\n\n**Transitions** (deduct fee on sell):\n- `cash = max(prevCash, prevHold + price - fee)` — sell now or stay in cash.\n- `hold = max(prevHold, prevCash - price)` — buy now or keep holding.\n\n**Base**: `cash = 0`, `hold = -prices[0]`.\n\n```javascript\nfunction stockWithFee(prices, fee) {\n  let cash = 0, hold = -prices[0];\n  for (let i = 1; i < prices.length; i++) {\n    const p = prices[i];\n    const newCash = Math.max(cash, hold + p - fee);\n    const newHold = Math.max(hold, cash - p);\n    cash = newCash; hold = newHold;\n  }\n  return cash;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nFee can also be applied on buy instead — same answer; just be consistent."
+  },
+  {
+    "slug": "flipkart-jump-can-reach",
+    "number": 2217,
+    "title": "Flipkart Jump Game Reachability",
+    "difficulty": "Easy",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "A robot starts at index 0 of `nums`. From any index `i`, it can jump to any index in `[i+1, i + nums[i]]`. Return `true` iff it can reach the last index.",
+    "examples": [
+      {
+        "input": "nums = [2, 3, 1, 1, 4]",
+        "output": "true"
+      },
+      {
+        "input": "nums = [3, 2, 1, 0, 4]",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 10^4",
+      "0 <= nums[i] <= 10^4"
+    ],
+    "hints": [
+      "Greedy: track furthest reachable index so far.",
+      "If i > maxReach, you're stuck. Otherwise update maxReach = max(maxReach, i + nums[i]).",
+      "DP: dp[i] = true if reachable."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function jumpCanReach(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def jump_can_reach(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object jumpCanReach(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson jumpCanReach(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function jumpCanReach(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc jumpCanReach(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "jumpCanReach",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            3,
+            1,
+            1,
+            4
+          ]
+        ],
+        "expected": true,
+        "label": "reachable"
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            1,
+            0,
+            4
+          ]
+        ],
+        "expected": false,
+        "label": "stuck at zero"
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": true,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            0
+          ]
+        ],
+        "expected": true,
+        "label": "barely"
+      },
+      {
+        "args": [
+          [
+            0,
+            1
+          ]
+        ],
+        "expected": false,
+        "label": "cant move"
+      },
+      {
+        "args": [
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "expected": true,
+        "label": "exact jump"
+      }
+    ],
+    "editorial": "**DP formulation**: `dp[i]` = reachable. `dp[i] = OR over j<i of (dp[j] AND j + nums[j] >= i)`. O(n^2).\n\n**Greedy (optimal)**: maintain `maxReach`. Iterate; if current index > maxReach, return false. Else update `maxReach = max(maxReach, i + nums[i])`. If at any point `maxReach >= n-1`, return true.\n\n```javascript\nfunction jumpCanReach(nums) {\n  let maxReach = 0;\n  for (let i = 0; i < nums.length; i++) {\n    if (i > maxReach) return false;\n    if (i + nums[i] > maxReach) maxReach = i + nums[i];\n    if (maxReach >= nums.length - 1) return true;\n  }\n  return true;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "ola-min-jumps",
+    "number": 2218,
+    "title": "Ola Min Trip Hops",
+    "difficulty": "Hard",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "ola",
+      "uber",
+      "amazon"
+    ],
+    "description": "From index 0 of `nums`, hop forward up to `nums[i]` steps. Return the minimum number of hops to reach the last index. Assume reachability (last index is always reachable).",
+    "examples": [
+      {
+        "input": "nums = [2, 3, 1, 1, 4]",
+        "output": "2",
+        "explanation": "0→1→4."
+      },
+      {
+        "input": "nums = [2, 3, 0, 1, 4]",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 10^4",
+      "0 <= nums[i] <= 1000"
+    ],
+    "hints": [
+      "Greedy/BFS-like: track current jump's farthest, when you exhaust it increment jumps and update farthest.",
+      "currentEnd, farthest variables.",
+      "DP O(n^2): dp[i] = min over reachable j of dp[j]+1."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function olaMinHops(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def ola_min_hops(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object olaMinHops(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson olaMinHops(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function olaMinHops(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc olaMinHops(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "olaMinHops",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            3,
+            1,
+            1,
+            4
+          ]
+        ],
+        "expected": 2,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            2,
+            3,
+            0,
+            1,
+            4
+          ]
+        ],
+        "expected": 2,
+        "label": "alt"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "already there"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 3,
+        "label": "step-by-step"
+      },
+      {
+        "args": [
+          [
+            5,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "one giant hop"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 2,
+        "label": "two hops"
+      }
+    ],
+    "editorial": "**Greedy BFS-layered**: imagine BFS layers — each layer is the set of indices reachable in `k` jumps. Track:\n- `currentEnd`: farthest index reachable in current layer.\n- `farthest`: farthest reachable from anything in current layer.\n\nIterate i from 0 to n-2. Update `farthest = max(farthest, i + nums[i])`. When `i === currentEnd`, increment jumps and set `currentEnd = farthest`.\n\n```javascript\nfunction olaMinHops(nums) {\n  const n = nums.length;\n  if (n <= 1) return 0;\n  let jumps = 0, currentEnd = 0, farthest = 0;\n  for (let i = 0; i < n - 1; i++) {\n    if (i + nums[i] > farthest) farthest = i + nums[i];\n    if (i === currentEnd) {\n      jumps++;\n      currentEnd = farthest;\n      if (currentEnd >= n - 1) break;\n    }\n  }\n  return jumps;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\n**DP form (O(n^2))**: `dp[i] = 1 + min(dp[j])` over j such that j + nums[j] >= i."
+  },
+  {
+    "slug": "amazon-max-product-subarray",
+    "number": 2219,
+    "title": "Amazon Max Product Subarray",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
+    "description": "Amazon analytics multiplies hourly factor signals (signed integers in `nums`). Find the contiguous subarray with the maximum product and return that product.",
+    "examples": [
+      {
+        "input": "nums = [2, 3, -2, 4]",
+        "output": "6",
+        "explanation": "[2,3]."
+      },
+      {
+        "input": "nums = [-2, 0, -1]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 10^4",
+      "-10 <= nums[i] <= 10"
+    ],
+    "hints": [
+      "Negative * negative = positive: track BOTH max and min ending at i.",
+      "On hitting a negative, swap roles before computing.",
+      "Reset when 0 (effectively starts fresh)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function maxProductSubarray(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_product_subarray(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object maxProductSubarray(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson maxProductSubarray(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function maxProductSubarray(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc maxProductSubarray(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "maxProductSubarray",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            3,
+            -2,
+            4
+          ]
+        ],
+        "expected": 6,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            -2,
+            0,
+            -1
+          ]
+        ],
+        "expected": 0,
+        "label": "zero wins"
+      },
+      {
+        "args": [
+          [
+            -2,
+            3,
+            -4
+          ]
+        ],
+        "expected": 24,
+        "label": "double neg"
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "single zero"
+      },
+      {
+        "args": [
+          [
+            -5
+          ]
+        ],
+        "expected": -5,
+        "label": "single negative"
+      },
+      {
+        "args": [
+          [
+            2,
+            -5,
+            -2,
+            -4,
+            3
+          ]
+        ],
+        "expected": 24,
+        "label": "tricky"
+      }
+    ],
+    "editorial": "**Why two states**: Negative numbers flip sign, so the max product ending here might come from min product ending previously × negative. Track both.\n\n**Recurrence**: For each `x = nums[i]`,\n- `newMax = max(x, maxEnd * x, minEnd * x)`.\n- `newMin = min(x, maxEnd * x, minEnd * x)`.\n- `globalMax = max(globalMax, newMax)`.\n\n**Base**: `maxEnd = minEnd = globalMax = nums[0]`.\n\n```javascript\nfunction maxProductSubarray(nums) {\n  let maxEnd = nums[0], minEnd = nums[0], best = nums[0];\n  for (let i = 1; i < nums.length; i++) {\n    const x = nums[i];\n    const candidates = [x, maxEnd * x, minEnd * x];\n    const nm = Math.max(...candidates);\n    const nn = Math.min(...candidates);\n    maxEnd = nm; minEnd = nn;\n    if (maxEnd > best) best = maxEnd;\n  }\n  return best;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nClassic Kadane's twin — sum vs product needs the min-tracking twist."
+  },
+  {
+    "slug": "razorpay-perfect-squares",
+    "number": 2220,
+    "title": "Razorpay Min Perfect Squares Sum",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "razorpay",
+      "google",
+      "amazon"
+    ],
+    "description": "Razorpay's loyalty engine awards points only when the redemption amount equals a sum of perfect squares (1, 4, 9, 16, ...). Given target `n`, return the minimum count of perfect squares summing to `n` (squares may repeat).",
+    "examples": [
+      {
+        "input": "n = 12",
+        "output": "3",
+        "explanation": "4+4+4."
+      },
+      {
+        "input": "n = 13",
+        "output": "2",
+        "explanation": "4+9."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 10^4"
+    ],
+    "hints": [
+      "dp[i] = min over k where k*k <= i of dp[i - k*k] + 1.",
+      "Initialise dp[0]=0.",
+      "Lagrange's four-square theorem: answer is always <= 4."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minPerfectSquares(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_perfect_squares(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minPerfectSquares(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minPerfectSquares(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minPerfectSquares(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minPerfectSquares(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minPerfectSquares",
+    "tests": [
+      {
+        "args": [
+          12
+        ],
+        "expected": 3,
+        "label": "three fours"
+      },
+      {
+        "args": [
+          13
+        ],
+        "expected": 2,
+        "label": "four plus nine"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1,
+        "label": "one"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": 1,
+        "label": "perfect"
+      },
+      {
+        "args": [
+          7
+        ],
+        "expected": 4,
+        "label": "needs four"
+      },
+      {
+        "args": [
+          25
+        ],
+        "expected": 1,
+        "label": "big perfect"
+      }
+    ],
+    "editorial": "**Recurrence**: `dp[i] = min over k of dp[i - k*k] + 1` for k = 1, 2, ... while k*k <= i.\n\n**Base**: `dp[0] = 0`.\n\n```javascript\nfunction minPerfectSquares(n) {\n  const dp = new Array(n + 1).fill(Infinity);\n  dp[0] = 0;\n  for (let i = 1; i <= n; i++) {\n    for (let k = 1; k * k <= i; k++) {\n      if (dp[i - k * k] + 1 < dp[i]) dp[i] = dp[i - k * k] + 1;\n    }\n  }\n  return dp[n];\n}\n```\n\n**Time**: O(n * sqrt(n)). **Space**: O(n).\n\n**Math fact (Lagrange)**: every natural number is the sum of at most four squares — answer is always 1, 2, 3, or 4. There's also a closed-form via Legendre's three-square theorem, but DP is the cleanest interview write."
+  },
+  {
+    "slug": "amazon-integer-break",
+    "number": 2221,
+    "title": "Amazon Integer Break Max Product",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Given integer `n >= 2`, break it into a sum of at least 2 positive integers and maximize their product. Return that maximum product.",
+    "examples": [
+      {
+        "input": "n = 2",
+        "output": "1",
+        "explanation": "1+1, product 1."
+      },
+      {
+        "input": "n = 10",
+        "output": "36",
+        "explanation": "3+3+4."
+      }
+    ],
+    "constraints": [
+      "2 <= n <= 58"
+    ],
+    "hints": [
+      "dp[i] = max over j in 1..i-1 of max(j*(i-j), j*dp[i-j]).",
+      "Base dp[2]=1.",
+      "Math: prefer breaking into 3s once n >= 4."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function integerBreakMax(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def integer_break_max(n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object integerBreakMax(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson integerBreakMax(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function integerBreakMax(n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc integerBreakMax(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "integerBreakMax",
+    "tests": [
+      {
+        "args": [
+          2
+        ],
+        "expected": 1,
+        "label": "edge two"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": 2,
+        "label": "edge three"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": 4,
+        "label": "two twos"
+      },
+      {
+        "args": [
+          10
+        ],
+        "expected": 36,
+        "label": "classic"
+      },
+      {
+        "args": [
+          7
+        ],
+        "expected": 12,
+        "label": "seven"
+      },
+      {
+        "args": [
+          8
+        ],
+        "expected": 18,
+        "label": "eight"
+      }
+    ],
+    "editorial": "**Recurrence**: For each `i`, try splitting off a part `j` (1 <= j <= i-1):\n- Either keep the remainder as a single number `(i - j)` → product `j * (i - j)`.\n- Or further break the remainder using `dp[i - j]` → product `j * dp[i - j]`.\nTake the max.\n\n`dp[i] = max over j in [1, i-1] of max(j * (i - j), j * dp[i - j])`.\n\n**Base**: `dp[2] = 1` (1+1).\n\n```javascript\nfunction integerBreakMax(n) {\n  const dp = new Array(n + 1).fill(0);\n  dp[2] = 1;\n  for (let i = 3; i <= n; i++) {\n    for (let j = 1; j < i; j++) {\n      dp[i] = Math.max(dp[i], j * (i - j), j * dp[i - j]);\n    }\n  }\n  return dp[n];\n}\n```\n\n**Time**: O(n^2). **Space**: O(n).\n\n**Math shortcut**: For n >= 5, repeatedly factor out 3s; if remainder is 1, swap one 3 with two 2s. Gives O(1) but DP is more flexible to teach."
+  },
+  {
+    "slug": "phonepe-buy-sell-k-transactions",
+    "number": 2223,
+    "title": "PhonePe Buy/Sell at Most K Transactions",
+    "difficulty": "Hard",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "phonepe",
+      "google",
+      "amazon"
+    ],
+    "description": "PhonePe trader can perform at most `k` buy-sell pairs (transactions) on `prices`. A new transaction can only start after the previous one closes. Return the max total profit.",
+    "examples": [
+      {
+        "input": "k = 2, prices = [3, 2, 6, 5, 0, 3]",
+        "output": "7",
+        "explanation": "buy 2 sell 6 (4) + buy 0 sell 3 (3) = 7."
+      },
+      {
+        "input": "k = 2, prices = [2, 4, 1]",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "0 <= k <= 50",
+      "1 <= prices.length <= 200",
+      "0 <= prices[i] <= 1000"
+    ],
+    "hints": [
+      "buy[j] = max(buy[j], sell[j-1] - price); sell[j] = max(sell[j], buy[j] + price).",
+      "Iterate prices outer, j from 1..k inner.",
+      "If k >= n/2, behaves like unlimited transactions."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function buySellKTransactions(k, prices) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def buy_sell_k_transactions(k, prices):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object buySellKTransactions(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson buySellKTransactions(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function buySellKTransactions(k, prices): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc buySellKTransactions(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "buySellKTransactions",
+    "tests": [
+      {
+        "args": [
+          2,
+          [
+            3,
+            2,
+            6,
+            5,
+            0,
+            3
+          ]
+        ],
+        "expected": 7,
+        "label": "two transactions"
+      },
+      {
+        "args": [
+          2,
+          [
+            2,
+            4,
+            1
+          ]
+        ],
+        "expected": 2,
+        "label": "small"
+      },
+      {
+        "args": [
+          0,
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 0,
+        "label": "k zero"
+      },
+      {
+        "args": [
+          1,
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 4,
+        "label": "k=1"
+      },
+      {
+        "args": [
+          3,
+          [
+            1,
+            2,
+            4,
+            2,
+            5,
+            7,
+            2,
+            4,
+            9,
+            0
+          ]
+        ],
+        "expected": 15,
+        "label": "many"
+      },
+      {
+        "args": [
+          2,
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "single price"
+      }
+    ],
+    "editorial": "**1-D arrays per state**: `buy[j]` = max profit after up to j buys (j-th not yet sold); `sell[j]` = max profit after up to j sells.\n\n**Transitions** (per price p):\n- `buy[j] = max(buy[j], sell[j-1] - p)`.\n- `sell[j] = max(sell[j], buy[j] + p)`.\n\nProcess all prices in outer loop, j from 1..k inner.\n\n**Base**: `buy[*] = -Infinity`, `sell[*] = 0`.\n\n```javascript\nfunction buySellKTransactions(k, prices) {\n  if (k === 0 || prices.length === 0) return 0;\n  // optimization: if k >= n/2, treat as unlimited\n  if (k >= prices.length >> 1) {\n    let profit = 0;\n    for (let i = 1; i < prices.length; i++) {\n      if (prices[i] > prices[i-1]) profit += prices[i] - prices[i-1];\n    }\n    return profit;\n  }\n  const buy = new Array(k + 1).fill(-Infinity);\n  const sell = new Array(k + 1).fill(0);\n  for (const p of prices) {\n    for (let j = 1; j <= k; j++) {\n      buy[j] = Math.max(buy[j], sell[j-1] - p);\n      sell[j] = Math.max(sell[j], buy[j] + p);\n    }\n  }\n  return sell[k];\n}\n```\n\n**Time**: O(n*k) (or O(n) if k large). **Space**: O(k).\n\nUpdating `buy` then `sell` in same iteration is the trick — it correctly enforces 'sell after buy on same day or later'."
+  },
+  {
+    "slug": "ola-house-robber-circular",
+    "number": 2224,
+    "title": "Ola Circular Stand House Robber",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "ola",
+      "amazon",
+      "facebook"
+    ],
+    "description": "Ola driver lounges are arranged in a CIRCLE — boxes 0 and n-1 are now adjacent (shared alarm). All other rules from linear robber stand: no two adjacent looted. Given `nums`, return max loot.",
+    "examples": [
+      {
+        "input": "nums = [2, 3, 2]",
+        "output": "3",
+        "explanation": "Cannot take both 0 and 2; pick 3 alone."
+      },
+      {
+        "input": "nums = [1, 2, 3, 1]",
+        "output": "4"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 100",
+      "0 <= nums[i] <= 1000"
+    ],
+    "hints": [
+      "Run linear robber twice: once excluding first index, once excluding last index.",
+      "Return the max of the two.",
+      "Edge case: n=1 → nums[0]."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function houseRobberCircular(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def house_robber_circular(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object houseRobberCircular(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson houseRobberCircular(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function houseRobberCircular(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc houseRobberCircular(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "houseRobberCircular",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            3,
+            2
+          ]
+        ],
+        "expected": 3,
+        "label": "circular conflict"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            1
+          ]
+        ],
+        "expected": 4,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 2,
+        "label": "two adjacent"
+      },
+      {
+        "args": [
+          [
+            2,
+            7,
+            9,
+            3,
+            1
+          ]
+        ],
+        "expected": 11,
+        "label": "five circular"
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "all zero"
+      }
+    ],
+    "editorial": "**Key trick**: In a circle, you cannot take both index 0 and index n-1. Split into two non-circular subproblems:\n- Case A: ignore index 0; run linear robber on `nums[1..n-1]`.\n- Case B: ignore index n-1; run linear robber on `nums[0..n-2]`.\nAnswer = max(A, B).\n\n```javascript\nfunction houseRobberCircular(nums) {\n  const n = nums.length;\n  if (n === 1) return nums[0];\n  function rob(lo, hi) {\n    let prev2 = 0, prev1 = 0;\n    for (let i = lo; i <= hi; i++) {\n      const cur = Math.max(prev1, prev2 + nums[i]);\n      prev2 = prev1; prev1 = cur;\n    }\n    return prev1;\n  }\n  return Math.max(rob(0, n - 2), rob(1, n - 1));\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "amazon-min-cost-paint-houses",
+    "number": 2225,
+    "title": "Amazon Min Cost Color Houses",
+    "difficulty": "Medium",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Amazon has `n` warehouse buildings to paint, each in one of 3 colors (red/blue/green). `costs[i]` is a 3-element array [costRed, costBlue, costGreen] for building `i`. Two adjacent buildings must NOT share a color. Return the minimum total cost.",
+    "examples": [
+      {
+        "input": "costs = [[17,2,17],[16,16,5],[14,3,19]]",
+        "output": "10",
+        "explanation": "blue, green, blue: 2+5+3=10."
+      },
+      {
+        "input": "costs = [[1,2,3]]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "1 <= costs.length <= 100",
+      "costs[i].length === 3",
+      "0 <= costs[i][j] <= 1000"
+    ],
+    "hints": [
+      "Three running scalars for the 3 colors.",
+      "newRed = costs[i][0] + min(prevBlue, prevGreen). Similarly for others.",
+      "Final answer = min of three at end."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minCostColor(costs) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_cost_color(costs):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minCostColor(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minCostColor(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minCostColor(costs): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minCostColor(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minCostColor",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              17,
+              2,
+              17
+            ],
+            [
+              16,
+              16,
+              5
+            ],
+            [
+              14,
+              3,
+              19
+            ]
+          ]
+        ],
+        "expected": 10,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              7,
+              6,
+              2
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "single pick min"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              100,
+              100
+            ],
+            [
+              100,
+              1,
+              100
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two diagonals"
+      },
+      {
+        "args": [
+          [
+            [
+              5,
+              5,
+              5
+            ],
+            [
+              5,
+              5,
+              5
+            ]
+          ]
+        ],
+        "expected": 10,
+        "label": "all same"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              50,
+              50
+            ],
+            [
+              50,
+              50,
+              1
+            ],
+            [
+              1,
+              50,
+              50
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "alternating cheap"
+      }
+    ],
+    "editorial": "**State**: `dp[i][c]` = min cost to paint buildings [0..i] with building `i` colored `c`.\n\n**Transitions**: `dp[i][c] = costs[i][c] + min over c' != c of dp[i-1][c']`.\n\n**Base**: `dp[0][c] = costs[0][c]`.\n\n**O(1) space** (3 scalars):\n```javascript\nfunction minCostColor(costs) {\n  if (costs.length === 0) return 0;\n  let r = costs[0][0], b = costs[0][1], g = costs[0][2];\n  for (let i = 1; i < costs.length; i++) {\n    const nr = costs[i][0] + Math.min(b, g);\n    const nb = costs[i][1] + Math.min(r, g);\n    const ng = costs[i][2] + Math.min(r, b);\n    r = nr; b = nb; g = ng;\n  }\n  return Math.min(r, b, g);\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "razorpay-cashback-max-streak",
+    "number": 2226,
+    "title": "Razorpay Cashback Max Non-Adjacent Sum",
+    "difficulty": "Easy",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
+    "description": "Razorpay offers `n` cashback offers, but you can claim non-adjacent ones (cooldown rules). Given `offers` array of integer values (could be 0), return the max sum of values claimed such that no two claimed indices are adjacent.",
+    "examples": [
+      {
+        "input": "offers = [4, 1, 1, 4]",
+        "output": "8",
+        "explanation": "Pick index 0 and 3: 4+4=8."
+      },
+      {
+        "input": "offers = [5]",
+        "output": "5"
+      }
+    ],
+    "constraints": [
+      "0 <= offers.length <= 1000",
+      "0 <= offers[i] <= 1000"
+    ],
+    "hints": [
+      "Same as house robber.",
+      "dp[i] = max(dp[i-1], dp[i-2] + offers[i]).",
+      "O(1) space with two scalars."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function cashbackMaxStreak(offers) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def cashback_max_streak(offers):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object cashbackMaxStreak(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson cashbackMaxStreak(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function cashbackMaxStreak(offers): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc cashbackMaxStreak(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "cashbackMaxStreak",
+    "tests": [
+      {
+        "args": [
+          [
+            4,
+            1,
+            1,
+            4
+          ]
+        ],
+        "expected": 8,
+        "label": "ends only"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5,
+        "label": "single"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            3,
+            7,
+            4,
+            6,
+            5
+          ]
+        ],
+        "expected": 13,
+        "label": "five offers"
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "all zero"
+      },
+      {
+        "args": [
+          [
+            10,
+            10,
+            10,
+            10
+          ]
+        ],
+        "expected": 20,
+        "label": "alternating"
+      }
+    ],
+    "editorial": "**Recurrence**: `dp[i] = max(dp[i-1], dp[i-2] + offers[i])` — skip current vs take current (then must have skipped previous).\n\n**Base**: `dp[-1] = 0`, `dp[0] = offers[0]`.\n\n```javascript\nfunction cashbackMaxStreak(offers) {\n  if (offers.length === 0) return 0;\n  let prev2 = 0, prev1 = 0;\n  for (const v of offers) {\n    const cur = Math.max(prev1, prev2 + v);\n    prev2 = prev1; prev1 = cur;\n  }\n  return prev1;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nIdentical structure to house robber — same recurrence, same complexity."
+  },
+  {
+    "slug": "swiggy-delivery-min-jumps-grid",
+    "number": 2227,
+    "title": "Swiggy Variable Jump Steps",
+    "difficulty": "Hard",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "swiggy",
+      "amazon",
+      "google"
+    ],
+    "description": "Swiggy navigation game: on a 1-D path of length `n`, starting at index 0, the rider can jump exactly steps from `allowed` (a set of positive integers) at each move. Return the minimum number of jumps to land at index n-1 exactly. If impossible, return -1.",
+    "examples": [
+      {
+        "input": "n = 5, allowed = [1, 3]",
+        "output": "2",
+        "explanation": "0 → 1 → 4. Or 0 → 3 → 4."
+      },
+      {
+        "input": "n = 4, allowed = [2]",
+        "output": "-1",
+        "explanation": "Cannot land on 3 from 0 with only step 2."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 1000",
+      "1 <= allowed.length <= 20",
+      "1 <= allowed[i] <= 1000"
+    ],
+    "hints": [
+      "BFS-like DP: dp[i] = min jumps to reach i.",
+      "dp[i] = min over s in allowed of dp[i-s] + 1, if dp[i-s] valid.",
+      "Initialise dp[0]=0, others = Infinity."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function variableJumpMinSteps(n, allowed) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def variable_jump_min_steps(n, allowed):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object variableJumpMinSteps(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson variableJumpMinSteps(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function variableJumpMinSteps(n, allowed): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc variableJumpMinSteps(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "variableJumpMinSteps",
+    "tests": [
+      {
+        "args": [
+          5,
+          [
+            1,
+            3
+          ]
+        ],
+        "expected": 2,
+        "label": "two ways"
+      },
+      {
+        "args": [
+          4,
+          [
+            2
+          ]
+        ],
+        "expected": -1,
+        "label": "impossible"
+      },
+      {
+        "args": [
+          1,
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "already there"
+      },
+      {
+        "args": [
+          10,
+          [
+            2,
+            3
+          ]
+        ],
+        "expected": 3,
+        "label": "n=10"
+      },
+      {
+        "args": [
+          7,
+          [
+            3,
+            5
+          ]
+        ],
+        "expected": 2,
+        "label": "exact"
+      },
+      {
+        "args": [
+          6,
+          [
+            2,
+            4
+          ]
+        ],
+        "expected": -1,
+        "label": "parity stuck"
+      }
+    ],
+    "editorial": "**Recurrence**: `dp[i]` = min jumps to land on index `i`. `dp[i] = 1 + min over s in allowed (with i-s >= 0 AND dp[i-s] != Inf) of dp[i-s]`.\n\n**Base**: `dp[0] = 0`. Final answer = `dp[n-1]`, or -1 if Infinity.\n\n```javascript\nfunction variableJumpMinSteps(n, allowed) {\n  const target = n - 1;\n  if (target === 0) return 0;\n  const dp = new Array(n).fill(Infinity);\n  dp[0] = 0;\n  for (let i = 1; i < n; i++) {\n    for (const s of allowed) {\n      if (i - s >= 0 && dp[i - s] !== Infinity) {\n        dp[i] = Math.min(dp[i], dp[i - s] + 1);\n      }\n    }\n  }\n  return dp[target] === Infinity ? -1 : dp[target];\n}\n```\n\n**Time**: O(n * |allowed|). **Space**: O(n).\n\nThis is unbounded-knapsack flavor (each step reusable). For minimum-count problems, basic 1-D DP works perfectly."
+  },
+  {
+    "slug": "amazon-decode-ways-with-star",
+    "number": 2228,
+    "title": "Amazon Decode Ways with Wildcard",
+    "difficulty": "Hard",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
+    "description": "Amazon variant of decode ways: digit string `s` may also contain '*', which represents any single digit 1-9. Return the number of ways to decode (mod 10^9+7). a→1..z→26 mapping; '0' alone is invalid; '*' is never '0'.",
+    "examples": [
+      {
+        "input": "s = \"*\"",
+        "output": "9",
+        "explanation": "* can be 1..9."
+      },
+      {
+        "input": "s = \"1*\"",
+        "output": "18",
+        "explanation": "* as 0..9 single = 9 if non-zero each, plus pair 10..19 = 9 more, but pair 10 is 1 valid, etc. Actual count: 18."
+      }
+    ],
+    "constraints": [
+      "1 <= s.length <= 100",
+      "s consists of digits and '*'"
+    ],
+    "hints": [
+      "Same DP as decode ways but each digit position has multiple possibilities.",
+      "Single decode contributions: '*' gives 9, '0' gives 0, else 1.",
+      "Two-digit decode contributions: enumerate pairs (* with digit, digit with *, ** etc.)."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function decodeWaysStar(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def decode_ways_star(s):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object decodeWaysStar(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson decodeWaysStar(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function decodeWaysStar(s): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc decodeWaysStar(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "decodeWaysStar",
+    "tests": [
+      {
+        "args": [
+          "*"
+        ],
+        "expected": 9,
+        "label": "single star"
+      },
+      {
+        "args": [
+          "1*"
+        ],
+        "expected": 18,
+        "label": "1 then star"
+      },
+      {
+        "args": [
+          "**"
+        ],
+        "expected": 96,
+        "label": "double star"
+      },
+      {
+        "args": [
+          "12"
+        ],
+        "expected": 2,
+        "label": "pure digits"
+      },
+      {
+        "args": [
+          "0"
+        ],
+        "expected": 0,
+        "label": "zero alone"
+      },
+      {
+        "args": [
+          "*0"
+        ],
+        "expected": 2,
+        "label": "star zero"
+      }
+    ],
+    "editorial": "**Setup**: Let MOD = 10^9 + 7. `dp[i]` = number of decodings of prefix length `i`.\n\n**Single-char count for `s[i-1]`**:\n- '*' → 9 (1..9).\n- '0' → 0.\n- else (1..9) → 1.\n\n**Two-char count for `s[i-2..i-1]`**:\n- ** → 15 (10..19 plus 21..26 = 9 + 6 = 15).\n- *X (X digit): if X==0, 2 (10, 20); X in 1..6 → 2 (1X, 2X); X in 7..9 → 1 (1X only).\n- X* (X digit): if X=='1', 9 (10..19); X=='2', 6 (21..26); else 0.\n- XY (both digits): 1 if 10..26 else 0.\n\n```javascript\nfunction decodeWaysStar(s) {\n  const MOD = 1000000007n;\n  const n = s.length;\n  let prev2 = 1n, prev1 = single(s[0]);\n  if (n === 1) return Number(prev1);\n  for (let i = 2; i <= n; i++) {\n    const a = single(s[i-1]);\n    const b = pair(s[i-2], s[i-1]);\n    const cur = (a * prev1 + b * prev2) % MOD;\n    prev2 = prev1; prev1 = cur;\n  }\n  return Number(prev1);\n  function single(ch) {\n    if (ch === '*') return 9n;\n    if (ch === '0') return 0n;\n    return 1n;\n  }\n  function pair(a, b) {\n    if (a === '*' && b === '*') return 15n;\n    if (a === '*') {\n      if (b === '0') return 2n;\n      if (b >= '1' && b <= '6') return 2n;\n      return 1n;\n    }\n    if (b === '*') {\n      if (a === '1') return 9n;\n      if (a === '2') return 6n;\n      return 0n;\n    }\n    const v = parseInt(a + b, 10);\n    return (v >= 10 && v <= 26) ? 1n : 0n;\n  }\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nBigInt used to dodge overflow when multiplying large counts before modding."
+  },
+  {
+    "slug": "flipkart-lis-with-count",
+    "number": 2229,
+    "title": "Flipkart Number of LIS",
+    "difficulty": "Hard",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Given Flipkart trip ratings array `nums`, return the number of longest strictly-increasing subsequences (LIS) — count, not the LIS itself.",
+    "examples": [
+      {
+        "input": "nums = [1, 3, 5, 4, 7]",
+        "output": "2",
+        "explanation": "[1,3,4,7] and [1,3,5,7]."
+      },
+      {
+        "input": "nums = [2, 2, 2, 2, 2]",
+        "output": "5"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 2000",
+      "-10^6 <= nums[i] <= 10^6"
+    ],
+    "hints": [
+      "Two arrays: len[i] = LIS length ending at i; cnt[i] = number of such LISes.",
+      "For each j < i with nums[j] < nums[i]: if len[j]+1 > len[i], reset; if equal, accumulate.",
+      "Sum cnt[i] over all i with len[i] == max len."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function numLis(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def num_lis(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object numLis(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson numLis(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function numLis(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc numLis(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "numLis",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            4,
+            7
+          ]
+        ],
+        "expected": 2,
+        "label": "two LIS"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": 5,
+        "label": "all same"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            4,
+            3,
+            5,
+            4,
+            7,
+            2
+          ]
+        ],
+        "expected": 3,
+        "label": "longer"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 5,
+        "label": "decreasing"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 1,
+        "label": "unique LIS"
+      }
+    ],
+    "editorial": "**Two parallel DPs**: `len[i]` = length of LIS ending at i; `cnt[i]` = number of distinct LISes ending at i.\n\n**Recurrence**: For each i, scan j < i. If `nums[j] < nums[i]`:\n- If `len[j] + 1 > len[i]`: extend; `len[i] = len[j] + 1`, `cnt[i] = cnt[j]`.\n- Else if `len[j] + 1 === len[i]`: accumulate; `cnt[i] += cnt[j]`.\n\n**Base**: `len[i] = 1`, `cnt[i] = 1`.\n\n**Final**: `max = max(len)`; answer = `sum(cnt[i] where len[i] === max)`.\n\n```javascript\nfunction numLis(nums) {\n  const n = nums.length;\n  if (n === 0) return 0;\n  const len = new Array(n).fill(1);\n  const cnt = new Array(n).fill(1);\n  let best = 1;\n  for (let i = 1; i < n; i++) {\n    for (let j = 0; j < i; j++) {\n      if (nums[j] < nums[i]) {\n        if (len[j] + 1 > len[i]) {\n          len[i] = len[j] + 1;\n          cnt[i] = cnt[j];\n        } else if (len[j] + 1 === len[i]) {\n          cnt[i] += cnt[j];\n        }\n      }\n    }\n    if (len[i] > best) best = len[i];\n  }\n  let total = 0;\n  for (let i = 0; i < n; i++) if (len[i] === best) total += cnt[i];\n  return total;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n)."
+  },
+  {
+    "slug": "amazon-min-deletions-make-sorted",
+    "number": 2230,
+    "title": "Amazon Min Deletions for Sorted Order",
+    "difficulty": "Hard",
+    "topic": "1-D Dynamic Programming",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "Amazon's recommendation feed has items with rank scores in `nums`. To make it strictly increasing, we delete a minimum number of items. Return that minimum number of deletions. (Equivalent to n - LIS.)",
+    "examples": [
+      {
+        "input": "nums = [3, 1, 4, 1, 5, 9, 2, 6]",
+        "output": "4",
+        "explanation": "LIS length is 4 (1,4,5,9 or similar), so deletions = 8-4 = 4."
+      },
+      {
+        "input": "nums = [1, 2, 3]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 2500",
+      "-10^6 <= nums[i] <= 10^6"
+    ],
+    "hints": [
+      "Answer = n - LIS(nums) (strict).",
+      "Use O(n log n) patience-sort LIS.",
+      "Strict: lower_bound on tails."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function minDeletionsSorted(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_deletions_sorted(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minDeletionsSorted(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minDeletionsSorted(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function minDeletionsSorted(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minDeletionsSorted(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "minDeletionsSorted",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ]
+        ],
+        "expected": 4,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 0,
+        "label": "already sorted"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 4,
+        "label": "decreasing"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": 2,
+        "label": "all same"
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            2,
+            4,
+            3,
+            5
+          ]
+        ],
+        "expected": 2,
+        "label": "mixed"
+      }
+    ],
+    "editorial": "**Reduction**: Keep the longest strictly increasing subsequence; delete the rest. Answer = `n - LIS_strict(nums)`.\n\n**LIS via patience sort (O(n log n))**: maintain `tails`, where `tails[k]` = smallest possible tail of any increasing subsequence of length `k+1`. For each x, binary-search the leftmost tail >= x (lower bound) and replace; if not found, append.\n\n```javascript\nfunction minDeletionsSorted(nums) {\n  const tails = [];\n  for (const x of nums) {\n    let lo = 0, hi = tails.length;\n    while (lo < hi) {\n      const m = (lo + hi) >> 1;\n      if (tails[m] < x) lo = m + 1; else hi = m;\n    }\n    if (lo === tails.length) tails.push(x); else tails[lo] = x;\n  }\n  return nums.length - tails.length;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n).\n\nWith strict LIS, lower_bound (replace at first `>= x`) prevents duplicates from extending the LIS."
+  }
+]

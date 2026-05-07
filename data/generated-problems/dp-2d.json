@@ -1,0 +1,802 @@
+[
+  {
+    "slug": "flipkart-warehouse-unique-paths",
+    "number": 2301,
+    "title": "Flipkart Warehouse Unique Paths",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["flipkart", "amazon", "myntra"],
+    "description": "A Flipkart picker bot starts at the top-left of an `m x n` warehouse aisle grid and must reach the bottom-right packing station. From any cell it can only move one step right or one step down. Count the number of distinct paths the bot can take.",
+    "examples": [
+      {"input": "m = 3, n = 7", "output": "28"},
+      {"input": "m = 3, n = 2", "output": "3", "explanation": "DR DR D, DDR DR, etc. — 3 distinct paths."}
+    ],
+    "constraints": ["1 <= m, n <= 100", "Answer fits in 32-bit signed int."],
+    "hints": [
+      "dp[i][j] = dp[i-1][j] + dp[i][j-1]; first row and column = 1.",
+      "1D array se space O(n) ho jayega.",
+      "Closed-form bhi hai: C(m+n-2, m-1) — but DP simpler hai."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function uniqueWarehousePaths(m, n) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def unique_warehouse_paths(m, n):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "uniqueWarehousePaths",
+    "tests": [
+      {"args": [3, 7], "expected": 28, "label": "classic"},
+      {"args": [3, 2], "expected": 3, "label": "small"},
+      {"args": [1, 1], "expected": 1, "label": "1x1 grid"},
+      {"args": [1, 5], "expected": 1, "label": "single row"},
+      {"args": [4, 4], "expected": 20, "label": "square"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = number of paths from (0,0) to (i,j).\n\n**Recurrence**: `dp[i][j] = dp[i-1][j] + dp[i][j-1]` (came from above or from the left).\n\n**Base**: `dp[0][j] = dp[i][0] = 1` (only one straight path along an edge).\n\n```javascript\nfunction uniqueWarehousePaths(m, n) {\n  const dp = new Array(n).fill(1);\n  for (let i = 1; i < m; i++) {\n    for (let j = 1; j < n; j++) {\n      dp[j] += dp[j - 1];\n    }\n  }\n  return dp[n - 1];\n}\n```\n\n**Time**: O(m*n). **Space**: O(n) — rolling 1D array, since each cell only depends on the cell above (old `dp[j]`) and the cell to the left (new `dp[j-1]`).\n\nClosed form `C(m+n-2, m-1)` is O(min(m,n)) time but DP is what an interviewer wants to see."
+  },
+  {
+    "slug": "razorpay-payment-grid-obstacles",
+    "number": 2302,
+    "title": "Razorpay Payment State Grid With Obstacles",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["razorpay", "stripe", "paypal"],
+    "description": "Razorpay models a payment state machine as an `m x n` grid: starting at INIT (top-left), the payment must reach SETTLED (bottom-right). From any state you may transition right or down only. Some cells are blocked (regulatory rejects, marked as 1). Given grid `obstacles`, count the number of valid transition paths from start to end. If the start or end cell itself is blocked, the answer is 0.",
+    "examples": [
+      {"input": "obstacles = [[0,0,0],[0,1,0],[0,0,0]]", "output": "2"},
+      {"input": "obstacles = [[0,1],[0,0]]", "output": "1"}
+    ],
+    "constraints": ["1 <= m, n <= 100", "obstacles[i][j] is 0 or 1.", "Answer fits in 32-bit signed int."],
+    "hints": [
+      "Same recurrence as unique paths, but blocked cells force dp[i][j] = 0.",
+      "Start/end blocked? — return 0 fast.",
+      "1D rolling array trick still works."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function paymentGridPaths(obstacles) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def payment_grid_paths(obstacles):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "paymentGridPaths",
+    "tests": [
+      {"args": [[[0,0,0],[0,1,0],[0,0,0]]], "expected": 2, "label": "middle blocked"},
+      {"args": [[[0,1],[0,0]]], "expected": 1, "label": "right blocked"},
+      {"args": [[[1,0],[0,0]]], "expected": 0, "label": "start blocked"},
+      {"args": [[[0,0],[0,1]]], "expected": 0, "label": "end blocked"},
+      {"args": [[[0,0,0],[0,0,0],[0,0,0]]], "expected": 6, "label": "no obstacles 3x3"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = number of paths to (i,j) avoiding obstacles. If `obstacles[i][j] == 1`, force `dp[i][j] = 0`.\n\n**Recurrence**: `dp[i][j] = dp[i-1][j] + dp[i][j-1]` for free cells.\n\n**Base**: `dp[0][0] = 1` if free else 0; first row/column propagates 1 only until the first blocked cell, then stays 0.\n\n```javascript\nfunction paymentGridPaths(obstacles) {\n  const m = obstacles.length, n = obstacles[0].length;\n  if (obstacles[0][0] === 1 || obstacles[m-1][n-1] === 1) return 0;\n  const dp = new Array(n).fill(0);\n  dp[0] = 1;\n  for (let i = 0; i < m; i++) {\n    for (let j = 0; j < n; j++) {\n      if (obstacles[i][j] === 1) dp[j] = 0;\n      else if (j > 0) dp[j] += dp[j - 1];\n    }\n  }\n  return dp[n - 1];\n}\n```\n\n**Time**: O(m*n). **Space**: O(n)."
+  },
+  {
+    "slug": "mumbai-delhi-min-toll",
+    "number": 2303,
+    "title": "Mumbai-Delhi Grid Minimum Toll",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["uber", "ola", "rapido"],
+    "description": "A trucker drives through a highway grid from Mumbai (top-left) to Delhi (bottom-right). Each cell has a toll cost (non-negative). The truck can only move right or down at every junction. Return the minimum total toll paid along any path from start to end.",
+    "examples": [
+      {"input": "grid = [[1,3,1],[1,5,1],[4,2,1]]", "output": "7", "explanation": "Path 1→3→1→1→1 sums to 7."},
+      {"input": "grid = [[1,2,3],[4,5,6]]", "output": "12"}
+    ],
+    "constraints": ["1 <= m, n <= 200", "0 <= grid[i][j] <= 200"],
+    "hints": [
+      "dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1]).",
+      "First row and first column: cumulative sum.",
+      "1D rolling array — overwrite row in place."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function minTollPath(grid) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def min_toll_path(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "minTollPath",
+    "tests": [
+      {"args": [[[1,3,1],[1,5,1],[4,2,1]]], "expected": 7, "label": "classic"},
+      {"args": [[[1,2,3],[4,5,6]]], "expected": 12, "label": "2x3"},
+      {"args": [[[5]]], "expected": 5, "label": "single cell"},
+      {"args": [[[1,2],[1,1]]], "expected": 3, "label": "2x2"},
+      {"args": [[[0,0,0],[0,0,0]]], "expected": 0, "label": "all zeros"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = minimum toll cost to reach (i,j).\n\n**Recurrence**: `dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])`.\n\n**Base**: `dp[0][0] = grid[0][0]`; first row is prefix sum of row 0; first column is prefix sum of column 0.\n\n```javascript\nfunction minTollPath(grid) {\n  const m = grid.length, n = grid[0].length;\n  const dp = new Array(n);\n  dp[0] = grid[0][0];\n  for (let j = 1; j < n; j++) dp[j] = dp[j-1] + grid[0][j];\n  for (let i = 1; i < m; i++) {\n    dp[0] += grid[i][0];\n    for (let j = 1; j < n; j++) {\n      dp[j] = grid[i][j] + Math.min(dp[j], dp[j-1]);\n    }\n  }\n  return dp[n-1];\n}\n```\n\n**Time**: O(m*n). **Space**: O(n)."
+  },
+  {
+    "slug": "tcs-max-grid-gold",
+    "number": 2304,
+    "title": "TCS Maximum Gold Path In Grid",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["tcs", "infosys", "wipro"],
+    "description": "Given an `m x n` grid where each cell holds a gold reward (non-negative), a miner starts at top-left and must reach bottom-right moving only right or down. Return the maximum gold collectible along any single path.",
+    "examples": [
+      {"input": "grid = [[1,3,1],[1,5,1],[4,2,1]]", "output": "12", "explanation": "Path 1→3→5→2→1 = 12."},
+      {"input": "grid = [[5]]", "output": "5"}
+    ],
+    "constraints": ["1 <= m, n <= 200", "0 <= grid[i][j] <= 100"],
+    "hints": [
+      "dp[i][j] = grid[i][j] + max(dp[i-1][j], dp[i][j-1]).",
+      "First row/column simple cumulative sum.",
+      "Rolling 1D array works."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function maxGoldPath(grid) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def max_gold_path(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "maxGoldPath",
+    "tests": [
+      {"args": [[[1,3,1],[1,5,1],[4,2,1]]], "expected": 12, "label": "classic"},
+      {"args": [[[5]]], "expected": 5, "label": "single"},
+      {"args": [[[1,2,3]]], "expected": 6, "label": "single row"},
+      {"args": [[[1],[2],[3]]], "expected": 6, "label": "single column"},
+      {"args": [[[1,10,1],[1,1,1],[1,10,1]]], "expected": 22, "label": "best down-right"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = max gold collectable reaching (i,j).\n\n**Recurrence**: `dp[i][j] = grid[i][j] + max(dp[i-1][j], dp[i][j-1])`.\n\n**Base**: same prefix-sum pattern on the first row/column.\n\n```javascript\nfunction maxGoldPath(grid) {\n  const m = grid.length, n = grid[0].length;\n  const dp = new Array(n);\n  dp[0] = grid[0][0];\n  for (let j = 1; j < n; j++) dp[j] = dp[j-1] + grid[0][j];\n  for (let i = 1; i < m; i++) {\n    dp[0] += grid[i][0];\n    for (let j = 1; j < n; j++) {\n      dp[j] = grid[i][j] + Math.max(dp[j], dp[j-1]);\n    }\n  }\n  return dp[n-1];\n}\n```\n\n**Time**: O(m*n). **Space**: O(n)."
+  },
+  {
+    "slug": "cricket-scoreboard-lcs",
+    "number": 2305,
+    "title": "Cricket Scoreboard Longest Common Subsequence",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["dream11", "mpl", "sony"],
+    "description": "Two cricket innings are summarized as ball-by-ball strings (e.g., '146024' = runs per ball). A commentator wants the longest common subsequence (LCS) of two such strings — the longest scoring pattern shared in order, but not necessarily contiguous. Return the length of the LCS of `a` and `b`.",
+    "examples": [
+      {"input": "a = \"146024\", b = \"104624\"", "output": "5", "explanation": "LCS '14624' length 5."},
+      {"input": "a = \"abc\", b = \"def\"", "output": "0"}
+    ],
+    "constraints": ["0 <= a.length, b.length <= 1000", "Strings contain printable ASCII."],
+    "hints": [
+      "dp[i][j] = LCS of a[0..i-1], b[0..j-1].",
+      "If a[i-1] == b[j-1]: dp[i][j] = dp[i-1][j-1] + 1.",
+      "Else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function scoreboardLcs(a, b) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def scoreboard_lcs(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "scoreboardLcs",
+    "tests": [
+      {"args": ["146024", "104624"], "expected": 5, "label": "classic"},
+      {"args": ["abc", "def"], "expected": 0, "label": "no common"},
+      {"args": ["", "abc"], "expected": 0, "label": "empty a"},
+      {"args": ["abcde", "ace"], "expected": 3, "label": "subseq"},
+      {"args": ["aaaa", "aa"], "expected": 2, "label": "repeated chars"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = LCS length of prefixes `a[0..i-1]` and `b[0..j-1]`.\n\n**Recurrence**:\n- If `a[i-1] === b[j-1]`: `dp[i][j] = dp[i-1][j-1] + 1`\n- Else: `dp[i][j] = max(dp[i-1][j], dp[i][j-1])`\n\n**Base**: empty prefix → 0, so row 0 and col 0 are zeros.\n\n```javascript\nfunction scoreboardLcs(a, b) {\n  const m = a.length, n = b.length;\n  let prev = new Array(n + 1).fill(0);\n  let cur = new Array(n + 1).fill(0);\n  for (let i = 1; i <= m; i++) {\n    cur[0] = 0;\n    for (let j = 1; j <= n; j++) {\n      cur[j] = a[i-1] === b[j-1] ? prev[j-1] + 1 : Math.max(prev[j], cur[j-1]);\n    }\n    [prev, cur] = [cur, prev];\n  }\n  return prev[n];\n}\n```\n\n**Time**: O(m*n). **Space**: O(min(m, n)) using two rolling rows."
+  },
+  {
+    "slug": "infosys-longest-common-substring",
+    "number": 2306,
+    "title": "Infosys Longest Common Substring",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["infosys", "tcs", "cognizant"],
+    "description": "Infosys's plagiarism tool checks two code submissions and reports the length of the longest common contiguous substring. Given strings `s` and `t`, return the length of the longest substring that appears in both.",
+    "examples": [
+      {"input": "s = \"abcdef\", t = \"zabcf\"", "output": "3", "explanation": "'abc' is the longest common substring."},
+      {"input": "s = \"abc\", t = \"def\"", "output": "0"}
+    ],
+    "constraints": ["0 <= s.length, t.length <= 1000", "Strings are lowercase English."],
+    "hints": [
+      "Different from LCS — substring must be contiguous.",
+      "dp[i][j] = dp[i-1][j-1] + 1 if s[i-1]==t[j-1] else 0.",
+      "Track global max as you fill the table."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function longestCommonSubstring(s, t) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def longest_common_substring(s, t):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "longestCommonSubstring",
+    "tests": [
+      {"args": ["abcdef", "zabcf"], "expected": 3, "label": "classic"},
+      {"args": ["abc", "def"], "expected": 0, "label": "no common"},
+      {"args": ["", "abc"], "expected": 0, "label": "empty"},
+      {"args": ["abcdxyz", "xyzabcd"], "expected": 4, "label": "shifted"},
+      {"args": ["aaaa", "aa"], "expected": 2, "label": "repeats"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = length of longest common substring ending exactly at `s[i-1]` and `t[j-1]`. Note: ends-at, not 'within prefix' — that's the substring twist.\n\n**Recurrence**:\n- If `s[i-1] === t[j-1]`: `dp[i][j] = dp[i-1][j-1] + 1`\n- Else: `dp[i][j] = 0` (substring must be contiguous, mismatch breaks it).\n\nTrack `best = max(best, dp[i][j])` while filling.\n\n```javascript\nfunction longestCommonSubstring(s, t) {\n  const m = s.length, n = t.length;\n  let prev = new Array(n + 1).fill(0);\n  let cur = new Array(n + 1).fill(0);\n  let best = 0;\n  for (let i = 1; i <= m; i++) {\n    cur[0] = 0;\n    for (let j = 1; j <= n; j++) {\n      cur[j] = s[i-1] === t[j-1] ? prev[j-1] + 1 : 0;\n      if (cur[j] > best) best = cur[j];\n    }\n    [prev, cur] = [cur, prev];\n  }\n  return best;\n}\n```\n\n**Time**: O(m*n). **Space**: O(min(m, n))."
+  },
+  {
+    "slug": "swiggy-edit-distance",
+    "number": 2307,
+    "title": "Swiggy Address Edit Distance",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["swiggy", "zomato", "google"],
+    "description": "Swiggy's address dedupe pipeline measures the minimum number of single-character edits (insert, delete, replace) to convert string `s` into string `t` (Levenshtein distance). Return that minimum number.",
+    "examples": [
+      {"input": "s = \"kitten\", t = \"sitting\"", "output": "3", "explanation": "k→s, e→i, append g."},
+      {"input": "s = \"\", t = \"abc\"", "output": "3"}
+    ],
+    "constraints": ["0 <= s.length, t.length <= 500", "Strings contain printable ASCII."],
+    "hints": [
+      "dp[i][j] = edits to transform s[0..i-1] into t[0..j-1].",
+      "If chars match: dp[i][j] = dp[i-1][j-1].",
+      "Else: 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function editDistance(s, t) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def edit_distance(s, t):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "editDistance",
+    "tests": [
+      {"args": ["kitten", "sitting"], "expected": 3, "label": "classic"},
+      {"args": ["", "abc"], "expected": 3, "label": "empty source"},
+      {"args": ["abc", ""], "expected": 3, "label": "empty target"},
+      {"args": ["horse", "ros"], "expected": 3, "label": "shorter target"},
+      {"args": ["intention", "execution"], "expected": 5, "label": "long"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = min edits to turn `s[0..i-1]` into `t[0..j-1]`.\n\n**Recurrence**:\n- Match: `dp[i][j] = dp[i-1][j-1]`\n- Mismatch: `1 + min(dp[i-1][j-1] /* replace */, dp[i-1][j] /* delete from s */, dp[i][j-1] /* insert into s */)`\n\n**Base**: `dp[0][j] = j` (insert j chars), `dp[i][0] = i` (delete i chars).\n\n```javascript\nfunction editDistance(s, t) {\n  const m = s.length, n = t.length;\n  const dp = Array.from({length: m + 1}, () => new Array(n + 1).fill(0));\n  for (let i = 0; i <= m; i++) dp[i][0] = i;\n  for (let j = 0; j <= n; j++) dp[0][j] = j;\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      dp[i][j] = s[i-1] === t[j-1]\n        ? dp[i-1][j-1]\n        : 1 + Math.min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]);\n    }\n  }\n  return dp[m][n];\n}\n```\n\n**Time**: O(m*n). **Space**: O(m*n) shown; can be reduced to O(min(m,n)) with two rolling rows."
+  },
+  {
+    "slug": "ola-one-edit-distance",
+    "number": 2308,
+    "title": "Ola Driver Name One Edit Distance",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["ola", "uber", "rapido"],
+    "description": "Ola's driver onboarding flags identity records that look like typos: two strings `s` and `t` are 'one edit distance' apart iff they differ by exactly one insert, one delete, or one replace. Return `true` only if the edit distance is exactly 1 (not 0, not >1).",
+    "examples": [
+      {"input": "s = \"ramesh\", t = \"ramish\"", "output": "true", "explanation": "Replace 'e' with 'i'."},
+      {"input": "s = \"abc\", t = \"abc\"", "output": "false", "explanation": "Zero edits, not one."}
+    ],
+    "constraints": ["0 <= s.length, t.length <= 1000", "Strings are lowercase English."],
+    "hints": [
+      "Length diff > 1 ⇒ false.",
+      "Same length: count mismatched chars; exactly 1 ⇒ true.",
+      "Length diff = 1: try skipping the extra char in the longer one — rest must match."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function isOneEditDistance(s, t) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def is_one_edit_distance(s, t):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "isOneEditDistance",
+    "tests": [
+      {"args": ["ramesh", "ramish"], "expected": true, "label": "one replace"},
+      {"args": ["abc", "abc"], "expected": false, "label": "zero edits"},
+      {"args": ["abc", "ab"], "expected": true, "label": "one delete"},
+      {"args": ["", "a"], "expected": true, "label": "empty vs single"},
+      {"args": ["abc", "axy"], "expected": false, "label": "two replaces"}
+    ],
+    "editorial": "**Why this is a 2-D DP problem**: the general edit-distance DP solves it; we just check `dp[m][n] === 1`. But for *exactly* one edit, an O(min(m,n)) linear scan is cleaner.\n\n**Linear approach**:\n1. If `|m - n| > 1`: false.\n2. Walk both strings together. At first mismatch: if lengths equal, the suffixes after this index must match. If `s` is shorter, `t`'s remaining tail (skipping its current char) must match `s`'s tail. Symmetric for the other case.\n3. If we make it through with no mismatch, return `m !== n` (one trailing-char insert/delete).\n\n```javascript\nfunction isOneEditDistance(s, t) {\n  const m = s.length, n = t.length;\n  if (Math.abs(m - n) > 1) return false;\n  if (m > n) return isOneEditDistance(t, s);\n  for (let i = 0; i < m; i++) {\n    if (s[i] !== t[i]) {\n      if (m === n) return s.slice(i+1) === t.slice(i+1);\n      return s.slice(i) === t.slice(i+1);\n    }\n  }\n  return m !== n;\n}\n```\n\n**Time**: O(m + n). **Space**: O(1) extra (slices aside)."
+  },
+  {
+    "slug": "amazon-distinct-subsequences",
+    "number": 2309,
+    "title": "Amazon Distinct Subsequence Count",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["amazon", "google", "microsoft"],
+    "description": "Given strings `s` and `t`, count the number of distinct subsequences of `s` that exactly equal `t`. A subsequence preserves relative order but can skip characters. Return the count.",
+    "examples": [
+      {"input": "s = \"rabbbit\", t = \"rabbit\"", "output": "3"},
+      {"input": "s = \"babgbag\", t = \"bag\"", "output": "5"}
+    ],
+    "constraints": ["1 <= s.length, t.length <= 1000", "s, t are lowercase English.", "Answer fits in 32-bit signed int per test data."],
+    "hints": [
+      "dp[i][j] = ways to form t[0..j-1] from s[0..i-1].",
+      "If s[i-1]==t[j-1]: dp[i][j] = dp[i-1][j-1] + dp[i-1][j].",
+      "Else: dp[i][j] = dp[i-1][j]."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function distinctSubsequences(s, t) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def distinct_subsequences(s, t):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "distinctSubsequences",
+    "tests": [
+      {"args": ["rabbbit", "rabbit"], "expected": 3, "label": "classic"},
+      {"args": ["babgbag", "bag"], "expected": 5, "label": "multi-match"},
+      {"args": ["abc", "abc"], "expected": 1, "label": "exact"},
+      {"args": ["abc", "abcd"], "expected": 0, "label": "t longer"},
+      {"args": ["aaa", "a"], "expected": 3, "label": "repeats"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = number of distinct ways to pick `t[0..j-1]` as a subsequence from `s[0..i-1]`.\n\n**Recurrence**:\n- If `s[i-1] === t[j-1]`: we can either match this char (`dp[i-1][j-1]`) or skip it (`dp[i-1][j]`). Sum them.\n- Else: must skip `s[i-1]`: `dp[i][j] = dp[i-1][j]`.\n\n**Base**: `dp[i][0] = 1` (empty `t` matches in exactly one way — pick nothing). `dp[0][j] = 0` for `j > 0`.\n\n```javascript\nfunction distinctSubsequences(s, t) {\n  const m = s.length, n = t.length;\n  if (n > m) return 0;\n  const dp = new Array(n + 1).fill(0);\n  dp[0] = 1;\n  for (let i = 1; i <= m; i++) {\n    for (let j = n; j >= 1; j--) {\n      if (s[i-1] === t[j-1]) dp[j] = dp[j] + dp[j-1];\n    }\n  }\n  return dp[n];\n}\n```\n\n**Time**: O(m*n). **Space**: O(n) — iterate `j` right-to-left so `dp[j-1]` still holds the previous row's value."
+  },
+  {
+    "slug": "google-interleaving-string",
+    "number": 2310,
+    "title": "Google Interleaving Log Streams",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["google", "meta", "linkedin"],
+    "description": "Two services emit log strings `a` and `b`. The aggregator merges them while preserving each stream's internal order. Given `a`, `b`, and a candidate merged string `c`, return `true` if `c` is a valid interleaving of `a` and `b` (using all chars from each).",
+    "examples": [
+      {"input": "a = \"aabcc\", b = \"dbbca\", c = \"aadbbcbcac\"", "output": "true"},
+      {"input": "a = \"aabcc\", b = \"dbbca\", c = \"aadbbbaccc\"", "output": "false"}
+    ],
+    "constraints": ["0 <= a.length, b.length <= 100", "0 <= c.length <= 200", "All strings are lowercase English."],
+    "hints": [
+      "If a.length + b.length != c.length, false.",
+      "dp[i][j] = can c[0..i+j-1] be formed from a[0..i-1] + b[0..j-1].",
+      "dp[i][j] = (dp[i-1][j] && a[i-1]==c[i+j-1]) || (dp[i][j-1] && b[j-1]==c[i+j-1])."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function isInterleave(a, b, c) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def is_interleave(a, b, c):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "isInterleave",
+    "tests": [
+      {"args": ["aabcc", "dbbca", "aadbbcbcac"], "expected": true, "label": "valid interleave"},
+      {"args": ["aabcc", "dbbca", "aadbbbaccc"], "expected": false, "label": "invalid"},
+      {"args": ["", "", ""], "expected": true, "label": "all empty"},
+      {"args": ["", "abc", "abc"], "expected": true, "label": "empty a"},
+      {"args": ["a", "b", "ba"], "expected": true, "label": "small"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = boolean — can `c[0..i+j-1]` be formed by interleaving `a[0..i-1]` and `b[0..j-1]`?\n\n**Recurrence**: `dp[i][j]` is true iff either\n- `a[i-1] === c[i+j-1]` and `dp[i-1][j]` is true (took char from a), or\n- `b[j-1] === c[i+j-1]` and `dp[i][j-1]` is true (took char from b).\n\n**Base**: `dp[0][0] = true`. First row/col only true while characters keep matching.\n\n```javascript\nfunction isInterleave(a, b, c) {\n  const m = a.length, n = b.length;\n  if (m + n !== c.length) return false;\n  const dp = new Array(n + 1).fill(false);\n  dp[0] = true;\n  for (let j = 1; j <= n; j++) dp[j] = dp[j-1] && b[j-1] === c[j-1];\n  for (let i = 1; i <= m; i++) {\n    dp[0] = dp[0] && a[i-1] === c[i-1];\n    for (let j = 1; j <= n; j++) {\n      dp[j] = (dp[j] && a[i-1] === c[i+j-1]) || (dp[j-1] && b[j-1] === c[i+j-1]);\n    }\n  }\n  return dp[n];\n}\n```\n\n**Time**: O(m*n). **Space**: O(n)."
+  },
+  {
+    "slug": "meta-regex-match",
+    "number": 2311,
+    "title": "Meta Regex Match With Dot And Star",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["meta", "google", "uber"],
+    "description": "Implement regular-expression matching with `.` (matches any single character) and `*` (matches zero or more of the preceding element). The match must cover the entire input string `s`, not just part of it. Given `s` and pattern `p`, return whether `p` matches `s` exactly.",
+    "examples": [
+      {"input": "s = \"aab\", p = \"c*a*b\"", "output": "true"},
+      {"input": "s = \"mississippi\", p = \"mis*is*p*.\"", "output": "false"}
+    ],
+    "constraints": ["1 <= s.length <= 20", "1 <= p.length <= 30", "s contains only lowercase letters.", "p contains lowercase letters, '.' and '*'.", "It is guaranteed each '*' has a valid preceding element."],
+    "hints": [
+      "dp[i][j] = does p[0..j-1] match s[0..i-1]?",
+      "If p[j-1] is '*': either zero of preceding (dp[i][j-2]) or one more if s[i-1] matches p[j-2] (dp[i-1][j]).",
+      "Else: dp[i][j] = dp[i-1][j-1] && (p[j-1]=='.' || p[j-1]==s[i-1])."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function regexMatch(s, p) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def regex_match(s, p):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "regexMatch",
+    "tests": [
+      {"args": ["aab", "c*a*b"], "expected": true, "label": "star zero and many"},
+      {"args": ["mississippi", "mis*is*p*."], "expected": false, "label": "no match"},
+      {"args": ["aa", "a"], "expected": false, "label": "incomplete"},
+      {"args": ["aa", "a*"], "expected": true, "label": "kleene"},
+      {"args": ["ab", ".*"], "expected": true, "label": "dot star"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = does `p[0..j-1]` match `s[0..i-1]` fully.\n\n**Recurrence**:\n- If `p[j-1]` is a normal char or `.`: `dp[i][j] = dp[i-1][j-1] && (p[j-1] === '.' || p[j-1] === s[i-1])`.\n- If `p[j-1]` is `*`:\n  - Zero of the preceding token: `dp[i][j] = dp[i][j-2]`.\n  - One or more, if the preceding token matches `s[i-1]`: also OR with `dp[i-1][j]`.\n\n**Base**: `dp[0][0] = true`. For `j >= 2`, if `p[j-1]` is `*`, `dp[0][j] = dp[0][j-2]` (the `x*` group can match empty).\n\n```javascript\nfunction regexMatch(s, p) {\n  const m = s.length, n = p.length;\n  const dp = Array.from({length: m + 1}, () => new Array(n + 1).fill(false));\n  dp[0][0] = true;\n  for (let j = 2; j <= n; j++) if (p[j-1] === '*') dp[0][j] = dp[0][j-2];\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (p[j-1] === '*') {\n        dp[i][j] = dp[i][j-2] || ((p[j-2] === '.' || p[j-2] === s[i-1]) && dp[i-1][j]);\n      } else {\n        dp[i][j] = dp[i-1][j-1] && (p[j-1] === '.' || p[j-1] === s[i-1]);\n      }\n    }\n  }\n  return dp[m][n];\n}\n```\n\n**Time**: O(m*n). **Space**: O(m*n) shown; rolling rows reduce to O(n)."
+  },
+  {
+    "slug": "linkedin-wildcard-match",
+    "number": 2312,
+    "title": "LinkedIn Wildcard Profile Matching",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["linkedin", "meta", "amazon"],
+    "description": "LinkedIn's recruiter search supports wildcards in the title pattern: `?` matches any single character, `*` matches any sequence (possibly empty). Given a candidate title `s` and pattern `p`, return whether `p` fully matches `s`.",
+    "examples": [
+      {"input": "s = \"adceb\", p = \"*a*b\"", "output": "true"},
+      {"input": "s = \"acdcb\", p = \"a*c?b\"", "output": "false"}
+    ],
+    "constraints": ["0 <= s.length <= 1000", "0 <= p.length <= 1000", "s contains lowercase letters.", "p contains lowercase letters, '?' and '*'."],
+    "hints": [
+      "dp[i][j] = does p[0..j-1] match s[0..i-1]?",
+      "p[j-1] '*': dp[i][j] = dp[i-1][j] || dp[i][j-1].",
+      "p[j-1] '?' or letter: dp[i][j] = dp[i-1][j-1] && (p[j-1]=='?' || p[j-1]==s[i-1])."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function wildcardMatch(s, p) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def wildcard_match(s, p):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "wildcardMatch",
+    "tests": [
+      {"args": ["adceb", "*a*b"], "expected": true, "label": "star matches multi"},
+      {"args": ["acdcb", "a*c?b"], "expected": false, "label": "qmark fail"},
+      {"args": ["", "*"], "expected": true, "label": "star matches empty"},
+      {"args": ["", ""], "expected": true, "label": "both empty"},
+      {"args": ["abc", "?*"], "expected": true, "label": "qmark plus star"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = does `p[0..j-1]` match `s[0..i-1]` exactly.\n\n**Recurrence**:\n- `p[j-1] === '*'`: `dp[i][j] = dp[i-1][j]` (star eats one more char) or `dp[i][j-1]` (star matches empty).\n- `p[j-1] === '?'` or a letter equal to `s[i-1]`: `dp[i][j] = dp[i-1][j-1]`.\n- Else: false.\n\n**Base**: `dp[0][0] = true`. `dp[0][j] = dp[0][j-1]` only if `p[j-1] === '*'` (a chain of stars matches empty).\n\n```javascript\nfunction wildcardMatch(s, p) {\n  const m = s.length, n = p.length;\n  const dp = Array.from({length: m + 1}, () => new Array(n + 1).fill(false));\n  dp[0][0] = true;\n  for (let j = 1; j <= n; j++) {\n    if (p[j-1] === '*') dp[0][j] = dp[0][j-1];\n  }\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (p[j-1] === '*') dp[i][j] = dp[i-1][j] || dp[i][j-1];\n      else if (p[j-1] === '?' || p[j-1] === s[i-1]) dp[i][j] = dp[i-1][j-1];\n    }\n  }\n  return dp[m][n];\n}\n```\n\n**Time**: O(m*n). **Space**: O(m*n) shown; can be O(n) with rolling rows."
+  },
+  {
+    "slug": "myntra-count-palindromic-substrings",
+    "number": 2313,
+    "title": "Myntra Count Palindromic Brand Substrings",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["myntra", "ajio", "nykaa"],
+    "description": "Myntra's brand-name analyzer wants to count palindromic substrings inside a brand string `s`. Two substrings are different if they start or end at different indices. Return the total count of palindromic substrings in `s`.",
+    "examples": [
+      {"input": "s = \"aaa\"", "output": "6", "explanation": "'a','a','a','aa','aa','aaa'."},
+      {"input": "s = \"abc\"", "output": "3"}
+    ],
+    "constraints": ["1 <= s.length <= 1000", "s is lowercase English."],
+    "hints": [
+      "dp[i][j] = is s[i..j] a palindrome?",
+      "dp[i][j] = (s[i]==s[j]) && (j-i<2 || dp[i+1][j-1]).",
+      "Or use expand-around-center for O(n^2) time, O(1) space."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function countPalindromicSubstrings(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def count_palindromic_substrings(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "countPalindromicSubstrings",
+    "tests": [
+      {"args": ["aaa"], "expected": 6, "label": "all a"},
+      {"args": ["abc"], "expected": 3, "label": "no extra"},
+      {"args": ["a"], "expected": 1, "label": "single"},
+      {"args": ["abba"], "expected": 6, "label": "even palindrome"},
+      {"args": ["aabaa"], "expected": 9, "label": "nested"}
+    ],
+    "editorial": "**State (DP)**: `dp[i][j]` = whether `s[i..j]` is a palindrome.\n\n**Recurrence**: `dp[i][j] = (s[i] === s[j]) && (j - i < 2 || dp[i+1][j-1])`.\n\nFill in increasing order of substring length.\n\n**Counting**: Increment `count` whenever `dp[i][j]` is true.\n\n```javascript\nfunction countPalindromicSubstrings(s) {\n  const n = s.length;\n  const dp = Array.from({length: n}, () => new Array(n).fill(false));\n  let count = 0;\n  for (let len = 1; len <= n; len++) {\n    for (let i = 0; i + len - 1 < n; i++) {\n      const j = i + len - 1;\n      if (s[i] === s[j] && (len < 3 || dp[i+1][j-1])) {\n        dp[i][j] = true;\n        count++;\n      }\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2) — can be O(1) using expand-around-center, but the table makes 2-D DP explicit."
+  },
+  {
+    "slug": "nykaa-longest-palindromic-substring",
+    "number": 2314,
+    "title": "Nykaa Longest Palindromic Substring",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["nykaa", "myntra", "amazon"],
+    "description": "Find the longest palindromic substring of a string `s`. If multiple substrings tie for the maximum length, return the one with the smaller starting index.",
+    "examples": [
+      {"input": "s = \"babad\"", "output": "\"bab\"", "explanation": "'aba' is also valid; we return the earliest."},
+      {"input": "s = \"cbbd\"", "output": "\"bb\""}
+    ],
+    "constraints": ["1 <= s.length <= 1000", "s contains lowercase and uppercase English letters."],
+    "hints": [
+      "dp[i][j] = is s[i..j] palindrome — fill by increasing length.",
+      "Track best window; on tie keep the earlier-starting one.",
+      "Expand-around-center (O(n^2) time, O(1) space) is the common alternative."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function longestPalindromicSubstring(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def longest_palindromic_substring(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "longestPalindromicSubstring",
+    "tests": [
+      {"args": ["babad"], "expected": "bab", "label": "tie picks earliest"},
+      {"args": ["cbbd"], "expected": "bb", "label": "even"},
+      {"args": ["a"], "expected": "a", "label": "single"},
+      {"args": ["forgeeksskeegfor"], "expected": "geeksskeeg", "label": "long"},
+      {"args": ["abcde"], "expected": "a", "label": "no longer palindrome"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = is `s[i..j]` a palindrome.\n\n**Recurrence**: `dp[i][j] = (s[i] === s[j]) && (j - i < 2 || dp[i+1][j-1])`.\n\nFill by increasing length; whenever a palindrome is found and `j - i + 1 > bestLen`, record `(i, j)`.\n\n```javascript\nfunction longestPalindromicSubstring(s) {\n  const n = s.length;\n  const dp = Array.from({length: n}, () => new Array(n).fill(false));\n  let start = 0, bestLen = 1;\n  for (let len = 1; len <= n; len++) {\n    for (let i = 0; i + len - 1 < n; i++) {\n      const j = i + len - 1;\n      if (s[i] === s[j] && (len < 3 || dp[i+1][j-1])) {\n        dp[i][j] = true;\n        if (len > bestLen) {\n          bestLen = len;\n          start = i;\n        }\n      }\n    }\n  }\n  return s.substring(start, start + bestLen);\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2). Tie-breaking: because we iterate `i` left-to-right and only update on strictly longer, the earliest start is kept."
+  },
+  {
+    "slug": "google-longest-palindromic-subsequence",
+    "number": 2315,
+    "title": "Google Longest Palindromic Subsequence",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["google", "meta", "adobe"],
+    "description": "Given a string `s`, return the length of the longest palindromic subsequence — characters in the same relative order as in `s`, not necessarily contiguous, that read the same forwards and backwards.",
+    "examples": [
+      {"input": "s = \"bbbab\"", "output": "4", "explanation": "'bbbb' is a palindromic subsequence of length 4."},
+      {"input": "s = \"cbbd\"", "output": "2"}
+    ],
+    "constraints": ["1 <= s.length <= 1000", "s is lowercase English."],
+    "hints": [
+      "dp[i][j] = LPS length of s[i..j].",
+      "If s[i]==s[j]: dp[i][j] = dp[i+1][j-1] + 2 (or 2 if i+1>j-1).",
+      "Else: dp[i][j] = max(dp[i+1][j], dp[i][j-1]). Equivalent to LCS(s, reverse(s))."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function longestPalindromicSubsequence(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def longest_palindromic_subsequence(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "longestPalindromicSubsequence",
+    "tests": [
+      {"args": ["bbbab"], "expected": 4, "label": "classic"},
+      {"args": ["cbbd"], "expected": 2, "label": "small"},
+      {"args": ["a"], "expected": 1, "label": "single"},
+      {"args": ["agbdba"], "expected": 5, "label": "longer"},
+      {"args": ["abcde"], "expected": 1, "label": "no repeats"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = length of the longest palindromic subsequence within `s[i..j]`.\n\n**Recurrence**:\n- `dp[i][i] = 1`.\n- If `s[i] === s[j]`: `dp[i][j] = dp[i+1][j-1] + 2` (treat empty inner range as 0).\n- Else: `dp[i][j] = max(dp[i+1][j], dp[i][j-1])`.\n\nFill by increasing range length.\n\n```javascript\nfunction longestPalindromicSubsequence(s) {\n  const n = s.length;\n  const dp = Array.from({length: n}, () => new Array(n).fill(0));\n  for (let i = 0; i < n; i++) dp[i][i] = 1;\n  for (let len = 2; len <= n; len++) {\n    for (let i = 0; i + len - 1 < n; i++) {\n      const j = i + len - 1;\n      if (s[i] === s[j]) dp[i][j] = (len === 2 ? 0 : dp[i+1][j-1]) + 2;\n      else dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);\n    }\n  }\n  return dp[0][n-1];\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2). Equivalent to `LCS(s, reverse(s))`."
+  },
+  {
+    "slug": "ipl-burst-balloons",
+    "number": 2316,
+    "title": "IPL Maximum Coins Bursting Balloons",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["dream11", "google", "amazon"],
+    "description": "An IPL stadium has `n` balloons in a row, each with a coin value `nums[i]`. When you burst balloon `i`, you earn `nums[left] * nums[i] * nums[right]` coins, where left and right are the adjacent unburst balloons (treat out-of-bound as 1). After bursting, the neighbors close the gap. Return the maximum coins obtainable by bursting all balloons in the optimal order.",
+    "examples": [
+      {"input": "nums = [3,1,5,8]", "output": "167"},
+      {"input": "nums = [1,5]", "output": "10"}
+    ],
+    "constraints": ["1 <= nums.length <= 100", "0 <= nums[i] <= 100"],
+    "hints": [
+      "Pad with 1s on both ends — call this `a`.",
+      "dp[l][r] = max coins bursting strictly between l and r (a[l] and a[r] never burst here).",
+      "Pick last-burst balloon k in (l, r): dp[l][r] = max over k of dp[l][k] + a[l]*a[k]*a[r] + dp[k][r]."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function burstBalloons(nums) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def burst_balloons(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "burstBalloons",
+    "tests": [
+      {"args": [[3,1,5,8]], "expected": 167, "label": "classic"},
+      {"args": [[1,5]], "expected": 10, "label": "two"},
+      {"args": [[1]], "expected": 1, "label": "single"},
+      {"args": [[5]], "expected": 5, "label": "single big"},
+      {"args": [[2,4,3]], "expected": 36, "label": "three"}
+    ],
+    "editorial": "**Trick**: think 'which balloon is burst LAST in the range', not first. That balloon's neighbors when bursting are exactly the boundary balloons of the range — independent of order inside.\n\n**Padding**: Let `a = [1, ...nums, 1]`. Now indices 0 and `n+1` are virtual.\n\n**State**: `dp[l][r]` = max coins from bursting all balloons strictly between indices `l` and `r` in `a`. Boundaries `a[l]` and `a[r]` are never burst within this subproblem.\n\n**Recurrence**: pick last-to-burst index `k` with `l < k < r`:\n`dp[l][r] = max over k of dp[l][k] + a[l]*a[k]*a[r] + dp[k][r]`.\n\n**Base**: when `r === l + 1`, no balloon between, `dp[l][r] = 0`.\n\n```javascript\nfunction burstBalloons(nums) {\n  const a = [1, ...nums, 1];\n  const n = a.length;\n  const dp = Array.from({length: n}, () => new Array(n).fill(0));\n  for (let len = 2; len < n; len++) {\n    for (let l = 0; l + len < n; l++) {\n      const r = l + len;\n      let best = 0;\n      for (let k = l + 1; k < r; k++) {\n        best = Math.max(best, dp[l][k] + a[l]*a[k]*a[r] + dp[k][r]);\n      }\n      dp[l][r] = best;\n    }\n  }\n  return dp[0][n-1];\n}\n```\n\n**Time**: O(n^3). **Space**: O(n^2)."
+  },
+  {
+    "slug": "tcs-matrix-chain-multiplication",
+    "number": 2317,
+    "title": "TCS Matrix Chain Multiplication Cost",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["tcs", "infosys", "accenture"],
+    "description": "Given dimensions of `n` matrices in array `dims` of length `n+1` (matrix `i` has dimensions `dims[i] x dims[i+1]`), determine the minimum number of scalar multiplications required to compute the product `M1 * M2 * ... * Mn` by parenthesizing optimally.",
+    "examples": [
+      {"input": "dims = [40, 20, 30, 10, 30]", "output": "26000"},
+      {"input": "dims = [10, 20, 30]", "output": "6000"}
+    ],
+    "constraints": ["2 <= dims.length <= 100", "1 <= dims[i] <= 100"],
+    "hints": [
+      "dp[i][j] = min cost to multiply matrices i..j.",
+      "Try every split point k: dp[i][j] = min(dp[i][k] + dp[k+1][j] + dims[i]*dims[k+1]*dims[j+1]).",
+      "Fill by increasing chain length."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function matrixChainCost(dims) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def matrix_chain_cost(dims):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "matrixChainCost",
+    "tests": [
+      {"args": [[40, 20, 30, 10, 30]], "expected": 26000, "label": "classic"},
+      {"args": [[10, 20, 30]], "expected": 6000, "label": "two matrices"},
+      {"args": [[10, 20]], "expected": 0, "label": "single matrix"},
+      {"args": [[1, 2, 3, 4, 3]], "expected": 30, "label": "four small"},
+      {"args": [[5, 10, 3, 12, 5, 50, 6]], "expected": 2010, "label": "six matrices"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = minimum scalar multiplications to multiply matrices `i..j` (0-indexed). Matrix `k` has dims `dims[k] x dims[k+1]`.\n\n**Recurrence**: split at `k` between `i` and `j-1`:\n`dp[i][j] = min(dp[i][k] + dp[k+1][j] + dims[i] * dims[k+1] * dims[j+1])`.\n\n**Base**: `dp[i][i] = 0` (single matrix needs no multiplication).\n\n```javascript\nfunction matrixChainCost(dims) {\n  const n = dims.length - 1;\n  const dp = Array.from({length: n}, () => new Array(n).fill(0));\n  for (let len = 2; len <= n; len++) {\n    for (let i = 0; i + len - 1 < n; i++) {\n      const j = i + len - 1;\n      let best = Infinity;\n      for (let k = i; k < j; k++) {\n        const cost = dp[i][k] + dp[k+1][j] + dims[i] * dims[k+1] * dims[j+1];\n        if (cost < best) best = cost;\n      }\n      dp[i][j] = best;\n    }\n  }\n  return dp[0][n-1];\n}\n```\n\n**Time**: O(n^3). **Space**: O(n^2)."
+  },
+  {
+    "slug": "paytm-coin-change-2",
+    "number": 2318,
+    "title": "Paytm Coin Change Count Of Ways",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["paytm", "razorpay", "phonepe"],
+    "description": "Paytm offers an unlimited supply of denominations in `coins`. Given a target `amount`, count the number of distinct ways to make it. Order does not matter (e.g., 1+2 and 2+1 count once).",
+    "examples": [
+      {"input": "amount = 5, coins = [1,2,5]", "output": "4", "explanation": "5; 2+2+1; 2+1+1+1; 1+1+1+1+1."},
+      {"input": "amount = 3, coins = [2]", "output": "0"}
+    ],
+    "constraints": ["0 <= amount <= 5000", "1 <= coins.length <= 300", "1 <= coins[i] <= 5000", "All coins distinct."],
+    "hints": [
+      "dp[i][a] = ways using first i coins to make amount a.",
+      "dp[i][a] = dp[i-1][a] + dp[i][a - coin] (skip or use current).",
+      "1D rolling: outer over coins, inner over amount ascending — that order avoids ordering double-counts."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function coinChangeWays(amount, coins) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def coin_change_ways(amount, coins):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "coinChangeWays",
+    "tests": [
+      {"args": [5, [1,2,5]], "expected": 4, "label": "classic"},
+      {"args": [3, [2]], "expected": 0, "label": "impossible"},
+      {"args": [0, [1,2,3]], "expected": 1, "label": "zero amount"},
+      {"args": [10, [10]], "expected": 1, "label": "single coin exact"},
+      {"args": [4, [1,2,3]], "expected": 4, "label": "four ways"}
+    ],
+    "editorial": "**State (2-D)**: `dp[i][a]` = ways to form amount `a` using only the first `i` coin types.\n\n**Recurrence**: Either skip coin `i`: `dp[i-1][a]`. Or use at least one coin `i` (it's unlimited): `dp[i][a - coins[i-1]]`. So `dp[i][a] = dp[i-1][a] + dp[i][a - coins[i-1]]` when `a >= coins[i-1]`.\n\n**Base**: `dp[i][0] = 1` for all `i` (one way — take nothing).\n\n**Why coin-outer order matters**: looping coins outside, amount inside (ascending) ensures each unordered combination is counted exactly once. Reversing the order would count permutations.\n\n```javascript\nfunction coinChangeWays(amount, coins) {\n  const dp = new Array(amount + 1).fill(0);\n  dp[0] = 1;\n  for (const c of coins) {\n    for (let a = c; a <= amount; a++) dp[a] += dp[a - c];\n  }\n  return dp[amount];\n}\n```\n\n**Time**: O(n * amount). **Space**: O(amount) — collapsed from the 2-D table."
+  },
+  {
+    "slug": "amazon-knapsack-01",
+    "number": 2319,
+    "title": "Amazon Warehouse 0/1 Knapsack",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["amazon", "flipkart", "bigbasket"],
+    "description": "An Amazon picker has a knapsack with maximum capacity `W`. Each item `i` has weight `weights[i]` and value `values[i]`. Each item can be taken at most once. Return the maximum total value achievable without exceeding capacity.",
+    "examples": [
+      {"input": "weights = [1,3,4,5], values = [1,4,5,7], W = 7", "output": "9", "explanation": "Pick items 2 and 3 (1-indexed): weight 3+4=7, value 4+5=9."},
+      {"input": "weights = [2,3], values = [3,4], W = 1", "output": "0"}
+    ],
+    "constraints": ["1 <= n <= 100", "1 <= W <= 1000", "1 <= weights[i], values[i] <= 1000"],
+    "hints": [
+      "dp[i][w] = best value using first i items with capacity w.",
+      "Skip: dp[i-1][w]. Take (if fits): dp[i-1][w-weights[i-1]] + values[i-1].",
+      "Roll to 1D — iterate w from W down to weights[i-1] (descending) so each item is used once."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function knapsack01(weights, values, W) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def knapsack_01(weights, values, W):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "knapsack01",
+    "tests": [
+      {"args": [[1,3,4,5], [1,4,5,7], 7], "expected": 9, "label": "classic"},
+      {"args": [[2,3], [3,4], 1], "expected": 0, "label": "nothing fits"},
+      {"args": [[1], [10], 1], "expected": 10, "label": "single fits"},
+      {"args": [[5,4,6,3], [10,40,30,50], 10], "expected": 90, "label": "best mix"},
+      {"args": [[1,2,3], [6,10,12], 5], "expected": 22, "label": "take two"}
+    ],
+    "editorial": "**State**: `dp[i][w]` = max value using first `i` items with knapsack capacity `w`.\n\n**Recurrence**:\n- Skip item i: `dp[i-1][w]`.\n- Take item i (if `w >= weights[i-1]`): `dp[i-1][w - weights[i-1]] + values[i-1]`.\n\n`dp[i][w] = max(skip, take)`.\n\n**Base**: `dp[0][w] = 0` (no items → no value).\n\n**1-D rolling**: iterate `w` from `W` down to `weights[i-1]` so the cell `dp[w - weights[i-1]]` still holds the previous-row value.\n\n```javascript\nfunction knapsack01(weights, values, W) {\n  const n = weights.length;\n  const dp = new Array(W + 1).fill(0);\n  for (let i = 0; i < n; i++) {\n    for (let w = W; w >= weights[i]; w--) {\n      dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i]);\n    }\n  }\n  return dp[W];\n}\n```\n\n**Time**: O(n*W). **Space**: O(W)."
+  },
+  {
+    "slug": "isro-cherry-pickup-two-robots",
+    "number": 2320,
+    "title": "ISRO Cherry Pickup With Two Rovers",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["isro", "google", "amazon"],
+    "description": "Two ISRO rovers start at the top of an `n x m` grid (rover A at column 0, rover B at column m-1) and must reach the bottom row. Each step every rover moves down to one of three adjacent cells (down-left, down, down-right). Cells contain non-negative cherry counts. If both rovers land on the same cell, the cherries are counted only once. Return the maximum total cherries collected by both rovers when they reach the bottom row.",
+    "examples": [
+      {"input": "grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]", "output": "24"},
+      {"input": "grid = [[1,1],[1,1]]", "output": "4"}
+    ],
+    "constraints": ["2 <= rows, cols <= 6", "0 <= grid[i][j] <= 100"],
+    "hints": [
+      "Two robots move row-by-row simultaneously: state (row, colA, colB).",
+      "Add grid[row][colA] + (colA==colB ? 0 : grid[row][colB]).",
+      "Try all 9 next-column combinations; take the max."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function cherryPickupTwo(grid) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def cherry_pickup_two(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "cherryPickupTwo",
+    "tests": [
+      {"args": [[[3,1,1],[2,5,1],[1,5,5],[2,1,1]]], "expected": 24, "label": "classic"},
+      {"args": [[[1,1],[1,1]]], "expected": 4, "label": "tiny"},
+      {"args": [[[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]]], "expected": 28, "label": "5x7"},
+      {"args": [[[1,1,1,1],[2,2,2,2],[3,3,3,3]]], "expected": 16, "label": "rectangular"},
+      {"args": [[[0,0,0],[0,0,0]]], "expected": 0, "label": "all zeros"}
+    ],
+    "editorial": "**State**: Both robots descend in lockstep — same row at every step. Encode as `dp[row][colA][colB]` = max cherries collected by both robots starting from (row, colA) and (row, colB) until the last row.\n\n**Reward at this step**: `grid[row][colA] + (colA === colB ? 0 : grid[row][colB])`.\n\n**Transitions**: Each robot independently moves to `col-1, col, col+1`. Try all 9 combinations of next columns (within bounds) and add the best future value.\n\n**Base**: When `row === rows - 1`, value is just the cells the robots stand on (with the same overlap rule).\n\n```javascript\nfunction cherryPickupTwo(grid) {\n  const rows = grid.length, cols = grid[0].length;\n  const NEG = -Infinity;\n  const memo = new Map();\n  function dp(r, a, b) {\n    if (a < 0 || a >= cols || b < 0 || b >= cols) return NEG;\n    const key = r * cols * cols + a * cols + b;\n    if (memo.has(key)) return memo.get(key);\n    let cur = grid[r][a] + (a === b ? 0 : grid[r][b]);\n    if (r === rows - 1) {\n      memo.set(key, cur);\n      return cur;\n    }\n    let best = NEG;\n    for (let da = -1; da <= 1; da++) {\n      for (let db = -1; db <= 1; db++) {\n        best = Math.max(best, dp(r + 1, a + da, b + db));\n      }\n    }\n    const result = cur + best;\n    memo.set(key, result);\n    return result;\n  }\n  return dp(0, 0, cols - 1);\n}\n```\n\n**Time**: O(rows * cols^2 * 9). **Space**: O(rows * cols^2)."
+  },
+  {
+    "slug": "olympics-stone-game",
+    "number": 2321,
+    "title": "Olympics Stone Game First Player Wins",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["dream11", "google", "meta"],
+    "description": "Two players take turns picking from either end of a row of stones with non-negative integer values `piles`. Player 1 goes first. Both play optimally to maximize their own total. Return `true` if Player 1 ends with strictly more total than Player 2; otherwise `false` (ties count as not winning).",
+    "examples": [
+      {"input": "piles = [5,3,4,5]", "output": "true"},
+      {"input": "piles = [1,5,2]", "output": "false", "explanation": "Whichever end P1 picks, P2 can grab the 5."}
+    ],
+    "constraints": ["1 <= piles.length <= 50", "0 <= piles[i] <= 1000"],
+    "hints": [
+      "dp[i][j] = max score difference (current player - opponent) achievable on piles[i..j].",
+      "dp[i][j] = max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1]).",
+      "Answer: dp[0][n-1] > 0."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function stoneGameWins(piles) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def stone_game_wins(piles):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "stoneGameWins",
+    "tests": [
+      {"args": [[5,3,4,5]], "expected": true, "label": "classic"},
+      {"args": [[1,5,2]], "expected": false, "label": "p2 wins"},
+      {"args": [[1]], "expected": true, "label": "single"},
+      {"args": [[3,7,2,3]], "expected": true, "label": "p1 wins"},
+      {"args": [[1,1]], "expected": false, "label": "tie"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = best 'score advantage' (current player's total minus opponent's total) playing on `piles[i..j]`.\n\n**Recurrence**: The current player picks either `piles[i]` or `piles[j]`. After they pick, it's the opponent's turn on the remaining range — the opponent's optimal advantage subtracts:\n`dp[i][j] = max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1])`.\n\n**Base**: `dp[i][i] = piles[i]` (only one pile to take).\n\n**Answer**: `dp[0][n-1] > 0`.\n\n```javascript\nfunction stoneGameWins(piles) {\n  const n = piles.length;\n  const dp = Array.from({length: n}, () => new Array(n).fill(0));\n  for (let i = 0; i < n; i++) dp[i][i] = piles[i];\n  for (let len = 2; len <= n; len++) {\n    for (let i = 0; i + len - 1 < n; i++) {\n      const j = i + len - 1;\n      dp[i][j] = Math.max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1]);\n    }\n  }\n  return dp[0][n-1] > 0;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2)."
+  },
+  {
+    "slug": "kbc-predict-the-winner",
+    "number": 2322,
+    "title": "KBC Predict The Winner",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["sony", "star", "viacom"],
+    "description": "Two contestants take turns picking from either end of an array `nums` of non-negative integers. Player 1 starts. Both maximize their own total. Predict whether Player 1 can guarantee a final score that is greater than or equal to Player 2's (a tie counts as Player 1 winning).",
+    "examples": [
+      {"input": "nums = [1,5,2]", "output": "false"},
+      {"input": "nums = [1,5,233,7]", "output": "true"}
+    ],
+    "constraints": ["1 <= nums.length <= 20", "0 <= nums[i] <= 10^7"],
+    "hints": [
+      "dp[i][j] = best (current - opponent) achievable on nums[i..j].",
+      "dp[i][j] = max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1]).",
+      "Player 1 wins or ties iff dp[0][n-1] >= 0."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function predictWinner(nums) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def predict_winner(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "predictWinner",
+    "tests": [
+      {"args": [[1,5,2]], "expected": false, "label": "p2 forces win"},
+      {"args": [[1,5,233,7]], "expected": true, "label": "p1 wins"},
+      {"args": [[1]], "expected": true, "label": "single"},
+      {"args": [[1,1]], "expected": true, "label": "tie counts"},
+      {"args": [[2,4,55,6,8]], "expected": true, "label": "longer"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = max (current player score - opponent score) achievable playing optimally on `nums[i..j]`.\n\n**Recurrence**: `dp[i][j] = max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1])`.\n\n**Base**: `dp[i][i] = nums[i]`.\n\n**Answer**: Player 1 wins or ties iff `dp[0][n-1] >= 0`.\n\n```javascript\nfunction predictWinner(nums) {\n  const n = nums.length;\n  const dp = Array.from({length: n}, () => new Array(n).fill(0));\n  for (let i = 0; i < n; i++) dp[i][i] = nums[i];\n  for (let len = 2; len <= n; len++) {\n    for (let i = 0; i + len - 1 < n; i++) {\n      const j = i + len - 1;\n      dp[i][j] = Math.max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1]);\n    }\n  }\n  return dp[0][n-1] >= 0;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2). Differs from Stone Game only in the strict-vs-non-strict winning condition (ties count for P1)."
+  },
+  {
+    "slug": "razorpay-payment-state-min-cost",
+    "number": 2323,
+    "title": "Razorpay Payment State Grid Minimum Risk",
+    "difficulty": "Medium",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["razorpay", "stripe", "paypal"],
+    "description": "Razorpay's risk engine models a payment lifecycle as an `m x n` grid where each cell carries a fraud-risk score. From any cell you may move right, down, or diagonally down-right. Starting at (0,0), reach (m-1,n-1) with the minimum total risk score along the path. Return that minimum total.",
+    "examples": [
+      {"input": "grid = [[1,3,1],[1,5,1],[4,2,1]]", "output": "5", "explanation": "Path 1→3→1→1→? actually best is 1→1→1→1 via diagonals = 1+1+1+1+1? Best total is 5 with diagonal shortcuts."},
+      {"input": "grid = [[1]]", "output": "1"}
+    ],
+    "constraints": ["1 <= m, n <= 200", "0 <= grid[i][j] <= 1000"],
+    "hints": [
+      "dp[i][j] = min cost to reach (i,j).",
+      "dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]).",
+      "First row/column are prefix sums."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function minRiskPath(grid) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def min_risk_path(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "minRiskPath",
+    "tests": [
+      {"args": [[[1,3,1],[1,5,1],[4,2,1]]], "expected": 5, "label": "diagonal helps"},
+      {"args": [[[1]]], "expected": 1, "label": "single cell"},
+      {"args": [[[1,2],[3,4]]], "expected": 5, "label": "diag shortcut"},
+      {"args": [[[1,2,3],[4,5,6]]], "expected": 12, "label": "no diag wins"},
+      {"args": [[[5,9,1],[10,1,1],[1,1,1]]], "expected": 8, "label": "weave through ones"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = minimum cumulative risk to reach `(i, j)` from `(0, 0)` allowing right, down, and diagonal moves.\n\n**Recurrence**: `dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])`.\n\n**Base**: `dp[0][0] = grid[0][0]`. First row: `dp[0][j] = dp[0][j-1] + grid[0][j]`. First column: `dp[i][0] = dp[i-1][0] + grid[i][0]`.\n\n**Quick walk-through for `[[1,3,1],[1,5,1],[4,2,1]]`**: dp matrix becomes `[[1,4,5],[2,6,5],[6,4,5]]` — answer 5. Diagonal `1→5` (skipping outer cells) makes the savings.\n\n```javascript\nfunction minRiskPath(grid) {\n  const m = grid.length, n = grid[0].length;\n  const dp = Array.from({length: m}, () => new Array(n).fill(0));\n  dp[0][0] = grid[0][0];\n  for (let j = 1; j < n; j++) dp[0][j] = dp[0][j-1] + grid[0][j];\n  for (let i = 1; i < m; i++) dp[i][0] = dp[i-1][0] + grid[i][0];\n  for (let i = 1; i < m; i++) {\n    for (let j = 1; j < n; j++) {\n      dp[i][j] = grid[i][j] + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);\n    }\n  }\n  return dp[m-1][n-1];\n}\n```\n\n**Time**: O(m*n). **Space**: O(m*n) shown; can be reduced to O(n) with a rolling row plus a stash for the previous diagonal value."
+  },
+  {
+    "slug": "chess-stone-game-ii",
+    "number": 2324,
+    "title": "Chess Stone Game II With M Multiplier",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["google", "meta", "amazon"],
+    "description": "Two players take stones from a row `piles`. On each turn the current player must take the first `X` piles, where `1 <= X <= 2M`. Initially `M = 1`. After each turn `M = max(M, X)`. Both players play optimally to maximize their own total. Return Player 1's maximum total.",
+    "examples": [
+      {"input": "piles = [2,7,9,4,4]", "output": "10"},
+      {"input": "piles = [1,2,3,4,5,100]", "output": "104"}
+    ],
+    "constraints": ["1 <= piles.length <= 100", "1 <= piles[i] <= 100"],
+    "hints": [
+      "Suffix-sum trick: sum of piles[i..] = total - own opponent's optimal.",
+      "dp[i][m] = max stones current player can take from piles[i..] with multiplier m.",
+      "Iterate X from 1 to 2m; dp[i][m] = max(suffixSum[i] - dp[i+x][max(m,x)])."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function stoneGameII(piles) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def stone_game_ii(piles):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "stoneGameII",
+    "tests": [
+      {"args": [[2,7,9,4,4]], "expected": 10, "label": "classic"},
+      {"args": [[1,2,3,4,5,100]], "expected": 104, "label": "grab the big one"},
+      {"args": [[1]], "expected": 1, "label": "single"},
+      {"args": [[3,4,5,6]], "expected": 12, "label": "all four"},
+      {"args": [[1,2,3,4]], "expected": 7, "label": "split"}
+    ],
+    "editorial": "**State**: `dp[i][m]` = the maximum stones the current player can collect from suffix `piles[i..]` when the current multiplier is `m`.\n\n**Suffix-sum trick**: Let `S = sum of piles[i..]`. If the current player takes `x` piles, the opponent then plays optimally on `piles[i+x..]` with multiplier `max(m, x)`, taking `dp[i+x][max(m,x)]`. So the current player ends with `S - dp[i+x][max(m,x)]`. Maximize over `x` in `[1, min(2m, n - i)]`.\n\n**Base**: If `2m >= n - i`, the current player takes all remaining piles: `dp[i][m] = sum(piles[i..])`.\n\n```javascript\nfunction stoneGameII(piles) {\n  const n = piles.length;\n  const suffix = new Array(n + 1).fill(0);\n  for (let i = n - 1; i >= 0; i--) suffix[i] = suffix[i+1] + piles[i];\n  const memo = new Map();\n  function dp(i, m) {\n    if (i >= n) return 0;\n    if (2 * m >= n - i) return suffix[i];\n    const key = i * (n + 1) + m;\n    if (memo.has(key)) return memo.get(key);\n    let best = 0;\n    for (let x = 1; x <= 2 * m; x++) {\n      best = Math.max(best, suffix[i] - dp(i + x, Math.max(m, x)));\n    }\n    memo.set(key, best);\n    return best;\n  }\n  return dp(0, 1);\n}\n```\n\n**Time**: O(n^3). **Space**: O(n^2)."
+  },
+  {
+    "slug": "flipkart-min-path-three-moves",
+    "number": 2325,
+    "title": "Flipkart Cheapest Warehouse Route With Three Moves",
+    "difficulty": "Hard",
+    "topic": "2-D Dynamic Programming",
+    "companies": ["flipkart", "myntra", "amazon"],
+    "description": "A Flipkart logistics planner picks the cheapest route in an `m x n` cost grid from any cell of the top row to any cell of the bottom row. From cell (i, j) the next move must go to row `i+1` and column `j-1`, `j`, or `j+1` (out-of-bounds disallowed). Return the minimum total cost of any such top-to-bottom path.",
+    "examples": [
+      {"input": "grid = [[2,1,3],[6,5,4],[7,8,9]]", "output": "13", "explanation": "Path 1 → 4 → 8 = 13."},
+      {"input": "grid = [[10]]", "output": "10"}
+    ],
+    "constraints": ["1 <= m, n <= 200", "0 <= grid[i][j] <= 1000"],
+    "hints": [
+      "dp[i][j] = min cost path ending at (i, j) starting from row 0.",
+      "dp[i][j] = grid[i][j] + min(dp[i-1][j-1], dp[i-1][j], dp[i-1][j+1]).",
+      "Answer: min over j of dp[m-1][j]."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function minWarehouseRoute(grid) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def min_warehouse_route(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "minWarehouseRoute",
+    "tests": [
+      {"args": [[[2,1,3],[6,5,4],[7,8,9]]], "expected": 13, "label": "classic"},
+      {"args": [[[10]]], "expected": 10, "label": "single"},
+      {"args": [[[1,2,3],[4,5,6],[7,8,9]]], "expected": 12, "label": "left edge"},
+      {"args": [[[5,4,3],[2,1,2],[3,4,5]]], "expected": 6, "label": "diagonal weave"},
+      {"args": [[[1,1],[1,1],[1,1]]], "expected": 3, "label": "uniform"}
+    ],
+    "editorial": "**State**: `dp[i][j]` = minimum cost of a falling path that ends at cell `(i, j)`, starting somewhere in row 0.\n\n**Recurrence**:\n`dp[i][j] = grid[i][j] + min(dp[i-1][j-1], dp[i-1][j], dp[i-1][j+1])` — guarding the column endpoints.\n\n**Base**: `dp[0][j] = grid[0][j]`.\n\n**Answer**: `min(dp[m-1][0..n-1])`.\n\n**Space optimization**: only the previous row is needed, so use two 1-D arrays of length `n` (or one `prev` overwritten via a swap).\n\n```javascript\nfunction minWarehouseRoute(grid) {\n  const m = grid.length, n = grid[0].length;\n  let prev = grid[0].slice();\n  for (let i = 1; i < m; i++) {\n    const cur = new Array(n);\n    for (let j = 0; j < n; j++) {\n      let best = prev[j];\n      if (j > 0) best = Math.min(best, prev[j-1]);\n      if (j < n - 1) best = Math.min(best, prev[j+1]);\n      cur[j] = grid[i][j] + best;\n    }\n    prev = cur;\n  }\n  let ans = Infinity;\n  for (const v of prev) if (v < ans) ans = v;\n  return ans;\n}\n```\n\n**Time**: O(m*n). **Space**: O(n)."
+  }
+]

@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancel an in-flight CI run when a newer commit lands on the same branch.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: typecheck · lint · build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # CI runs in STUB mode — no real providers wired so nothing burns budget
+      # and no secrets need to be exposed to PRs from forks.
+      SKIP_ENV_VALIDATION: "true"
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install
+        run: npm ci --no-audit --no-fund
+      - name: Typecheck
+        run: npx tsc --noEmit
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+        env:
+          # Force STUB-mode env so no API call is ever made during CI.
+          ANTHROPIC_API_KEY: ""
+          DATABASE_URL: ""
+          AUTH_SECRET: "ci-stub-secret-please-do-not-use-in-prod-32chars-minimum-required"

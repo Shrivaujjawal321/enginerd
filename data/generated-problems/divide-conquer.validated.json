@@ -1,0 +1,1732 @@
+[
+  {
+    "slug": "flipkart-merge-sort-orders",
+    "number": 3101,
+    "title": "Flipkart Merge Sort Orders",
+    "difficulty": "Easy",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "meesho"
+    ],
+    "description": "Flipkart's supply chain dashboard receives a list of order amounts in arbitrary order. The team wants a stable, predictable O(n log n) sort using classic merge sort (divide the array, sort each half, merge). Given `orders` (array of integers, possibly with duplicates and negatives), return a new array sorted ascending using merge sort. Built-in sort is not allowed — write the divide-and-conquer recursion yourself.",
+    "examples": [
+      {
+        "input": "orders = [5, 2, 8, 1, 3]",
+        "output": "[1, 2, 3, 5, 8]",
+        "explanation": "Split, sort halves, merge."
+      },
+      {
+        "input": "orders = [4, 4, 1]",
+        "output": "[1, 4, 4]"
+      }
+    ],
+    "constraints": [
+      "0 <= orders.length <= 10^4",
+      "-10^6 <= orders[i] <= 10^6"
+    ],
+    "hints": [
+      "Base case: length <= 1 already sorted.",
+      "Mid se split kar, dono halves recursively sort kar, fir do-pointer merge.",
+      "Merge step me extra array allocate kar — in-place merge tough hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function mergeSortOrders(orders) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def merge_sort_orders(orders):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object mergeSortOrders(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson mergeSortOrders(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function mergeSortOrders(orders): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc mergeSortOrders(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "mergeSortOrders",
+    "tests": [
+      {
+        "args": [
+          [
+            5,
+            2,
+            8,
+            1,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          5,
+          8
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            4,
+            4,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          4,
+          4
+        ],
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            7
+          ]
+        ],
+        "expected": [
+          7
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            -3,
+            0,
+            -1,
+            5,
+            2
+          ]
+        ],
+        "expected": [
+          -3,
+          -1,
+          0,
+          2,
+          5
+        ],
+        "label": "negatives"
+      }
+    ],
+    "editorial": "**Classic merge sort — divide & conquer template**.\n\n1. **Divide**: split into halves around mid.\n2. **Conquer**: recursively merge-sort each half.\n3. **Combine**: two-pointer merge into a fresh array.\n\n```javascript\nfunction mergeSortOrders(orders) {\n  if (orders.length <= 1) return orders.slice();\n  const mid = orders.length >> 1;\n  const left = mergeSortOrders(orders.slice(0, mid));\n  const right = mergeSortOrders(orders.slice(mid));\n  const merged = [];\n  let i = 0, j = 0;\n  while (i < left.length && j < right.length) {\n    if (left[i] <= right[j]) merged.push(left[i++]);\n    else merged.push(right[j++]);\n  }\n  while (i < left.length) merged.push(left[i++]);\n  while (j < right.length) merged.push(right[j++]);\n  return merged;\n}\n```\n\n**Recurrence**: T(n) = 2·T(n/2) + Θ(n).\n\n**Master theorem**: a=2, b=2, f(n)=Θ(n), c_crit=log_2 2 = 1. Case 2 ⇒ T(n) = Θ(n log n).\n\n**Space**: O(n) for the merge buffers + O(log n) recursion depth.\n\nStable sort because we use `<=` in the merge — equal keys keep left-side priority."
+  },
+  {
+    "slug": "swiggy-power-of-x-recursive",
+    "number": 3102,
+    "title": "Swiggy Power of X Recursive Halving",
+    "difficulty": "Easy",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
+    "description": "Swiggy's pricing engine needs `x^n` for surge multipliers (x is a real number, n is an integer that can be negative). Implement `myPow(x, n)` using **recursive halving** (NOT Math.pow, NOT a linear loop). For negative n, compute the positive power then invert.",
+    "examples": [
+      {
+        "input": "x = 2.0, n = 10",
+        "output": "1024",
+        "explanation": "2^10 = 1024."
+      },
+      {
+        "input": "x = 2.0, n = -2",
+        "output": "0.25",
+        "explanation": "1 / (2^2) = 0.25."
+      }
+    ],
+    "constraints": [
+      "-100.0 < x < 100.0",
+      "-2^31 <= n <= 2^31 - 1",
+      "Result fits in a double"
+    ],
+    "hints": [
+      "x^n = (x^(n/2))^2 when n even; x · x^(n-1) when n odd.",
+      "n negative ho toh helper(x, -n) call karke 1/result return kar — but n = INT_MIN ko BigInt-safe handle kar.",
+      "Recursion depth ~log2(|n|), safe for n up to 2^31."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function myPow(x, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def my_pow(x, n):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object myPow(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson myPow(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function myPow(x, n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc myPow(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "myPow",
+    "tests": [
+      {
+        "args": [
+          2,
+          10
+        ],
+        "expected": 1024,
+        "label": "positive"
+      },
+      {
+        "args": [
+          2,
+          -2
+        ],
+        "expected": 0.25,
+        "label": "negative"
+      },
+      {
+        "args": [
+          2,
+          0
+        ],
+        "expected": 1,
+        "label": "zero exponent"
+      },
+      {
+        "args": [
+          1,
+          1000000
+        ],
+        "expected": 1,
+        "label": "one base"
+      },
+      {
+        "args": [
+          3,
+          4
+        ],
+        "expected": 81,
+        "label": "small power"
+      }
+    ],
+    "editorial": "**Naive**: multiply n times — O(n). For n = 2^31 that's billions of ops, too slow.\n\n**Divide & conquer — fast power**: Halve the exponent each step.\n\n- If n even: x^n = (x^(n/2))^2.\n- If n odd:  x^n = x · x^(n-1).\n- If n < 0:  compute x^(-n) and return 1/result.\n\n```javascript\nfunction myPow(x, n) {\n  if (n === 0) return 1;\n  if (n < 0) return 1 / myPow(x, -n);\n  const half = myPow(x, Math.floor(n / 2));\n  return (n % 2 === 0) ? half * half : half * half * x;\n}\n```\n\n**Recurrence**: T(n) = T(n/2) + Θ(1).\n\n**Master theorem**: a=1, b=2, f(n)=Θ(1), c_crit=log_2 1 = 0. Case 2 ⇒ T(n) = Θ(log n).\n\n**Space**: O(log n) recursion stack. For huge negative n you might convert to BigInt before negation, but JS doubles handle the range here. Distinct from `Math.pow` because we hand-roll the recurrence."
+  },
+  {
+    "slug": "cricket-tournament-min-max",
+    "number": 3103,
+    "title": "Cricket Tournament Min Max Comparisons",
+    "difficulty": "Easy",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "dream11",
+      "mpl",
+      "jio"
+    ],
+    "description": "A cricket inning sub-tournament has `n` players each with a power score. The selectors want both the minimum and maximum scores using a **tournament-style divide & conquer** that performs at most ~3n/2 comparisons total (better than the naive 2(n-1)). Given `scores`, return `[min, max]`.",
+    "examples": [
+      {
+        "input": "scores = [3, 5, 1, 4, 2]",
+        "output": "[1, 5]",
+        "explanation": "min=1, max=5."
+      },
+      {
+        "input": "scores = [7]",
+        "output": "[7, 7]"
+      }
+    ],
+    "constraints": [
+      "1 <= scores.length <= 10^4",
+      "-10^9 <= scores[i] <= 10^9"
+    ],
+    "hints": [
+      "Pair up adjacent elements, compare them once, then push the smaller into 'mins' and larger into 'maxes' — saves comparisons.",
+      "Recursive variant: split, get [min1,max1] and [min2,max2], combine with 2 comparisons.",
+      "Base cases: length 1 returns [a,a]; length 2 returns sorted pair."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function tournamentMinMax(scores) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def tournament_min_max(scores):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object tournamentMinMax(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson tournamentMinMax(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function tournamentMinMax(scores): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc tournamentMinMax(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "tournamentMinMax",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            5,
+            1,
+            4,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          5
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            7
+          ]
+        ],
+        "expected": [
+          7,
+          7
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            2,
+            9
+          ]
+        ],
+        "expected": [
+          2,
+          9
+        ],
+        "label": "two"
+      },
+      {
+        "args": [
+          [
+            -5,
+            -1,
+            -10,
+            0
+          ]
+        ],
+        "expected": [
+          -10,
+          0
+        ],
+        "label": "negatives"
+      },
+      {
+        "args": [
+          [
+            4,
+            4,
+            4,
+            4
+          ]
+        ],
+        "expected": [
+          4,
+          4
+        ],
+        "label": "all equal"
+      }
+    ],
+    "editorial": "**Naive**: track min and max separately ⇒ 2(n-1) comparisons.\n\n**Divide & conquer**: split, recurse on halves, combine with **2 comparisons** to merge two (min,max) pairs.\n\n```javascript\nfunction tournamentMinMax(scores) {\n  function helper(lo, hi) {\n    if (lo === hi) return [scores[lo], scores[lo]];\n    if (hi - lo === 1) {\n      return scores[lo] < scores[hi]\n        ? [scores[lo], scores[hi]]\n        : [scores[hi], scores[lo]];\n    }\n    const mid = (lo + hi) >> 1;\n    const [lMin, lMax] = helper(lo, mid);\n    const [rMin, rMax] = helper(mid + 1, hi);\n    return [Math.min(lMin, rMin), Math.max(lMax, rMax)];\n  }\n  return helper(0, scores.length - 1);\n}\n```\n\n**Recurrence**: T(n) = 2·T(n/2) + 2, with T(2) = 1, T(1) = 0.\n\nSolving: total comparisons = 3n/2 - 2 (for n a power of 2). That's the famous **3n/2 - 2 bound** — provably optimal for finding min and max simultaneously by an adversary argument.\n\n**Master theorem**: a=2, b=2, f(n)=Θ(1), c_crit=1, f sublinear ⇒ Case 1 ⇒ T(n)=Θ(n)."
+  },
+  {
+    "slug": "flipkart-quickselect-kth",
+    "number": 3104,
+    "title": "Flipkart Quickselect Kth Largest Order",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Flipkart wants the k-th largest order amount from today's stream. Use **Quickselect** (the divide & conquer cousin of quicksort): partition around a pivot and recurse only into the side that contains the answer. Given `orders` and `k` (1-indexed: k=1 means largest), return the k-th largest value. Expected average O(n).",
+    "examples": [
+      {
+        "input": "orders = [3, 2, 1, 5, 6, 4], k = 2",
+        "output": "5",
+        "explanation": "Sorted desc: [6,5,4,3,2,1]; 2nd largest = 5."
+      },
+      {
+        "input": "orders = [3, 2, 3, 1, 2, 4, 5, 5, 6], k = 4",
+        "output": "4"
+      }
+    ],
+    "constraints": [
+      "1 <= orders.length <= 10^4",
+      "1 <= k <= orders.length",
+      "-10^9 <= orders[i] <= 10^9"
+    ],
+    "hints": [
+      "Convert k-th largest into k-th smallest by using index = n - k (0-indexed target).",
+      "Partition (Lomuto or Hoare): pick pivot, place it in its final sorted position; recurse only into the side containing target.",
+      "Random pivot or median-of-three se O(n^2) worst case avoid hota hai."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function kthLargest(orders, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def kth_largest(orders, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object kthLargest(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson kthLargest(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function kthLargest(orders, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc kthLargest(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "kthLargest",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            2,
+            1,
+            5,
+            6,
+            4
+          ],
+          2
+        ],
+        "expected": 5,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            3,
+            1,
+            2,
+            4,
+            5,
+            5,
+            6
+          ],
+          4
+        ],
+        "expected": 4,
+        "label": "with dups"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            7,
+            7,
+            7
+          ],
+          2
+        ],
+        "expected": 7,
+        "label": "all equal"
+      },
+      {
+        "args": [
+          [
+            -1,
+            -5,
+            -3,
+            -2
+          ],
+          1
+        ],
+        "expected": -1,
+        "label": "negatives"
+      }
+    ],
+    "editorial": "**Quickselect**: partition the array around a pivot. After partition, the pivot is at its final sorted index. Compare that index to the target — recurse only into the relevant side, **never both**. This is the divide-and-conquer twist that drops the cost from O(n log n) (full sort) to expected O(n).\n\n```javascript\nfunction kthLargest(orders, k) {\n  const arr = orders.slice();\n  const target = arr.length - k; // k-th largest = (n-k)-th smallest, 0-indexed\n  function partition(lo, hi) {\n    const pivIdx = lo + Math.floor(Math.random() * (hi - lo + 1));\n    [arr[pivIdx], arr[hi]] = [arr[hi], arr[pivIdx]];\n    const pivot = arr[hi];\n    let i = lo;\n    for (let j = lo; j < hi; j++) {\n      if (arr[j] < pivot) {\n        [arr[i], arr[j]] = [arr[j], arr[i]];\n        i++;\n      }\n    }\n    [arr[i], arr[hi]] = [arr[hi], arr[i]];\n    return i;\n  }\n  let lo = 0, hi = arr.length - 1;\n  while (lo <= hi) {\n    const p = partition(lo, hi);\n    if (p === target) return arr[p];\n    if (p < target) lo = p + 1; else hi = p - 1;\n  }\n  return -1;\n}\n```\n\n**Recurrence (avg, random pivot)**: T(n) = T(n/2) + Θ(n) ⇒ Θ(n).\n\n**Master theorem**: a=1, b=2, f(n)=Θ(n), c_crit=0, f dominates ⇒ Case 3 ⇒ T(n)=Θ(n).\n\nWorst case (adversarial pivot): T(n) = T(n-1) + Θ(n) = Θ(n²). Random/median-of-three keeps that astronomically unlikely."
+  },
+  {
+    "slug": "swiggy-zone-max-subarray-dc",
+    "number": 3105,
+    "title": "Swiggy Zone Max Subarray Divide Conquer",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "swiggy",
+      "zomato",
+      "amazon"
+    ],
+    "description": "Swiggy splits a delivery zone into bisected sub-zones whose hourly profit/loss values form an array. Find the **maximum contiguous subarray sum** using the **divide & conquer** approach (Bentley's algorithm) — distinct from Kadane's DP. The answer is the max of: best sum in left half, best sum in right half, or best sum that crosses the midpoint.",
+    "examples": [
+      {
+        "input": "values = [-2, 1, -3, 4, -1, 2, 1, -5, 4]",
+        "output": "6",
+        "explanation": "Subarray [4,-1,2,1] sums to 6."
+      },
+      {
+        "input": "values = [-1, -2, -3]",
+        "output": "-1",
+        "explanation": "Single element is allowed; pick the largest."
+      }
+    ],
+    "constraints": [
+      "1 <= values.length <= 10^4",
+      "-10^4 <= values[i] <= 10^4"
+    ],
+    "hints": [
+      "Recursion: maxSub(lo, hi) = max(maxSub(left), maxSub(right), maxCross(left,mid,right)).",
+      "maxCross: from mid going left, expand and track max prefix; from mid+1 going right, track max suffix; sum them.",
+      "Kadane mat use kar — purpose hai D&C ka pattern dikhana."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function maxSubarrayDC(values) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_subarray_dc(values):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object maxSubarrayDC(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson maxSubarrayDC(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function maxSubarrayDC(values): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc maxSubarrayDC(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "maxSubarrayDC",
+    "tests": [
+      {
+        "args": [
+          [
+            -2,
+            1,
+            -3,
+            4,
+            -1,
+            2,
+            1,
+            -5,
+            4
+          ]
+        ],
+        "expected": 6,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            -1,
+            -2,
+            -3
+          ]
+        ],
+        "expected": -1,
+        "label": "all negative"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": 10,
+        "label": "all positive"
+      },
+      {
+        "args": [
+          [
+            3,
+            -2,
+            5,
+            -1
+          ]
+        ],
+        "expected": 6,
+        "label": "interleaved"
+      }
+    ],
+    "editorial": "**Bentley's divide & conquer**:\n\n```javascript\nfunction maxSubarrayDC(values) {\n  function helper(lo, hi) {\n    if (lo === hi) return values[lo];\n    const mid = (lo + hi) >> 1;\n    const leftBest = helper(lo, mid);\n    const rightBest = helper(mid + 1, hi);\n    let leftSum = -Infinity, sum = 0;\n    for (let i = mid; i >= lo; i--) { sum += values[i]; leftSum = Math.max(leftSum, sum); }\n    let rightSum = -Infinity; sum = 0;\n    for (let i = mid + 1; i <= hi; i++) { sum += values[i]; rightSum = Math.max(rightSum, sum); }\n    const crossBest = leftSum + rightSum;\n    return Math.max(leftBest, rightBest, crossBest);\n  }\n  return helper(0, values.length - 1);\n}\n```\n\n**Recurrence**: T(n) = 2·T(n/2) + Θ(n) — the cross-sum pass is linear.\n\n**Master theorem**: a=2, b=2, f(n)=Θ(n), c_crit=1, Case 2 ⇒ T(n) = Θ(n log n).\n\n**Why D&C and not Kadane?** Kadane is Θ(n) and is the right choice in production. The D&C version generalizes to harder problems (e.g., max sum in 2D, online updates with segment trees) where the recurrence pattern matters."
+  },
+  {
+    "slug": "razorpay-count-inversions",
+    "number": 3106,
+    "title": "Razorpay Count Inversions",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "razorpay",
+      "paytm",
+      "amazon"
+    ],
+    "description": "Razorpay's settlement audit defines an *inversion* as a pair (i, j) with i < j but `txn[i] > txn[j]` — a possibly out-of-order pair. Count the total number of inversions in O(n log n) using the **merge-sort variant**.",
+    "examples": [
+      {
+        "input": "txn = [2, 4, 1, 3, 5]",
+        "output": "3",
+        "explanation": "(2,1), (4,1), (4,3)."
+      },
+      {
+        "input": "txn = [1, 2, 3]",
+        "output": "0",
+        "explanation": "Already sorted."
+      }
+    ],
+    "constraints": [
+      "1 <= txn.length <= 10^4",
+      "-10^9 <= txn[i] <= 10^9"
+    ],
+    "hints": [
+      "Standard merge sort, but during merge, when right element is taken before left, it forms inversions with all remaining left items.",
+      "Increment count by (mid - i + 1) at that moment.",
+      "Don't mutate the input — clone before recursing."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countInversions(txn) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_inversions(txn):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countInversions(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countInversions(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countInversions(txn): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countInversions(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countInversions",
+    "tests": [
+      {
+        "args": [
+          [
+            2,
+            4,
+            1,
+            3,
+            5
+          ]
+        ],
+        "expected": 3,
+        "label": "small"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 0,
+        "label": "sorted"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 10,
+        "label": "reverse sorted"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": 0,
+        "label": "all equal"
+      }
+    ],
+    "editorial": "**Brute force**: O(n²) pair scan.\n\n**Optimal — modified merge sort**: every time we pull from the right half during merge while elements remain on the left half, those `(mid - i + 1)` left elements each form an inversion with the current right element.\n\n```javascript\nfunction countInversions(txn) {\n  const a = txn.slice();\n  function sort(lo, hi) {\n    if (lo >= hi) return 0;\n    const mid = (lo + hi) >> 1;\n    let count = sort(lo, mid) + sort(mid + 1, hi);\n    const tmp = [];\n    let i = lo, j = mid + 1;\n    while (i <= mid && j <= hi) {\n      if (a[i] <= a[j]) tmp.push(a[i++]);\n      else { tmp.push(a[j++]); count += (mid - i + 1); }\n    }\n    while (i <= mid) tmp.push(a[i++]);\n    while (j <= hi) tmp.push(a[j++]);\n    for (let k = 0; k < tmp.length; k++) a[lo + k] = tmp[k];\n    return count;\n  }\n  return sort(0, a.length - 1);\n}\n```\n\n**Recurrence**: T(n) = 2·T(n/2) + Θ(n).\n\n**Master theorem**: a=2, b=2, f(n)=Θ(n) ⇒ Case 2 ⇒ T(n) = Θ(n log n).\n\n**Space**: O(n) for merge buffer + O(log n) recursion."
+  },
+  {
+    "slug": "phonepe-count-smaller-after",
+    "number": 3107,
+    "title": "PhonePe Count Smaller After Self",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "phonepe",
+      "google",
+      "amazon"
+    ],
+    "description": "For each transaction in PhonePe's daily log, count how many later transactions have a strictly smaller amount. Given `txn`, return an array `result` where `result[i]` = number of indices j > i with `txn[j] < txn[i]`. Required complexity: O(n log n) using **merge sort with index tracking**.",
+    "examples": [
+      {
+        "input": "txn = [5, 2, 6, 1]",
+        "output": "[2, 1, 1, 0]",
+        "explanation": "After 5: {2,1} → 2; after 2: {1} → 1; after 6: {1} → 1; after 1: {} → 0."
+      },
+      {
+        "input": "txn = [-1]",
+        "output": "[0]"
+      }
+    ],
+    "constraints": [
+      "1 <= txn.length <= 10^4",
+      "-10^4 <= txn[i] <= 10^4"
+    ],
+    "hints": [
+      "Sort an array of indices, not values. During merge, when a right index is placed before a left index, add (rightTaken count so far) to result[leftIndex].",
+      "Equivalent statement: this is inversion counting per element, decomposed by left index.",
+      "Track how many right-half elements have already been merged when left element gets consumed."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countSmallerAfter(txn) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_smaller_after(txn):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countSmallerAfter(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countSmallerAfter(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countSmallerAfter(txn): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countSmallerAfter(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countSmallerAfter",
+    "tests": [
+      {
+        "args": [
+          [
+            5,
+            2,
+            6,
+            1
+          ]
+        ],
+        "expected": [
+          2,
+          1,
+          1,
+          0
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            -1
+          ]
+        ],
+        "expected": [
+          0
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            -1,
+            -1
+          ]
+        ],
+        "expected": [
+          0,
+          0
+        ],
+        "label": "ties"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "label": "ascending"
+      },
+      {
+        "args": [
+          [
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "label": "descending"
+      }
+    ],
+    "editorial": "**Merge-sort with indices**. Maintain `idx`, an array of original indices that we sort by `txn[idx]`. During merge, count how many items have been pulled from the **right** half so far; when we pull a **left** item, that count tells us how many right-side values were smaller than this left value, so add it to `result[idx[i]]`.\n\n```javascript\nfunction countSmallerAfter(txn) {\n  const n = txn.length;\n  const result = new Array(n).fill(0);\n  const idx = txn.map((_, i) => i);\n  function sort(lo, hi) {\n    if (lo >= hi) return;\n    const mid = (lo + hi) >> 1;\n    sort(lo, mid); sort(mid + 1, hi);\n    const tmp = []; let i = lo, j = mid + 1, rightTaken = 0;\n    while (i <= mid && j <= hi) {\n      if (txn[idx[j]] < txn[idx[i]]) { tmp.push(idx[j++]); rightTaken++; }\n      else { result[idx[i]] += rightTaken; tmp.push(idx[i++]); }\n    }\n    while (i <= mid) { result[idx[i]] += rightTaken; tmp.push(idx[i++]); }\n    while (j <= hi) tmp.push(idx[j++]);\n    for (let k = 0; k < tmp.length; k++) idx[lo + k] = tmp[k];\n  }\n  sort(0, n - 1);\n  return result;\n}\n```\n\n**Recurrence**: T(n) = 2·T(n/2) + Θ(n) ⇒ **Master theorem Case 2** ⇒ Θ(n log n).\n\n**Space**: O(n).\n\nFenwick/BIT also solves this in O(n log n) but D&C is the canonical merge-sort variant."
+  },
+  {
+    "slug": "amazon-reverse-pairs",
+    "number": 3108,
+    "title": "Amazon Reverse Pairs",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
+    "description": "An Amazon analytics team defines a *reverse pair* as a pair (i, j) with i < j and `nums[i] > 2 * nums[j]`. Count the total number of reverse pairs. Required complexity: O(n log n) via the **merge-sort variant**.",
+    "examples": [
+      {
+        "input": "nums = [1, 3, 2, 3, 1]",
+        "output": "2",
+        "explanation": "(3,1) at indices (1,4) and (3,4)."
+      },
+      {
+        "input": "nums = [2, 4, 3, 5, 1]",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 10^4",
+      "-10^9 <= nums[i] <= 10^9",
+      "Use 64-bit safe arithmetic"
+    ],
+    "hints": [
+      "After both halves are sorted, count cross-pairs in O(n) with a two-pointer scan: for each i in left, advance j in right while nums[i] > 2*nums[j].",
+      "Do the COUNTING pass before the merge step; sorting and counting use disjoint comparisons (>2x vs > or <=).",
+      "Use 2*nums[j] cast to a wider type if needed to avoid overflow."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function reversePairs(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reverse_pairs(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object reversePairs(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson reversePairs(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function reversePairs(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc reversePairs(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "reversePairs",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            2,
+            3,
+            1
+          ]
+        ],
+        "expected": 2,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            2,
+            4,
+            3,
+            5,
+            1
+          ]
+        ],
+        "expected": 3,
+        "label": "more pairs"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 4,
+        "label": "descending"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "no pairs"
+      }
+    ],
+    "editorial": "**Why straight merge can't piggyback**: the comparison `a[i] > 2*a[j]` differs from the merge comparison `a[i] > a[j]`. Run a separate counting pass before merging.\n\n```javascript\nfunction reversePairs(nums) {\n  const a = nums.slice();\n  function sort(lo, hi) {\n    if (lo >= hi) return 0;\n    const mid = (lo + hi) >> 1;\n    let count = sort(lo, mid) + sort(mid + 1, hi);\n    // count cross reverse pairs\n    let j = mid + 1;\n    for (let i = lo; i <= mid; i++) {\n      while (j <= hi && a[i] > 2 * a[j]) j++;\n      count += (j - mid - 1);\n    }\n    // merge\n    const tmp = []; let p = lo, q = mid + 1;\n    while (p <= mid && q <= hi) {\n      if (a[p] <= a[q]) tmp.push(a[p++]); else tmp.push(a[q++]);\n    }\n    while (p <= mid) tmp.push(a[p++]);\n    while (q <= hi) tmp.push(a[q++]);\n    for (let k = 0; k < tmp.length; k++) a[lo + k] = tmp[k];\n    return count;\n  }\n  return sort(0, a.length - 1);\n}\n```\n\n**Counting pass cost**: i and j each advance at most n/2 times across the inner while + outer for, so it's Θ(n) per level.\n\n**Recurrence**: T(n) = 2·T(n/2) + Θ(n).\n\n**Master theorem**: Case 2 ⇒ Θ(n log n).\n\n**Overflow note**: in JS doubles handle 2*10^9 fine; in C++ cast to long."
+  },
+  {
+    "slug": "razorpay-count-range-sum",
+    "number": 3109,
+    "title": "Razorpay Count Range Sum",
+    "difficulty": "Hard",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "razorpay",
+      "google",
+      "amazon"
+    ],
+    "description": "Razorpay wants to count how many contiguous transaction subarrays of `txn` have a sum lying in `[lower, upper]` (inclusive). Required complexity: O(n log n) using **merge sort over prefix sums**.",
+    "examples": [
+      {
+        "input": "txn = [-2, 5, -1], lower = -2, upper = 2",
+        "output": "3",
+        "explanation": "Subarrays [-2], [-1], [-2,5,-1] sum to -2, -1, 2."
+      },
+      {
+        "input": "txn = [0], lower = 0, upper = 0",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "1 <= txn.length <= 10^4",
+      "-2^31 <= txn[i] <= 2^31 - 1",
+      "lower <= upper"
+    ],
+    "hints": [
+      "Build prefix sums P[0..n] with P[0] = 0. Count pairs (i, j), i < j, with lower <= P[j] - P[i] <= upper.",
+      "Merge sort P. During merge step, both halves are sorted — for each i in left, find the window of valid j in right with two pointers.",
+      "Count first, then merge — exactly like the reverse-pairs trick."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function countRangeSum(txn, lower, upper) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_range_sum(txn, lower, upper):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countRangeSum(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countRangeSum(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function countRangeSum(txn, lower, upper): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countRangeSum(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "countRangeSum",
+    "tests": [
+      {
+        "args": [
+          [
+            -2,
+            5,
+            -1
+          ],
+          -2,
+          2
+        ],
+        "expected": 3,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            0
+          ],
+          0,
+          0
+        ],
+        "expected": 1,
+        "label": "single zero"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          1,
+          2
+        ],
+        "expected": 5,
+        "label": "small"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ],
+          10,
+          20
+        ],
+        "expected": 0,
+        "label": "no match"
+      },
+      {
+        "args": [
+          [
+            -1,
+            1
+          ],
+          -1,
+          1
+        ],
+        "expected": 3,
+        "label": "sign mix"
+      }
+    ],
+    "editorial": "**Reduction**: count pairs (i, j) with i < j and P[j] - P[i] ∈ [lower, upper] over prefix-sum array P of length n+1.\n\n**Merge-sort variant**: when both halves of P are sorted, for each `i` in the left half, binary-search-or-two-pointer the count of j in the right half with `lower <= P[j] - P[i] <= upper`. Two pointers move monotonically ⇒ Θ(n) per level.\n\n```javascript\nfunction countRangeSum(txn, lower, upper) {\n  const n = txn.length;\n  const P = new Array(n + 1).fill(0);\n  for (let i = 0; i < n; i++) P[i + 1] = P[i] + txn[i];\n  function sort(lo, hi) {\n    if (lo >= hi) return 0;\n    const mid = (lo + hi) >> 1;\n    let count = sort(lo, mid) + sort(mid + 1, hi);\n    let j = mid + 1, k = mid + 1;\n    for (let i = lo; i <= mid; i++) {\n      while (k <= hi && P[k] - P[i] < lower) k++;\n      while (j <= hi && P[j] - P[i] <= upper) j++;\n      count += (j - k);\n    }\n    const tmp = []; let p = lo, q = mid + 1;\n    while (p <= mid && q <= hi) {\n      if (P[p] <= P[q]) tmp.push(P[p++]); else tmp.push(P[q++]);\n    }\n    while (p <= mid) tmp.push(P[p++]);\n    while (q <= hi) tmp.push(P[q++]);\n    for (let t = 0; t < tmp.length; t++) P[lo + t] = tmp[t];\n    return count;\n  }\n  return sort(0, n);\n}\n```\n\n**Recurrence**: T(n) = 2·T(n/2) + Θ(n).\n\n**Master theorem Case 2** ⇒ Θ(n log n).\n\nUse BigInt or 64-bit if int range can exceed 2^31 in P."
+  },
+  {
+    "slug": "cricket-different-parens",
+    "number": 3110,
+    "title": "Cricket Different Ways To Add Parentheses",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "dream11",
+      "google",
+      "facebook"
+    ],
+    "description": "A cricket sub-tournament scoring formula is given as a string of digits and operators (`+`, `-`, `*`). For every way to parenthesize the formula, compute its value, and return all possible results in any order. Solve using **operator-as-split-point divide & conquer**: each operator partitions the expression into a left and right sub-expression.",
+    "examples": [
+      {
+        "input": "expr = \"2-1-1\"",
+        "output": "[0, 2]",
+        "explanation": "((2-1)-1)=0, (2-(1-1))=2."
+      },
+      {
+        "input": "expr = \"2*3-4*5\"",
+        "output": "[-34, -14, -10, -10, 10]"
+      }
+    ],
+    "constraints": [
+      "1 <= expr.length <= 20",
+      "Digits 0-9 and operators + - *",
+      "Numbers fit in safe integer range"
+    ],
+    "hints": [
+      "For each operator at index i: recursively get all results from expr[0..i-1] and expr[i+1..]; combine pairwise.",
+      "Base case: if no operator in substring, return [parseInt(substring)].",
+      "Memoize by substring to skip exponential recomputation."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function diffWaysToCompute(expr) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def diff_ways_to_compute(expr):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object diffWaysToCompute(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson diffWaysToCompute(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function diffWaysToCompute(expr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc diffWaysToCompute(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "diffWaysToCompute",
+    "tests": [
+      {
+        "args": [
+          "2-1-1"
+        ],
+        "expected": [
+          0,
+          2
+        ],
+        "label": "small subtract"
+      },
+      {
+        "args": [
+          "2*3-4*5"
+        ],
+        "expected": [
+          -34,
+          -14,
+          -10,
+          -10,
+          10
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          "11"
+        ],
+        "expected": [
+          11
+        ],
+        "label": "single number"
+      },
+      {
+        "args": [
+          "1+1"
+        ],
+        "expected": [
+          2
+        ],
+        "label": "no choice"
+      },
+      {
+        "args": [
+          "5"
+        ],
+        "expected": [
+          5
+        ],
+        "label": "single digit"
+      }
+    ],
+    "editorial": "**Operator-split D&C**: every operator is a valid root for an expression tree. Take the cross-product of (results-of-left, results-of-right) for each operator and combine.\n\n```javascript\nfunction diffWaysToCompute(expr) {\n  const memo = new Map();\n  function solve(s) {\n    if (memo.has(s)) return memo.get(s);\n    const out = [];\n    for (let i = 0; i < s.length; i++) {\n      const c = s[i];\n      if (c === '+' || c === '-' || c === '*') {\n        const L = solve(s.slice(0, i));\n        const R = solve(s.slice(i + 1));\n        for (const x of L) for (const y of R) {\n          if (c === '+') out.push(x + y);\n          else if (c === '-') out.push(x - y);\n          else out.push(x * y);\n        }\n      }\n    }\n    if (out.length === 0) out.push(parseInt(s, 10));\n    memo.set(s, out);\n    return memo.get(s);\n  }\n  return solve(expr).sort((a, b) => a - b);\n}\n```\n\n**Recurrence**: with n operators, T(n) ≈ Σ T(k)·T(n-1-k). Without memo this is the **Catalan number** C_n ≈ 4^n / n^(3/2). With memoization on substrings the work collapses to polynomial. Master theorem doesn't apply cleanly here (non-balanced split); the bound is the Catalan-style recurrence solved by generating functions.\n\nThe test compares sorted output for determinism; the problem statement says any order is OK."
+  },
+  {
+    "slug": "swiggy-median-two-sorted",
+    "number": 3112,
+    "title": "Swiggy Median Of Two Sorted Delivery Streams",
+    "difficulty": "Hard",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "swiggy",
+      "google",
+      "amazon"
+    ],
+    "description": "Two Swiggy zones publish delivery times sorted ascending into `a` and `b`. Find the **median** of the combined stream in **O(log(min(m, n)))** using divide & conquer (binary search the partition).",
+    "examples": [
+      {
+        "input": "a = [1, 3], b = [2]",
+        "output": "2",
+        "explanation": "Combined sorted [1,2,3], median 2."
+      },
+      {
+        "input": "a = [1, 2], b = [3, 4]",
+        "output": "2.5",
+        "explanation": "(2+3)/2."
+      }
+    ],
+    "constraints": [
+      "0 <= a.length, b.length <= 1000",
+      "a.length + b.length >= 1",
+      "-10^6 <= a[i], b[i] <= 10^6"
+    ],
+    "hints": [
+      "Binary search on the smaller array. Choose i in [0, m]; set j = (m+n+1)/2 - i.",
+      "Valid partition: a[i-1] <= b[j] AND b[j-1] <= a[i].",
+      "Use sentinels -Infinity/+Infinity for out-of-range indices."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function findMedianSortedArrays(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_median_sorted_arrays(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findMedianSortedArrays(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findMedianSortedArrays(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function findMedianSortedArrays(a, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findMedianSortedArrays(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "findMedianSortedArrays",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3
+          ],
+          [
+            2
+          ]
+        ],
+        "expected": 2,
+        "label": "odd total"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "expected": 2.5,
+        "label": "even total"
+      },
+      {
+        "args": [
+          [],
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "one empty"
+      },
+      {
+        "args": [
+          [
+            2
+          ],
+          []
+        ],
+        "expected": 2,
+        "label": "other empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ],
+        "expected": 3.5,
+        "label": "non-overlapping"
+      }
+    ],
+    "editorial": "**Idea**: a partition (i, j) with i + j = (m+n+1)/2 splits combined elements into a left half of size ⌈(m+n)/2⌉ and right half. Valid iff `aLeft <= bRight` and `bLeft <= aRight`. Binary search on `i` over the **smaller** array.\n\n```javascript\nfunction findMedianSortedArrays(a, b) {\n  if (a.length > b.length) [a, b] = [b, a];\n  const m = a.length, n = b.length, half = (m + n + 1) >> 1;\n  let lo = 0, hi = m;\n  while (lo <= hi) {\n    const i = (lo + hi) >> 1;\n    const j = half - i;\n    const aL = i === 0 ? -Infinity : a[i - 1];\n    const aR = i === m ? Infinity : a[i];\n    const bL = j === 0 ? -Infinity : b[j - 1];\n    const bR = j === n ? Infinity : b[j];\n    if (aL <= bR && bL <= aR) {\n      if ((m + n) % 2 === 1) return Math.max(aL, bL);\n      return (Math.max(aL, bL) + Math.min(aR, bR)) / 2;\n    } else if (aL > bR) hi = i - 1;\n    else lo = i + 1;\n  }\n  return 0;\n}\n```\n\n**Recurrence**: T(m) = T(m/2) + Θ(1).\n\n**Master theorem**: a=1, b=2, f(m)=Θ(1) ⇒ Case 2 ⇒ T(m) = Θ(log m). Overall **Θ(log min(m, n))**."
+  },
+  {
+    "slug": "flipkart-kth-two-sorted",
+    "number": 3113,
+    "title": "Flipkart Kth Smallest In Two Sorted Arrays",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Flipkart's price feed gives two sorted arrays `a` and `b`. Find the **k-th smallest** element (1-indexed) of the combined collection in **O(log(m+n))** using divide & conquer — discard ~k/2 elements per step.",
+    "examples": [
+      {
+        "input": "a = [1, 3, 5], b = [2, 4, 6], k = 4",
+        "output": "4",
+        "explanation": "Merged: [1,2,3,4,5,6], 4th = 4."
+      },
+      {
+        "input": "a = [], b = [1, 2, 3], k = 2",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "0 <= a.length, b.length <= 5000",
+      "1 <= k <= a.length + b.length",
+      "-10^9 <= values <= 10^9"
+    ],
+    "hints": [
+      "Compare a[i + k/2 - 1] with b[j + k/2 - 1]; the smaller's first half can NEVER contain the answer — drop it and reduce k.",
+      "Handle empty arrays by directly indexing into the other.",
+      "Stop when k = 1: return min of the two front elements."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function kthSmallestTwoSorted(a, b, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def kth_smallest_two_sorted(a, b, k):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object kthSmallestTwoSorted(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson kthSmallestTwoSorted(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function kthSmallestTwoSorted(a, b, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc kthSmallestTwoSorted(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "kthSmallestTwoSorted",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            5
+          ],
+          [
+            2,
+            4,
+            6
+          ],
+          4
+        ],
+        "expected": 4,
+        "label": "interleaved"
+      },
+      {
+        "args": [
+          [],
+          [
+            1,
+            2,
+            3
+          ],
+          2
+        ],
+        "expected": 2,
+        "label": "first empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          [],
+          1
+        ],
+        "expected": 1,
+        "label": "second empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": 5,
+        "label": "last"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          4
+        ],
+        "expected": 1,
+        "label": "all equal"
+      }
+    ],
+    "editorial": "**Idea**: at each step compare `a[i + k/2 - 1]` and `b[j + k/2 - 1]`. The smaller side's first k/2 elements can't contain the k-th overall (they are dominated). Skip them, reduce k, recurse.\n\n```javascript\nfunction kthSmallestTwoSorted(a, b, k) {\n  function solve(i, j, k) {\n    if (i >= a.length) return b[j + k - 1];\n    if (j >= b.length) return a[i + k - 1];\n    if (k === 1) return Math.min(a[i], b[j]);\n    const half = Math.floor(k / 2);\n    const ai = i + half - 1 < a.length ? a[i + half - 1] : Infinity;\n    const bj = j + half - 1 < b.length ? b[j + half - 1] : Infinity;\n    if (ai <= bj) return solve(i + half, j, k - half);\n    return solve(i, j + half, k - half);\n  }\n  return solve(0, 0, k);\n}\n```\n\n**Recurrence**: T(k) = T(k/2) + Θ(1).\n\n**Master theorem**: a=1, b=2, f(k)=Θ(1) ⇒ Case 2 ⇒ T(k) = Θ(log k) ⊆ Θ(log(m+n))."
+  },
+  {
+    "slug": "flipkart-skyline-problem",
+    "number": 3115,
+    "title": "Flipkart Skyline Of Warehouse Buildings",
+    "difficulty": "Medium",
+    "topic": "Divide & Conquer",
+    "companies": [
+      "flipkart",
+      "amazon",
+      "google"
+    ],
+    "description": "Flipkart's warehouse complex has rectangular buildings given as `[left, right, height]`. Compute the **skyline** silhouette — list of `[x, y]` key points where the visible roofline changes. Solve with **divide & conquer**: split buildings into halves, compute each silhouette recursively, then merge two silhouettes (line-sweep style).",
+    "examples": [
+      {
+        "input": "buildings = [[2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8]]",
+        "output": "[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]",
+        "explanation": "Standard LeetCode 218 example."
+      },
+      {
+        "input": "buildings = [[0, 2, 3], [2, 5, 3]]",
+        "output": "[[0,3],[5,0]]"
+      }
+    ],
+    "constraints": [
+      "0 <= buildings.length <= 200",
+      "0 <= left < right <= 10^4",
+      "1 <= height <= 10^4"
+    ],
+    "hints": [
+      "Base: 0 → []. 1 → [[L, H], [R, 0]].",
+      "Split into halves, recurse, then merge two skylines like merge sort.",
+      "Merge: walk both with two pointers, tracking heights h1, h2; emit a key point whenever max(h1, h2) changes; skip duplicate y values."
+    ],
+    "starterCode": [
+      {
+        "language": "javascript",
+        "code": "function getSkyline(buildings) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def get_skyline(buildings):\n    # tu yahan apna solution likh\n    pass\n"
+      },
+      {
+        "language": "java",
+        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object getSkyline(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+      },
+      {
+        "language": "cpp",
+        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson getSkyline(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "code": "function getSkyline(buildings): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+      },
+      {
+        "language": "go",
+        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc getSkyline(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      }
+    ],
+    "fnName": "getSkyline",
+    "tests": [
+      {
+        "args": [
+          [
+            [
+              2,
+              9,
+              10
+            ],
+            [
+              3,
+              7,
+              15
+            ],
+            [
+              5,
+              12,
+              12
+            ],
+            [
+              15,
+              20,
+              10
+            ],
+            [
+              19,
+              24,
+              8
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            2,
+            10
+          ],
+          [
+            3,
+            15
+          ],
+          [
+            7,
+            12
+          ],
+          [
+            12,
+            0
+          ],
+          [
+            15,
+            10
+          ],
+          [
+            20,
+            8
+          ],
+          [
+            24,
+            0
+          ]
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              2,
+              3
+            ],
+            [
+              2,
+              5,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            3
+          ],
+          [
+            5,
+            0
+          ]
+        ],
+        "label": "merge equal heights"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5,
+              11
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            11
+          ],
+          [
+            5,
+            0
+          ]
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              5,
+              7
+            ],
+            [
+              5,
+              10,
+              7
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            7
+          ],
+          [
+            10,
+            0
+          ]
+        ],
+        "label": "adjacent same height"
+      }
+    ],
+    "editorial": "**Divide**: split building array into halves.\n**Conquer**: recursively compute skyline of each half (each is a list of `[x, y]` key points).\n**Merge**: sweep both lists with two pointers, maintaining current heights h1 and h2; at each next x boundary, emit `[x, max(h1, h2)]` if it differs from the previous emitted height.\n\n```javascript\nfunction getSkyline(buildings) {\n  function build(lo, hi) {\n    if (lo > hi) return [];\n    if (lo === hi) {\n      const [l, r, h] = buildings[lo];\n      return [[l, h], [r, 0]];\n    }\n    const mid = (lo + hi) >> 1;\n    return merge(build(lo, mid), build(mid + 1, hi));\n  }\n  function merge(A, B) {\n    const out = []; let i = 0, j = 0, h1 = 0, h2 = 0, prev = 0;\n    while (i < A.length && j < B.length) {\n      let x;\n      if (A[i][0] < B[j][0]) { x = A[i][0]; h1 = A[i][1]; i++; }\n      else if (A[i][0] > B[j][0]) { x = B[j][0]; h2 = B[j][1]; j++; }\n      else { x = A[i][0]; h1 = A[i][1]; h2 = B[j][1]; i++; j++; }\n      const cur = Math.max(h1, h2);\n      if (cur !== prev) { out.push([x, cur]); prev = cur; }\n    }\n    while (i < A.length) { if (A[i][1] !== prev) { out.push(A[i]); prev = A[i][1]; } i++; }\n    while (j < B.length) { if (B[j][1] !== prev) { out.push(B[j]); prev = B[j][1]; } j++; }\n    return out;\n  }\n  return build(0, buildings.length - 1);\n}\n```\n\n**Recurrence**: T(n) = 2·T(n/2) + Θ(n) — merge is linear in the combined skyline size.\n\n**Master theorem**: a=2, b=2, f(n)=Θ(n), Case 2 ⇒ T(n) = Θ(n log n).\n\nThe heap-based sweep approach is also Θ(n log n) but D&C is the textbook divide-merge formulation."
+  }
+]

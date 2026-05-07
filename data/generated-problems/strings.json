@@ -1,0 +1,855 @@
+[
+  {
+    "slug": "razorpay-reverse-words",
+    "number": 2801,
+    "title": "Razorpay Reverse Transaction Note Words",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["razorpay", "paytm", "phonepe"],
+    "description": "Razorpay shows merchants a transaction note like `\"payment for invoice 42\"`. The dashboard team wants to display the words reversed for a localized UI. Given a string `s` containing words separated by single spaces (no leading/trailing spaces), return a string with the order of the words reversed. Within each word, characters stay in their original order.",
+    "examples": [
+      {"input": "s = \"payment for invoice 42\"", "output": "\"42 invoice for payment\"", "explanation": "Word order reversed; each word kept intact."},
+      {"input": "s = \"hello\"", "output": "\"hello\""}
+    ],
+    "constraints": ["1 <= s.length <= 10^4", "s consists of printable ASCII", "Single space between words; no leading/trailing space"],
+    "hints": [
+      "Split on space, reverse the array, join with space.",
+      "In-place: reverse whole string, then reverse each word individually.",
+      "Single word case: output equals input."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function reverseWords(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def reverse_words(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "reverseWords",
+    "tests": [
+      {"args": ["payment for invoice 42"], "expected": "42 invoice for payment", "label": "basic"},
+      {"args": ["hello"], "expected": "hello", "label": "single word"},
+      {"args": ["a b"], "expected": "b a", "label": "two single chars"},
+      {"args": ["the sky is blue"], "expected": "blue is sky the", "label": "four words"},
+      {"args": ["x"], "expected": "x", "label": "single char"},
+      {"args": ["one two three four five"], "expected": "five four three two one", "label": "five words"}
+    ],
+    "editorial": "**Approach 1 — split/reverse/join**: Cleanest one-liner.\n\n```javascript\nfunction reverseWords(s) {\n  return s.split(' ').reverse().join(' ');\n}\n```\n\n**Time**: O(n). **Space**: O(n) for the array of words.\n\n**Approach 2 — in-place (O(1) extra if mutable)**: Reverse the whole string, then reverse each word in-place. Useful in C/C++ interview where the language gives you a char array.\n\nEdge: single word produces itself; constraints guarantee no double spaces, so split is safe."
+  },
+  {
+    "slug": "swiggy-valid-palindrome",
+    "number": 2802,
+    "title": "Swiggy Coupon Code Palindrome Check",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["swiggy", "zomato", "uber"],
+    "description": "Swiggy's marketing team launches palindrome-coupon promos: a coupon string is valid only if, after lowercasing and ignoring all non-alphanumeric characters, it reads the same forwards and backwards. Given a string `s`, return `true` if it is a palindrome under those rules, else `false`.",
+    "examples": [
+      {"input": "s = \"A man, a plan, a canal: Panama\"", "output": "true", "explanation": "Filtered: 'amanaplanacanalpanama' — palindrome."},
+      {"input": "s = \"race a car\"", "output": "false", "explanation": "Filtered: 'raceacar' — not a palindrome."}
+    ],
+    "constraints": ["1 <= s.length <= 2*10^5", "s consists of printable ASCII"],
+    "hints": [
+      "Two pointers — left and right.",
+      "Skip non-alphanumeric on either side, compare lowercased chars.",
+      "Empty filtered string ko palindrome maan (vacuously true)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function isCouponPalindrome(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def is_coupon_palindrome(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "isCouponPalindrome",
+    "tests": [
+      {"args": ["A man, a plan, a canal: Panama"], "expected": true, "label": "classic"},
+      {"args": ["race a car"], "expected": false, "label": "not palindrome"},
+      {"args": [" "], "expected": true, "label": "only space (empty after filter)"},
+      {"args": ["a"], "expected": true, "label": "single char"},
+      {"args": [".,"], "expected": true, "label": "only punctuation"},
+      {"args": ["0P"], "expected": false, "label": "alnum mix mismatch"},
+      {"args": ["12321"], "expected": true, "label": "numeric palindrome"}
+    ],
+    "editorial": "**Idea — two pointers, skip-and-compare**: Walk inward from both ends, skipping any character that isn't a letter or digit. Compare lowercase versions.\n\n```javascript\nfunction isCouponPalindrome(s) {\n  const isAlnum = c => /[a-zA-Z0-9]/.test(c);\n  let l = 0, r = s.length - 1;\n  while (l < r) {\n    while (l < r && !isAlnum(s[l])) l++;\n    while (l < r && !isAlnum(s[r])) r--;\n    if (s[l].toLowerCase() !== s[r].toLowerCase()) return false;\n    l++; r--;\n  }\n  return true;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nFiltered-empty edge ' ' → loop never enters body → returns true. That matches the convention LeetCode uses."
+  },
+  {
+    "slug": "flipkart-string-compression",
+    "number": 2803,
+    "title": "Flipkart Product Code Run-Length Encoding",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["flipkart", "meesho", "amazon"],
+    "description": "Flipkart's catalogue team compresses product codes with run-length encoding: each run of identical characters becomes the character followed by the run length (length only when length > 1). Given lowercase `s`, return the compressed string. If the compressed result is not strictly shorter than `s`, return `s` unchanged.",
+    "examples": [
+      {"input": "s = \"aaabbc\"", "output": "\"a3b2c\"", "explanation": "3 a's, 2 b's, 1 c → 'a3b2c'. 5 chars vs 6 — shorter, so return compressed."},
+      {"input": "s = \"abcd\"", "output": "\"abcd\"", "explanation": "Compressed would be 'abcd' (no runs); same length; return original."}
+    ],
+    "constraints": ["1 <= s.length <= 10^4", "s consists of lowercase English letters"],
+    "hints": [
+      "Single pass, count consecutive equal chars.",
+      "Append count only if > 1.",
+      "Compare lengths at the end."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function compressProductCode(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def compress_product_code(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "compressProductCode",
+    "tests": [
+      {"args": ["aaabbc"], "expected": "a3b2c", "label": "basic"},
+      {"args": ["abcd"], "expected": "abcd", "label": "no compression"},
+      {"args": ["a"], "expected": "a", "label": "single char"},
+      {"args": ["aaaaa"], "expected": "a5", "label": "all same"},
+      {"args": ["aabbccdd"], "expected": "aabbccdd", "label": "all pairs equal length"},
+      {"args": ["aaabbbbbcccccccdde"], "expected": "a3b5c7d2e", "label": "long"}
+    ],
+    "editorial": "**Idea — accumulate runs**: Iterate; for each run of identical chars, append the char then (if run > 1) its count.\n\n```javascript\nfunction compressProductCode(s) {\n  let out = '';\n  let i = 0;\n  while (i < s.length) {\n    let j = i;\n    while (j < s.length && s[j] === s[i]) j++;\n    out += s[i];\n    if (j - i > 1) out += String(j - i);\n    i = j;\n  }\n  return out.length < s.length ? out : s;\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\nNote: the catch is the count-greater-than-9 case ('a12' = a twelve times) — multi-digit lengths just append naturally. The final shorter-than check ensures we never make things worse."
+  },
+  {
+    "slug": "phonepe-encode-decode",
+    "number": 2804,
+    "title": "PhonePe Length-Prefixed Message Codec",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["phonepe", "amazon", "google"],
+    "description": "PhonePe needs to serialize a list of arbitrary user messages over the wire. Implement a single function `encodeDecode` that takes a list of strings, encodes them into one string using a length-prefix scheme (`<len>#<str>` for each), then decodes that encoded form back, and returns the decoded list. The point: round-trip must equal the input even when messages contain `#` or digits.",
+    "examples": [
+      {"input": "msgs = [\"hello\", \"world\"]", "output": "[\"hello\", \"world\"]", "explanation": "Encoded as '5#hello5#world', decoded back to original."},
+      {"input": "msgs = [\"#weird\", \"\", \"42#\"]", "output": "[\"#weird\", \"\", \"42#\"]", "explanation": "Length prefix removes ambiguity from inner '#'."}
+    ],
+    "constraints": ["0 <= msgs.length <= 200", "0 <= msgs[i].length <= 200", "msgs[i] is any printable ASCII"],
+    "hints": [
+      "Encode each: length + '#' + string.",
+      "Decode: read digits until '#', take that many chars as the next message.",
+      "Empty list/empty string handle properly."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function encodeDecode(msgs) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def encode_decode(msgs):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "encodeDecode",
+    "tests": [
+      {"args": [["hello", "world"]], "expected": ["hello", "world"], "label": "basic two"},
+      {"args": [["#weird", "", "42#"]], "expected": ["#weird", "", "42#"], "label": "tricky chars"},
+      {"args": [[]], "expected": [], "label": "empty list"},
+      {"args": [[""]], "expected": [""], "label": "single empty string"},
+      {"args": [["a"]], "expected": ["a"], "label": "single char"},
+      {"args": [["one", "two", "three", "four"]], "expected": ["one", "two", "three", "four"], "label": "four items"}
+    ],
+    "editorial": "**Why length-prefix wins**: Any delimiter you pick could legally appear in a message. Length-prefix removes that ambiguity — the decoder reads `len`, then `#`, then exactly `len` chars.\n\n```javascript\nfunction encodeDecode(msgs) {\n  // encode\n  let enc = '';\n  for (const m of msgs) enc += m.length + '#' + m;\n  // decode\n  const out = [];\n  let i = 0;\n  while (i < enc.length) {\n    let j = i;\n    while (enc[j] !== '#') j++;\n    const len = parseInt(enc.slice(i, j), 10);\n    out.push(enc.slice(j + 1, j + 1 + len));\n    i = j + 1 + len;\n  }\n  return out;\n}\n```\n\n**Time**: O(N) where N = total chars. **Space**: O(N)."
+  },
+  {
+    "slug": "google-group-shifted-strings",
+    "number": 2805,
+    "title": "Group Shifted Cipher Strings",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["google", "amazon", "facebook"],
+    "description": "Two strings belong to the same shift group if you can rotate one's characters around the alphabet (mod 26) to obtain the other (e.g., 'abc' and 'bcd' — each char shifted by 1). Given an array `strs` of lowercase strings, group them by shift class. Return the groups, each sorted lexicographically, and the outer list sorted by each group's first element.",
+    "examples": [
+      {"input": "strs = [\"abc\", \"bcd\", \"acef\", \"xyz\", \"az\", \"ba\", \"a\", \"z\"]", "output": "[[\"a\", \"z\"], [\"abc\", \"bcd\", \"xyz\"], [\"acef\"], [\"az\", \"ba\"]]", "explanation": "Groups by gap-tuple."},
+      {"input": "strs = [\"a\"]", "output": "[[\"a\"]]"}
+    ],
+    "constraints": ["1 <= strs.length <= 200", "1 <= strs[i].length <= 50", "strs[i] is lowercase English"],
+    "hints": [
+      "Two strings belong to same group iff differences between consecutive chars (mod 26) match.",
+      "Build a tuple key: e.g., '1,1' for 'abc'.",
+      "Single-char strings all share key '' (empty tuple)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function groupShifted(strs) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def group_shifted(strs):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "groupShifted",
+    "tests": [
+      {"args": [["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"]], "expected": [["a", "z"], ["abc", "bcd", "xyz"], ["acef"], ["az", "ba"]], "label": "classic"},
+      {"args": [["a"]], "expected": [["a"]], "label": "single"},
+      {"args": [["a", "b", "c"]], "expected": [["a", "b", "c"]], "label": "all single chars"},
+      {"args": [["abc", "xyz"]], "expected": [["abc", "xyz"]], "label": "two in same group"},
+      {"args": [["az", "ba"]], "expected": [["az", "ba"]], "label": "wrap around"}
+    ],
+    "editorial": "**Key — gap signature**: For string `s`, build the tuple `((s[i+1]-s[i]) mod 26)` for each adjacent pair. Two strings shift to each other iff their gap tuples are equal.\n\n```javascript\nfunction groupShifted(strs) {\n  const groups = new Map();\n  for (const s of strs) {\n    const key = [];\n    for (let i = 1; i < s.length; i++) {\n      key.push(((s.charCodeAt(i) - s.charCodeAt(i-1)) % 26 + 26) % 26);\n    }\n    const k = key.join(',');\n    if (!groups.has(k)) groups.set(k, []);\n    groups.get(k).push(s);\n  }\n  const out = [];\n  for (const arr of groups.values()) { arr.sort(); out.push(arr); }\n  out.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);\n  return out;\n}\n```\n\n**Time**: O(N*K). **Space**: O(N*K). The mod-26 with `+26 % 26` handles the wrap (e.g., 'az' → gap 25; 'ba' → gap (-1+26)%26 = 25)."
+  },
+  {
+    "slug": "zomato-find-anagrams",
+    "number": 2806,
+    "title": "Zomato Find All Restaurant Anagrams in Menu",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["zomato", "swiggy", "google"],
+    "description": "Zomato's search wants every position in the menu string `s` where an anagram of the query `p` starts. Return the list of starting indices in ascending order. (Note: this is the standard 'find all anagrams' problem; even though it can use a sliding window, the focus here is character-frequency comparison.)",
+    "examples": [
+      {"input": "s = \"cbaebabacd\", p = \"abc\"", "output": "[0, 6]", "explanation": "'cba' at 0 and 'bac' at 6 are anagrams of 'abc'."},
+      {"input": "s = \"abab\", p = \"ab\"", "output": "[0, 1, 2]"}
+    ],
+    "constraints": ["1 <= s.length, p.length <= 3*10^4", "s and p are lowercase English"],
+    "hints": [
+      "Char-count of p, then compare to running count over a window of |p|.",
+      "26-length count arrays make compare O(26).",
+      "If |p| > |s|, return []."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function findAnagrams(s, p) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def find_anagrams(s, p):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "findAnagrams",
+    "tests": [
+      {"args": ["cbaebabacd", "abc"], "expected": [0, 6], "label": "classic"},
+      {"args": ["abab", "ab"], "expected": [0, 1, 2], "label": "overlapping"},
+      {"args": ["a", "ab"], "expected": [], "label": "p longer"},
+      {"args": ["aaaa", "a"], "expected": [0, 1, 2, 3], "label": "single char p"},
+      {"args": ["xyz", "abc"], "expected": [], "label": "no match"},
+      {"args": ["abc", "abc"], "expected": [0], "label": "exact match"}
+    ],
+    "editorial": "**Idea — fixed-size window with char counts**: Maintain two 26-length arrays: `need` (counts in p) and `have` (counts in current window of length |p|). Slide the window one char at a time; compare arrays.\n\n```javascript\nfunction findAnagrams(s, p) {\n  const out = [];\n  if (p.length > s.length) return out;\n  const need = new Array(26).fill(0), have = new Array(26).fill(0);\n  for (const c of p) need[c.charCodeAt(0) - 97]++;\n  for (let i = 0; i < s.length; i++) {\n    have[s.charCodeAt(i) - 97]++;\n    if (i >= p.length) have[s.charCodeAt(i - p.length) - 97]--;\n    if (i >= p.length - 1) {\n      let ok = true;\n      for (let k = 0; k < 26; k++) if (need[k] !== have[k]) { ok = false; break; }\n      if (ok) out.push(i - p.length + 1);\n    }\n  }\n  return out;\n}\n```\n\n**Time**: O(n*26). **Space**: O(1)."
+  },
+  {
+    "slug": "amazon-longest-common-prefix",
+    "number": 2807,
+    "title": "Amazon SKU Longest Common Prefix",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["amazon", "flipkart", "meesho"],
+    "description": "Amazon's catalogue groups SKUs by shared prefix (e.g., `'ELEC-TV-LG-55'` and `'ELEC-TV-LG-65'` share `'ELEC-TV-LG-'`). Given an array of SKU strings `strs`, return the longest common prefix shared by all of them. If no common prefix exists, return `''`.",
+    "examples": [
+      {"input": "strs = [\"flower\", \"flow\", \"flight\"]", "output": "\"fl\""},
+      {"input": "strs = [\"dog\", \"racecar\", \"car\"]", "output": "\"\"", "explanation": "No common prefix."}
+    ],
+    "constraints": ["1 <= strs.length <= 200", "0 <= strs[i].length <= 200", "strs[i] is printable ASCII"],
+    "hints": [
+      "Vertical scan — char i across all words; stop at first mismatch.",
+      "Empty string in input → answer is ''.",
+      "Single string → answer is itself."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function longestCommonPrefix(strs) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def longest_common_prefix(strs):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "longestCommonPrefix",
+    "tests": [
+      {"args": [["flower", "flow", "flight"]], "expected": "fl", "label": "basic"},
+      {"args": [["dog", "racecar", "car"]], "expected": "", "label": "no common"},
+      {"args": [["alone"]], "expected": "alone", "label": "single string"},
+      {"args": [["", "abc"]], "expected": "", "label": "empty in list"},
+      {"args": [["abc", "abc", "abc"]], "expected": "abc", "label": "all same"},
+      {"args": [["ELEC-TV-LG-55", "ELEC-TV-LG-65", "ELEC-TV-SAM-50"]], "expected": "ELEC-TV-", "label": "real SKUs"}
+    ],
+    "editorial": "**Vertical scan**: Iterate column index `i`; for each, check `strs[0][i]` against every other `strs[j][i]`. Stop at first mismatch or when any string ends.\n\n```javascript\nfunction longestCommonPrefix(strs) {\n  if (!strs.length) return '';\n  for (let i = 0; i < strs[0].length; i++) {\n    const c = strs[0][i];\n    for (let j = 1; j < strs.length; j++) {\n      if (i === strs[j].length || strs[j][i] !== c) {\n        return strs[0].slice(0, i);\n      }\n    }\n  }\n  return strs[0];\n}\n```\n\n**Time**: O(S) where S = sum of all chars (early exit usually). **Space**: O(1).\n\nAlternative: divide-and-conquer or sort + compare first/last — same big-O though."
+  },
+  {
+    "slug": "google-strstr-kmp",
+    "number": 2808,
+    "title": "Implement strStr using KMP",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["google", "microsoft", "uber"],
+    "description": "Implement substring search: given `haystack` and `needle`, return the lowest index where `needle` first appears in `haystack`, or `-1` if it doesn't. If `needle` is empty, return `0`. The expected solution uses KMP (Knuth–Morris–Pratt) for O(n+m) — this is enforced via the largest test cases.",
+    "examples": [
+      {"input": "haystack = \"sadbutsad\", needle = \"sad\"", "output": "0"},
+      {"input": "haystack = \"leetcode\", needle = \"leeto\"", "output": "-1"}
+    ],
+    "constraints": ["1 <= haystack.length <= 10^4", "0 <= needle.length <= 10^4", "Both lowercase English"],
+    "hints": [
+      "Build the longest-proper-prefix-suffix (LPS) array of needle.",
+      "Use it to skip rechecking when a mismatch happens.",
+      "Empty needle → return 0 by convention."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function strStr(haystack, needle) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def str_str(haystack, needle):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "strStr",
+    "tests": [
+      {"args": ["sadbutsad", "sad"], "expected": 0, "label": "basic"},
+      {"args": ["leetcode", "leeto"], "expected": -1, "label": "not found"},
+      {"args": ["abc", ""], "expected": 0, "label": "empty needle"},
+      {"args": ["a", "a"], "expected": 0, "label": "single match"},
+      {"args": ["mississippi", "issip"], "expected": 4, "label": "tricky overlap"},
+      {"args": ["aaaaa", "bba"], "expected": -1, "label": "long no-match"},
+      {"args": ["ababcabcabababd", "ababd"], "expected": 10, "label": "kmp shines"}
+    ],
+    "editorial": "**KMP — two parts**:\n\n1. **LPS array**: For each prefix of needle, longest proper prefix that is also a suffix.\n2. **Match scan**: Walk haystack with two pointers; on mismatch, fall back via LPS instead of restarting.\n\n```javascript\nfunction strStr(haystack, needle) {\n  if (needle === '') return 0;\n  const m = needle.length, n = haystack.length;\n  const lps = new Array(m).fill(0);\n  for (let i = 1, len = 0; i < m;) {\n    if (needle[i] === needle[len]) { lps[i++] = ++len; }\n    else if (len) { len = lps[len - 1]; }\n    else { lps[i++] = 0; }\n  }\n  for (let i = 0, j = 0; i < n;) {\n    if (haystack[i] === needle[j]) { i++; j++; if (j === m) return i - j; }\n    else if (j) j = lps[j - 1];\n    else i++;\n  }\n  return -1;\n}\n```\n\n**Time**: O(n + m). **Space**: O(m)."
+  },
+  {
+    "slug": "facebook-repeated-substring",
+    "number": 2809,
+    "title": "Repeated Substring Pattern",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["facebook", "google", "amazon"],
+    "description": "Given a non-empty string `s`, decide whether it can be constructed by taking some proper substring `t` of `s` and concatenating multiple copies of `t` (at least 2). Return `true`/`false`.",
+    "examples": [
+      {"input": "s = \"abab\"", "output": "true", "explanation": "'ab' repeated twice."},
+      {"input": "s = \"aba\"", "output": "false"}
+    ],
+    "constraints": ["1 <= s.length <= 10^4", "s is lowercase English"],
+    "hints": [
+      "Length of t must divide length of s.",
+      "Try every divisor d of n; check if s[0:d] repeated n/d times equals s.",
+      "Slick trick: (s+s)[1:-1].includes(s) — but understand why before using."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function repeatedSubstringPattern(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def repeated_substring_pattern(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "repeatedSubstringPattern",
+    "tests": [
+      {"args": ["abab"], "expected": true, "label": "basic"},
+      {"args": ["aba"], "expected": false, "label": "no repeat"},
+      {"args": ["abcabcabcabc"], "expected": true, "label": "long repeat"},
+      {"args": ["a"], "expected": false, "label": "single char"},
+      {"args": ["aa"], "expected": true, "label": "two same"},
+      {"args": ["abaababaab"], "expected": true, "label": "tricky 5-char unit"},
+      {"args": ["xyzxyz"], "expected": true, "label": "two thirds"}
+    ],
+    "editorial": "**Trick — concat-and-search**: Form `(s+s)[1..2n-2]`. If `s` appears in this trimmed double, then `s` is built from a repeated unit. Why? Concat shifts every copy of `s` by some offset; trimming the first/last char prevents finding the trivial occurrence at index 0.\n\n```javascript\nfunction repeatedSubstringPattern(s) {\n  return (s + s).slice(1, -1).includes(s);\n}\n```\n\n**Time**: O(n) using `indexOf` (V8 uses Boyer–Moore variant). **Space**: O(n).\n\n**Alternate (explicit)**: For each divisor `d` of `n` (d < n), check whether `s[0:d]` repeated `n/d` times reconstructs `s`. O(n*sqrt(n))."
+  },
+  {
+    "slug": "microsoft-z-function",
+    "number": 2810,
+    "title": "Z-Function of a String",
+    "difficulty": "Hard",
+    "topic": "Strings",
+    "companies": ["microsoft", "google", "amazon"],
+    "description": "Compute the Z-array of a string `s`. `z[i]` is the length of the longest substring starting at position `i` that is also a prefix of `s`. By convention `z[0] = 0`. Return the integer array.",
+    "examples": [
+      {"input": "s = \"aabxaayaab\"", "output": "[0, 1, 0, 0, 2, 1, 0, 3, 1, 0]"},
+      {"input": "s = \"aaaa\"", "output": "[0, 3, 2, 1]"}
+    ],
+    "constraints": ["1 <= s.length <= 10^5", "s is lowercase English"],
+    "hints": [
+      "Maintain a Z-box [l, r] — current rightmost-matching segment with the prefix.",
+      "Inside the box, reuse z[i-l] capped by r-i+1.",
+      "Outside, naive extend from i and update l, r."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function zFunction(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def z_function(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "zFunction",
+    "tests": [
+      {"args": ["aabxaayaab"], "expected": [0, 1, 0, 0, 2, 1, 0, 3, 1, 0], "label": "classic"},
+      {"args": ["aaaa"], "expected": [0, 3, 2, 1], "label": "all same"},
+      {"args": ["a"], "expected": [0], "label": "single char"},
+      {"args": ["abcd"], "expected": [0, 0, 0, 0], "label": "all distinct"},
+      {"args": ["abab"], "expected": [0, 0, 2, 0], "label": "even repeat"},
+      {"args": ["aabaabaaa"], "expected": [0, 1, 0, 5, 1, 0, 2, 1, 1], "label": "complex"}
+    ],
+    "editorial": "**Z-box technique**: Keep `[l, r]` = the rightmost interval that we already know is a prefix-match. For each `i`:\n  - If `i < r`: start with `z[i] = min(r - i, z[i - l])`.\n  - Then naively extend while characters match.\n  - If we extended past `r`, update `l = i, r = i + z[i]`.\n\n```javascript\nfunction zFunction(s) {\n  const n = s.length;\n  const z = new Array(n).fill(0);\n  let l = 0, r = 0;\n  for (let i = 1; i < n; i++) {\n    if (i < r) z[i] = Math.min(r - i, z[i - l]);\n    while (i + z[i] < n && s[z[i]] === s[i + z[i]]) z[i]++;\n    if (i + z[i] > r) { l = i; r = i + z[i]; }\n  }\n  return z;\n}\n```\n\n**Time**: O(n) amortized — each char-compare moves `r` forward at most n times. **Space**: O(n)."
+  },
+  {
+    "slug": "google-rabin-karp",
+    "number": 2811,
+    "title": "Rabin-Karp Substring Search",
+    "difficulty": "Hard",
+    "topic": "Strings",
+    "companies": ["google", "amazon", "facebook"],
+    "description": "Given `text` and `pattern`, return the index of the first occurrence of `pattern` in `text` using a Rabin-Karp rolling hash (with collision verification). Return `-1` if not found. If `pattern` is empty, return `0`. The grader accepts any correct answer — but the intended approach is the rolling-hash technique to handle large inputs in O(n + m) average time.",
+    "examples": [
+      {"input": "text = \"abracadabra\", pattern = \"cad\"", "output": "4"},
+      {"input": "text = \"hello world\", pattern = \"xyz\"", "output": "-1"}
+    ],
+    "constraints": ["1 <= text.length <= 10^5", "0 <= pattern.length <= 10^4", "Lowercase English + spaces"],
+    "hints": [
+      "Hash pattern; hash a sliding window of text of equal length.",
+      "Roll: subtract leading char's contribution, multiply by base, add new char.",
+      "On hash match, verify by string compare (collisions exist)."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function rabinKarp(text, pattern) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def rabin_karp(text, pattern):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "rabinKarp",
+    "tests": [
+      {"args": ["abracadabra", "cad"], "expected": 4, "label": "basic"},
+      {"args": ["hello world", "xyz"], "expected": -1, "label": "no match"},
+      {"args": ["abc", ""], "expected": 0, "label": "empty pattern"},
+      {"args": ["a", "a"], "expected": 0, "label": "single match"},
+      {"args": ["mississippi", "issi"], "expected": 1, "label": "overlap-friendly"},
+      {"args": ["aaaaa", "aaa"], "expected": 0, "label": "all same"},
+      {"args": ["the quick brown fox", "brown"], "expected": 10, "label": "phrase"}
+    ],
+    "editorial": "**Rolling hash idea**: Treat each char as a digit in base B (e.g., 257) modulo a big prime `M`. Hash of a window updates in O(1) when we slide one char.\n\n```javascript\nfunction rabinKarp(text, pattern) {\n  if (pattern === '') return 0;\n  const n = text.length, m = pattern.length;\n  if (m > n) return -1;\n  const B = 257, M = 1_000_000_007n;\n  let pHash = 0n, tHash = 0n, pow = 1n;\n  for (let i = 0; i < m; i++) {\n    pHash = (pHash * BigInt(B) + BigInt(pattern.charCodeAt(i))) % M;\n    tHash = (tHash * BigInt(B) + BigInt(text.charCodeAt(i))) % M;\n    if (i < m - 1) pow = (pow * BigInt(B)) % M;\n  }\n  for (let i = 0; i + m <= n; i++) {\n    if (pHash === tHash && text.slice(i, i + m) === pattern) return i;\n    if (i + m < n) {\n      tHash = (tHash - BigInt(text.charCodeAt(i)) * pow % M + M * M) % M;\n      tHash = (tHash * BigInt(B) + BigInt(text.charCodeAt(i + m))) % M;\n    }\n  }\n  return -1;\n}\n```\n\n**Time**: O(n + m) average; O(n*m) worst-case under collisions. **Space**: O(1)."
+  },
+  {
+    "slug": "amazon-roman-to-int",
+    "number": 2812,
+    "title": "Roman Numeral to Integer",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["amazon", "google", "microsoft"],
+    "description": "Given a Roman numeral string `s` (1 <= value <= 3999), return its integer value. Roman uses I=1, V=5, X=10, L=50, C=100, D=500, M=1000 with subtractive notation: IV=4, IX=9, XL=40, XC=90, CD=400, CM=900.",
+    "examples": [
+      {"input": "s = \"III\"", "output": "3"},
+      {"input": "s = \"MCMXCIV\"", "output": "1994", "explanation": "M=1000, CM=900, XC=90, IV=4."}
+    ],
+    "constraints": ["1 <= s.length <= 15", "s is a valid Roman numeral in [1, 3999]"],
+    "hints": [
+      "Walk left to right; if current digit < next digit, subtract; else add.",
+      "Lookup table for letter→value.",
+      "Subtractive pairs are exactly the six listed."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function romanToInt(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def roman_to_int(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "romanToInt",
+    "tests": [
+      {"args": ["III"], "expected": 3, "label": "basic"},
+      {"args": ["MCMXCIV"], "expected": 1994, "label": "subtractive heavy"},
+      {"args": ["I"], "expected": 1, "label": "single"},
+      {"args": ["LVIII"], "expected": 58, "label": "additive"},
+      {"args": ["MMMCMXCIX"], "expected": 3999, "label": "max"},
+      {"args": ["IV"], "expected": 4, "label": "tiny subtractive"}
+    ],
+    "editorial": "**Idea — subtract-when-smaller-precedes-larger**:\n\n```javascript\nfunction romanToInt(s) {\n  const v = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };\n  let total = 0;\n  for (let i = 0; i < s.length; i++) {\n    const cur = v[s[i]];\n    const nxt = i + 1 < s.length ? v[s[i + 1]] : 0;\n    total += cur < nxt ? -cur : cur;\n  }\n  return total;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\nWhy works: 'IV' contributes -1 then +5 = 4. 'IX' = -1 + 10 = 9. Plain 'VI' = 5 + 1 = 6 since V is not < I."
+  },
+  {
+    "slug": "amazon-int-to-roman",
+    "number": 2813,
+    "title": "Integer to Roman Numeral",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["amazon", "google", "microsoft"],
+    "description": "Given integer `num` (1 <= num <= 3999), return its Roman numeral representation. Use the subtractive forms IV, IX, XL, XC, CD, CM where applicable.",
+    "examples": [
+      {"input": "num = 3", "output": "\"III\""},
+      {"input": "num = 1994", "output": "\"MCMXCIV\""}
+    ],
+    "constraints": ["1 <= num <= 3999"],
+    "hints": [
+      "Greedy: list pairs (value, symbol) in descending order including subtractive ones.",
+      "Loop: subtract largest fitting value, append its symbol.",
+      "Repeat until num is 0."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function intToRoman(num) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def int_to_roman(num):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "intToRoman",
+    "tests": [
+      {"args": [3], "expected": "III", "label": "basic"},
+      {"args": [1994], "expected": "MCMXCIV", "label": "complex"},
+      {"args": [1], "expected": "I", "label": "min"},
+      {"args": [3999], "expected": "MMMCMXCIX", "label": "max"},
+      {"args": [58], "expected": "LVIII", "label": "additive"},
+      {"args": [40], "expected": "XL", "label": "subtractive 40"},
+      {"args": [900], "expected": "CM", "label": "subtractive 900"}
+    ],
+    "editorial": "**Greedy table**: Pre-build a value→symbol table descending, *including* the six subtractive cases.\n\n```javascript\nfunction intToRoman(num) {\n  const pairs = [\n    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],\n    [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'],\n    [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']\n  ];\n  let out = '';\n  for (const [v, sym] of pairs) {\n    while (num >= v) { out += sym; num -= v; }\n  }\n  return out;\n}\n```\n\n**Time**: O(1) — at most 13 iterations of the outer loop, bounded inner loop (≤ 3 each). **Space**: O(1).\n\nGreedy works because the pairs are chosen so no other combo produces a shorter or different valid Roman."
+  },
+  {
+    "slug": "facebook-multiply-strings",
+    "number": 2814,
+    "title": "Multiply Two Numeric Strings",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["facebook", "google", "amazon"],
+    "description": "Given two non-negative integers represented as strings `num1` and `num2`, return the product, also as a string. Do **not** convert the inputs to integers (they may exceed 64-bit). Implement long multiplication digit by digit.",
+    "examples": [
+      {"input": "num1 = \"2\", num2 = \"3\"", "output": "\"6\""},
+      {"input": "num1 = \"123\", num2 = \"456\"", "output": "\"56088\""}
+    ],
+    "constraints": ["1 <= num1.length, num2.length <= 200", "Both contain only digits", "No leading zeros except for the number 0 itself"],
+    "hints": [
+      "Result length is at most num1.length + num2.length.",
+      "Index i*j contributes to position i+j+1 (low) with carry to i+j.",
+      "Handle '0' * anything = '0' explicitly."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function multiplyStrings(num1, num2) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def multiply_strings(num1, num2):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "multiplyStrings",
+    "tests": [
+      {"args": ["2", "3"], "expected": "6", "label": "basic"},
+      {"args": ["123", "456"], "expected": "56088", "label": "three-digit"},
+      {"args": ["0", "9999"], "expected": "0", "label": "zero short circuit"},
+      {"args": ["1", "1"], "expected": "1", "label": "ones"},
+      {"args": ["999", "999"], "expected": "998001", "label": "near 1000"},
+      {"args": ["123456789", "987654321"], "expected": "121932631112635269", "label": "big"}
+    ],
+    "editorial": "**Long multiplication**: Result has at most `m + n` digits. Process from least-significant ends.\n\n```javascript\nfunction multiplyStrings(num1, num2) {\n  if (num1 === '0' || num2 === '0') return '0';\n  const m = num1.length, n = num2.length;\n  const out = new Array(m + n).fill(0);\n  for (let i = m - 1; i >= 0; i--) {\n    for (let j = n - 1; j >= 0; j--) {\n      const mul = (num1.charCodeAt(i) - 48) * (num2.charCodeAt(j) - 48);\n      const p1 = i + j, p2 = i + j + 1;\n      const sum = mul + out[p2];\n      out[p2] = sum % 10;\n      out[p1] += Math.floor(sum / 10);\n    }\n  }\n  let start = 0;\n  while (start < out.length - 1 && out[start] === 0) start++;\n  return out.slice(start).join('');\n}\n```\n\n**Time**: O(m*n). **Space**: O(m+n)."
+  },
+  {
+    "slug": "amazon-add-binary",
+    "number": 2815,
+    "title": "Add Binary Strings",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["amazon", "facebook", "microsoft"],
+    "description": "Given two binary strings `a` and `b` (each contains only `'0'` and `'1'`), return their sum as a binary string. Don't use built-in big-integer parsing — do digit-by-digit addition.",
+    "examples": [
+      {"input": "a = \"11\", b = \"1\"", "output": "\"100\""},
+      {"input": "a = \"1010\", b = \"1011\"", "output": "\"10101\""}
+    ],
+    "constraints": ["1 <= a.length, b.length <= 10^4", "a and b consist of '0' or '1' only", "No leading zeros except for the value 0"],
+    "hints": [
+      "Two pointers from end; track carry.",
+      "Sum at each step = a_bit + b_bit + carry.",
+      "Append bit (sum mod 2), carry = sum / 2; reverse at end."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function addBinary(a, b) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def add_binary(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "addBinary",
+    "tests": [
+      {"args": ["11", "1"], "expected": "100", "label": "carry overflow"},
+      {"args": ["1010", "1011"], "expected": "10101", "label": "longer"},
+      {"args": ["0", "0"], "expected": "0", "label": "zeros"},
+      {"args": ["1", "0"], "expected": "1", "label": "one and zero"},
+      {"args": ["111", "111"], "expected": "1110", "label": "all ones"},
+      {"args": ["100", "110010"], "expected": "110110", "label": "different lengths"}
+    ],
+    "editorial": "**Standard digit-by-digit add with carry**:\n\n```javascript\nfunction addBinary(a, b) {\n  let i = a.length - 1, j = b.length - 1, carry = 0;\n  const out = [];\n  while (i >= 0 || j >= 0 || carry) {\n    const x = i >= 0 ? a.charCodeAt(i--) - 48 : 0;\n    const y = j >= 0 ? b.charCodeAt(j--) - 48 : 0;\n    const sum = x + y + carry;\n    out.push(sum % 2);\n    carry = Math.floor(sum / 2);\n  }\n  return out.reverse().join('');\n}\n```\n\n**Time**: O(max(|a|, |b|)). **Space**: O(max(|a|, |b|)).\n\nNote: '0' + '0' should return '0' (not ''). The condition `|| carry` handles the carry-out case for things like '1' + '1' = '10'."
+  },
+  {
+    "slug": "microsoft-int-to-english-words",
+    "number": 2816,
+    "title": "Integer to English Words",
+    "difficulty": "Hard",
+    "topic": "Strings",
+    "companies": ["microsoft", "google", "facebook"],
+    "description": "Convert a non-negative integer `num` (0 <= num <= 2^31 - 1) to its English word representation. The expected format: capitalized words separated by single spaces, with thousand-grouping words (Thousand, Million, Billion). E.g., `1234567 → \"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven\"`. `0 → \"Zero\"`.",
+    "examples": [
+      {"input": "num = 123", "output": "\"One Hundred Twenty Three\""},
+      {"input": "num = 12345", "output": "\"Twelve Thousand Three Hundred Forty Five\""},
+      {"input": "num = 1234567", "output": "\"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven\""}
+    ],
+    "constraints": ["0 <= num <= 2^31 - 1"],
+    "hints": [
+      "Helper: convert any 0-999 chunk to words.",
+      "Process num in groups of 1000; attach Thousand/Million/Billion.",
+      "Special-case 0 at the very top."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function numberToWords(num) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def number_to_words(num):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "numberToWords",
+    "tests": [
+      {"args": [0], "expected": "Zero", "label": "zero"},
+      {"args": [123], "expected": "One Hundred Twenty Three", "label": "simple"},
+      {"args": [12345], "expected": "Twelve Thousand Three Hundred Forty Five", "label": "thousands"},
+      {"args": [1234567], "expected": "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven", "label": "millions"},
+      {"args": [1000000], "expected": "One Million", "label": "exact million"},
+      {"args": [20], "expected": "Twenty", "label": "tens"},
+      {"args": [100], "expected": "One Hundred", "label": "exact hundred"}
+    ],
+    "editorial": "**Decompose into 0–999 chunks**:\n\n```javascript\nfunction numberToWords(num) {\n  if (num === 0) return 'Zero';\n  const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',\n                'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen',\n                'Seventeen', 'Eighteen', 'Nineteen'];\n  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];\n  const scale = ['', 'Thousand', 'Million', 'Billion'];\n  const under1000 = (n) => {\n    if (n === 0) return '';\n    if (n < 20) return ones[n];\n    if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? ' ' + ones[n % 10] : '');\n    return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 ? ' ' + under1000(n % 100) : '');\n  };\n  let i = 0, out = '';\n  while (num > 0) {\n    const chunk = num % 1000;\n    if (chunk) {\n      const piece = under1000(chunk) + (scale[i] ? ' ' + scale[i] : '');\n      out = piece + (out ? ' ' + out : '');\n    }\n    num = Math.floor(num / 1000);\n    i++;\n  }\n  return out;\n}\n```\n\n**Time**: O(log num). **Space**: O(log num). Trickiest part is keeping spaces clean — avoid trailing/double spaces."
+  },
+  {
+    "slug": "google-valid-number",
+    "number": 2817,
+    "title": "Valid Number Parser (State Machine)",
+    "difficulty": "Hard",
+    "topic": "Strings",
+    "companies": ["google", "facebook", "lyft"],
+    "description": "Given a string `s`, decide whether it is a valid number. Allowed forms: optional leading `+`/`-`; an integer or decimal; optional exponent part `e` or `E` followed by an optional `+`/`-` and an integer. `'2'`, `'0089'`, `'-0.1'`, `'+3.14'`, `'4.'`, `'.9'`, `'-.9'`, `'2e10'`, `'+6e-1'`, `'53.5e93'` are all valid. `'abc'`, `'1a'`, `'e3'`, `'.'`, `''`, `'+-5'`, `'1e'`, `' '` are not. Return `true`/`false`.",
+    "examples": [
+      {"input": "s = \"0\"", "output": "true"},
+      {"input": "s = \"e\"", "output": "false"},
+      {"input": "s = \" 0.1 \"", "output": "false", "explanation": "No leading/trailing spaces allowed in this version."}
+    ],
+    "constraints": ["1 <= s.length <= 20", "s consists of printable ASCII (no spaces accepted as valid)"],
+    "hints": [
+      "Track flags: seenDigit, seenDot, seenExp, seenDigitAfterExp.",
+      "Sign allowed only at index 0 or right after e/E.",
+      "Dot disallowed after exp or after another dot.",
+      "End: must have seenDigit, and if seenExp then seenDigitAfterExp."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function isValidNumber(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def is_valid_number(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "isValidNumber",
+    "tests": [
+      {"args": ["0"], "expected": true, "label": "single digit"},
+      {"args": ["e"], "expected": false, "label": "lone e"},
+      {"args": ["-0.1"], "expected": true, "label": "neg decimal"},
+      {"args": ["+3.14"], "expected": true, "label": "pos decimal"},
+      {"args": [".9"], "expected": true, "label": "leading dot"},
+      {"args": ["4."], "expected": true, "label": "trailing dot"},
+      {"args": ["2e10"], "expected": true, "label": "exponent"},
+      {"args": ["1e"], "expected": false, "label": "exp no digit"},
+      {"args": ["abc"], "expected": false, "label": "letters"},
+      {"args": ["+-5"], "expected": false, "label": "double sign"},
+      {"args": ["53.5e93"], "expected": true, "label": "decimal exp"},
+      {"args": ["."], "expected": false, "label": "lone dot"}
+    ],
+    "editorial": "**Flag-tracking single-pass**: Walk left to right, maintaining four flags.\n\n```javascript\nfunction isValidNumber(s) {\n  let seenDigit = false, seenDot = false, seenExp = false, seenDigitAfterExp = true;\n  for (let i = 0; i < s.length; i++) {\n    const c = s[i];\n    if (c >= '0' && c <= '9') {\n      seenDigit = true;\n      if (seenExp) seenDigitAfterExp = true;\n    } else if (c === '+' || c === '-') {\n      if (i !== 0 && s[i-1] !== 'e' && s[i-1] !== 'E') return false;\n    } else if (c === '.') {\n      if (seenDot || seenExp) return false;\n      seenDot = true;\n    } else if (c === 'e' || c === 'E') {\n      if (seenExp || !seenDigit) return false;\n      seenExp = true;\n      seenDigitAfterExp = false;\n    } else {\n      return false;\n    }\n  }\n  return seenDigit && seenDigitAfterExp;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
+  },
+  {
+    "slug": "google-backspace-compare",
+    "number": 2818,
+    "title": "Backspace Editor String Compare",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["google", "amazon", "facebook"],
+    "description": "An editor records keystrokes where `'#'` means backspace (delete the previous char if any). Given two such typed sequences `s` and `t`, return `true` if they produce the same final text. Since this is a strings problem (not stack-only), implement with simple string building using a stack/array.",
+    "examples": [
+      {"input": "s = \"ab#c\", t = \"ad#c\"", "output": "true", "explanation": "Both become 'ac'."},
+      {"input": "s = \"a##c\", t = \"#a#c\"", "output": "true", "explanation": "Both become 'c'."},
+      {"input": "s = \"a#c\", t = \"b\"", "output": "false"}
+    ],
+    "constraints": ["1 <= s.length, t.length <= 200", "s and t are lowercase letters and '#'"],
+    "hints": [
+      "Process each string into a stack/array; on '#', pop; otherwise push.",
+      "Compare final arrays.",
+      "Edge: '#' on empty stack does nothing."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function backspaceCompare(s, t) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def backspace_compare(s, t):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "backspaceCompare",
+    "tests": [
+      {"args": ["ab#c", "ad#c"], "expected": true, "label": "basic"},
+      {"args": ["a##c", "#a#c"], "expected": true, "label": "extra backspaces"},
+      {"args": ["a#c", "b"], "expected": false, "label": "different result"},
+      {"args": ["#", "#"], "expected": true, "label": "both empty"},
+      {"args": ["a", "a"], "expected": true, "label": "single char same"},
+      {"args": ["abc#", "ab"], "expected": true, "label": "trailing backspace"},
+      {"args": ["abcd", "abce"], "expected": false, "label": "different last char"}
+    ],
+    "editorial": "**Build-then-compare**:\n\n```javascript\nfunction backspaceCompare(s, t) {\n  const build = (str) => {\n    const stk = [];\n    for (const c of str) {\n      if (c === '#') stk.pop();\n      else stk.push(c);\n    }\n    return stk.join('');\n  };\n  return build(s) === build(t);\n}\n```\n\n**Time**: O(|s| + |t|). **Space**: O(|s| + |t|).\n\n**Bonus O(1) space**: Walk both strings from the end; skip backspaced chars while counting how many to skip. Compare visible chars in lockstep. Covered in two-pointers; here string-build is acceptable per constraints."
+  },
+  {
+    "slug": "google-decode-string",
+    "number": 2819,
+    "title": "Decode Bracketed Repetition String",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["google", "facebook", "amazon"],
+    "description": "Decode a string of the form `k[encoded]` where the bracketed part is repeated `k` times. Encodings nest, e.g. `'3[a2[c]]'` decodes to `'accaccacc'`. Input is guaranteed valid: no extra brackets, `k` is a positive integer, and original characters are lowercase letters.",
+    "examples": [
+      {"input": "s = \"3[a]2[bc]\"", "output": "\"aaabcbc\""},
+      {"input": "s = \"3[a2[c]]\"", "output": "\"accaccacc\""},
+      {"input": "s = \"2[abc]3[cd]ef\"", "output": "\"abcabccdcdcdef\""}
+    ],
+    "constraints": ["1 <= s.length <= 30", "1 <= k <= 300", "s contains lowercase letters, digits, '[' and ']'"],
+    "hints": [
+      "Use two stacks: one for counts, one for partial strings.",
+      "On '[', push current count + current string and reset.",
+      "On ']', pop, repeat current string by popped count, append to popped string."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function decodeString(s) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def decode_string(s):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "decodeString",
+    "tests": [
+      {"args": ["3[a]2[bc]"], "expected": "aaabcbc", "label": "basic"},
+      {"args": ["3[a2[c]]"], "expected": "accaccacc", "label": "nested"},
+      {"args": ["2[abc]3[cd]ef"], "expected": "abcabccdcdcdef", "label": "multi"},
+      {"args": ["abc"], "expected": "abc", "label": "no brackets"},
+      {"args": ["10[a]"], "expected": "aaaaaaaaaa", "label": "two-digit count"},
+      {"args": ["1[a]"], "expected": "a", "label": "k=1"}
+    ],
+    "editorial": "**Two stacks (count + string)**:\n\n```javascript\nfunction decodeString(s) {\n  const countStk = [], strStk = [];\n  let cur = '', k = 0;\n  for (const c of s) {\n    if (c >= '0' && c <= '9') {\n      k = k * 10 + (c.charCodeAt(0) - 48);\n    } else if (c === '[') {\n      countStk.push(k);\n      strStk.push(cur);\n      k = 0;\n      cur = '';\n    } else if (c === ']') {\n      const cnt = countStk.pop();\n      const prev = strStk.pop();\n      cur = prev + cur.repeat(cnt);\n    } else {\n      cur += c;\n    }\n  }\n  return cur;\n}\n```\n\n**Time**: O(maxK^depth * n). **Space**: O(depth). Multi-digit k is handled by `k = k*10 + d` accumulation."
+  },
+  {
+    "slug": "facebook-count-and-say",
+    "number": 2820,
+    "title": "Count and Say Sequence",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["facebook", "google", "amazon"],
+    "description": "The count-and-say sequence: `S(1) = '1'`, and `S(n)` is generated by reading `S(n-1)` aloud — counting consecutive same digits and saying the count followed by the digit. E.g., `S(2) = '11'` ('one 1'), `S(3) = '21'` ('two 1s'), `S(4) = '1211'`, `S(5) = '111221'`. Given `n`, return `S(n)`.",
+    "examples": [
+      {"input": "n = 1", "output": "\"1\""},
+      {"input": "n = 4", "output": "\"1211\""},
+      {"input": "n = 5", "output": "\"111221\""}
+    ],
+    "constraints": ["1 <= n <= 30"],
+    "hints": [
+      "Build from S(1) iteratively up to S(n).",
+      "Helper: read off a string into count+digit pairs.",
+      "Output grows roughly by factor 1.3 per step."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function countAndSay(n) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def count_and_say(n):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "countAndSay",
+    "tests": [
+      {"args": [1], "expected": "1", "label": "base"},
+      {"args": [2], "expected": "11", "label": "step 2"},
+      {"args": [3], "expected": "21", "label": "step 3"},
+      {"args": [4], "expected": "1211", "label": "step 4"},
+      {"args": [5], "expected": "111221", "label": "step 5"},
+      {"args": [6], "expected": "312211", "label": "step 6"},
+      {"args": [7], "expected": "13112221", "label": "step 7"}
+    ],
+    "editorial": "**Iterative reading**:\n\n```javascript\nfunction countAndSay(n) {\n  let s = '1';\n  for (let i = 2; i <= n; i++) {\n    let next = '';\n    let j = 0;\n    while (j < s.length) {\n      let k = j;\n      while (k < s.length && s[k] === s[j]) k++;\n      next += (k - j) + s[j];\n      j = k;\n    }\n    s = next;\n  }\n  return s;\n}\n```\n\n**Time**: O(n * L) where L = length of S(n) (grows ~1.3^n). **Space**: O(L)."
+  },
+  {
+    "slug": "linkedin-simplify-path",
+    "number": 2821,
+    "title": "Simplify Unix File Path",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["linkedin", "facebook", "amazon"],
+    "description": "Given an absolute Unix path string, return its canonical (simplified) form. Rules: `'.'` is current dir, `'..'` is parent, multiple slashes collapse to one, the result starts with a single `'/'` and (unless it's just `'/'`) does not end with one. Names other than `.` and `..` are kept as-is.",
+    "examples": [
+      {"input": "path = \"/home/\"", "output": "\"/home\""},
+      {"input": "path = \"/a/./b/../../c/\"", "output": "\"/c\""},
+      {"input": "path = \"/../\"", "output": "\"/\""},
+      {"input": "path = \"/home//foo/\"", "output": "\"/home/foo\""}
+    ],
+    "constraints": ["1 <= path.length <= 3000", "path begins with '/'", "path consists of English letters, digits, '.', '/', '_'"],
+    "hints": [
+      "Split on '/'.",
+      "Use a stack: push real names, pop on '..', skip '.' and ''.",
+      "Join with '/' and prepend '/'."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function simplifyPath(path) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def simplify_path(path):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "simplifyPath",
+    "tests": [
+      {"args": ["/home/"], "expected": "/home", "label": "trailing slash"},
+      {"args": ["/a/./b/../../c/"], "expected": "/c", "label": "complex"},
+      {"args": ["/../"], "expected": "/", "label": "parent of root"},
+      {"args": ["/home//foo/"], "expected": "/home/foo", "label": "double slash"},
+      {"args": ["/"], "expected": "/", "label": "root only"},
+      {"args": ["/a/b/c"], "expected": "/a/b/c", "label": "already simple"},
+      {"args": ["/..hidden/./visible"], "expected": "/..hidden/visible", "label": "double-dot prefix not parent"}
+    ],
+    "editorial": "**Split + stack**:\n\n```javascript\nfunction simplifyPath(path) {\n  const stk = [];\n  for (const part of path.split('/')) {\n    if (part === '' || part === '.') continue;\n    if (part === '..') stk.pop();\n    else stk.push(part);\n  }\n  return '/' + stk.join('/');\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\nKey nuance: `'..hidden'` is a real folder name (not `..`), so we only treat the exact `'..'` token as parent."
+  },
+  {
+    "slug": "google-camelcase-abbrev-match",
+    "number": 2822,
+    "title": "Camel Case Abbreviation Match",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["google", "facebook", "uber"],
+    "description": "An IDE matches each query against a list of camel-case identifiers. The query may contain only uppercase letters that must appear (in order) as the uppercase letters of the candidate; lowercase letters in the query, if any, must also appear in order interspersed appropriately. For this simplified version: query consists of uppercase letters only, and a candidate matches iff the query is exactly the subsequence formed by all uppercase letters of the candidate. Given `queries` and a single `pattern` (uppercase-only), return a boolean array indicating which queries match.",
+    "examples": [
+      {"input": "queries = [\"FooBar\", \"FooBarTest\", \"FootBall\", \"FrameBuffer\", \"ForceFeedBack\"], pattern = \"FB\"", "output": "[true, false, true, true, false]"},
+      {"input": "queries = [\"FooBar\"], pattern = \"FoBa\"", "output": "[false]", "explanation": "Pattern is uppercase-only in this variant; FoBa contains lowercase, treated as no-match here."}
+    ],
+    "constraints": ["1 <= queries.length <= 100", "1 <= queries[i].length, pattern.length <= 100", "queries[i] is alphabetic; pattern is uppercase letters only or rejected"],
+    "hints": [
+      "Strip uppercase letters from each query in order; equal to pattern → match.",
+      "If pattern contains lowercase, return all false (per simplified spec).",
+      "Linear scan per query."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function camelMatch(queries, pattern) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def camel_match(queries, pattern):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "camelMatch",
+    "tests": [
+      {"args": [["FooBar", "FooBarTest", "FootBall", "FrameBuffer", "ForceFeedBack"], "FB"], "expected": [true, false, true, true, false], "label": "classic"},
+      {"args": [["FooBar"], "FoBa"], "expected": [false], "label": "lowercase rejects all"},
+      {"args": [["A"], "A"], "expected": [true], "label": "single match"},
+      {"args": [["abc"], "A"], "expected": [false], "label": "no uppercase in query"},
+      {"args": [["AbC"], "AC"], "expected": [true], "label": "two uppercase"},
+      {"args": [[""], ""], "expected": [true], "label": "both empty"}
+    ],
+    "editorial": "**Idea — extract uppercase signature**:\n\n```javascript\nfunction camelMatch(queries, pattern) {\n  // simplified spec: pattern must be uppercase-only\n  for (const c of pattern) if (c < 'A' || c > 'Z') return queries.map(_ => false);\n  return queries.map(q => {\n    let upper = '';\n    for (const c of q) if (c >= 'A' && c <= 'Z') upper += c;\n    return upper === pattern;\n  });\n}\n```\n\n**Time**: O(N * L). **Space**: O(L). 'FootBall' uppercase signature 'FB' matches; 'FooBarTest' has 'FBT' which doesn't equal 'FB'."
+  },
+  {
+    "slug": "razorpay-merchant-id-validator",
+    "number": 2823,
+    "title": "Razorpay Merchant ID Validator",
+    "difficulty": "Easy",
+    "topic": "Strings",
+    "companies": ["razorpay", "paytm", "phonepe"],
+    "description": "Razorpay merchant IDs follow this format: prefix `'rzp_'`, then `'live_'` or `'test_'`, then exactly 14 alphanumeric characters (case-sensitive, `[A-Za-z0-9]`). Given a string `id`, return `true` if it matches the format, `false` otherwise. Do **not** use regex — implement the check explicitly with character/length comparisons.",
+    "examples": [
+      {"input": "id = \"rzp_live_AbCd1234EfGh56\"", "output": "true"},
+      {"input": "id = \"rzp_test_XyZ987abcDEFgh\"", "output": "true"},
+      {"input": "id = \"rzp_demo_AbCd1234EfGh56\"", "output": "false", "explanation": "Mode must be 'live' or 'test'."},
+      {"input": "id = \"rzp_live_short\"", "output": "false", "explanation": "Suffix must be exactly 14 chars."}
+    ],
+    "constraints": ["1 <= id.length <= 100", "id consists of printable ASCII"],
+    "hints": [
+      "Check length first: 4 (rzp_) + 5 (live_/test_) + 14 = 23.",
+      "Verify prefix and mode segment.",
+      "Loop the 14 suffix chars; each must be alphanumeric."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function isValidMerchantId(id) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def is_valid_merchant_id(id):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "isValidMerchantId",
+    "tests": [
+      {"args": ["rzp_live_AbCd1234EfGh56"], "expected": true, "label": "valid live"},
+      {"args": ["rzp_test_XyZ987abcDEFgh"], "expected": true, "label": "valid test"},
+      {"args": ["rzp_demo_AbCd1234EfGh56"], "expected": false, "label": "wrong mode"},
+      {"args": ["rzp_live_short"], "expected": false, "label": "too short"},
+      {"args": ["rzp_live_AbCd1234EfGh5!"], "expected": false, "label": "non-alnum"},
+      {"args": [""], "expected": false, "label": "empty"},
+      {"args": ["RZP_live_AbCd1234EfGh56"], "expected": false, "label": "wrong case prefix"}
+    ],
+    "editorial": "**Step-by-step explicit check**:\n\n```javascript\nfunction isValidMerchantId(id) {\n  if (id.length !== 23) return false;\n  if (id.slice(0, 4) !== 'rzp_') return false;\n  const mode = id.slice(4, 9);\n  if (mode !== 'live_' && mode !== 'test_') return false;\n  for (let i = 9; i < 23; i++) {\n    const c = id[i];\n    const ok = (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');\n    if (!ok) return false;\n  }\n  return true;\n}\n```\n\n**Time**: O(1) (bounded by length 23). **Space**: O(1).\n\nNo regex — straight char-class checks. Useful in production where regex compile is overhead and the format is fixed."
+  },
+  {
+    "slug": "indian-phone-pan-validator",
+    "number": 2824,
+    "title": "Indian Phone & PAN Pattern Matchers",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["paytm", "razorpay", "phonepe"],
+    "description": "A KYC service validates two formats and returns a tuple-like array `[phoneOk, panOk]`.\n\n- **Indian phone** (`phone`): exactly 10 digits, first digit in `{6, 7, 8, 9}`. Optionally prefixed with `'+91'` or `'91'` (no spaces). Examples: `'9876543210'`, `'+919876543210'`, `'919876543210'`.\n- **PAN card** (`pan`): exactly 10 chars, format `[A-Z]{5}[0-9]{4}[A-Z]{1}`. Example: `'ABCDE1234F'`.\n\nReturn `[isValidPhone(phone), isValidPan(pan)]`. Implement the checks explicitly (no regex).",
+    "examples": [
+      {"input": "phone = \"9876543210\", pan = \"ABCDE1234F\"", "output": "[true, true]"},
+      {"input": "phone = \"+919876543210\", pan = \"ABCDE1234f\"", "output": "[true, false]", "explanation": "PAN last char must be uppercase."},
+      {"input": "phone = \"5876543210\", pan = \"ABCDE1234F\"", "output": "[false, true]", "explanation": "Phone must start 6/7/8/9."}
+    ],
+    "constraints": ["0 <= phone.length, pan.length <= 20"],
+    "hints": [
+      "Phone: strip optional '+91' or '91' prefix; remaining must be 10 digits with leading 6/7/8/9.",
+      "PAN: length 10; positions 0-4 uppercase letters, 5-8 digits, 9 uppercase letter.",
+      "Return [phoneOk, panOk]."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function validateKyc(phone, pan) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def validate_kyc(phone, pan):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "validateKyc",
+    "tests": [
+      {"args": ["9876543210", "ABCDE1234F"], "expected": [true, true], "label": "both valid"},
+      {"args": ["+919876543210", "ABCDE1234f"], "expected": [true, false], "label": "pan lower last"},
+      {"args": ["5876543210", "ABCDE1234F"], "expected": [false, true], "label": "phone starts 5"},
+      {"args": ["919876543210", "AAAAA0000A"], "expected": [true, true], "label": "phone with 91 prefix"},
+      {"args": ["", ""], "expected": [false, false], "label": "both empty"},
+      {"args": ["98765432a0", "ABCDE12345"], "expected": [false, false], "label": "phone non-digit, pan no last letter"},
+      {"args": ["98765", "ABCDE1234FX"], "expected": [false, false], "label": "phone short, pan long"}
+    ],
+    "editorial": "**Two helpers**:\n\n```javascript\nfunction validateKyc(phone, pan) {\n  const isDigit = c => c >= '0' && c <= '9';\n  const isUpper = c => c >= 'A' && c <= 'Z';\n  const phoneOk = (p) => {\n    if (p.startsWith('+91')) p = p.slice(3);\n    else if (p.startsWith('91') && p.length === 12) p = p.slice(2);\n    if (p.length !== 10) return false;\n    if (!'6789'.includes(p[0])) return false;\n    for (const c of p) if (!isDigit(c)) return false;\n    return true;\n  };\n  const panOk = (s) => {\n    if (s.length !== 10) return false;\n    for (let i = 0; i < 5; i++) if (!isUpper(s[i])) return false;\n    for (let i = 5; i < 9; i++) if (!isDigit(s[i])) return false;\n    return isUpper(s[9]);\n  };\n  return [phoneOk(phone), panOk(pan)];\n}\n```\n\n**Time**: O(1). **Space**: O(1)."
+  },
+  {
+    "slug": "bookmyshow-seat-code-parser",
+    "number": 2825,
+    "title": "BookMyShow Seat Code Parser",
+    "difficulty": "Medium",
+    "topic": "Strings",
+    "companies": ["bookmyshow", "paytm", "swiggy"],
+    "description": "BookMyShow seat codes follow the format `<row><number>` where `<row>` is 1-2 uppercase letters (`'A'..'Z'` or `'AA'..'ZZ'`) and `<number>` is an integer in `[1, 99]` with no leading zero. Given an array `codes`, return an object/dict with two fields:\n  - `valid`: number of codes that match the format.\n  - `maxRowSeen`: lexicographically greatest valid row prefix encountered (or empty string if none).\n\nReturn the result as `[valid, maxRowSeen]` to keep the JSON test format simple. Implement parsing with explicit char checks (no regex).",
+    "examples": [
+      {"input": "codes = [\"A1\", \"B12\", \"AA5\", \"C99\"]", "output": "[4, \"C\"]", "explanation": "All valid; row prefixes 'A','B','AA','C'; max is 'C' (since 'C' > 'B' > 'AA' > 'A')."},
+      {"input": "codes = [\"A0\", \"AAA1\", \"a1\", \"B5\"]", "output": "[1, \"B\"]", "explanation": "Only 'B5' valid."}
+    ],
+    "constraints": ["0 <= codes.length <= 1000", "1 <= codes[i].length <= 6"],
+    "hints": [
+      "Walk each code: collect leading uppercase letters (1 or 2), then digits (1 or 2).",
+      "Number must be in [1, 99] and have no leading zero.",
+      "Track validCount and lex max of row strings."
+    ],
+    "starterCode": [
+      {"language": "javascript", "code": "function parseSeatCodes(codes) {\n  // tu yahan apna solution likh\n}\n"},
+      {"language": "python", "code": "def parse_seat_codes(codes):\n    # tu yahan apna solution likh\n    pass\n"}
+    ],
+    "fnName": "parseSeatCodes",
+    "tests": [
+      {"args": [["A1", "B12", "AA5", "C99"]], "expected": [4, "C"], "label": "all valid"},
+      {"args": [["A0", "AAA1", "a1", "B5"]], "expected": [1, "B"], "label": "mostly invalid"},
+      {"args": [[]], "expected": [0, ""], "label": "empty list"},
+      {"args": [["Z99"]], "expected": [1, "Z"], "label": "max single letter"},
+      {"args": [["ZZ99"]], "expected": [1, "ZZ"], "label": "double letter"},
+      {"args": [["A100", "B0", "C1"]], "expected": [1, "C"], "label": "boundary numbers"},
+      {"args": [["1A", " A1", "A 1"]], "expected": [0, ""], "label": "leading non-letter / space"}
+    ],
+    "editorial": "**Hand-rolled parser**:\n\n```javascript\nfunction parseSeatCodes(codes) {\n  const isUpper = c => c >= 'A' && c <= 'Z';\n  const isDigit = c => c >= '0' && c <= '9';\n  let valid = 0;\n  let maxRow = '';\n  for (const code of codes) {\n    let i = 0;\n    while (i < code.length && i < 2 && isUpper(code[i])) i++;\n    if (i === 0) continue; // need at least 1 letter\n    const row = code.slice(0, i);\n    let j = i;\n    while (j < code.length && isDigit(code[j])) j++;\n    if (j === i || j !== code.length) continue; // need digits, nothing else after\n    const numStr = code.slice(i, j);\n    if (numStr.length > 2) continue;\n    if (numStr.length > 1 && numStr[0] === '0') continue; // leading zero\n    const n = parseInt(numStr, 10);\n    if (n < 1 || n > 99) continue;\n    valid++;\n    if (row > maxRow) maxRow = row;\n  }\n  return [valid, maxRow];\n}\n```\n\n**Time**: O(N * L). **Space**: O(1).\n\nLex compare of strings in JS uses code-point order, so `'C' > 'B'` is true and `'AA' < 'B'` because 'A' < 'B' at index 0."
+  }
+]
