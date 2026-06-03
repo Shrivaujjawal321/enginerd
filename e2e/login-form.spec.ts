@@ -39,7 +39,9 @@ test("channel switcher toggles between phone and email", async ({ page }) => {
   await page.getByRole("tab", { name: /^Email$/ }).click();
 
   // Email field accepts an email-format placeholder.
-  await expect(page.getByLabel(/Email/i)).toBeVisible();
+  // Scope to the textbox role so the footer's "Email …" mailto link
+  // (a <a>, not an input) can't satisfy the loose /Email/i label match.
+  await expect(page.getByRole("textbox", { name: /Email/i })).toBeVisible();
   // +91 prefix is gone (we're on email channel now).
   await expect(page.getByText("+91", { exact: true })).not.toBeVisible();
 });

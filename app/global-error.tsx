@@ -64,6 +64,10 @@ export default function GlobalError({
             </code>
           ) : null}
           <div style={{ marginTop: 24 }}>
+            {/* global-error replaces the root layout on a render crash. A hard
+                navigation (plain <a>, full reload) is the intended recovery —
+                next/link client nav can't reliably remount a broken tree. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/"
               style={{

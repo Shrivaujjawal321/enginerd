@@ -128,7 +128,7 @@ async function validateFile(file: string): Promise<FileReport> {
       try {
         // Deep-clone args in case the solution mutates them (in-place sort etc.)
         const argsCopy = JSON.parse(JSON.stringify(t.args));
-        const actual = fn.apply(null, argsCopy);
+        const actual = fn(...argsCopy);
         if (!deepEqual(actual, t.expected)) {
           console.warn(
             `[validate]  ${p.slug} test#${i} (${t.label ?? "unnamed"}) FAIL — expected ${JSON.stringify(

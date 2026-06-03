@@ -6,7 +6,7 @@
  * data hydrates from DB on first access in a fresh process.
  */
 
-import { eq, desc } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 
 import type {
   Roadmap,
