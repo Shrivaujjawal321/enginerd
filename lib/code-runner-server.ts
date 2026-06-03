@@ -488,13 +488,24 @@ export async function runOnPiston(args: {
     });
   } catch (err) {
     clearTimeout(timer);
+    const errMsg = err instanceof Error ? err.message : String(err);
     logger.error("piston.fetch.failed", {
       language: args.language,
-      err: err instanceof Error ? err.message : String(err),
+      err: errMsg,
     });
+    // Distinguish "configured a self-host URL but nothing's listening" from a
+    // generic outage — that's by far the most common dev failure mode.
+    const isLocal = /localhost|127\.0\.0\.1|0\.0\.0\.0/.test(env.PISTON_URL);
+    if (isLocal) {
+      return {
+        kind: "runner-error",
+        message: `Self-hosted Piston isn't running at ${env.PISTON_URL}. Start it: \`docker run -d --name piston -p 2000:2000 ghcr.io/engineer-man/piston\`, then install the language: \`curl -X POST http://localhost:2000/api/v2/packages -H "Content-Type: application/json" -d '{"language":"${args.language}","version":"*"}'\`.`,
+      };
+    }
     return {
       kind: "runner-error",
-      message: "Code runner is unreachable. Try again in a moment.",
+      message:
+        "Code runner is unreachable. Try again in a moment, or self-host Piston (see .env.example).",
     };
   }
   clearTimeout(timer);
@@ -505,6 +516,16 @@ export async function runOnPiston(args: {
       status: res.status,
       body: text.slice(0, 200),
     });
+    // The public Piston API at emkc.org went whitelist-only on 2026-02-15
+    // and rejects unauthenticated calls with HTTP 401. Surface that as an
+    // actionable message instead of a bare status code.
+    if (res.status === 401 && /piston/i.test(text)) {
+      return {
+        kind: "runner-error",
+        message:
+          "Server-side runner unavailable: the public Piston API became whitelist-only on 2026-02-15. Self-host: `docker run -d -p 2000:2000 ghcr.io/engineer-man/piston`, then set PISTON_URL=http://localhost:2000/api/v2 in .env.local. JavaScript still runs locally in your browser.",
+      };
+    }
     return {
       kind: "runner-error",
       message: `Runner returned HTTP ${res.status}.`,
@@ -573,7 +594,7 @@ export async function runOnPiston(args: {
         } else {
           actual = parsed;
         }
-      } catch (err) {
+      } catch {
         error = `non-JSON output: ${raw.slice(0, 100)}`;
       }
     }

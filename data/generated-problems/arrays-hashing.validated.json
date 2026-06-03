@@ -34,27 +34,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function hasDuplicatePayment(ids) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function hasDuplicatePayment(ids) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def has_duplicate_payment(ids):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def has_duplicate_payment(ids):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object hasDuplicatePayment(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object hasDuplicatePayment(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson hasDuplicatePayment(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson hasDuplicatePayment(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function hasDuplicatePayment(ids): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function hasDuplicatePayment(ids): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc hasDuplicatePayment(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc hasDuplicatePayment(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "hasDuplicatePayment",
@@ -165,27 +165,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function findOrderPair(prices, target) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function findOrderPair(prices, target) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def find_order_pair(prices, target):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def find_order_pair(prices, target):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findOrderPair(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object findOrderPair(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findOrderPair(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson findOrderPair(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function findOrderPair(prices, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function findOrderPair(prices, target): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findOrderPair(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc findOrderPair(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "findOrderPair",
@@ -308,27 +308,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function findMissingSku(skus) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function findMissingSku(skus) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def find_missing_sku(skus):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def find_missing_sku(skus):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object findMissingSku(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object findMissingSku(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson findMissingSku(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson findMissingSku(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function findMissingSku(skus): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function findMissingSku(skus): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc findMissingSku(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc findMissingSku(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "findMissingSku",
@@ -438,27 +438,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function groupRestaurantAnagrams(names) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function groupRestaurantAnagrams(names) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def group_restaurant_anagrams(names):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def group_restaurant_anagrams(names):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object groupRestaurantAnagrams(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object groupRestaurantAnagrams(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson groupRestaurantAnagrams(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson groupRestaurantAnagrams(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function groupRestaurantAnagrams(names): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function groupRestaurantAnagrams(names): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc groupRestaurantAnagrams(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc groupRestaurantAnagrams(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "groupRestaurantAnagrams",
@@ -591,27 +591,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function mostFrequentAmount(amounts) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function mostFrequentAmount(amounts) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def most_frequent_amount(amounts):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def most_frequent_amount(amounts):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object mostFrequentAmount(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object mostFrequentAmount(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson mostFrequentAmount(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson mostFrequentAmount(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function mostFrequentAmount(amounts): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function mostFrequentAmount(amounts): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc mostFrequentAmount(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc mostFrequentAmount(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "mostFrequentAmount",
@@ -716,27 +716,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function topKMerchants(merchants, k) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function topKMerchants(merchants, k) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def top_k_merchants(merchants, k):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def top_k_merchants(merchants, k):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object topKMerchants(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object topKMerchants(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson topKMerchants(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson topKMerchants(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function topKMerchants(merchants, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function topKMerchants(merchants, k): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc topKMerchants(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc topKMerchants(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "topKMerchants",
@@ -863,27 +863,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function commonInventory(wA, wB) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function commonInventory(wA, wB) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def common_inventory(w_a, w_b):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def common_inventory(w_a, w_b):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object commonInventory(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object commonInventory(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson commonInventory(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson commonInventory(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function commonInventory(wA, wB): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function commonInventory(wA, wB): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc commonInventory(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc commonInventory(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "commonInventory",
@@ -1012,27 +1012,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function countSubarraysWithSum(settlements, target) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function countSubarraysWithSum(settlements, target) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def count_subarrays_with_sum(settlements, target):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def count_subarrays_with_sum(settlements, target):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countSubarraysWithSum(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object countSubarraysWithSum(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countSubarraysWithSum(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson countSubarraysWithSum(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function countSubarraysWithSum(settlements, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function countSubarraysWithSum(settlements, target): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countSubarraysWithSum(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countSubarraysWithSum(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "countSubarraysWithSum",
@@ -1150,27 +1150,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function equilibriumIndex(deliveries) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function equilibriumIndex(deliveries) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def equilibrium_index(deliveries):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def equilibrium_index(deliveries):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object equilibriumIndex(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object equilibriumIndex(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson equilibriumIndex(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson equilibriumIndex(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function equilibriumIndex(deliveries): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function equilibriumIndex(deliveries): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc equilibriumIndex(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc equilibriumIndex(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "equilibriumIndex",
@@ -1283,27 +1283,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function isPermutation(currentStock, targetStock) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function isPermutation(currentStock, targetStock) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def is_permutation(current_stock, target_stock):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def is_permutation(current_stock, target_stock):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object isPermutation(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object isPermutation(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson isPermutation(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson isPermutation(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function isPermutation(currentStock, targetStock): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function isPermutation(currentStock, targetStock): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc isPermutation(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc isPermutation(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "isPermutation",
@@ -1430,27 +1430,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function longestConsecutiveStreak(levels) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function longestConsecutiveStreak(levels) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def longest_consecutive_streak(levels):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def longest_consecutive_streak(levels):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object longestConsecutiveStreak(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object longestConsecutiveStreak(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson longestConsecutiveStreak(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson longestConsecutiveStreak(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function longestConsecutiveStreak(levels): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function longestConsecutiveStreak(levels): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc longestConsecutiveStreak(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc longestConsecutiveStreak(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "longestConsecutiveStreak",
@@ -1568,27 +1568,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function countDiffPairs(prices, d) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function countDiffPairs(prices, d) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def count_diff_pairs(prices, d):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def count_diff_pairs(prices, d):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countDiffPairs(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object countDiffPairs(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countDiffPairs(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson countDiffPairs(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function countDiffPairs(prices, d): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function countDiffPairs(prices, d): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countDiffPairs(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countDiffPairs(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "countDiffPairs",
@@ -1706,27 +1706,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function sparseMatrixEqual(A, B) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function sparseMatrixEqual(A, B) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def sparse_matrix_equal(A, B):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def sparse_matrix_equal(A, B):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object sparseMatrixEqual(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object sparseMatrixEqual(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson sparseMatrixEqual(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson sparseMatrixEqual(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function sparseMatrixEqual(A, B): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function sparseMatrixEqual(A, B): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc sparseMatrixEqual(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc sparseMatrixEqual(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "sparseMatrixEqual",
@@ -1912,27 +1912,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function rollingUniqueCounts(stream, k) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function rollingUniqueCounts(stream, k) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def rolling_unique_counts(stream, k):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def rolling_unique_counts(stream, k):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object rollingUniqueCounts(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object rollingUniqueCounts(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson rollingUniqueCounts(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson rollingUniqueCounts(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function rollingUniqueCounts(stream, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function rollingUniqueCounts(stream, k): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc rollingUniqueCounts(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc rollingUniqueCounts(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "rollingUniqueCounts",
@@ -2075,27 +2075,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function busiestFareBucket(fares, w) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function busiestFareBucket(fares, w) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def busiest_fare_bucket(fares, w):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def busiest_fare_bucket(fares, w):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object busiestFareBucket(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object busiestFareBucket(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson busiestFareBucket(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson busiestFareBucket(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function busiestFareBucket(fares, w): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function busiestFareBucket(fares, w): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc busiestFareBucket(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc busiestFareBucket(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "busiestFareBucket",
@@ -2213,27 +2213,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function areIsomorphic(a, b) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function areIsomorphic(a, b) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def are_isomorphic(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def are_isomorphic(a, b):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object areIsomorphic(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object areIsomorphic(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson areIsomorphic(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson areIsomorphic(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function areIsomorphic(a, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function areIsomorphic(a, b): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc areIsomorphic(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc areIsomorphic(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "areIsomorphic",
@@ -2324,27 +2324,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function longestZeroSumSpan(flow) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function longestZeroSumSpan(flow) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def longest_zero_sum_span(flow):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def longest_zero_sum_span(flow):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object longestZeroSumSpan(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object longestZeroSumSpan(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson longestZeroSumSpan(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson longestZeroSumSpan(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function longestZeroSumSpan(flow): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function longestZeroSumSpan(flow): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc longestZeroSumSpan(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc longestZeroSumSpan(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "longestZeroSumSpan",
@@ -2456,27 +2456,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function largestZeroSumSubmatrixArea(grid) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function largestZeroSumSubmatrixArea(grid) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def largest_zero_sum_submatrix_area(grid):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def largest_zero_sum_submatrix_area(grid):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object largestZeroSumSubmatrixArea(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object largestZeroSumSubmatrixArea(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson largestZeroSumSubmatrixArea(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson largestZeroSumSubmatrixArea(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function largestZeroSumSubmatrixArea(grid): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function largestZeroSumSubmatrixArea(grid): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc largestZeroSumSubmatrixArea(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc largestZeroSumSubmatrixArea(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "largestZeroSumSubmatrixArea",
@@ -2608,27 +2608,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function countAnagramWindows(s, p) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function countAnagramWindows(s, p) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def count_anagram_windows(s, p):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def count_anagram_windows(s, p):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countAnagramWindows(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object countAnagramWindows(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countAnagramWindows(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson countAnagramWindows(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function countAnagramWindows(s, p): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function countAnagramWindows(s, p): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countAnagramWindows(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countAnagramWindows(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "countAnagramWindows",
@@ -2719,27 +2719,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function minComboWindow(cart, combo) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function minComboWindow(cart, combo) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def min_combo_window(cart, combo):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def min_combo_window(cart, combo):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object minComboWindow(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object minComboWindow(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson minComboWindow(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson minComboWindow(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function minComboWindow(cart, combo): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function minComboWindow(cart, combo): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc minComboWindow(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc minComboWindow(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "minComboWindow",
@@ -2832,27 +2832,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function countDistinctPairsBelowK(nums, k) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function countDistinctPairsBelowK(nums, k) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def count_distinct_pairs_below_k(nums, k):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def count_distinct_pairs_below_k(nums, k):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object countDistinctPairsBelowK(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object countDistinctPairsBelowK(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson countDistinctPairsBelowK(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson countDistinctPairsBelowK(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function countDistinctPairsBelowK(nums, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function countDistinctPairsBelowK(nums, k): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc countDistinctPairsBelowK(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countDistinctPairsBelowK(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "countDistinctPairsBelowK",
@@ -2967,27 +2967,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function frequencySortStable(nums) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function frequencySortStable(nums) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def frequency_sort_stable(nums):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def frequency_sort_stable(nums):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object frequencySortStable(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object frequencySortStable(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson frequencySortStable(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson frequencySortStable(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function frequencySortStable(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function frequencySortStable(nums): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc frequencySortStable(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc frequencySortStable(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "frequencySortStable",
@@ -3142,27 +3142,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function groupSettlements(records) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function groupSettlements(records) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def group_settlements(records):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def group_settlements(records):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object groupSettlements(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object groupSettlements(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson groupSettlements(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson groupSettlements(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function groupSettlements(records): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function groupSettlements(records): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc groupSettlements(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc groupSettlements(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "groupSettlements",
@@ -3324,27 +3324,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function longestEqualBinarySpan(log) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function longestEqualBinarySpan(log) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def longest_equal_binary_span(log):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def longest_equal_binary_span(log):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object longestEqualBinarySpan(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object longestEqualBinarySpan(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson longestEqualBinarySpan(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson longestEqualBinarySpan(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function longestEqualBinarySpan(log): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function longestEqualBinarySpan(log): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc longestEqualBinarySpan(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc longestEqualBinarySpan(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "longestEqualBinarySpan",
@@ -3458,27 +3458,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "function shortestKDistinct(s, k) {\n  // tu yahan apna solution likh\n}\n"
+        "code": "function shortestKDistinct(s, k) {\n  // Write your solution here.\n}\n"
       },
       {
         "language": "python",
-        "code": "def shortest_k_distinct(s, k):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def shortest_k_distinct(s, k):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object shortestKDistinct(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object shortestKDistinct(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson shortestKDistinct(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson shortestKDistinct(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function shortestKDistinct(s, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function shortestKDistinct(s, k): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc shortestKDistinct(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc shortestKDistinct(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "shortestKDistinct",

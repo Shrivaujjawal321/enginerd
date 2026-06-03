@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -15,7 +16,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { hasDatabase } from "@/lib/env";
 import { userProgress, submissions, problems as problemsTable } from "@/lib/db/schema";
-import { getUserStats } from "@/lib/progress";
+import { getUserStats, getUserProgress } from "@/lib/progress";
 import { computeLearningStyle } from "@/lib/learning-style";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -151,24 +152,28 @@ export default async function HomePage() {
   }
 
   const userId = session.user.id;
+  // Render the page in two passes:
+  //   1. Fast-path data needed for the above-the-fold hero + stats.
+  //   2. Slow-path (job aggregator) is deferred via Suspense so the public
+  //      job-board APIs (1-3s cold latency) don't block the entire page.
   const [
     stats,
     lastSubjectSlug,
     allProblems,
-    jobsResult,
     solvedCount,
     totalProblems,
     recentlyViewed,
     learningStyle,
+    progressMap,
   ] = await Promise.all([
     getUserStats(userId),
     getLastStudied(userId),
     listProblems(),
-    getRealJobs("software engineer india"),
     getProblemsSolved(userId),
     getTotalProblems(),
     getRecentlyViewed(userId, 6),
     computeLearningStyle(userId),
+    getUserProgress(userId),
   ]);
 
   // Resolve the "continue learning" card. Prefer the user's last-studied
@@ -177,14 +182,40 @@ export default async function HomePage() {
   const currentRoadmap =
     (lastSubject && roadmapContaining(lastSubject.slug)) ?? ROADMAPS[0]!;
 
-  const recommendedSubjects = currentRoadmap.subjectSlugs
+  // Up-next: first three subjects from the current roadmap.
+  const upNextSubjects = currentRoadmap.subjectSlugs
     .map((s) => SUBJECTS_BY_SLUG[s])
     .filter((s): s is NonNullable<typeof s> => Boolean(s))
     .slice(0, 3);
 
+  // Recommended row: take the *next* slice of the roadmap (4th-6th) so the
+  // second carousel doesn't echo the trio above. Falls back to weak-area
+  // subjects (in_progress in user_progress) when the roadmap is short.
+  const recommendedFromRoadmap = currentRoadmap.subjectSlugs
+    .slice(3, 6)
+    .map((s) => SUBJECTS_BY_SLUG[s])
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const weakAreaSubjects = Object.values(progressMap)
+    .filter((p) => p.status === "in_progress")
+    .map((p) => SUBJECTS_BY_SLUG[p.subtopicSlug])
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const upNextSlugs = new Set(upNextSubjects.map((s) => s.slug));
+  const recommendedSubjects = (
+    recommendedFromRoadmap.length > 0
+      ? recommendedFromRoadmap
+      : weakAreaSubjects.filter((s) => !upNextSlugs.has(s.slug))
+  ).slice(0, 3);
+
   const recommendedProblems = allProblems.slice(0, 3);
-  const previewJobs = jobsResult.jobs.slice(0, 3);
-  const previewCompanies = jobsResult.companies;
+
+  // Continue button percent — share of subjects in the current roadmap that
+  // the user has marked completed. Stays at 0 for fresh accounts.
+  const roadmapTotal = currentRoadmap.subjectSlugs.length;
+  const roadmapDone = currentRoadmap.subjectSlugs.filter(
+    (slug) => progressMap[slug]?.status === "completed",
+  ).length;
+  const continuePct =
+    roadmapTotal > 0 ? Math.round((roadmapDone / roadmapTotal) * 100) : 0;
 
   const displayName =
     session.user.name ??
@@ -315,34 +346,46 @@ export default async function HomePage() {
             }
           >
             <Button>
-              {lastSubject ? "Continue" : "Start roadmap"}
+              {lastSubject
+                ? `Continue · ${continuePct}%`
+                : "Start roadmap"}
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          {recommendedSubjects.map((subject) => (
-            <Link
-              key={subject.slug}
-              href={`/subjects/${subject.slug}`}
-              className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-white/15 hover:bg-white/[0.04]"
-            >
-              <p className="text-xs uppercase tracking-wider text-slate-400">
-                Up next
-              </p>
-              <p className="mt-1 text-sm font-semibold text-slate-100">
-                {subject.title}
-              </p>
-              <p className="mt-1 text-xs text-slate-400">
-                {subject.estHours}h · {subject.topicsCount} topics
-              </p>
-              <p className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-slate-300 group-hover:text-white">
-                Open
-                <ArrowUpRight className="h-3 w-3" />
-              </p>
-            </Link>
-          ))}
+          {upNextSubjects.map((subject, i) => {
+            const stepLabel =
+              i === 0 ? "Up next" : i === 1 ? "Then" : "After that";
+            return (
+              <Link
+                key={subject.slug}
+                href={`/subjects/${subject.slug}`}
+                className="group relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-white/15 hover:bg-white/[0.04]"
+              >
+                <span
+                  aria-hidden
+                  className="absolute right-3 top-3 grid h-6 w-6 place-items-center rounded-full border border-white/[0.08] bg-white/[0.03] text-[11px] font-semibold text-slate-300"
+                >
+                  {i + 1}
+                </span>
+                <p className="text-xs uppercase tracking-wider text-slate-400">
+                  {stepLabel}
+                </p>
+                <p className="mt-1 pr-7 text-sm font-semibold text-slate-100">
+                  {subject.title}
+                </p>
+                <p className="mt-1 text-xs text-slate-400">
+                  {subject.estHours}h · {subject.topicsCount} topics
+                </p>
+                <p className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-slate-300 group-hover:text-white">
+                  Open
+                  <ArrowUpRight className="h-3 w-3" />
+                </p>
+              </Link>
+            );
+          })}
         </div>
       </GlassCard>
 
@@ -374,15 +417,14 @@ export default async function HomePage() {
         <LearningStyleWidget style={learningStyle} />
       </section>
 
-      {/* ===== Recommendations (still mock until Phase 6 personalization) == */}
+      {/* ===== Recommendations row =====================================*/}
       <section className="space-y-4">
         <header>
           <h2 className="text-xl font-semibold text-slate-50">
             Recommended for you
           </h2>
           <p className="mt-1 text-sm text-slate-400">
-            Picked from your current roadmap. Personalized recs land in
-            Phase 6.
+            Picked from your current roadmap.
           </p>
         </header>
 
@@ -427,97 +469,132 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ===== Job rail =================================================== */}
-      <section className="space-y-4">
-        <header className="flex items-end justify-between">
-          <div>
-            <h2 className="text-xl font-semibold text-slate-50">
-              Job opportunities
-            </h2>
-            <p className="mt-1 text-sm text-slate-400">
-              Matched to your current roadmap progress.
-            </p>
-          </div>
-          <Link
-            href="/careers"
-            className="inline-flex items-center gap-1 text-sm font-medium text-slate-300 hover:text-white"
-          >
-            View all
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </Link>
-        </header>
-
-        <div className="grid gap-4 lg:grid-cols-3">
-          {previewJobs.map((job) => {
-            const company = previewCompanies[job.companySlug];
-            if (!company) return null;
-            // Curated companies (Razorpay, Amazon, etc.) get an internal
-            // detail page; synthesized companies link straight to the
-            // external `applyUrl` so the user reaches the original posting.
-            const hasInternalPage =
-              company.relatedRoadmaps.length > 0 || company.employees !== "—";
-            const href = hasInternalPage
-              ? `/careers/${company.slug}`
-              : job.applyUrl || "/careers";
-            const linkProps = hasInternalPage
-              ? {}
-              : { target: "_blank", rel: "noopener noreferrer" };
-            return (
-              <Link key={job.id} href={href} {...linkProps}>
-                <GlassCard hoverable className="h-full p-5">
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className={`grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br ${company.accent} text-xs font-bold text-white`}
-                    >
-                      {company.shortName.slice(0, 2)}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-slate-100">
-                        {company.name}
-                      </p>
-                      <p className="text-xs text-slate-400">{job.location}</p>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-base font-semibold text-slate-50">
-                    {job.title}
-                  </p>
-                  <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
-                    <span>{job.remoteType}</span>
-                    {/* Match score is only meaningful when the JobAgent has
-                        explicitly scored against the user's resume. Hide
-                        when 0 — don't fake a number. */}
-                    {job.matchPct > 0 ? (
-                      <Badge
-                        variant={
-                          job.matchPct >= 75
-                            ? "success"
-                            : job.matchPct >= 60
-                              ? "warning"
-                              : "outline"
-                        }
-                      >
-                        Match {job.matchPct}%
-                      </Badge>
-                    ) : job.postedDaysAgo > 0 ? (
-                      <span className="text-[11px] text-slate-400">
-                        {job.postedDaysAgo}d ago
-                      </span>
-                    ) : null}
-                  </div>
-                </GlassCard>
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="flex justify-end gap-2">
-          <Link href="/careers" className="md:hidden">
-            <Button variant="glass" size="sm">
-              View all <Briefcase className="h-3.5 w-3.5" />
-            </Button>
-          </Link>
-        </div>
-      </section>
+      {/* ===== Job rail (deferred — public APIs add 1-3s) ================ */}
+      <Suspense fallback={<JobRailSkeleton />}>
+        <JobRail />
+      </Suspense>
     </div>
+  );
+}
+
+/* =============================================================================
+ * Streamed job rail. Lives below the fold, so we render the rest of the page
+ * synchronously and let this section stream in once the public job-board APIs
+ * (Remotive / Arbeitnow / Muse) respond. Without this Suspense boundary the
+ * whole page blocks on the slowest provider — typically 1-3 seconds.
+ * ===========================================================================*/
+
+async function JobRail() {
+  const jobsResult = await getRealJobs("software engineer india");
+  const previewJobs = jobsResult.jobs.slice(0, 3);
+  const previewCompanies = jobsResult.companies;
+
+  return (
+    <section className="space-y-4">
+      <header className="flex items-end justify-between">
+        <div>
+          <h2 className="text-xl font-semibold text-slate-50">
+            Job opportunities
+          </h2>
+          <p className="mt-1 text-sm text-slate-400">
+            Live openings from public job boards.
+          </p>
+        </div>
+        <Link
+          href="/careers"
+          className="inline-flex items-center gap-1 text-sm font-medium text-slate-300 hover:text-white"
+        >
+          View all
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </header>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        {previewJobs.map((job) => {
+          const company = previewCompanies[job.companySlug];
+          if (!company) return null;
+          const hasInternalPage =
+            company.relatedRoadmaps.length > 0 || company.employees !== "—";
+          const href = hasInternalPage
+            ? `/careers/${company.slug}`
+            : job.applyUrl || "/careers";
+          const linkProps = hasInternalPage
+            ? {}
+            : { target: "_blank", rel: "noopener noreferrer" };
+          return (
+            <Link key={job.id} href={href} {...linkProps}>
+              <GlassCard hoverable className="h-full p-5">
+                <div className="flex items-center gap-2.5">
+                  <div
+                    className={`grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br ${company.accent} text-xs font-bold text-white`}
+                  >
+                    {company.shortName.slice(0, 2)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-100">
+                      {company.name}
+                    </p>
+                    <p className="text-xs text-slate-400">{job.location}</p>
+                  </div>
+                </div>
+                <p className="mt-3 text-base font-semibold text-slate-50">
+                  {job.title}
+                </p>
+                <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+                  <span>{job.remoteType}</span>
+                  {job.matchPct > 0 ? (
+                    <Badge
+                      variant={
+                        job.matchPct >= 75
+                          ? "success"
+                          : job.matchPct >= 60
+                            ? "warning"
+                            : "outline"
+                      }
+                    >
+                      Match {job.matchPct}%
+                    </Badge>
+                  ) : job.postedDaysAgo > 0 ? (
+                    <span className="text-[11px] text-slate-400">
+                      {job.postedDaysAgo}d ago
+                    </span>
+                  ) : null}
+                </div>
+              </GlassCard>
+            </Link>
+          );
+        })}
+      </div>
+
+      <div className="flex justify-end gap-2">
+        <Link href="/careers" className="md:hidden">
+          <Button variant="glass" size="sm">
+            View all <Briefcase className="h-3.5 w-3.5" />
+          </Button>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function JobRailSkeleton() {
+  return (
+    <section className="space-y-4">
+      <header className="flex items-end justify-between">
+        <div>
+          <h2 className="text-xl font-semibold text-slate-50">
+            Job opportunities
+          </h2>
+          <p className="mt-1 text-sm text-slate-400">
+            Live openings from public job boards.
+          </p>
+        </div>
+      </header>
+      <div className="grid gap-4 lg:grid-cols-3">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <GlassCard key={i} className="h-44 animate-pulse p-5" />
+        ))}
+      </div>
+    </section>
   );
 }

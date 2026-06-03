@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Loader2, Mail, Phone, Check } from "lucide-react";
@@ -25,7 +26,9 @@ function formatMmSs(totalSecs: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export function LoginForm() {
+type Mode = "login" | "register";
+
+export function LoginForm({ mode = "login" }: { mode?: Mode } = {}) {
   const router = useRouter();
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl") || "/home";
@@ -64,6 +67,38 @@ export function LoginForm() {
         onSwitchChannel={setChannel}
         onSuccess={() => router.push(callbackUrl)}
       />
+
+      <p className="pt-1 text-center text-sm text-slate-400">
+        {mode === "login" ? (
+          <>
+            New to EngiNerd?{" "}
+            <Link
+              href={
+                callbackUrl === "/home"
+                  ? "/register"
+                  : `/register?callbackUrl=${encodeURIComponent(callbackUrl)}`
+              }
+              className="font-medium text-violet-300 hover:text-violet-200"
+            >
+              Create an account
+            </Link>
+          </>
+        ) : (
+          <>
+            Already have an account?{" "}
+            <Link
+              href={
+                callbackUrl === "/home"
+                  ? "/login"
+                  : `/login?callbackUrl=${encodeURIComponent(callbackUrl)}`
+              }
+              className="font-medium text-violet-300 hover:text-violet-200"
+            >
+              Log in
+            </Link>
+          </>
+        )}
+      </p>
     </div>
   );
 }
@@ -91,7 +126,7 @@ function TabButton({
         "inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
         active
           ? "bg-white/[0.08] text-white"
-          : "text-slate-400 hover:bg-white/[0.04] hover:text-white",
+          : "text-slate-300 hover:bg-white/[0.04] hover:text-white",
       )}
     >
       {icon}
@@ -287,8 +322,14 @@ function OtpFlow({
             </Label>
             {channel === "phone" ? (
               <div className="relative">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-sm font-medium text-slate-400">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-sm font-medium text-slate-300"
+                >
                   +91
+                </span>
+                <span id="otp-id-cc" className="sr-only">
+                  Country code +91
                 </span>
                 <Input
                   id="otp-identifier"
@@ -296,6 +337,14 @@ function OtpFlow({
                   inputMode="numeric"
                   pattern="[0-9]*"
                   autoComplete="tel"
+                  required
+                  aria-required="true"
+                  aria-describedby={
+                    fieldError
+                      ? "otp-id-error otp-id-cc"
+                      : "otp-id-hint otp-id-cc"
+                  }
+                  aria-errormessage={fieldError ? "otp-id-error" : undefined}
                   placeholder={placeholder}
                   value={identifier}
                   onChange={(e) => handlePhoneChange(e.target.value)}
@@ -310,6 +359,12 @@ function OtpFlow({
                 id="otp-identifier"
                 type={inputType}
                 autoComplete={autoComplete}
+                required
+                aria-required="true"
+                aria-describedby={
+                  fieldError ? "otp-id-error" : "otp-id-hint"
+                }
+                aria-errormessage={fieldError ? "otp-id-error" : undefined}
                 placeholder={placeholder}
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
@@ -317,6 +372,16 @@ function OtpFlow({
                 autoFocus
               />
             )}
+            {!fieldError &&
+            (channel === "phone"
+              ? identifier.length !== 10
+              : identifier.length < 4) ? (
+              <p id="otp-id-hint" className="text-xs text-slate-400">
+                {channel === "phone"
+                  ? "Enter your 10-digit mobile number to continue."
+                  : "Enter the email address you want to receive the OTP at."}
+              </p>
+            ) : null}
             <FieldError id="otp-id-error" message={fieldError} />
             {isRateLimited ? (
               <div
@@ -345,6 +410,7 @@ function OtpFlow({
             type="submit"
             size="lg"
             className="w-full"
+            aria-busy={busy}
             disabled={
               busy ||
               isRateLimited ||
@@ -362,9 +428,26 @@ function OtpFlow({
               "Send OTP"
             )}
           </Button>
+          <span aria-live="polite" className="sr-only">
+            {busy ? "Sending one-time password" : ""}
+          </span>
 
           <p className="pt-1 text-center text-xs text-slate-400">
-            First time here? Your account is created the moment OTP verifies.
+            By continuing you agree to our{" "}
+            <Link
+              href="/terms"
+              className="text-violet-300 hover:text-violet-200"
+            >
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/privacy"
+              className="text-violet-300 hover:text-violet-200"
+            >
+              Privacy Policy
+            </Link>
+            . We&apos;ll only use this number to sign you in.
           </p>
         </form>
       ) : (
@@ -424,6 +507,7 @@ function OtpFlow({
             type="submit"
             size="lg"
             className="w-full"
+            aria-busy={busy}
             disabled={busy || code.length !== 6}
           >
             {busy ? (
@@ -438,6 +522,9 @@ function OtpFlow({
               </>
             )}
           </Button>
+          <span aria-live="polite" className="sr-only">
+            {busy ? "Verifying one-time password" : ""}
+          </span>
 
           <button
             type="button"

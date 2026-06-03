@@ -34,27 +34,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseTransactionChain(head) {\n  // tu yahan apna solution likh — operates on real ListNode\n}\n\nfunction solve(arr) {\n  return listToArray(reverseTransactionChain(arrayToList(arr)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseTransactionChain(head) {\n  // Write your solution here. — operates on real ListNode\n}\n\nfunction solve(arr) {\n  return listToArray(reverseTransactionChain(arrayToList(arr)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef reverse_transaction_chain(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(reverse_transaction_chain(array_to_list(arr)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef reverse_transaction_chain(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return list_to_array(reverse_transaction_chain(array_to_list(arr)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -180,27 +180,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction hasDeliveryLoop(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, pos) {\n  return hasDeliveryLoop(arrayToListWithCycle(arr, pos));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction hasDeliveryLoop(head) {\n  // Write your solution here.\n}\n\nfunction solve(arr, pos) {\n  return hasDeliveryLoop(arrayToListWithCycle(arr, pos));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list_with_cycle(arr, pos):\n    if not arr: return None\n    nodes = [ListNode(v) for v in arr]\n    for i in range(len(nodes) - 1):\n        nodes[i].next = nodes[i + 1]\n    if 0 <= pos < len(nodes):\n        nodes[-1].next = nodes[pos]\n    return nodes[0]\n\ndef has_delivery_loop(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, pos):\n    return has_delivery_loop(array_to_list_with_cycle(arr, pos))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list_with_cycle(arr, pos):\n    if not arr: return None\n    nodes = [ListNode(v) for v in arr]\n    for i in range(len(nodes) - 1):\n        nodes[i].next = nodes[i + 1]\n    if 0 <= pos < len(nodes):\n        nodes[-1].next = nodes[pos]\n    return nodes[0]\n\ndef has_delivery_loop(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr, pos):\n    return has_delivery_loop(array_to_list_with_cycle(arr, pos))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, pos): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, pos): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -321,27 +321,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction middleWishlist(head) {\n  // tu yahan apna solution likh — return value of middle node\n}\n\nfunction solve(arr) {\n  return middleWishlist(arrayToList(arr));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction middleWishlist(head) {\n  // Write your solution here. — return value of middle node\n}\n\nfunction solve(arr) {\n  return middleWishlist(arrayToList(arr));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef middle_wishlist(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return middle_wishlist(array_to_list(arr))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef middle_wishlist(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return middle_wishlist(array_to_list(arr))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -454,27 +454,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeNthRecent(head, n) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, n) {\n  return listToArray(removeNthRecent(arrayToList(arr), n));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeNthRecent(head, n) {\n  // Write your solution here.\n}\n\nfunction solve(arr, n) {\n  return listToArray(removeNthRecent(arrayToList(arr), n));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef remove_nth_recent(head, n):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, n):\n    return list_to_array(remove_nth_recent(array_to_list(arr), n))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef remove_nth_recent(head, n):\n    # Write your solution here.\n    pass\n\ndef solve(arr, n):\n    return list_to_array(remove_nth_recent(array_to_list(arr), n))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, n): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, n): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -606,27 +606,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction mergeUpiQueues(a, b) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(mergeUpiQueues(arrayToList(arrA), arrayToList(arrB)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction mergeUpiQueues(a, b) {\n  // Write your solution here.\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(mergeUpiQueues(arrayToList(arrA), arrayToList(arrB)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef merge_upi_queues(a, b):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr_a, arr_b):\n    return list_to_array(merge_upi_queues(array_to_list(arr_a), array_to_list(arr_b)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef merge_upi_queues(a, b):\n    # Write your solution here.\n    pass\n\ndef solve(arr_a, arr_b):\n    return list_to_array(merge_upi_queues(array_to_list(arr_a), array_to_list(arr_b)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arrA, arrB): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arrA, arrB): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -772,27 +772,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeDuplicateTrips(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(removeDuplicateTrips(arrayToList(arr)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction removeDuplicateTrips(head) {\n  // Write your solution here.\n}\n\nfunction solve(arr) {\n  return listToArray(removeDuplicateTrips(arrayToList(arr)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef remove_duplicate_trips(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(remove_duplicate_trips(array_to_list(arr)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef remove_duplicate_trips(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return list_to_array(remove_duplicate_trips(array_to_list(arr)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -916,27 +916,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction isPalindromeHistory(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return isPalindromeHistory(arrayToList(arr));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\n\nfunction isPalindromeHistory(head) {\n  // Write your solution here.\n}\n\nfunction solve(arr) {\n  return isPalindromeHistory(arrayToList(arr));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef is_palindrome_history(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return is_palindrome_history(array_to_list(arr))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode()\n    cur = dummy\n    for v in arr:\n        cur.next = ListNode(v)\n        cur = cur.next\n    return dummy.next\n\ndef is_palindrome_history(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return is_palindrome_history(array_to_list(arr))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1053,27 +1053,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseBetweenBookmarks(head, left, right) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, left, right) {\n  return listToArray(reverseBetweenBookmarks(arrayToList(arr), left, right));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseBetweenBookmarks(head, left, right) {\n  // Write your solution here.\n}\n\nfunction solve(arr, left, right) {\n  return listToArray(reverseBetweenBookmarks(arrayToList(arr), left, right));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reverse_between_bookmarks(head, left, right):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, left, right):\n    return list_to_array(reverse_between_bookmarks(array_to_list(arr), left, right))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reverse_between_bookmarks(head, left, right):\n    # Write your solution here.\n    pass\n\ndef solve(arr, left, right):\n    return list_to_array(reverse_between_bookmarks(array_to_list(arr), left, right))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, left, right): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, left, right): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1226,27 +1226,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction rotateDriverShifts(head, k) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, k) {\n  return listToArray(rotateDriverShifts(arrayToList(arr), k));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction rotateDriverShifts(head, k) {\n  // Write your solution here.\n}\n\nfunction solve(arr, k) {\n  return listToArray(rotateDriverShifts(arrayToList(arr), k));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef rotate_driver_shifts(head, k):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, k):\n    return list_to_array(rotate_driver_shifts(array_to_list(arr), k))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef rotate_driver_shifts(head, k):\n    # Write your solution here.\n    pass\n\ndef solve(arr, k):\n    return list_to_array(rotate_driver_shifts(array_to_list(arr), k))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, k): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1394,27 +1394,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction oddEvenEmployees(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(oddEvenEmployees(arrayToList(arr)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction oddEvenEmployees(head) {\n  // Write your solution here.\n}\n\nfunction solve(arr) {\n  return listToArray(oddEvenEmployees(arrayToList(arr)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef odd_even_employees(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(odd_even_employees(array_to_list(arr)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef odd_even_employees(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return list_to_array(odd_even_employees(array_to_list(arr)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1548,27 +1548,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction addTwoBills(a, b) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(addTwoBills(arrayToList(arrA), arrayToList(arrB)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction addTwoBills(a, b) {\n  // Write your solution here.\n}\n\nfunction solve(arrA, arrB) {\n  return listToArray(addTwoBills(arrayToList(arrA), arrayToList(arrB)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef add_two_bills(a, b):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr_a, arr_b):\n    return list_to_array(add_two_bills(array_to_list(arr_a), array_to_list(arr_b)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef add_two_bills(a, b):\n    # Write your solution here.\n    pass\n\ndef solve(arr_a, arr_b):\n    return list_to_array(add_two_bills(array_to_list(arr_a), array_to_list(arr_b)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arrA, arrB): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arrA, arrB): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1722,27 +1722,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction swapPairProducts(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(swapPairProducts(arrayToList(arr)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction swapPairProducts(head) {\n  // Write your solution here.\n}\n\nfunction solve(arr) {\n  return listToArray(swapPairProducts(arrayToList(arr)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef swap_pair_products(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(swap_pair_products(array_to_list(arr)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef swap_pair_products(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return list_to_array(swap_pair_products(array_to_list(arr)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1869,27 +1869,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction partitionByThreshold(head, x) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, x) {\n  return listToArray(partitionByThreshold(arrayToList(arr), x));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction partitionByThreshold(head, x) {\n  // Write your solution here.\n}\n\nfunction solve(arr, x) {\n  return listToArray(partitionByThreshold(arrayToList(arr), x));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef partition_by_threshold(head, x):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, x):\n    return list_to_array(partition_by_threshold(array_to_list(arr), x))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef partition_by_threshold(head, x):\n    # Write your solution here.\n    pass\n\ndef solve(arr, x):\n    return list_to_array(partition_by_threshold(array_to_list(arr), x))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, x): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, x): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2023,27 +2023,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reorderDeliveryFeed(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(reorderDeliveryFeed(arrayToList(arr)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reorderDeliveryFeed(head) {\n  // Write your solution here.\n}\n\nfunction solve(arr) {\n  return listToArray(reorderDeliveryFeed(arrayToList(arr)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reorder_delivery_feed(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(reorder_delivery_feed(array_to_list(arr)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reorder_delivery_feed(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return list_to_array(reorder_delivery_feed(array_to_list(arr)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2182,27 +2182,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction cycleEntryPoint(head) {\n  // tu yahan apna solution likh — return the val of cycle entry node, or null\n}\n\nfunction solve(arr, pos) {\n  return cycleEntryPoint(arrayToListWithCycle(arr, pos));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToListWithCycle(arr, pos) {\n  if (arr.length === 0) return null;\n  const nodes = arr.map(v => new ListNode(v));\n  for (let i = 0; i < nodes.length - 1; i++) nodes[i].next = nodes[i + 1];\n  if (pos >= 0 && pos < nodes.length) nodes[nodes.length - 1].next = nodes[pos];\n  return nodes[0];\n}\n\nfunction cycleEntryPoint(head) {\n  // Write your solution here. — return the val of cycle entry node, or null\n}\n\nfunction solve(arr, pos) {\n  return cycleEntryPoint(arrayToListWithCycle(arr, pos));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list_with_cycle(arr, pos):\n    if not arr: return None\n    nodes = [ListNode(v) for v in arr]\n    for i in range(len(nodes) - 1):\n        nodes[i].next = nodes[i + 1]\n    if 0 <= pos < len(nodes):\n        nodes[-1].next = nodes[pos]\n    return nodes[0]\n\ndef cycle_entry_point(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, pos):\n    return cycle_entry_point(array_to_list_with_cycle(arr, pos))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list_with_cycle(arr, pos):\n    if not arr: return None\n    nodes = [ListNode(v) for v in arr]\n    for i in range(len(nodes) - 1):\n        nodes[i].next = nodes[i + 1]\n    if 0 <= pos < len(nodes):\n        nodes[-1].next = nodes[pos]\n    return nodes[0]\n\ndef cycle_entry_point(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr, pos):\n    return cycle_entry_point(array_to_list_with_cycle(arr, pos))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, pos): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, pos): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2317,23 +2317,23 @@
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef merge_k_payment_streams(lists):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr_of_arrs):\n    heads = [array_to_list(a) for a in arr_of_arrs]\n    return list_to_array(merge_k_payment_streams(heads))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef merge_k_payment_streams(lists):\n    # Write your solution here.\n    pass\n\ndef solve(arr_of_arrs):\n    heads = [array_to_list(a) for a in arr_of_arrs]\n    return list_to_array(merge_k_payment_streams(heads))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arrOfArrs): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arrOfArrs): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2481,27 +2481,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseCatalogInGroups(head, k) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, k) {\n  return listToArray(reverseCatalogInGroups(arrayToList(arr), k));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction reverseCatalogInGroups(head, k) {\n  // Write your solution here.\n}\n\nfunction solve(arr, k) {\n  return listToArray(reverseCatalogInGroups(arrayToList(arr), k));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reverse_catalog_in_groups(head, k):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr, k):\n    return list_to_array(reverse_catalog_in_groups(array_to_list(arr), k))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef reverse_catalog_in_groups(head, k):\n    # Write your solution here.\n    pass\n\ndef solve(arr, k):\n    return list_to_array(reverse_catalog_in_groups(array_to_list(arr), k))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, k): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2669,27 +2669,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction sortFulfillmentList(head) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) {\n  return listToArray(sortFulfillmentList(arrayToList(arr)));\n}\n"
+        "code": "// helpers — keep at top of starter + editorial\nclass ListNode { constructor(val, next) { this.val = val ?? 0; this.next = next ?? null; } }\nfunction arrayToList(arr) {\n  const dummy = new ListNode(); let cur = dummy;\n  for (const v of arr) { cur.next = new ListNode(v); cur = cur.next; }\n  return dummy.next;\n}\nfunction listToArray(head) {\n  const out = []; while (head) { out.push(head.val); head = head.next; } return out;\n}\n\nfunction sortFulfillmentList(head) {\n  // Write your solution here.\n}\n\nfunction solve(arr) {\n  return listToArray(sortFulfillmentList(arrayToList(arr)));\n}\n"
       },
       {
         "language": "python",
-        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef sort_fulfillment_list(head):\n    # tu yahan apna solution likh\n    pass\n\ndef solve(arr):\n    return list_to_array(sort_fulfillment_list(array_to_list(arr)))\n"
+        "code": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef array_to_list(arr):\n    dummy = ListNode(); cur = dummy\n    for v in arr:\n        cur.next = ListNode(v); cur = cur.next\n    return dummy.next\n\ndef list_to_array(head):\n    out = []\n    while head:\n        out.append(head.val); head = head.next\n    return out\n\ndef sort_fulfillment_list(head):\n    # Write your solution here.\n    pass\n\ndef solve(arr):\n    return list_to_array(sort_fulfillment_list(array_to_list(arr)))\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",

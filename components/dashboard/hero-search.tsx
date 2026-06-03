@@ -15,6 +15,12 @@ import { cn } from "@/lib/utils";
  */
 export function HeroSearch({ placeholder }: { placeholder?: string }) {
   const [open, setOpen] = React.useState(false);
+  // Default to Ctrl on SSR / non-Mac so the chip never lies before hydration.
+  const [isMac, setIsMac] = React.useState(false);
+  React.useEffect(() => {
+    if (typeof navigator === "undefined") return;
+    setIsMac(navigator.platform.toLowerCase().startsWith("mac"));
+  }, []);
 
   return (
     <>
@@ -41,7 +47,7 @@ export function HeroSearch({ placeholder }: { placeholder?: string }) {
           </span>
         </span>
         <kbd className="hidden rounded-md border border-white/[0.08] bg-white/[0.04] px-1.5 py-1 font-mono text-[11px] text-slate-300 sm:inline">
-          ⌘K
+          {isMac ? "⌘K" : "Ctrl K"}
         </kbd>
         <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:text-slate-100" />
       </button>

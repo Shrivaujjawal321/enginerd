@@ -32,22 +32,22 @@ export default function ErrorPage({
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-50">
           Something went wrong.
         </h1>
-        <p className="mt-3 text-sm text-slate-400">
+        <p className="mt-3 text-sm text-slate-300">
           We&apos;ve been notified. Try reloading — if it still doesn&apos;t
           load, head back home.
         </p>
         {error.digest ? (
-          <p className="mt-4 inline-block rounded-md border border-white/[0.06] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-slate-400">
+          <p className="mt-4 inline-block rounded-md border border-white/[0.06] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-slate-300">
             ref: {error.digest}
           </p>
         ) : null}
         <div className="mt-6 flex items-center justify-center gap-2">
-          <Button variant="glass" onClick={() => reset()}>
+          <Button onClick={() => reset()}>
             <RotateCw className="h-4 w-4" />
             Try again
           </Button>
           <Link href="/home">
-            <Button>
+            <Button variant="glass">
               <ArrowLeft className="h-4 w-4" />
               Go home
             </Button>

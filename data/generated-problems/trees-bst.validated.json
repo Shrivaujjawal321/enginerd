@@ -34,27 +34,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxDepth(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return maxDepth(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxDepth(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return maxDepth(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def max_depth(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def max_depth(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -171,27 +171,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction inorderTraversal(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return inorderTraversal(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction inorderTraversal(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return inorderTraversal(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def inorder_traversal(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def inorder_traversal(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -304,27 +304,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction preorderTraversal(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return preorderTraversal(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction preorderTraversal(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return preorderTraversal(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def preorder_traversal(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def preorder_traversal(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -438,27 +438,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction postorderTraversal(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return postorderTraversal(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction postorderTraversal(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return postorderTraversal(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def postorder_traversal(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def postorder_traversal(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -571,27 +571,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction countNodes(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return countNodes(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction countNodes(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return countNodes(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def count_nodes(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def count_nodes(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -689,27 +689,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction sumTree(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return sumTree(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction sumTree(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return sumTree(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def sum_tree(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def sum_tree(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -807,27 +807,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction mirrorTree(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return treeToArray(mirrorTree(arrayToTree(arr))); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction mirrorTree(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return treeToArray(mirrorTree(arrayToTree(arr))); }\n"
       },
       {
         "language": "python",
-        "code": "def mirror_tree(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def mirror_tree(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -937,27 +937,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isSymmetric(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return isSymmetric(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isSymmetric(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return isSymmetric(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def is_symmetric(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def is_symmetric(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1066,27 +1066,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isSameTree(p, q) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(a, b) { return isSameTree(arrayToTree(a), arrayToTree(b)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isSameTree(p, q) {\n  // Write your solution here.\n}\n\nfunction solve(a, b) { return isSameTree(arrayToTree(a), arrayToTree(b)); }\n"
       },
       {
         "language": "python",
-        "code": "def is_same_tree(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def is_same_tree(a, b):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(a, b): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(a, b): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1192,27 +1192,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction levelOrder(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return levelOrder(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction levelOrder(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return levelOrder(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def level_order(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def level_order(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1353,27 +1353,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction searchBST(root, val) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, val) { return treeToArray(searchBST(arrayToTree(arr), val)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction searchBST(root, val) {\n  // Write your solution here.\n}\n\nfunction solve(arr, val) { return treeToArray(searchBST(arrayToTree(arr), val)); }\n"
       },
       {
         "language": "python",
-        "code": "def search_bst(root, val):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def search_bst(root, val):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, val): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, val): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1494,27 +1494,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction minBST(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return minBST(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction minBST(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return minBST(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def min_bst(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def min_bst(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1618,27 +1618,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxBST(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return maxBST(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxBST(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return maxBST(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def max_bst(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def max_bst(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1743,27 +1743,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isValidBST(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return isValidBST(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isValidBST(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return isValidBST(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def is_valid_bst(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def is_valid_bst(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -1874,27 +1874,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction lcaBST(root, p, q) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, p, q) { return lcaBST(arrayToTree(arr), p, q); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction lcaBST(root, p, q) {\n  // Write your solution here.\n}\n\nfunction solve(arr, p, q) { return lcaBST(arrayToTree(arr), p, q); }\n"
       },
       {
         "language": "python",
-        "code": "def lca_bst(root, p, q):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def lca_bst(root, p, q):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, p, q): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, p, q): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2028,27 +2028,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction lcaTree(root, p, q) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, p, q) { return lcaTree(arrayToTree(arr), p, q); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction lcaTree(root, p, q) {\n  // Write your solution here.\n}\n\nfunction solve(arr, p, q) { return lcaTree(arrayToTree(arr), p, q); }\n"
       },
       {
         "language": "python",
-        "code": "def lca_tree(root, p, q):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def lca_tree(root, p, q):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, p, q): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, p, q): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2179,27 +2179,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isBalanced(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return isBalanced(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction isBalanced(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return isBalanced(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def is_balanced(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def is_balanced(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2317,27 +2317,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction diameter(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return diameter(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction diameter(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return diameter(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def diameter(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def diameter(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2446,27 +2446,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction hasPathSum(root, target) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, target) { return hasPathSum(arrayToTree(arr), target); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction hasPathSum(root, target) {\n  // Write your solution here.\n}\n\nfunction solve(arr, target) { return hasPathSum(arrayToTree(arr), target); }\n"
       },
       {
         "language": "python",
-        "code": "def has_path_sum(root, target):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def has_path_sum(root, target):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, target): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, target): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2582,27 +2582,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction binaryTreePaths(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return binaryTreePaths(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction binaryTreePaths(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return binaryTreePaths(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def binary_tree_paths(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def binary_tree_paths(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2761,27 +2761,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction kthSmallest(root, k) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, k) { return kthSmallest(arrayToTree(arr), k); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction kthSmallest(root, k) {\n  // Write your solution here.\n}\n\nfunction solve(arr, k) { return kthSmallest(arrayToTree(arr), k); }\n"
       },
       {
         "language": "python",
-        "code": "def kth_smallest(root, k):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def kth_smallest(root, k):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, k): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, k): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -2910,27 +2910,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction sortedArrayToBST(nums) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(nums) { return treeToArray(sortedArrayToBST(nums)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction sortedArrayToBST(nums) {\n  // Write your solution here.\n}\n\nfunction solve(nums) { return treeToArray(sortedArrayToBST(nums)); }\n"
       },
       {
         "language": "python",
-        "code": "def sorted_array_to_bst(nums):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def sorted_array_to_bst(nums):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(nums): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(nums): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -3069,27 +3069,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction insertBST(root, val) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, val) { return treeToArray(insertBST(arrayToTree(arr), val)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction insertBST(root, val) {\n  // Write your solution here.\n}\n\nfunction solve(arr, val) { return treeToArray(insertBST(arrayToTree(arr), val)); }\n"
       },
       {
         "language": "python",
-        "code": "def insert_bst(root, val):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def insert_bst(root, val):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, val): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, val): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -3215,27 +3215,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction flatten(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return treeToArray(flatten(arrayToTree(arr))); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction flatten(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return treeToArray(flatten(arrayToTree(arr))); }\n"
       },
       {
         "language": "python",
-        "code": "def flatten(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def flatten(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -3367,27 +3367,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction rightSideView(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return rightSideView(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction rightSideView(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return rightSideView(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def right_side_view(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def right_side_view(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -3511,27 +3511,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction averageOfLevels(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return averageOfLevels(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction averageOfLevels(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return averageOfLevels(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def average_of_levels(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def average_of_levels(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -3654,27 +3654,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction buildTree(preorder, inorder) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(pre, inn) { return treeToArray(buildTree(pre, inn)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction buildTree(preorder, inorder) {\n  // Write your solution here.\n}\n\nfunction solve(pre, inn) { return treeToArray(buildTree(pre, inn)); }\n"
       },
       {
         "language": "python",
-        "code": "def build_tree(preorder, inorder):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def build_tree(preorder, inorder):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(pre, inn): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(pre, inn): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -3826,27 +3826,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxPathSum(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return maxPathSum(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxPathSum(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return maxPathSum(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def max_path_sum(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def max_path_sum(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -3965,27 +3965,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction deleteNode(root, key) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr, key) { return treeToArray(deleteNode(arrayToTree(arr), key)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction deleteNode(root, key) {\n  // Write your solution here.\n}\n\nfunction solve(arr, key) { return treeToArray(deleteNode(arrayToTree(arr), key)); }\n"
       },
       {
         "language": "python",
-        "code": "def delete_node(root, key):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def delete_node(root, key):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr, key): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr, key): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -4141,27 +4141,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction goodNodes(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return goodNodes(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction goodNodes(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return goodNodes(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def good_nodes(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def good_nodes(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -4268,27 +4268,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction robTree(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return robTree(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction robTree(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return robTree(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def rob_tree(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def rob_tree(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -4399,27 +4399,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction roundTripTree(data) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(data) { return roundTripTree(data); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction roundTripTree(data) {\n  // Write your solution here.\n}\n\nfunction solve(data) { return roundTripTree(data); }\n"
       },
       {
         "language": "python",
-        "code": "def round_trip_tree(data):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def round_trip_tree(data):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(data): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(data): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -4568,27 +4568,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction boundaryOfTree(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return boundaryOfTree(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction boundaryOfTree(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return boundaryOfTree(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def boundary_of_tree(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def boundary_of_tree(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -4725,27 +4725,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction verticalOrder(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return verticalOrder(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction verticalOrder(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return verticalOrder(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def vertical_order(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def vertical_order(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -4901,27 +4901,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction recoverTree(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return treeToArray(recoverTree(arrayToTree(arr))); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction recoverTree(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return treeToArray(recoverTree(arrayToTree(arr))); }\n"
       },
       {
         "language": "python",
-        "code": "def recover_tree(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def recover_tree(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -5030,27 +5030,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction countComplete(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return countComplete(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction countComplete(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return countComplete(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def count_complete(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def count_complete(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -5165,27 +5165,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxWidth(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return maxWidth(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxWidth(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return maxWidth(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def max_width(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def max_width(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -5294,27 +5294,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction longestZigZag(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return longestZigZag(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction longestZigZag(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return longestZigZag(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def longest_zigzag(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def longest_zigzag(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -5436,27 +5436,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction preorderRoundTrip(data) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(data) { return preorderRoundTrip(data); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction preorderRoundTrip(data) {\n  // Write your solution here.\n}\n\nfunction solve(data) { return preorderRoundTrip(data); }\n"
       },
       {
         "language": "python",
-        "code": "def preorder_round_trip(data):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def preorder_round_trip(data):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(data): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(data): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",
@@ -5598,27 +5598,27 @@
     "starterCode": [
       {
         "language": "javascript",
-        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxLeafToLeaf(root) {\n  // tu yahan apna solution likh\n}\n\nfunction solve(arr) { return maxLeafToLeaf(arrayToTree(arr)); }\n"
+        "code": "class TreeNode { constructor(val, left, right) { this.val = val ?? 0; this.left = left ?? null; this.right = right ?? null; } }\nfunction arrayToTree(arr) {\n  if (!arr || arr.length === 0 || arr[0] === null) return null;\n  const root = new TreeNode(arr[0]); const q = [root]; let i = 1;\n  while (q.length && i < arr.length) {\n    const node = q.shift();\n    if (i < arr.length && arr[i] !== null) { node.left = new TreeNode(arr[i]); q.push(node.left); } i++;\n    if (i < arr.length && arr[i] !== null) { node.right = new TreeNode(arr[i]); q.push(node.right); } i++;\n  }\n  return root;\n}\nfunction treeToArray(root) {\n  if (!root) return [];\n  const out = []; const q = [root];\n  while (q.length) {\n    const n = q.shift();\n    if (n === null) { out.push(null); continue; }\n    out.push(n.val);\n    q.push(n.left); q.push(n.right);\n  }\n  while (out.length && out[out.length-1] === null) out.pop();\n  return out;\n}\n\nfunction maxLeafToLeaf(root) {\n  // Write your solution here.\n}\n\nfunction solve(arr) { return maxLeafToLeaf(arrayToTree(arr)); }\n"
       },
       {
         "language": "python",
-        "code": "def max_leaf_to_leaf(root):\n    # tu yahan apna solution likh\n    pass\n"
+        "code": "def max_leaf_to_leaf(root):\n    # Write your solution here.\n    pass\n"
       },
       {
         "language": "java",
-        "code": "// EngiNerd Java starter — bhar de.\n// Harness aap ki function ko `Object[] args` ke saath call karta hai.\n// args[0], args[1], ... mein test ke arguments hain.\npublic Object solve(Object[] args) {\n  // tu yahan apna solution likh\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
+        "code": "// Write your solution here.\n// The harness calls your function with `Object[] args`.\n// args[0], args[1], ... contain the test arguments.\npublic Object solve(Object[] args) {\n  // Write your solution here.\n  // example: List<Integer> nums = (List<Integer>) args[0];\n  return null;\n}\n"
       },
       {
         "language": "cpp",
-        "code": "// EngiNerd C++ starter — bhar de.\n// nlohmann::json se args[0], args[1], ... mein values nikaal.\njson solve(json args) {\n  // tu yahan apna solution likh\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
+        "code": "// Write your solution here.\n// Read values from args[0], args[1], ... via nlohmann::json.\njson solve(json args) {\n  // Write your solution here.\n  // example: vector<int> nums = args[0].get<vector<int>>();\n  return nullptr;\n}\n"
       },
       {
         "language": "typescript",
-        "code": "function solve(arr): unknown {\n  // tu yahan apna solution likh\n  return null;\n}\n"
+        "code": "function solve(arr): unknown {\n  // Write your solution here.\n  return null;\n}\n"
       },
       {
         "language": "go",
-        "code": "// EngiNerd Go starter — bhar de.\n// args[0], args[1], ... mein test ke arguments hain (type assertion zaroori).\nfunc solve(args []interface{}) interface{} {\n\t// tu yahan apna solution likh\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+        "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc solve(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
       }
     ],
     "fnName": "solve",

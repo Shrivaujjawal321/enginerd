@@ -69,5 +69,17 @@ export async function GET() {
 
   const stats = await getUserStats(userId);
 
-  return NextResponse.json({ user, stats });
+  // Topbar + dashboard poll this — let the browser hold the response for 30s
+  // so a quick page-to-page navigation doesn't re-hit Neon. Private to the
+  // user; never goes to a shared CDN. SWR window of 5 min lets the topbar
+  // show stale-but-fresh data while the next request revalidates.
+  return NextResponse.json(
+    { user, stats },
+    {
+      headers: {
+        "Cache-Control":
+          "private, max-age=30, stale-while-revalidate=300",
+      },
+    },
+  );
 }

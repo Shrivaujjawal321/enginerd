@@ -42,7 +42,7 @@ export function SocialButtons({
   };
 
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex flex-col gap-2">
       <Button
         type="button"
         variant="glass"
@@ -57,6 +57,9 @@ export function SocialButtons({
         )}
         Continue with Google
       </Button>
+      <p className="text-center text-[11px] text-slate-400">
+        We only read your name and email — never your contacts or Gmail.
+      </p>
     </div>
   );
 }

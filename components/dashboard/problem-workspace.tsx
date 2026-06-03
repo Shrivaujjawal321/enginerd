@@ -65,6 +65,25 @@ function formatValue(v: unknown): string {
 }
 
 /**
+ * Tiny post-processor: turn ASCII power notation (`10^9`, `2^31 - 1`) into
+ * proper superscripts. Splits on a global regex and rebuilds the line with
+ * `<sup>` nodes — keeps leading/trailing punctuation intact.
+ */
+function renderConstraintLine(line: string): React.ReactNode[] {
+  const parts = line.split(/(\d+\^-?\d+)/g);
+  return parts.map((part, i) => {
+    const m = /^(\d+)\^(-?\d+)$/.exec(part);
+    if (!m) return <React.Fragment key={i}>{part}</React.Fragment>;
+    return (
+      <React.Fragment key={i}>
+        {m[1]}
+        <sup>{m[2]}</sup>
+      </React.Fragment>
+    );
+  });
+}
+
+/**
  * Persist a submission to /api/submissions. Returns the new row (with
  * server-issued id + timestamp) so the workspace can prepend it to the
  * "Recent submissions" panel without a refetch.
@@ -159,12 +178,22 @@ export function ProblemWorkspace({
   const [tab, setTab] = React.useState<"problem" | "editor">("problem");
   const [submissions, setSubmissions] =
     React.useState<RecentSubmission[]>(recentSubmissions);
+  // Whether the user has clicked Run since their last edit. Lets us warn on
+  // Submit with a "you haven't run anything yet" inline confirm.
+  const [hasRunSinceEdit, setHasRunSinceEdit] = React.useState(false);
 
   React.useEffect(() => {
     const found = problem.starterCode.find((s) => s.language === language);
     if (found) setCode(found.code);
     setResult({ kind: "idle" });
+    setHasRunSinceEdit(false);
   }, [language, problem.starterCode]);
+
+  // Any code edit invalidates the "ran since edit" flag.
+  const handleCodeChange = React.useCallback((next: string) => {
+    setCode(next);
+    setHasRunSinceEdit(false);
+  }, []);
 
   const hasTests = !!problem.tests && problem.tests.length > 0 && !!problem.fnName;
   // Languages we can grade — JavaScript runs in-browser, others go through
@@ -196,6 +225,7 @@ export function ProblemWorkspace({
     }
 
     setResult({ kind: "running" });
+    if (mode === "run") setHasRunSinceEdit(true);
     const tests = problem.tests!;
 
     // ---- Fast path: in-browser JavaScript sandbox ----
@@ -306,7 +336,10 @@ export function ProblemWorkspace({
         kind: "compile-error",
         message: serverOutcome.message ?? "Runner error.",
       });
-      toast.error("Runner is offline. Try again in a moment.");
+      toast.error("Server-side runner is unavailable.", {
+        description: (serverOutcome.message ?? "").slice(0, 200),
+        duration: 10_000,
+      });
       return;
     }
 
@@ -442,7 +475,7 @@ export function ProblemWorkspace({
             <ul className="mt-3 space-y-1.5 text-sm text-slate-300">
               {problem.constraints.map((c) => (
                 <li key={c} className="font-mono text-xs">
-                  · {c}
+                  · {renderConstraintLine(c)}
                 </li>
               ))}
             </ul>
@@ -457,7 +490,7 @@ export function ProblemWorkspace({
             >
               <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
                 <Lightbulb className="h-4 w-4 text-amber-300" />
-                Hints (Hinglish)
+                Hints
               </span>
               <ChevronDown
                 className={cn(
@@ -524,19 +557,38 @@ export function ProblemWorkspace({
                           ? language !== "javascript"
                             ? "Auto-run is JavaScript-only for now"
                             : "Auto-grading not configured for this problem"
-                          : "Run against the first sample case"
+                          : "Run against the visible sample cases"
                       }
                     >
                       <Play className="h-3.5 w-3.5" />
-                      Run
+                      <span className="flex flex-col items-start leading-tight">
+                        <span>Run</span>
+                        <span className="text-[10px] font-normal text-slate-400">
+                          sample tests
+                        </span>
+                      </span>
                     </Button>
                     <Button
                       size="sm"
-                      onClick={() => execute("submit")}
+                      onClick={() => {
+                        if (!hasRunSinceEdit) {
+                          const proceed = window.confirm(
+                            "You haven't run any tests since editing — submit anyway?",
+                          );
+                          if (!proceed) return;
+                        }
+                        void execute("submit");
+                      }}
                       disabled={result.kind === "running" || !supportsRun}
+                      title="Submit runs sample + hidden tests on our servers"
                     >
                       <Send className="h-3.5 w-3.5" />
-                      Submit
+                      <span className="flex flex-col items-start leading-tight">
+                        <span>Submit</span>
+                        <span className="text-[10px] font-normal text-white/70">
+                          sample + hidden
+                        </span>
+                      </span>
                     </Button>
                   </>
                 ) : (
@@ -557,7 +609,7 @@ export function ProblemWorkspace({
             </div>
             <CodeEditor
               value={code}
-              onChange={setCode}
+              onChange={handleCodeChange}
               language={toEditorLanguage(language)}
               className="h-72 w-full sm:h-80"
             />
@@ -588,9 +640,47 @@ export function ProblemWorkspace({
                   Error
                 </Badge>
               ) : (
-                <Badge variant="outline">Idle</Badge>
+                <Badge variant="outline">Ready</Badge>
               )}
             </div>
+
+            {result.kind === "idle" && hasTests && supportsRun ? (
+              <div className="mt-3 space-y-3">
+                <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-3 text-xs text-slate-300">
+                  <p>
+                    Press{" "}
+                    <span className="font-medium text-slate-100">Run</span> to
+                    evaluate the {problem.examples.length} sample case
+                    {problem.examples.length === 1 ? "" : "s"} below.
+                  </p>
+                  <p className="mt-1 text-slate-400">
+                    <span className="font-medium text-slate-200">Submit</span>{" "}
+                    also runs hidden edge cases on our servers.
+                  </p>
+                </div>
+                <ul className="space-y-1.5">
+                  {problem.examples.map((ex, i) => (
+                    <li
+                      key={i}
+                      className="rounded-lg border border-white/[0.05] bg-white/[0.02] px-3 py-2 font-mono text-[11px]"
+                    >
+                      <p className="text-slate-400">
+                        Input:{" "}
+                        <span className="text-slate-200">{ex.input}</span>
+                      </p>
+                      <p className="text-slate-400">
+                        Expected:{" "}
+                        <span className="text-slate-200">{ex.output}</span>
+                      </p>
+                      <p className="text-slate-500">
+                        Actual:{" "}
+                        <span className="italic">— pending</span>
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
 
             {result.kind === "compile-error" ? (
               <pre className="mt-3 overflow-x-auto rounded-lg border border-rose-500/20 bg-rose-500/5 p-3 font-mono text-xs text-rose-200">

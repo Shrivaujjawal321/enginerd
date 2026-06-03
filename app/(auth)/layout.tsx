@@ -7,6 +7,7 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const year = new Date().getFullYear();
   return (
     <>
       <AnimatedOrbs variant="auth" />
@@ -22,8 +23,54 @@ export default function AuthLayout({
         </div>
       </header>
 
-      <main className="relative flex min-h-screen flex-col items-center justify-center px-5 py-20 sm:px-8">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="relative flex min-h-screen flex-col items-center justify-center px-5 py-20 sm:px-8"
+      >
         <div className="w-full max-w-md">{children}</div>
+        <footer className="mt-10 w-full max-w-md text-center text-xs text-slate-400">
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+            <Link
+              href="/terms"
+              className="hover:text-slate-200"
+            >
+              Terms
+            </Link>
+            <span aria-hidden className="text-slate-600">·</span>
+            <Link
+              href="/privacy"
+              className="hover:text-slate-200"
+            >
+              Privacy
+            </Link>
+            <span aria-hidden className="text-slate-600">·</span>
+            <Link
+              href="/refunds"
+              className="hover:text-slate-200"
+            >
+              Refunds
+            </Link>
+            <span aria-hidden className="text-slate-600">·</span>
+            <Link
+              href="/contact"
+              className="hover:text-slate-200"
+            >
+              Contact
+            </Link>
+          </p>
+          <p className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <a
+              href="mailto:hello@enginerd.in"
+              aria-label="Email hello at enginerd dot in"
+              className="font-medium tracking-wide text-slate-200 underline-offset-4 hover:text-white hover:underline"
+            >
+              hello@enginerd.in
+            </a>
+            <span aria-hidden className="text-slate-600">·</span>
+            <span className="text-slate-400">© {year} EngiNerd</span>
+          </p>
+        </footer>
       </main>
     </>
   );
