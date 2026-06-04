@@ -167,8 +167,17 @@ export function ProblemWorkspace({
   recentSubmissions = [],
   isAuthed = true,
 }: WorkspaceProps) {
-  const languages = problem.starterCode.map((s) => s.language);
-  const [language, setLanguage] = React.useState(languages[0] ?? "javascript");
+  // NOTE: Practice currently ships JavaScript ONLY — it runs entirely in the
+  // browser, no backend needed. The other languages (Python, Java, C++, Go,
+  // Rust) require a server-side Piston runner, which isn't hosted yet (the
+  // public Piston API went whitelist-only on 2026-02-15). They are disabled
+  // here so the dropdown offers just JavaScript. To re-enable them later:
+  // host a Piston instance, set PISTON_URL on the server, and restore the line:
+  //   const languages = problem.starterCode.map((s) => s.language);
+  const languages = problem.starterCode
+    .map((s) => s.language)
+    .filter((l) => l === "javascript");
+  const [language, setLanguage] = React.useState<string>(languages[0] ?? "javascript");
   const [code, setCode] = React.useState(
     problem.starterCode.find((s) => s.language === language)?.code ?? "",
   );
