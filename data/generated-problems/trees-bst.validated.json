@@ -10,7 +10,7 @@
       "stripe",
       "paytm"
     ],
-    "description": "Razorpay's HR portal stores the org as a binary tree (each manager has up to two direct reports). The 'depth' of the org tree is the number of nodes along the longest manager-to-IC path. Given the level-order encoded `tree` (with `null` for missing nodes), return the maximum depth.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return its maximum depth. The maximum depth is the number of nodes along the longest path from the root down to the farthest leaf node.",
     "examples": [
       {
         "input": "tree = [3,9,20,null,null,15,7]",
@@ -156,7 +156,7 @@
       "myntra",
       "amazon"
     ],
-    "description": "Flipkart stores its category hierarchy as a binary tree. The data team needs the inorder traversal (left, root, right) of category IDs. Given the level-order encoded `tree`, return the list of values in inorder.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the inorder traversal of its node values. Inorder traversal visits the left subtree, then the current node, then the right subtree.",
     "examples": [
       {
         "input": "tree = [1,null,2,3]",
@@ -298,7 +298,7 @@
       "moj",
       "instagram"
     ],
-    "description": "Sharechat's content hierarchy is a binary tree (post -> reply -> nested reply). The moderation queue wants preorder (root, left, right) so parents render before children. Given level-order `tree`, return preorder values.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the preorder traversal of its node values. Preorder traversal visits the current node, then the left subtree, then the right subtree.",
     "examples": [
       {
         "input": "tree = [1,2,3,4,5,6,7]",
@@ -440,7 +440,7 @@
       "swiggy",
       "ubereats"
     ],
-    "description": "Zomato's menu is a binary tree. Pricing rollup needs postorder (left, right, root) so children prices are computed before the parent. Given level-order `tree`, return postorder list of values.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the postorder traversal of its node values. Postorder traversal visits the left subtree, then the right subtree, then the current node.",
     "examples": [
       {
         "input": "tree = [1,null,2,3]",
@@ -581,7 +581,7 @@
       "phonepe",
       "razorpay"
     ],
-    "description": "Paytm models its merchant onboarding pipeline as a binary tree. Count the total nodes (merchants in the funnel). Given level-order `tree`, return the count.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the total number of nodes in the tree.",
     "examples": [
       {
         "input": "tree = [1,2,3,4]",
@@ -706,7 +706,7 @@
       "zomato",
       "dunzo"
     ],
-    "description": "Swiggy stores order amounts in a binary tree (combo splits into items). Sum all node values to compute the cart total. Given level-order `tree`, return the sum of all node values.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the sum of all node values.",
     "examples": [
       {
         "input": "tree = [1,2,3]",
@@ -833,7 +833,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart wants to A/B test a 'right-to-left' UI layout: mirror the entire category binary tree (swap left and right at every node). Given level-order `tree`, return the mirrored tree as a level-order array.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), invert it by swapping the left and right children of every node. Return the inverted tree as a level-order encoded array.",
     "examples": [
       {
         "input": "tree = [4,2,7,1,3,6,9]",
@@ -971,7 +971,7 @@
       "stripe",
       "google"
     ],
-    "description": "Razorpay flags settlement trees that should be left-right symmetric (mirror image of itself). Given level-order `tree`, return `true` if the tree is symmetric around its centre.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return `true` if the tree is symmetric, i.e. a mirror image of itself around its center, and `false` otherwise.",
     "examples": [
       {
         "input": "tree = [1,2,2,3,4,4,3]",
@@ -1108,7 +1108,7 @@
       "paytm",
       "amazon"
     ],
-    "description": "PhonePe diff-checks two settlement trees daily. Given two level-order encoded trees `a` and `b`, return `true` if they have the same structure and identical values.",
+    "description": "Given two binary trees `a` and `b`, each encoded in level-order (using `null` for missing nodes), return `true` if they are identical in both structure and node values, and `false` otherwise.",
     "examples": [
       {
         "input": "a = [1,2,3], b = [1,2,3]",
@@ -1242,7 +1242,7 @@
       "swiggy",
       "amazon"
     ],
-    "description": "Zomato's mall view groups restaurants by floor. Given a binary tree's level-order encoding, return its values level-by-level (each level as its own list).",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return its level-order traversal grouped by level, i.e. a list where each entry contains the node values at one level, ordered from the root level downward and left to right within each level.",
     "examples": [
       {
         "input": "tree = [3,9,20,null,null,15,7]",
@@ -1410,7 +1410,7 @@
       "paytm",
       "atlassian"
     ],
-    "description": "Razorpay indexes merchant IDs in a BST for O(log n) lookup. Given the BST `tree` (level-order array, BST property holds) and a target `val`, return the level-order array of the subtree rooted at the matched node, or `[]` if not found.",
+    "description": "Given a binary search tree encoded in level-order as `tree` and an integer `val`, find the node whose value equals `val`. Return the level-order encoded array of the subtree rooted at that node, or `[]` if no such node exists.",
     "examples": [
       {
         "input": "tree = [4,2,7,1,3], val = 2",
@@ -1560,7 +1560,7 @@
       "amazon",
       "myntra"
     ],
-    "description": "Flipkart stores discounted product prices in a BST. The 'lowest price' shortcut needs the min value. Given BST `tree`, return the smallest value (assume non-empty).",
+    "description": "Given a non-empty binary search tree encoded in level-order as `tree`, return its smallest value.",
     "examples": [
       {
         "input": "tree = [5,3,8,1,4]",
@@ -1692,7 +1692,7 @@
       "zomato",
       "google"
     ],
-    "description": "Swiggy keeps order totals in a BST for fast quantile queries. Return the maximum bill amount. Given BST `tree` (non-empty).",
+    "description": "Given a non-empty binary search tree encoded in level-order as `tree`, return its largest value.",
     "examples": [
       {
         "input": "tree = [5,3,8,1,4]",
@@ -1824,7 +1824,7 @@
       "amazon",
       "atlassian"
     ],
-    "description": "Razorpay's audit needs to verify a tree adheres to BST property strictly: every node's left subtree values < node < right subtree values. Given level-order `tree`, return `true` if valid BST.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return `true` if it is a valid binary search tree. A valid BST requires that for every node, all values in its left subtree are strictly less than the node's value and all values in its right subtree are strictly greater.",
     "examples": [
       {
         "input": "tree = [2,1,3]",
@@ -1962,7 +1962,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart's category BST: find the LCA (deepest node that is ancestor of both `p` and `q`) of two category IDs. BST property holds. Both values are guaranteed to exist. Return the LCA's value.",
+    "description": "Given a binary search tree encoded in level-order as `tree` and two values `p` and `q` (both guaranteed to exist in the tree), return the value of their lowest common ancestor, i.e. the deepest node that has both `p` and `q` as descendants (a node may be a descendant of itself).",
     "examples": [
       {
         "input": "tree = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8",
@@ -2125,7 +2125,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "In Razorpay's general org tree (not BST), find the LCA of two employee IDs `p` and `q`. Both values exist and are unique. Return the LCA's value.",
+    "description": "Given a binary tree encoded in level-order as `tree` (not necessarily a BST) and two distinct values `p` and `q` (both guaranteed to exist), return the value of their lowest common ancestor, i.e. the deepest node that has both `p` and `q` as descendants (a node may be a descendant of itself). All node values are unique.",
     "examples": [
       {
         "input": "tree = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1",
@@ -2285,7 +2285,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "PhonePe's index needs the AVL-style balance check: every node's left and right subtree heights differ by at most 1. Given level-order `tree`, return `true` if balanced.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return `true` if it is height-balanced. A tree is height-balanced if, for every node, the heights of its left and right subtrees differ by at most 1.",
     "examples": [
       {
         "input": "tree = [3,9,20,null,null,15,7]",
@@ -2430,7 +2430,7 @@
       "amazon",
       "google"
     ],
-    "description": "Zomato's menu graph diameter = the length (in edges) of the longest path between any two nodes in the binary tree. Return the diameter.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return its diameter: the length, in edges, of the longest path between any two nodes. This path may or may not pass through the root.",
     "examples": [
       {
         "input": "tree = [1,2,3,4,5]",
@@ -2567,7 +2567,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Swiggy's pricing tree: each node holds a price delta. A 'combo path' is a root-to-leaf path; combo total = sum of node values. Given level-order `tree` and `target`, return `true` if any root-to-leaf path sums to `target`.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes) and an integer `target`, return `true` if there exists a root-to-leaf path whose node values sum to `target`, and `false` otherwise.",
     "examples": [
       {
         "input": "tree = [5,4,8,11,null,13,4,7,2,null,null,null,1], target = 22",
@@ -2712,7 +2712,7 @@
       "google",
       "amazon"
     ],
-    "description": "Razorpay's audit needs every root-to-leaf path of merchant IDs. Given level-order `tree`, return all root-to-leaf paths (each as an array of values) in DFS preorder discovery order.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return all root-to-leaf paths, each represented as the list of node values along that path. Paths should appear in DFS preorder discovery order.",
     "examples": [
       {
         "input": "tree = [1,2,3,null,5]",
@@ -2899,7 +2899,7 @@
       "amazon",
       "uber"
     ],
-    "description": "Flipkart's BST holds product prices. Given the BST `tree` and integer `k`, return the kth smallest price (1-indexed).",
+    "description": "Given a binary search tree encoded in level-order as `tree` and an integer `k`, return the value of the kth smallest node (1-indexed).",
     "examples": [
       {
         "input": "tree = [3,1,4,null,2], k = 1",
@@ -3054,7 +3054,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "PhonePe has a sorted (ascending) array of merchant IDs. Build a height-balanced BST and return its level-order encoded array. Pick the *middle* element of the slice as root; with even-length slice pick the left middle (`floor((lo+hi)/2)`).",
+    "description": "Given an integer array `nums` sorted in ascending order, build a height-balanced binary search tree and return its level-order encoded array. At each step, choose the middle element of the current slice as the root; for an even-length slice, pick the left middle element (`floor((lo+hi)/2)`).",
     "examples": [
       {
         "input": "nums = [-10,-3,0,5,9]",
@@ -3222,7 +3222,7 @@
       "atlassian",
       "amazon"
     ],
-    "description": "Insert a new merchant ID `val` into Razorpay's BST `tree`. Return the level-order array of the resulting tree. Insert as a leaf along the standard BST path. The value is guaranteed not to exist already.",
+    "description": "Given a binary search tree encoded in level-order as `tree` and an integer `val` (guaranteed not already present), insert `val` as a new leaf along the standard BST search path. Return the level-order encoded array of the resulting tree.",
     "examples": [
       {
         "input": "tree = [4,2,7,1,3], val = 5",
@@ -3377,7 +3377,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Zomato wants a single-column rendering: flatten the binary tree in-place into a right-skewed list (each node's left = null, right = next in preorder). Given level-order `tree`, return the level-order array of the flattened tree.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), flatten it in place into a right-skewed linked list: each node's left child becomes `null` and its right child points to the next node in preorder traversal. Return the level-order encoded array of the flattened tree.",
     "examples": [
       {
         "input": "tree = [1,2,5,3,4,null,6]",
@@ -3537,7 +3537,7 @@
       "facebook",
       "amazon"
     ],
-    "description": "Swiggy's mall view: imagine standing on the right side, you see the rightmost node at every level. Given level-order `tree`, return that list top-to-bottom.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the values of the nodes visible from the right side, ordered from top to bottom. The right-side view consists of the rightmost node at each level.",
     "examples": [
       {
         "input": "tree = [1,2,3,null,5,null,4]",
@@ -3689,7 +3689,7 @@
       "amazon",
       "google"
     ],
-    "description": "For each level of Razorpay's settlement tree, compute the average node value. Given level-order `tree`, return list of averages from root level downward.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return a list of the average values of the nodes at each level, ordered from the root level downward.",
     "examples": [
       {
         "input": "tree = [3,9,20,null,null,15,7]",
@@ -3838,7 +3838,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Reconstruct Flipkart's category tree from its preorder and inorder traversals (all values unique). Return the level-order array of the resulting tree.",
+    "description": "Given two integer arrays `preorder` and `inorder` representing the preorder and inorder traversals of a binary tree with unique values, reconstruct the tree and return its level-order encoded array.",
     "examples": [
       {
         "input": "preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]",
@@ -4018,7 +4018,7 @@
       "amazon",
       "google"
     ],
-    "description": "Razorpay represents a fee-flow as a binary tree (signed integers). A path is any sequence of connected nodes (no node twice). Return the maximum sum over any path. Path can start and end anywhere; must contain at least one node.",
+    "description": "Given a binary tree encoded in level-order as `tree` (node values may be negative), return the maximum path sum. A path is any sequence of connected nodes that visits each node at most once and need not pass through the root; it must contain at least one node. The path sum is the sum of the values of the nodes it contains.",
     "examples": [
       {
         "input": "tree = [1,2,3]",
@@ -4166,7 +4166,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Delete a merchant ID `key` from PhonePe's BST `tree`. If the node has two children, replace its value with the **inorder successor** (smallest value in the right subtree) and delete that successor. Return the level-order array of the resulting BST. If `key` is absent, the tree is unchanged.",
+    "description": "Given a binary search tree encoded in level-order as `tree` and an integer `key`, delete the node with value `key` and return the level-order encoded array of the resulting BST. If the deleted node has two children, replace its value with its inorder successor (the smallest value in its right subtree) and delete that successor. If `key` is not present, the tree is unchanged.",
     "examples": [
       {
         "input": "tree = [5,3,6,2,4,null,7], key = 3",
@@ -4351,7 +4351,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Zomato calls a node 'good' if no node on the root-to-it path has a strictly greater value. Given level-order `tree`, return the count of good nodes.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the number of good nodes. A node is good if no node on the path from the root to it has a value strictly greater than the node's own value.",
     "examples": [
       {
         "input": "tree = [3,1,4,3,null,1,5]",
@@ -4485,7 +4485,7 @@
       "amazon",
       "google"
     ],
-    "description": "Razorpay's neighbourhood is a binary tree of houses with cash values. You can't rob two directly-connected houses (parent+child). Return the maximum cash you can rob.",
+    "description": "Given a binary tree encoded in level-order as `tree` where each node holds a non-negative value, return the maximum total value you can select subject to the constraint that no two directly connected nodes (a parent and its child) may both be selected.",
     "examples": [
       {
         "input": "tree = [3,2,3,null,3,null,1]",
@@ -4625,7 +4625,7 @@
       "amazon",
       "google"
     ],
-    "description": "Razorpay needs to ship trees over the wire. Implement serialize+deserialize: input is a level-order array (with `null` for missing). Build the tree, then re-serialize it. Return the level-order array (same canonical form).",
+    "description": "Given a binary tree provided as a level-order encoded array `data` (using `null` for missing nodes), build the tree and then re-serialize it back to its canonical level-order encoded array. Return that array.",
     "examples": [
       {
         "input": "data = [1,2,3,null,null,4,5]",
@@ -4802,7 +4802,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Flipkart's UI shell wants the *boundary* of a binary tree in anti-clockwise order: (1) root, (2) left boundary nodes top-to-bottom (excluding leaves), (3) all leaves left-to-right, (4) right boundary nodes bottom-to-top (excluding leaves). If root is a leaf, return just `[root.val]`. Avoid duplicating the root.\n\nLeft boundary: starting from root.left, repeatedly go left if exists, else right; include each non-leaf node visited.\nRight boundary: starting from root.right, repeatedly go right if exists, else left; include each non-leaf node visited (later reversed).",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return its boundary in anti-clockwise order: the root, then the left boundary nodes top-to-bottom excluding leaves, then all leaves left-to-right, then the right boundary nodes bottom-to-top excluding leaves, without duplicating the root. If the root is itself a leaf, return `[root.val]`. The left boundary starts at `root.left` and repeatedly goes left if possible else right, including each non-leaf node visited; the right boundary starts at `root.right` and repeatedly goes right if possible else left, including each non-leaf node visited (then reversed).",
     "examples": [
       {
         "input": "tree = [1,null,2,3,4]",
@@ -4967,7 +4967,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Swiggy's UI needs a vertical scan: group binary tree nodes by their column index (root = 0, left child = col-1, right = col+1). Output one array per column from leftmost to rightmost. Within a column, sort by depth ascending; ties (same col + depth) sorted by value ascending.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return its vertical order traversal. Assign the root column index 0, a left child its parent's column minus 1, and a right child its parent's column plus 1. Output one list per column from leftmost to rightmost; within a column, order nodes by depth ascending, breaking ties (same column and depth) by value ascending.",
     "examples": [
       {
         "input": "tree = [3,9,20,null,null,15,7]",
@@ -5151,7 +5151,7 @@
       "google",
       "amazon"
     ],
-    "description": "A migration script accidentally swapped two values in Razorpay's BST. Restore the BST by swapping them back **in place**. Return the level-order array of the corrected tree.",
+    "description": "A valid binary search tree had exactly two of its node values swapped by mistake. Given the tree encoded in level-order as `tree`, recover it by swapping those two values back, modifying the tree in place. Return the level-order encoded array of the corrected tree.",
     "examples": [
       {
         "input": "tree = [1,3,null,null,2]",
@@ -5288,7 +5288,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "PhonePe stores merchant priority in a *complete* binary tree (every level full except possibly the last, which is filled left-to-right). Given level-order `tree`, return the node count using the structure for an O((log n)^2) algorithm.",
+    "description": "Given a complete binary tree encoded in level-order as `tree` (every level is fully filled except possibly the last, which is filled left to right), return the number of nodes. Aim to exploit the completeness property to count in better than linear time, e.g. O((log n)^2).",
     "examples": [
       {
         "input": "tree = [1,2,3,4,5,6]",
@@ -5431,7 +5431,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Zomato's render planner needs the maximum *width* of the binary tree. The width of a level is the number of positions between the leftmost and rightmost non-null nodes (counting null gaps in between as if it were a complete tree). Return the largest such width across all levels.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return its maximum width. The width of a level is the number of positions between its leftmost and rightmost non-null nodes, counting the null gaps between them as if the tree were complete. Return the largest width across all levels.",
     "examples": [
       {
         "input": "tree = [1,3,2,5,3,null,9]",
@@ -5568,7 +5568,7 @@
       "google",
       "facebook"
     ],
-    "description": "A 'zigzag' path in Razorpay's binary tree alternates direction between left and right at each step. Length is counted in *edges*. Return the longest zigzag path length.",
+    "description": "Given a binary tree encoded in level-order as `tree` (using `null` for missing nodes), return the length of the longest zigzag path. A zigzag path alternates direction (left, right, left, ...) at each step, and its length is measured in edges.",
     "examples": [
       {
         "input": "tree = [1,null,1,1,1,null,null,1,1,null,1,null,null,null,1,null,1]",
@@ -5718,7 +5718,7 @@
       "google",
       "amazon"
     ],
-    "description": "Flipkart compresses category trees as a preorder string with '#' marking null. Format: comma-separated, e.g. `1,2,#,#,3,#,#`. Implement a round-trip: take a level-order array `data`, build the tree, serialize to preorder string, deserialize that string, then return the resulting tree as a level-order array.",
+    "description": "Given a binary tree provided as a level-order encoded array `data` (using `null` for missing nodes), build the tree, serialize it to a comma-separated preorder string using `#` to mark null nodes (e.g. `1,2,#,#,3,#,#`), deserialize that string back into a tree, and return the resulting tree as a level-order encoded array.",
     "examples": [
       {
         "input": "data = [1,2,3,null,null,4,5]",
@@ -5885,7 +5885,7 @@
       "amazon",
       "google"
     ],
-    "description": "Razorpay needs the maximum sum among all leaf-to-leaf paths in a binary tree. The path must start and end at distinct leaves and may pass through any node. If the tree has fewer than 2 leaves, return -10000 as a sentinel.",
+    "description": "Given a binary tree encoded in level-order as `tree` (node values may be negative), return the maximum sum among all leaf-to-leaf paths. Such a path starts and ends at two distinct leaves and may pass through any intermediate nodes. If the tree has fewer than two leaves, return -10000 as a sentinel value.",
     "examples": [
       {
         "input": "tree = [3,4,5,-10,4]",

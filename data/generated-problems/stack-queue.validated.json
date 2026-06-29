@@ -10,7 +10,7 @@
       "atlassian",
       "amazon"
     ],
-    "description": "Razorpay ke webhook payload validator mein developer ne config file likhi hai jismein round, square aur curly brackets use hote hain. Tujhe ek string `s` di hai jo letters aur brackets mix mein contain karti hai. Return `true` agar saare brackets properly nested aur matched hain, warna `false`.\n\nNon-bracket characters ko ignore kar — sirf bracket validity check karni hai.",
+    "description": "Given a string `s` containing letters and the bracket characters `()[]{}`, determine whether all brackets are properly matched and nested. A bracket sequence is valid if every opening bracket is closed by the same type of bracket and brackets close in the correct order. Non-bracket characters are ignored and do not affect validity. Return `true` if the brackets are balanced, otherwise return `false`.",
     "examples": [
       {
         "input": "s = \"a(b)c{d[e]f}g\"",
@@ -118,7 +118,7 @@
       "zomato",
       "flipkart"
     ],
-    "description": "Swiggy delivery partner ke pass aaj din bhar ke order values ka array hai. Har order ke liye batao agle kisi order ki value strictly badi hai ki nahi — agar hai toh wo value, warna `-1`. Return same-length array of answers.\n\nYahaan 'agla' matlab right side index pe.",
+    "description": "Given an integer array `orders`, for each element find the next element to its right that is strictly greater than it. Return an array of the same length where each position holds that next greater value, or `-1` if no such element exists. Here \"next\" means the closest greater element at a larger index.",
     "examples": [
       {
         "input": "orders = [2,1,5,3,4]",
@@ -268,7 +268,7 @@
       "swiggy",
       "uber"
     ],
-    "description": "Zomato ke restaurant owner ko daily ratings milti hain. Ek array `ratings` di hai jismein har din ka rating hai. Har din ke liye batao kitne din ka wait karna padega ek strictly higher rating ke liye. Agar future mein higher nahi hai toh `0` return kar.\n\nReturn integer array same length.",
+    "description": "Given an integer array `ratings`, return an array of the same length where each position `i` holds the number of indices you must move forward from `i` to reach a strictly greater value. If no future value is strictly greater, the answer for that position is `0`.",
     "examples": [
       {
         "input": "ratings = [3,4,3,5,2,1,3]",
@@ -424,7 +424,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart product analytics dashboard mein bar chart hai jahaan har bar ki height us product ki daily revenue hai aur width 1 unit. Tujhe largest rectangular area find karni hai jo continuous bars ko cover kare.\n\nReturn integer — maximum rectangle area.",
+    "description": "Given an integer array `heights` where each value represents the height of a bar with width `1` in a histogram, return the area of the largest rectangle that can be formed using one or more contiguous bars. The rectangle's height is limited by the shortest bar it spans.",
     "examples": [
       {
         "input": "heights = [2,1,5,6,2,3]",
@@ -551,7 +551,7 @@
       "phonepe",
       "razorpay"
     ],
-    "description": "Paytm scientific calculator backend reverse polish notation use karta hai expressions ko evaluate karne ke liye. Tujhe tokens ka array diya hai jismein integers aur `+`, `-`, `*`, `/` operators hain. Expression evaluate karke integer return kar.\n\nDivision truncates towards zero.",
+    "description": "Given an array of strings `tokens` representing an arithmetic expression in Reverse Polish Notation, evaluate the expression and return its integer value. Valid operators are `+`, `-`, `*`, and `/`, each applied to the two preceding operands. Division between two integers truncates toward zero. The input is always a valid RPN expression.",
     "examples": [
       {
         "input": "tokens = [\"2\",\"1\",\"+\",\"3\",\"*\"]",
@@ -696,7 +696,7 @@
       "atlassian",
       "google"
     ],
-    "description": "CRED ke promo engine encoded strings store karta hai jaise `3[ab]` jiska matlab `ababab`. Encoding rule: `k[encoded_string]` jahaan k positive integer hai. Nesting allowed hai jaise `3[a2[c]]` = `accaccacc`.\n\nDecoded string return kar.",
+    "description": "Given an encoded string `s`, return its decoded form. The encoding rule is `k[encoded_string]`, where the substring inside the brackets is repeated exactly `k` times and `k` is a positive integer. Encodings may be nested, e.g. `3[a2[c]]` decodes to `accaccacc`. The input is always well-formed.",
     "examples": [
       {
         "input": "s = \"3[a]2[bc]\"",
@@ -800,7 +800,7 @@
       "swiggy",
       "meesho"
     ],
-    "description": "Uber dispatch log mein consecutive same characters cancellation indicate karte hain. Tujhe ek string `s` di hai. Repeatedly do adjacent equal characters ko remove kar jab tak koi adjacent pair na bache.\n\nFinal string return kar.",
+    "description": "Given a string `s` of lowercase letters, repeatedly remove any two adjacent equal characters until no such adjacent pair remains. The order of these removals does not affect the final result. Return the resulting string after all possible removals.",
     "examples": [
       {
         "input": "s = \"abbaca\"",
@@ -902,7 +902,7 @@
       "paytm",
       "cred"
     ],
-    "description": "PhonePe analytics module ek special stack chahiye jismein push/pop/top ke saath har waqt minimum value bhi O(1) mein milti rahe.\n\nTujhe operations ka 2D array diya hai. Har operation `[\"push\", x]`, `[\"pop\"]`, `[\"top\"]`, `[\"min\"]` mein se ek hai. Return karna hai array — har operation ke liye result (push/pop ke liye `null`, top/min ke liye number).",
+    "description": "Design a stack that supports `push`, `pop`, `top`, and retrieving the minimum element, each in O(1) time. You are given an array `ops` of operations, where each operation is one of `[\"push\", x]`, `[\"pop\"]`, `[\"top\"]`, or `[\"min\"]`. Apply them in order and return an array of results: `null` for `push` and `pop`, and the corresponding value for `top` and `min`. `pop`, `top`, and `min` are only called on a non-empty stack.",
     "examples": [
       {
         "input": "ops = [[\"push\",5],[\"push\",3],[\"push\",7],[\"min\"],[\"pop\"],[\"min\"],[\"top\"]]",
@@ -1099,7 +1099,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy ka surge pricing algorithm last `k` minutes ke maximum order count pe depend karta hai. Tujhe orders array `a` diya hai (per-minute counts) aur window size `k`. Har sliding window ka maximum return kar.\n\nReturn array of length `n - k + 1`.",
+    "description": "Given an integer array `a` and an integer `k`, consider a window of size `k` sliding from the left to the right of the array one position at a time. Return an array containing the maximum value within each window, in order. The output has length `a.length - k + 1`.",
     "examples": [
       {
         "input": "a = [1,3,-1,-3,5,3,6,7], k = 3",
@@ -1252,7 +1252,7 @@
       "postman",
       "atlassian"
     ],
-    "description": "Razorpay rate-limiter ko track karna hai pichle 3000 milliseconds (inclusive) mein kitne API requests aaye. Tujhe timestamps ka non-decreasing array `t` diya hai. Har timestamp ke baad return kar count of requests within `[t[i]-3000, t[i]]`.\n\nReturn array same length as `t`.",
+    "description": "Given a non-decreasing array of integer timestamps `t` (in milliseconds), process the timestamps in order. For each timestamp `t[i]`, return the number of timestamps that fall within the inclusive range `[t[i] - 3000, t[i]]`. Return an array of these counts, of the same length as `t`.",
     "examples": [
       {
         "input": "t = [1,100,3001,3002]",
@@ -1399,7 +1399,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Atlassian Jira ke task scheduler ko FIFO queue chahiye but library mein sirf stacks hain. Two-stack technique se queue simulate kar.\n\nOperations: `[\"enqueue\", x]`, `[\"dequeue\"]`, `[\"peek\"]`. Return array — har op ke liye result (enqueue null, dequeue/peek ka value, empty pe null).",
+    "description": "Implement a FIFO queue using only stack operations. You are given an array `ops` of operations, where each operation is one of `[\"enqueue\", x]`, `[\"dequeue\"]`, or `[\"peek\"]`. Apply them in order and return an array of results: `null` for `enqueue`, and the front value for `dequeue` and `peek` (or `null` if the queue is empty).",
     "examples": [
       {
         "input": "ops = [[\"enqueue\",1],[\"enqueue\",2],[\"peek\"],[\"dequeue\"],[\"dequeue\"]]",
@@ -1586,7 +1586,7 @@
       "flipkart",
       "amazon"
     ],
-    "description": "Meesho seller dashboard mein LIFO behavior chahiye but environment mein sirf queues mile. Single queue (or two) se stack simulate kar.\n\nOperations: `[\"push\", x]`, `[\"pop\"]`, `[\"top\"]`. Return array — push ke liye `null`, pop/top ke liye value (empty pe null).",
+    "description": "Implement a LIFO stack using only queue operations. You are given an array `ops` of operations, where each operation is one of `[\"push\", x]`, `[\"pop\"]`, or `[\"top\"]`. Apply them in order and return an array of results: `null` for `push`, and the top value for `pop` and `top` (or `null` if the stack is empty).",
     "examples": [
       {
         "input": "ops = [[\"push\",1],[\"push\",2],[\"top\"],[\"pop\"],[\"pop\"]]",
@@ -1764,7 +1764,7 @@
       "microsoft",
       "atlassian"
     ],
-    "description": "Google search bar mein typing simulator — `#` character backspace represent karta hai. Do typed strings `s` aur `t` di hain. Return `true` agar dono ka final result equal hai, warna `false`.\n\nEmpty text par backspace karne se kuch nahi hota.",
+    "description": "You are given two strings `s` and `t`, each typed into a text editor where the character `#` denotes a backspace. After applying all backspaces (a backspace on empty text has no effect), return `true` if the two resulting strings are equal, otherwise return `false`.",
     "examples": [
       {
         "input": "s = \"ab#c\", t = \"ad#c\"",
@@ -1878,7 +1878,7 @@
       "amazon",
       "uber"
     ],
-    "description": "Flipkart logistics mein highway pe trucks chal rahe hain. Array `a` mein har element ek truck ka size hai — positive matlab right ki taraf, negative matlab left ki taraf. Same speed sab. Jab opposite-direction trucks meet karte hain, smaller one destroy ho jata hai. Equal size ho toh dono destroy.\n\nFinal trucks left in original order return kar.",
+    "description": "Given an integer array `a` representing objects moving along a line, the absolute value of each element is its size and the sign denotes direction: positive moves right, negative moves left. All objects move at the same speed. When two objects moving toward each other meet, the smaller one is destroyed; if they are equal in size, both are destroyed. Objects moving in the same direction never meet. Return the array of objects that remain, in their original order.",
     "examples": [
       {
         "input": "a = [5,10,-5]",
@@ -2027,7 +2027,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Mumbai mein monsoon ke time buildings ke beech paani jam ho jata hai. Tujhe heights array `h` di hai (each width 1). Calculate kar total kitna paani trap hota hai bars ke beech.\n\nReturn integer.",
+    "description": "Given an array `h` of non-negative integers where each value is the height of a bar of width `1`, compute how many units of water can be trapped between the bars after it rains. Return the total trapped water as an integer.",
     "examples": [
       {
         "input": "h = [0,1,0,2,1,0,1,3,2,1,2,1]",
@@ -2172,7 +2172,7 @@
       "google",
       "microsoft"
     ],
-    "description": "CRED ke build pipeline mein Unix-style file paths normalize karne hain. Tujhe absolute path string `p` di hai (starts with `/`). Simplify kar:\n- `.` current directory (skip).\n- `..` parent directory (one level up).\n- Multiple consecutive `/` ek hi treat hota hai.\n\nReturn canonical path (starts with single `/`, no trailing `/` except root).",
+    "description": "Given an absolute Unix-style file path `p` (always beginning with `/`), return its canonical form. In the path, a single period `.` denotes the current directory, a double period `..` denotes moving up one directory level, and multiple consecutive slashes are treated as a single slash. The canonical path must begin with a single `/`, must not have a trailing `/` (except for the root), and must not contain any `.` or `..` components.",
     "examples": [
       {
         "input": "p = \"/home/\"",
@@ -2281,7 +2281,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon ke catalog mein category tree hai — recursion stack overflow se bachne ke liye iterative DFS chahiye. Tree ko `left` aur `right` arrays se represent kiya hai jahaan `left[i]` node `i` ka left child index hai (`-1` means none), similarly `right`. Root index `root` diya hai.\n\nReturn preorder traversal (root, left, right) ke node indices ka array. Empty tree pe `[]`.",
+    "description": "A binary tree is given via two arrays `left` and `right`, where `left[i]` and `right[i]` are the indices of the left and right children of node `i` (or `-1` if that child does not exist), along with the index `root` of the root node. Return the node indices visited in preorder (root, then left subtree, then right subtree). If the tree is empty (`root` is `-1`), return `[]`.",
     "examples": [
       {
         "input": "left = [1,3,-1,-1,-1], right = [2,4,-1,-1,-1], root = 0",
@@ -2441,7 +2441,7 @@
       "postman",
       "google"
     ],
-    "description": "Atlassian Confluence editor mein nested formatting ke score calculate karne hain. Balanced parentheses string `s` (sirf `(` aur `)`) di hai. Score rules:\n- `()` ka score 1.\n- `AB` ka score `A + B` (concatenation).\n- `(A)` ka score `2 * A`.\n\nFinal score return kar.",
+    "description": "Given a balanced parentheses string `s` consisting only of `(` and `)`, compute its score according to these rules: `()` has a score of `1`; the concatenation `AB` of two balanced strings has score `A + B`; and a wrapped string `(A)` has score `2 * A`. Return the total score of `s`.",
     "examples": [
       {
         "input": "s = \"()\"",
@@ -2549,7 +2549,7 @@
       "google",
       "amazon"
     ],
-    "description": "Postman API analytics ko batana hai kitne contiguous subarrays mein leftmost element subarray ka minimum hai. Array `a` di hai. Count return kar — subarrays jisme `a[l] <= a[i]` for all `i` in `[l, r]`.\n\nReturn integer count.",
+    "description": "Given an integer array `a`, count the number of contiguous subarrays in which the leftmost element is the minimum of the subarray. Formally, count subarrays `a[l..r]` such that `a[l] <= a[i]` for every `i` in `[l, r]`. Return the count as an integer.",
     "examples": [
       {
         "input": "a = [1,4,2,5,3]",
@@ -2673,7 +2673,7 @@
       "amazon",
       "google"
     ],
-    "description": "Microsoft Azure metrics service har contiguous subarray ka minimum nikalke total sum chahti hai. Array `a` diya hai. Return sum of `min(subarray)` over all contiguous subarrays, modulo `10^9 + 7`.",
+    "description": "Given an integer array `a`, find the minimum of every contiguous subarray and return the sum of all those minimums. Since the answer may be large, return it modulo `10^9 + 7`.",
     "examples": [
       {
         "input": "a = [3,1,2,4]",
@@ -2798,7 +2798,7 @@
       "uber",
       "amazon"
     ],
-    "description": "PhonePe stocks ke daily prices array `prices` di hai. Har din ke liye span calculate kar — consecutive days (current included, going back) jahaan price current day se kam ya equal thi.\n\nReturn integer array of spans.",
+    "description": "Given an array `prices` of daily prices, compute the span for each day. The span on a given day is the number of consecutive days ending at that day (including it) for which the price was less than or equal to that day's price, scanning backward. Return an array of the spans.",
     "examples": [
       {
         "input": "prices = [100,80,60,70,60,75,85]",
@@ -2946,7 +2946,7 @@
       "atlassian",
       "amazon"
     ],
-    "description": "Razorpay anti-fraud system ek stream of characters process karta hai aur har step pe first non-repeating character chahiye. Tujhe string `s` di hai. Process character-by-character — har step ke baad first non-repeating character append kar (ya `#` agar koi nahi).\n\nReturn resultant string of length `s.length`.",
+    "description": "Given a string `s` of lowercase letters processed one character at a time, after reading each character report the first character so far that has occurred exactly once. Build a result string where each position holds that first non-repeating character, or `#` if every character seen so far repeats. Return the resulting string, which has the same length as `s`.",
     "examples": [
       {
         "input": "s = \"aabc\"",
@@ -3048,7 +3048,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Google Maps satellite imagery binary matrix mein largest rectangle of 1s find karna hai. `m` ek 2D array hai of `0`s aur `1`s. Return integer — area of largest rectangle containing only 1s.",
+    "description": "Given a 2D binary matrix `m` filled with `0`s and `1`s, find the largest rectangle containing only `1`s and return its area as an integer.",
     "examples": [
       {
         "input": "m = [[1,0,1,0,0],[1,0,1,1,1],[1,1,1,1,1],[1,0,0,1,0]]",
@@ -3212,7 +3212,7 @@
       "swiggy",
       "flipkart"
     ],
-    "description": "Uber pricing display ke liye fare ka digit string `num` di hai. Tujhe `k` digits remove karne hain takki bachi hui digits ka number lexicographically smallest ho (leading zeros remove karke). Return string — agar empty ho toh `\"0\"`.",
+    "description": "Given a string `num` representing a non-negative integer and an integer `k`, remove exactly `k` digits from `num` so that the resulting number is as small as possible. Return the result as a string with any leading zeros stripped; if the result is empty, return `\"0\"`.",
     "examples": [
       {
         "input": "num = \"1432219\", k = 3",
@@ -3327,7 +3327,7 @@
       "atlassian",
       "cred"
     ],
-    "description": "Paytm support agent ke text editor mein undo/redo support chahiye. Operations array `ops` di hai — `[\"type\", text]` (current ke baad text append), `[\"undo\"]`, `[\"redo\"]`, `[\"get\"]`. Initial text empty hai.\n\nReturn array — type/undo/redo ke liye `null`, get ke liye current text. Naya `type` redo stack clear kar deta hai.",
+    "description": "Implement a text editor that supports undo and redo, starting from an empty text. You are given an array `ops` of operations, where each operation is one of `[\"type\", text]` (append `text` to the current text), `[\"undo\"]` (revert to the state before the last change), `[\"redo\"]` (reapply the most recently undone change), or `[\"get\"]` (read the current text). A new `type` operation clears the redo history. Return an array of results: `null` for `type`, `undo`, and `redo`, and the current text for `get`.",
     "examples": [
       {
         "input": "ops = [[\"type\",\"hi\"],[\"type\",\" there\"],[\"get\"],[\"undo\"],[\"get\"],[\"redo\"],[\"get\"]]",

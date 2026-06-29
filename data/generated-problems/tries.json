@@ -10,7 +10,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Flipkart's search bar needs fast product-name lookup. Implement a Trie that supports three ops: `insert(word)` adds a product name, `search(word)` returns true iff the exact word was inserted, and `startsWith(prefix)` returns true iff any inserted word has that prefix. You will be given an array `ops` where each entry is `[opName, arg]`. Return an array of results — `null` for inserts, boolean for search/startsWith.",
+    "description": "Implement a trie (prefix tree) that supports three operations: `insert(word)` adds `word` to the trie, `search(word)` returns `true` if and only if `word` was previously inserted as a complete word, and `startsWith(prefix)` returns `true` if and only if some previously inserted word has `prefix` as a prefix. You are given an array `ops` where each entry is `[opName, arg]`. Return an array of results in order — `null` for each `insert`, and a boolean for each `search` and `startsWith`.",
     "examples": [
       {
         "input": "ops = [[\"insert\",\"apple\"],[\"search\",\"apple\"],[\"search\",\"app\"],[\"startsWith\",\"app\"],[\"insert\",\"app\"],[\"search\",\"app\"]]",
@@ -203,7 +203,7 @@
       "flipkart",
       "google"
     ],
-    "description": "Amazon's catalog team groups products by SKU codes. Given an array of SKU strings `words`, return the longest string that is a prefix of every word. If there is no common prefix or the array is empty, return `\"\"`.",
+    "description": "Given an array of strings `words`, return the longest string that is a common prefix of all of them. If there is no common prefix, or the array is empty, return the empty string `\"\"`.",
     "examples": [
       {
         "input": "words = [\"flower\",\"flow\",\"flight\"]",
@@ -321,7 +321,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay's analytics dashboard needs to count how many merchant codes share a given prefix. Implement a Trie supporting: `insert(word)`, `countWordsEqualTo(word)` (how many times the exact word was inserted), and `countWordsStartingWith(prefix)` (how many inserted words have this prefix). You'll receive `ops` like `[\"insert\",\"raz\"]` etc. Return an array — `null` for inserts, integer for the two count ops.",
+    "description": "Implement a trie that supports three operations: `insert(word)` adds `word` to the trie, `countWordsEqualTo(word)` returns the number of times the exact `word` was inserted, and `countWordsStartingWith(prefix)` returns the number of inserted words that have `prefix` as a prefix. You are given an array `ops` where each entry is `[opName, arg]`. Return an array of results in order — `null` for each `insert`, and an integer for each count operation.",
     "examples": [
       {
         "input": "ops = [[\"insert\",\"apple\"],[\"insert\",\"apple\"],[\"insert\",\"app\"],[\"countWordsEqualTo\",\"apple\"],[\"countWordsStartingWith\",\"app\"]]",
@@ -518,7 +518,7 @@
       "zomato",
       "amazon"
     ],
-    "description": "Swiggy uses short restaurant 'roots' (codes) as canonical prefixes. Given a list of `roots` and a sentence string, replace every word in the sentence with the SHORTEST root that is a prefix of that word. If no root is a prefix, keep the word unchanged. Words are separated by single spaces. Return the rewritten sentence.",
+    "description": "You are given a list of strings `roots` and a string `sentence` whose words are separated by single spaces. For every word in `sentence`, if one or more strings in `roots` is a prefix of that word, replace the word with the shortest such root; otherwise leave the word unchanged. Return the resulting sentence.",
     "examples": [
       {
         "input": "roots = [\"cat\",\"bat\",\"rat\"], sentence = \"the cattle was rattled by the battery\"",
@@ -630,7 +630,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy's search team has a list of restaurant `names` (lowercase strings) and a list of `prefixes` typed by users. For each prefix, count how many restaurant names start with that prefix, and return the counts in the same order as `prefixes`. Names may repeat (a chain) — every occurrence counts.",
+    "description": "You are given an array of strings `names` and an array of query strings `prefixes`. For each prefix in `prefixes`, count how many strings in `names` start with that prefix, and return the counts in the same order as `prefixes`. Duplicate strings in `names` are counted independently (each occurrence counts).",
     "examples": [
       {
         "input": "names = [\"biryanihouse\",\"biryanibazaar\",\"pizzahut\"], prefixes = [\"bir\",\"piz\",\"xyz\"]",
@@ -778,7 +778,7 @@
       "instagram",
       "twitter"
     ],
-    "description": "Sharechat's hashtag bar suggests up to 3 trending hashtags as the user types. Given an array of `hashtags` (with possible repeats — repetition denotes frequency) and a `prefix`, return up to 3 hashtag strings that start with the prefix, ordered by frequency descending; ties broken lexicographically (smallest string first). Only DISTINCT hashtags should appear in the result.",
+    "description": "You are given an array of strings `hashtags`, where repeated occurrences of a string denote its frequency, and a string `prefix`. Return up to 3 distinct strings from `hashtags` that have `prefix` as a prefix, ordered by frequency in descending order, breaking ties lexicographically (smallest string first). If no string matches, return an empty array.",
     "examples": [
       {
         "input": "hashtags = [\"love\",\"love\",\"life\",\"love\",\"life\",\"laugh\"], prefix = \"l\"",
@@ -927,7 +927,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Paytm's voice-to-text pipeline gets a long undelimited string `s` and a `dictionary` of valid lowercase tokens. Determine if `s` can be segmented into a sequence of one or more dictionary words (each word reusable any number of times). Use a trie to make per-position lookups efficient. Return `true` or `false`.",
+    "description": "Given a string `s` and a list of strings `dictionary`, return `true` if `s` can be segmented into a sequence of one or more strings from `dictionary`. The same dictionary word may be reused any number of times in the segmentation.",
     "examples": [
       {
         "input": "s = \"paytmkaro\", dictionary = [\"paytm\",\"karo\",\"pay\"]",
@@ -1062,7 +1062,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon's warehouse robots scan a 2D grid of letter-tiles (`board`) hunting for product-name words. Given a list of target `words`, return all words that can be formed by sequentially adjacent (up/down/left/right) tiles, each tile used at most once per word. Return the matched words in lexicographic order, no duplicates.",
+    "description": "Given an `m x n` grid of lowercase letters `board` and a list of strings `words`, return all strings in `words` that can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same cell may not be used more than once within a single word. Return the matched words in lexicographic order, with no duplicates.",
     "examples": [
       {
         "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
@@ -1270,7 +1270,7 @@
       "google",
       "amazon"
     ],
-    "description": "PhonePe's fraud team encodes risk scores as 32-bit non-negative integers and wants the maximum XOR between any two distinct entries (highest XOR signals divergent profiles). Given an array `nums` (length >= 2), return the maximum value of `nums[i] ^ nums[j]` for any `i != j`. Use a bit-trie for efficiency.",
+    "description": "Given an array of non-negative integers `nums` of length at least 2, return the maximum value of `nums[i] ^ nums[j]`, where `^` is the bitwise XOR operation and `i != j`.",
     "examples": [
       {
         "input": "nums = [3, 10, 5, 25, 2, 8]",
@@ -1399,7 +1399,7 @@
       "flipkart",
       "google"
     ],
-    "description": "Meesho's catalog has a list of distinct lowercase product tokens `words`. A 'concatenated word' is one that can be formed by joining at least TWO shorter words from the same list (each shorter word can be used multiple times). Return all concatenated words, sorted lexicographically.",
+    "description": "Given a list of distinct lowercase strings `words`, return all strings that are concatenated words. A concatenated word is a string that can be formed by joining at least two shorter strings from `words` (each chosen string may be used multiple times). Return the result sorted lexicographically.",
     "examples": [
       {
         "input": "words = [\"cat\",\"cats\",\"dog\",\"catsdog\",\"dogcat\",\"dogcatsdog\"]",
@@ -1534,7 +1534,7 @@
       "amazon",
       "flipkart"
     ],
-    "description": "Zomato's search bar suggests dishes as the user types. Given a list of dish strings `products` and a user query `searchWord`, return a list of length `searchWord.length` where the i-th entry is the up-to-3 lexicographically smallest products from `products` that share `searchWord[0..i]` as a prefix. After the prefix stops matching any product, the rest of the entries should be empty arrays.",
+    "description": "Given a list of strings `products` and a string `searchWord`, return a list of lists where the i-th list contains up to 3 lexicographically smallest strings from `products` that share `searchWord[0..i]` as a prefix (i.e. the first `i + 1` characters of `searchWord`). Once no product matches the current prefix, the remaining entries are empty lists. The result has length equal to `searchWord.length`.",
     "examples": [
       {
         "input": "products = [\"mobile\",\"mouse\",\"moneypot\",\"monitor\",\"mousepad\"], searchWord = \"mouse\"",
@@ -1743,7 +1743,7 @@
       "atlassian",
       "microsoft"
     ],
-    "description": "Freshworks's helpdesk autocompletes ticket categories. Implement a word dictionary that supports two ops: `addWord(word)` inserts a word, and `search(word)` returns true iff some inserted word matches `word`. The search pattern may contain `.` which matches any single lowercase letter. You'll receive `ops` as `[opName, arg]` pairs. Return an array — `null` for adds, boolean for searches.",
+    "description": "Implement a word dictionary supporting two operations: `addWord(word)` inserts `word`, and `search(word)` returns `true` if and only if some previously added word matches `word`. The search string may contain the character `.`, which matches any single lowercase letter. You are given an array `ops` where each entry is `[opName, arg]`. Return an array of results in order — `null` for each `addWord`, and a boolean for each `search`.",
     "examples": [
       {
         "input": "ops = [[\"addWord\",\"bad\"],[\"addWord\",\"dad\"],[\"addWord\",\"mad\"],[\"search\",\"pad\"],[\"search\",\"bad\"],[\"search\",\".ad\"],[\"search\",\"b..\"]]",
@@ -1997,7 +1997,7 @@
       "microsoft",
       "amazon"
     ],
-    "description": "Atlassian's billing keeps a key-value map of feature usage. Implement a structure with two ops: `insert(key, val)` sets the value (overwriting any previous value for the same key), and `sum(prefix)` returns the SUM of values for every key that has the given prefix. Return an array — `null` for inserts, integer for sums.",
+    "description": "Implement a structure that maps string keys to integer values and supports two operations: `insert(key, val)` sets the value for `key`, overwriting any previous value for the same key, and `sum(prefix)` returns the sum of values over all keys that have `prefix` as a prefix. You are given an array `ops` where each entry describes one operation. Return an array of results in order — `null` for each `insert`, and an integer for each `sum`.",
     "examples": [
       {
         "input": "ops = [[\"insert\",\"apple\",3],[\"sum\",\"ap\"],[\"insert\",\"app\",2],[\"sum\",\"ap\"]]",
@@ -2232,7 +2232,7 @@
       "amazon",
       "google"
     ],
-    "description": "Walmart's chat-moderation pipeline streams characters one at a time and must alert if the LATEST suffix of the stream matches any blocked word from a dictionary. Given the dictionary `words` and an input string `letters` (the chars arriving in order), return an array of booleans — index i is true iff after consuming `letters[0..i]`, some suffix ending exactly at position i equals a dictionary word.",
+    "description": "You are given a dictionary of strings `words` and an input string `letters` whose characters arrive one at a time. Return an array of booleans of the same length as `letters`, where index `i` is `true` if and only if, after consuming `letters[0..i]`, some suffix of the stream ending exactly at position `i` equals one of the strings in `words`.",
     "examples": [
       {
         "input": "words = [\"cd\",\"f\",\"kl\"], letters = \"abcdefghijkl\"",
@@ -2402,7 +2402,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Google's NLP team needs to find palindrome pairs in a vocabulary. Given an array of distinct lowercase strings `words`, return all pairs `[i, j]` (with `i != j`) such that the concatenation `words[i] + words[j]` is a palindrome. Return the pairs sorted ascending by `i`, then by `j`.",
+    "description": "Given an array of distinct lowercase strings `words`, return all index pairs `[i, j]` with `i != j` such that the concatenation `words[i] + words[j]` is a palindrome. Return the pairs sorted in ascending order by `i`, and then by `j`.",
     "examples": [
       {
         "input": "words = [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"]",
@@ -2584,7 +2584,7 @@
       "google",
       "amazon"
     ],
-    "description": "Microsoft's storage layer encodes a set of words into a single reference string `S` plus an index array, where each word is recoverable as some `S[i..]` ending at `#`. Given a list `words`, return the MINIMUM possible length of `S` (including the trailing `#` for every encoded word). Equivalent: a word can be omitted from the encoding if it is a SUFFIX of another word.",
+    "description": "Given a list of strings `words`, return the minimum length of a reference string that encodes every word, where each word is recoverable as a substring that starts at some index and ends at a `#` terminator. A word may be omitted from the encoding if it is a suffix of another word in the list. The returned length must include one trailing `#` for every encoded word.",
     "examples": [
       {
         "input": "words = [\"time\",\"me\",\"bell\"]",
@@ -2710,7 +2710,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Uber's autocomplete builds words one character at a time by typing letters. Given a list of strings `words` (all lowercase), return the LONGEST string `w` in `words` such that every prefix of `w` (of length 1, 2, ..., |w|-1) also appears in `words`. If multiple, return the lexicographically smallest. If none, return the empty string.",
+    "description": "Given a list of lowercase strings `words`, return the longest string `w` in `words` such that every prefix of `w` of length 1, 2, ..., |w| - 1 also appears in `words`. If there are multiple answers, return the lexicographically smallest one. If no such string exists, return the empty string.",
     "examples": [
       {
         "input": "words = [\"w\",\"wo\",\"wor\",\"worl\",\"world\"]",
@@ -2846,7 +2846,7 @@
       "razorpay",
       "google"
     ],
-    "description": "Paytm's fraud system fingerprints transaction strings by their distinct substrings count. Given a string `s`, return the number of distinct non-empty substrings of `s`. Use a trie of all suffixes — every newly created node corresponds to a distinct substring.",
+    "description": "Given a string `s`, return the number of distinct non-empty substrings of `s`.",
     "examples": [
       {
         "input": "s = \"abc\"",
@@ -2952,7 +2952,7 @@
       "swiggy",
       "amazon"
     ],
-    "description": "Zomato indexes restaurant tags `words` (lowercase). Implement a search where each `query` is `[prefix, suffix]` — return the LARGEST index `i` such that `words[i]` starts with `prefix` AND ends with `suffix`. If no word matches, return `-1`. Process all queries against the same `words` list.",
+    "description": "You are given a list of strings `words` and a list of `queries`, where each query is a pair `[prefix, suffix]`. For each query, return the largest index `i` such that `words[i]` starts with `prefix` and ends with `suffix`; if no word satisfies both conditions, return `-1`. Return the answers in the same order as `queries`.",
     "examples": [
       {
         "input": "words = [\"apple\",\"apricot\",\"grape\",\"app\"], queries = [[\"a\",\"e\"],[\"ap\",\"p\"],[\"g\",\"e\"],[\"x\",\"y\"]]",
@@ -3163,7 +3163,7 @@
       "google",
       "atlassian"
     ],
-    "description": "Microsoft IDE autocomplete matches camelCase patterns. Given a list of `queries` and a `pattern`, return for each query a boolean — true iff the query 'matches' the pattern. A query matches the pattern if you can insert any number of LOWERCASE letters into the pattern (anywhere) so that it becomes the query exactly. Uppercase letters in the query must appear in the pattern (in order, exactly).",
+    "description": "You are given a list of strings `queries` and a string `pattern`. For each query, return a boolean indicating whether it matches `pattern`. A query matches `pattern` if lowercase letters can be inserted into `pattern` (at any positions, any number of them) so that it becomes exactly equal to the query. In other words, the uppercase letters of the query must equal `pattern`'s uppercase letters in order, and `pattern` must be a subsequence of the query. Return the results in the same order as `queries`.",
     "examples": [
       {
         "input": "queries = [\"FooBar\",\"FooBarTest\",\"FootBall\",\"FrameBuffer\",\"ForceFeedBack\"], pattern = \"FB\"",

@@ -16,7 +16,10 @@ const csp = [
   // Default deny — fall through to specific directives.
   "default-src 'self'",
   // Scripts: self + inline (Next.js hydration) + eval (WASM) + Vercel preview iframes
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us-assets.i.posthog.com https://us.i.posthog.com https://checkout.razorpay.com",
+  // cdn.jsdelivr.net hosts the Pyodide runtime (in-browser Python code runner).
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us-assets.i.posthog.com https://us.i.posthog.com https://checkout.razorpay.com https://cdn.jsdelivr.net",
+  // Web Workers: same-origin (Pyodide Python runner worker) + blob (Pyodide internals).
+  "worker-src 'self' blob:",
   // Styles: self + inline (Tailwind generated styles + Shiki theme styles)
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   // Fonts: Google Fonts (Geist + Hind) + self
@@ -24,7 +27,7 @@ const csp = [
   // Images: self + data: (favicons, OG images) + https: (user avatars from Google OAuth)
   "img-src 'self' data: blob: https:",
   // Outbound calls: same-origin APIs + auth providers + analytics + Anthropic + OpenAI
-  "connect-src 'self' https://accounts.google.com https://api.anthropic.com https://api.openai.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.neon.tech https://*.upstash.io https://api.razorpay.com https://lumberjack.razorpay.com",
+  "connect-src 'self' https://accounts.google.com https://api.anthropic.com https://api.openai.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.neon.tech https://*.upstash.io https://api.razorpay.com https://lumberjack.razorpay.com https://cdn.jsdelivr.net",
   // Iframes: code-runner sandbox (srcdoc) + Razorpay Checkout popup
   "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com",
   // Block plugins (Flash, etc.)

@@ -10,7 +10,7 @@
       "ola",
       "uber"
     ],
-    "description": "The Mumbai suburban network is modeled as `n` stations (0..n-1) connected by `edges` where each edge is `[u, v, fare]` (bidirectional, non-negative fare in rupees). Given a `src` and `dst` station, return the minimum total fare from `src` to `dst`. If `dst` is unreachable, return `-1`.",
+    "description": "You are given a weighted, undirected graph of `n` nodes labeled `0` to `n-1`, described by `edges` where each entry is `[u, v, fare]` denoting a bidirectional edge between `u` and `v` with non-negative weight `fare`. Given a source node `src` and a destination node `dst`, return the minimum total weight of any path from `src` to `dst`. If `dst` is unreachable from `src`, return `-1`.",
     "examples": [
       {
         "input": "n=4, edges=[[0,1,5],[1,2,3],[0,2,10],[2,3,1]], src=0, dst=3",
@@ -182,7 +182,7 @@
       "stripe",
       "phonepe"
     ],
-    "description": "Razorpay routes payments through `n` payment gateways (0..n-1). Directed edges `[u, v, cost]` mean a payment can flow from gateway u to v at the listed cost. Given source `src` and target `dst`, return the minimum total cost to route a payment, or `-1` if unreachable. Costs are non-negative.",
+    "description": "You are given a weighted, directed graph of `n` nodes labeled `0` to `n-1`, described by `edges` where each entry is `[u, v, cost]` denoting a directed edge from `u` to `v` with non-negative weight `cost`. Given a source node `src` and a destination node `dst`, return the minimum total cost of any directed path from `src` to `dst`, or `-1` if no such path exists.",
     "examples": [
       {
         "input": "n=4, edges=[[0,1,1],[0,2,5],[1,2,1],[2,3,1]], src=0, dst=3",
@@ -349,7 +349,7 @@
       "zomato",
       "dunzo"
     ],
-    "description": "Swiggy's routing engine receives a network of `n` road junctions (0..n-1) with bidirectional `edges = [u, v, minutes]`. Some roads may have traffic delays modeled as positive minutes. Given `src` (rider) and `dst` (customer), return the minimum total minutes for the delivery. Return `-1` if unreachable.",
+    "description": "You are given a weighted, undirected graph of `n` nodes labeled `0` to `n-1`, described by `edges` where each entry is `[u, v, minutes]` denoting a bidirectional edge between `u` and `v` with positive weight `minutes`. Given a source node `src` and a destination node `dst`, return the minimum total weight of any path from `src` to `dst`. Return `-1` if `dst` is unreachable from `src`.",
     "examples": [
       {
         "input": "n=5, edges=[[0,1,2],[1,2,2],[0,3,1],[3,4,5],[4,2,1]], src=0, dst=2",
@@ -508,7 +508,7 @@
       "makemytrip",
       "ixigo"
     ],
-    "description": "Indian Railways has `n` cities (0..n-1) connected by directed `flights = [u, v, price]`. From `src` to `dst`, find the cheapest fare using AT MOST `k` intermediate stops (so at most k+1 edges). Return `-1` if no such route exists.",
+    "description": "You are given `n` nodes labeled `0` to `n-1` and a list of directed weighted edges `flights`, where each entry is `[u, v, price]`. Given a source node `src`, a destination node `dst`, and an integer `k`, return the cheapest total price to travel from `src` to `dst` using at most `k` intermediate stops (that is, at most `k + 1` edges). If no such route exists, return `-1`.",
     "examples": [
       {
         "input": "n=3, flights=[[0,1,100],[1,2,100],[0,2,500]], src=0, dst=2, k=1",
@@ -676,7 +676,7 @@
       "google",
       "amazon"
     ],
-    "description": "PhonePe broadcasts a config update from server `k` to all `n` servers (1..n) over directed links `times = [u, v, w]` (w = milliseconds). Return the minimum time it takes for ALL servers to receive the update. If some server is unreachable, return `-1`.",
+    "description": "You are given a directed weighted graph of `n` nodes labeled `1` to `n`, described by `times` where each entry is `[u, v, w]` denoting an edge from `u` to `v` that takes `w` units of time to traverse. A signal is sent from node `k`. Return the minimum time required for all `n` nodes to receive the signal. If it is impossible for every node to receive the signal, return `-1`.",
     "examples": [
       {
         "input": "times=[[2,1,1],[2,3,1],[3,4,1]], n=4, k=2",
@@ -814,7 +814,7 @@
       "tcs",
       "wipro"
     ],
-    "description": "An Infosys arbitrage detector models currency conversions as a directed graph with `n` currencies (0..n-1) and edges `[u, v, w]` where w is a (possibly negative) cost. Return `true` if a negative-weight cycle is reachable from node `0`, otherwise `false`.",
+    "description": "You are given a directed weighted graph of `n` nodes labeled `0` to `n-1`, described by `edges` where each entry is `[u, v, w]` denoting an edge from `u` to `v` with weight `w` (weights may be negative). Return `true` if there exists a negative-weight cycle reachable from node `0`, and `false` otherwise.",
     "examples": [
       {
         "input": "n=3, edges=[[0,1,1],[1,2,-1],[2,0,-1]]",
@@ -965,7 +965,7 @@
       "infosys",
       "google"
     ],
-    "description": "TCS infra team needs the shortest distance between every pair of `n` data centers. Given `n` and directed `edges = [u, v, w]` with non-negative weights, return an `n x n` matrix `dist` where `dist[i][j]` = shortest distance from i to j (use `-1` if unreachable; `dist[i][i] = 0`).",
+    "description": "You are given `n` nodes labeled `0` to `n-1` and a list of directed weighted edges `edges`, where each entry is `[u, v, w]` with non-negative weight `w`. Return an `n x n` matrix `dist` where `dist[i][j]` is the length of the shortest path from node `i` to node `j`. Set `dist[i][i] = 0` for every node, and use `-1` for any pair where `j` is unreachable from `i`.",
     "examples": [
       {
         "input": "n=3, edges=[[0,1,3],[1,2,1],[0,2,10]]",
@@ -1174,7 +1174,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Flipkart wants to lay fiber connecting `n` warehouses (0..n-1) with minimum total cable cost. Given undirected `edges = [u, v, cost]`, return the total cost of the minimum spanning tree. If the graph is disconnected, return `-1`.",
+    "description": "You are given `n` nodes labeled `0` to `n-1` and a list of undirected weighted edges `edges`, where each entry is `[u, v, cost]`. Return the total weight of a minimum spanning tree connecting all `n` nodes. If the graph is disconnected and no spanning tree exists, return `-1`.",
     "examples": [
       {
         "input": "n=4, edges=[[0,1,1],[1,2,2],[2,3,3],[0,3,10]]",
@@ -1329,7 +1329,7 @@
       "uber",
       "rapido"
     ],
-    "description": "Ola plans charging cables between `n` parking hubs. Given undirected `edges = [u, v, cost]`, return the minimum spanning tree cost using Kruskal's algorithm. Return `-1` if the graph is disconnected.",
+    "description": "You are given `n` nodes labeled `0` to `n-1` and a list of undirected weighted edges `edges`, where each entry is `[u, v, cost]`. Return the total weight of a minimum spanning tree connecting all `n` nodes, computed using Kruskal's algorithm. If the graph is disconnected, return `-1`.",
     "examples": [
       {
         "input": "n=4, edges=[[0,1,1],[1,2,4],[0,2,2],[2,3,3]]",
@@ -1489,7 +1489,7 @@
       "makemytrip",
       "google"
     ],
-    "description": "IndiGo gives you a list of one-way `tickets` represented as `[from, to]` airport codes (lowercase strings). Reconstruct the itinerary in order, starting from `\"blr\"` (Bengaluru). All tickets must be used exactly once. If multiple valid itineraries exist, return the lexicographically smallest one.",
+    "description": "You are given a list of airline `tickets` where each entry is `[from, to]` representing a one-way flight between two airport codes (lowercase strings). Reconstruct the itinerary that uses all of the tickets exactly once, beginning at `\"blr\"`. A valid itinerary is guaranteed to exist; if more than one is possible, return the itinerary that is lexicographically smallest when read as a single list of airport codes.",
     "examples": [
       {
         "input": "tickets=[[\"blr\",\"del\"],[\"del\",\"bom\"],[\"bom\",\"blr\"],[\"blr\",\"bom\"]]",
@@ -1670,7 +1670,7 @@
       "google",
       "facebook"
     ],
-    "description": "Amazon discovered a sorted list of `words` from an alien language using lowercase English letters. Derive the alien alphabet order. Return any valid order as a string. If the input is inconsistent, return `\"\"`. If multiple orders are valid, return the lexicographically smallest one (use a min-heap when picking the next 0-indegree letter).",
+    "description": "You are given a list of `words` sorted lexicographically according to the rules of an unknown alphabet that uses lowercase English letters. Derive a valid ordering of the alphabet's letters and return it as a string. If the ordering is inconsistent (no valid order exists), return `\"\"`. If several valid orderings exist, return the lexicographically smallest one.",
     "examples": [
       {
         "input": "words=[\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]",
@@ -1772,7 +1772,7 @@
       "microsoft",
       "atlassian"
     ],
-    "description": "An IIT campus network has `n` switches (0..n-1) connected by undirected `edges`. Find all articulation points — switches whose removal would split the network into more components. Return the list of articulation points sorted ascending.",
+    "description": "You are given an undirected graph of `n` nodes labeled `0` to `n-1`, described by a list of `edges`. Find all articulation points — nodes whose removal increases the number of connected components in the graph. Return the list of articulation points sorted in ascending order.",
     "examples": [
       {
         "input": "n=5, edges=[[0,1],[1,2],[2,0],[1,3],[3,4]]",
@@ -1920,7 +1920,7 @@
       "facebook",
       "amazon"
     ],
-    "description": "Given an undirected network of `n` servers and `connections` (edges), return all critical connections — edges whose removal would disconnect the graph (bridges). Return each bridge with the smaller endpoint first, sorted lexicographically (by first endpoint, then second).",
+    "description": "You are given an undirected graph of `n` nodes labeled `0` to `n-1`, described by a list of `connections` where each entry is an edge `[u, v]`. Return all critical connections (bridges) — edges whose removal disconnects the graph. Output each bridge with its smaller endpoint first, and return the bridges sorted lexicographically by first endpoint, then second.",
     "examples": [
       {
         "input": "n=4, connections=[[0,1],[1,2],[2,0],[1,3]]",
@@ -2119,7 +2119,7 @@
       "google",
       "amazon"
     ],
-    "description": "LinkedIn models a follow graph as a directed graph with `n` users and edges `[u, v]` meaning u follows v. Return the number of strongly connected components (SCCs) — maximal subsets where every pair is mutually reachable.",
+    "description": "You are given a directed graph of `n` nodes labeled `0` to `n-1`, described by a list of `edges` where each entry `[u, v]` denotes a directed edge from `u` to `v`. Return the number of strongly connected components — maximal sets of nodes in which every node is reachable from every other node in the set.",
     "examples": [
       {
         "input": "n=5, edges=[[0,1],[1,2],[2,0],[1,3],[3,4]]",
@@ -2277,7 +2277,7 @@
       "ola",
       "rapido"
     ],
-    "description": "Uber added an extra cable to its `n`-node network, turning a tree into a graph with exactly one cycle. Given the `edges` (1-indexed, in the order they were added), return the LAST edge that completes a cycle. Each edge is `[u, v]`. Exactly one such edge exists.",
+    "description": "You are given a graph that began as a tree on `n` nodes and had exactly one additional edge added, creating a single cycle. The input `edges` is a 1-indexed list where each entry `[u, v]` is given in the order the edges were added. Return the edge that can be removed so that the result is a tree — equivalently, the last edge in the list that completes a cycle. Exactly one valid answer exists.",
     "examples": [
       {
         "input": "edges=[[1,2],[1,3],[2,3]]",
@@ -2450,7 +2450,7 @@
       "amazon",
       "atlassian"
     ],
-    "description": "Given `n` nodes and an undirected weighted edge list `edges` (with original index), return the sorted list of edge indices that are CRITICAL — i.e., appear in every MST. An edge is critical iff removing it strictly increases the MST cost (or makes the graph disconnected).",
+    "description": "You are given `n` nodes labeled `0` to `n-1` and an undirected weighted edge list `edges`, where `edges[i] = [u, v, w]` is identified by its original index `i`. Return the sorted list of indices of all critical edges — edges that appear in every minimum spanning tree. An edge is critical if and only if removing it strictly increases the MST weight or disconnects the graph.",
     "examples": [
       {
         "input": "n=4, edges=[[0,1,1],[1,2,1],[2,3,1],[0,3,1],[0,2,2]]",
@@ -2626,7 +2626,7 @@
       "google",
       "amazon"
     ],
-    "description": "An OYO flood-rescue grid is `n x n`, where `grid[i][j]` is the elevation. Water rises continuously; at time `t`, you can swim into any cell with elevation <= t. Starting at `(0,0)` at time 0, return the minimum time to reach `(n-1,n-1)`. You may move 4-directionally.",
+    "description": "You are given an `n x n` integer grid `grid` where `grid[i][j]` is the elevation of cell `(i, j)`. Water rises over time; at time `t` you may move into any cell whose elevation is at most `t`, traveling 4-directionally between adjacent cells. Starting at cell `(0, 0)` at time `0`, return the minimum time at which you can reach cell `(n-1, n-1)`.",
     "examples": [
       {
         "input": "grid=[[0,2],[1,3]]",
@@ -2770,7 +2770,7 @@
       "phonepe",
       "google"
     ],
-    "description": "Paytm's payment retry network has `n` nodes (0..n-1) and undirected `edges = [u, v]` with parallel `succProb` array — `succProb[i]` is the probability that an attempt over `edges[i]` succeeds. Return the maximum end-to-end success probability from `start` to `end`. If no path exists, return 0.0.",
+    "description": "You are given an undirected graph of `n` nodes labeled `0` to `n-1`, described by `edges` where `edges[i] = [u, v]`, together with a parallel array `succProb` where `succProb[i]` is the probability of successfully traversing `edges[i]`. Given nodes `start` and `end`, return the maximum probability of success over all paths from `start` to `end`. If no path exists, return `0.0`.",
     "examples": [
       {
         "input": "n=3, edges=[[0,1],[1,2],[0,2]], succProb=[0.5,0.5,0.2], start=0, end=2",
@@ -2929,7 +2929,7 @@
       "unacademy",
       "google"
     ],
-    "description": "BYJU's hiking simulator gives a `rows x cols` grid `heights`. Effort along a path = the maximum absolute difference between consecutive cells. Starting at `(0,0)`, return the minimum effort path to `(rows-1, cols-1)`. Move 4-directionally.",
+    "description": "You are given a `rows x cols` integer grid `heights` where `heights[i][j]` is the height of cell `(i, j)`. A path's effort is the maximum absolute height difference between any two consecutive cells along it. Starting at the top-left cell `(0, 0)` and moving 4-directionally, return the minimum effort required to reach the bottom-right cell `(rows-1, cols-1)`.",
     "examples": [
       {
         "input": "heights=[[1,2,2],[3,8,2],[5,3,5]]",
@@ -3093,7 +3093,7 @@
       "zoho",
       "google"
     ],
-    "description": "Freshworks wants to split `n` employees (0..n-1) into two teams such that every conflict edge in `dislikes = [a, b]` puts the two endpoints in DIFFERENT teams. Return `true` if such a split (2-coloring / bipartite) is possible, else `false`.",
+    "description": "You are given `n` nodes labeled `0` to `n-1` and a list of edges `dislikes`, where each entry `[a, b]` means nodes `a` and `b` must be placed in different groups. Determine whether it is possible to partition all `n` nodes into two groups subject to these constraints — that is, whether the graph is bipartite. Return `true` if such a partition exists, otherwise `false`.",
     "examples": [
       {
         "input": "n=4, dislikes=[[0,1],[1,2],[2,3]]",

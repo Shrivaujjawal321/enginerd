@@ -10,7 +10,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy is testing every possible combo of dishes for a tasting event. Given an array of distinct dish IDs `nums`, return all possible subsets (the power set). Output must be sorted lexicographically on the JSON-stringified version of each subset.",
+    "description": "Given an integer array `nums` of distinct elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Output is sorted lexicographically on the JSON-stringified form of each subset.",
     "examples": [
       {
         "input": "nums = [1, 2, 3]",
@@ -164,7 +164,7 @@
       "meesho",
       "amazon"
     ],
-    "description": "Flipkart wants every k-sized combination of product tags from a pool of distinct tag IDs `1..n`. Given integers `n` and `k`, return all combinations (as arrays of integers) sorted lexicographically on JSON.stringify.",
+    "description": "Given two integers `n` and `k`, return all possible combinations of `k` numbers chosen from the range `1` to `n`. Each combination is a list of integers in increasing order. Output is sorted lexicographically on the JSON-stringified form of each combination.",
     "examples": [
       {
         "input": "n = 4, k = 2",
@@ -326,7 +326,7 @@
       "phonepe",
       "razorpay"
     ],
-    "description": "Paytm has a list of distinct cashback amounts to award to N users in some order. Given `nums` of distinct integers, return every permutation. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given an array `nums` of distinct integers, return all possible permutations. The same index may not be reused within a single permutation. Output is sorted lexicographically on the JSON-stringified form of each permutation.",
     "examples": [
       {
         "input": "nums = [1, 2, 3]",
@@ -466,7 +466,7 @@
       "stripe",
       "phonepe"
     ],
-    "description": "Razorpay's analytics needs every subset of merchant volumes whose sum equals `target`. Given distinct positive integers `nums` and integer `target`, return all subsets summing to target. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given an array `nums` of distinct positive integers and an integer `target`, return all subsets of `nums` whose elements sum to exactly `target`. Each element may be used at most once. Output is sorted lexicographically on the JSON-stringified form of each subset.",
     "examples": [
       {
         "input": "nums = [1, 2, 3, 4], target = 5",
@@ -605,7 +605,7 @@
       "zomato",
       "doordash"
     ],
-    "description": "Swiggy lets you order the same dish multiple times. Given distinct dish prices `prices` and a target budget `budget`, return every combination (multiset) whose sum equals `budget`. Each inner combination should be in non-decreasing order; the outer list sorted lexicographically on JSON.stringify.",
+    "description": "Given an array of distinct positive integers `prices` and an integer `budget`, return all unique combinations of `prices` whose elements sum to exactly `budget`. The same element may be chosen an unlimited number of times. Each combination must be listed in non-decreasing order, and the outer list is sorted lexicographically on the JSON-stringified form of each combination.",
     "examples": [
       {
         "input": "prices = [2, 3, 6, 7], budget = 7",
@@ -751,7 +751,7 @@
       "swiggy",
       "google"
     ],
-    "description": "Zomato has a menu where some dishes are duplicates (same code repeated). Given an array `nums` that may contain duplicates, return the unique power set. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given an integer array `nums` that may contain duplicates, return all possible subsets (the power set) with no duplicate subsets in the result. Output is sorted lexicographically on the JSON-stringified form of each subset.",
     "examples": [
       {
         "input": "nums = [1, 2, 2]",
@@ -907,7 +907,7 @@
       "uber",
       "rapido"
     ],
-    "description": "Ola assigns drivers to shifts; some shifts have identical labels. Given `nums` (possibly duplicated), return all unique permutations. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given an array `nums` that may contain duplicates, return all unique permutations in any internal order. The result must not contain duplicate permutations. Output is sorted lexicographically on the JSON-stringified form of each permutation.",
     "examples": [
       {
         "input": "nums = [1, 1, 2]",
@@ -1065,7 +1065,7 @@
       "google",
       "amazon"
     ],
-    "description": "PhonePe is generating mnemonic options for a digit OTP using the classic phone keypad (2->abc, 3->def, 4->ghi, 5->jkl, 6->mno, 7->pqrs, 8->tuv, 9->wxyz). Given a digit string `digits` (each digit in '2'..'9'), return all letter combinations as strings. If `digits` is empty, return `[]`. Output sorted lexicographically (use JSON.stringify ordering, which for strings equals plain lex order).",
+    "description": "Given a string `digits` containing digits from `'2'` to `'9'`, return all letter combinations that the number could represent, using the standard telephone keypad mapping (2→abc, 3→def, 4→ghi, 5→jkl, 6→mno, 7→pqrs, 8→tuv, 9→wxyz). If `digits` is empty, return `[]`. Output is sorted lexicographically.",
     "examples": [
       {
         "input": "digits = \"23\"",
@@ -1182,7 +1182,7 @@
       "flipkart",
       "ajio"
     ],
-    "description": "Myntra has a list of coupon values (may contain duplicates). Each coupon can be used at most once. Return all unique combinations whose sum equals `target`. Each combination in non-decreasing order; outer list sorted lexicographically on JSON.stringify.",
+    "description": "Given an integer array `candidates` (which may contain duplicates) and an integer `target`, return all unique combinations of `candidates` whose elements sum to exactly `target`. Each element from `candidates` may be used at most once in a combination. Each combination must be listed in non-decreasing order, and the outer list is sorted lexicographically on the JSON-stringified form of each combination.",
     "examples": [
       {
         "input": "candidates = [10, 1, 2, 7, 6, 1, 5], target = 8",
@@ -1359,7 +1359,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart's bin-labels grid contains characters. Given a 2D `board` and a `word`, return `true` if the word can be formed by adjacent (up/down/left/right) cells, with each cell used at most once.",
+    "description": "Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same cell may not be used more than once. Otherwise return `false`.",
     "examples": [
       {
         "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"",
@@ -1501,7 +1501,7 @@
       "uber",
       "google"
     ],
-    "description": "Swiggy's promo engine encodes nested rules with parentheses. Given `n`, return all well-formed parenthesis strings of length `2n`. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given an integer `n`, return all combinations of well-formed parentheses using exactly `n` pairs, each of total length `2n`. Output is sorted lexicographically on the JSON-stringified form of each string.",
     "examples": [
       {
         "input": "n = 3",
@@ -1600,7 +1600,7 @@
       "google",
       "flipkart"
     ],
-    "description": "Amazon's catalog tagger partitions a product code string `s` into substrings, each of which must be a palindrome. Return every possible palindrome partition. Each partition is a list of strings; outer list sorted lexicographically on JSON.stringify.",
+    "description": "Given a string `s`, partition `s` such that every substring of the partition is a palindrome, and return all possible palindrome partitionings. Each partitioning is a list of substrings, and the outer list is sorted lexicographically on the JSON-stringified form of each partitioning.",
     "examples": [
       {
         "input": "s = \"aab\"",
@@ -1733,7 +1733,7 @@
       "stripe",
       "amazon"
     ],
-    "description": "Razorpay's webhook log lost the dots in IP addresses. Given a digit string `s`, return all valid IPv4 addresses that can be formed by inserting three dots. A valid octet is 0..255 with no leading zeros (\"0\" allowed, \"01\" not allowed). Output sorted lexicographically on JSON.stringify.",
+    "description": "Given a string `s` containing only digits, return all possible valid IPv4 addresses that can be formed by inserting three dots into `s`. A valid address consists of four octets in the range `0` to `255`, with no leading zeros (so `\"0\"` is allowed but `\"01\"` is not). You may not reorder or remove any digits. Output is sorted lexicographically on the JSON-stringified form of each address.",
     "examples": [
       {
         "input": "s = \"25525511135\"",
@@ -1837,7 +1837,7 @@
       "phonepe",
       "google"
     ],
-    "description": "Paytm encodes SMS letters as A=1..Z=26. Given a digit string `s`, return all possible decoded strings. If `s` has a leading '0' or any unparsable group, return `[]`. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given a string `s` containing only digits, where the encoding maps `A`=1 through `Z`=26, return all possible decoded strings. If `s` has a leading `'0'` or contains any group of digits that cannot be parsed into a valid letter, return `[]`. Output is sorted lexicographically on the JSON-stringified form of each decoded string.",
     "examples": [
       {
         "input": "s = \"12\"",
@@ -1941,7 +1941,7 @@
       "unacademy",
       "google"
     ],
-    "description": "Byju's adaptive engine models student decisions as a binary tree of integers. Given a tree (as level-order array with `null` for missing children) and `target`, return every root-to-leaf path whose values sum to `target`. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given a binary tree `root` (provided as a level-order array with `null` marking absent children) and an integer `target`, return all root-to-leaf paths where the sum of the node values along the path equals `target`. Each path is returned as the list of node values from root to leaf, and the outer list is sorted lexicographically on the JSON-stringified form of each path.",
     "examples": [
       {
         "input": "root = [5,4,8,11,null,13,4,7,2,null,null,5,1], target = 22",
@@ -2074,7 +2074,7 @@
       "flipkart",
       "google"
     ],
-    "description": "Amazon coupon codes are case-insensitive — for analytics they want every case variant of a code. Given a string `s` (letters and digits), return all strings reachable by toggling letters' case. Digits stay fixed. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given a string `s` of letters and digits, transform each letter to lowercase or uppercase to create new strings; digits remain unchanged. Return a list of all strings obtainable by toggling the case of the letters in any combination. Output is sorted lexicographically on the JSON-stringified form of each string.",
     "examples": [
       {
         "input": "s = \"a1b2\"",
@@ -2162,7 +2162,7 @@
       "microsoft",
       "amazon"
     ],
-    "description": "Place `n` queens on an `n x n` chessboard so no two attack each other. Return every solution as a list of strings (one row per string, '.' empty, 'Q' a queen). Output sorted lexicographically on JSON.stringify (i.e. on the array-of-strings).",
+    "description": "Given an integer `n`, return all distinct solutions to the `n`-queens puzzle, where `n` queens are placed on an `n x n` chessboard so that no two queens attack each other (no two share a row, column, or diagonal). Each solution is a list of `n` strings representing the board, where `'Q'` marks a queen and `'.'` an empty cell. Output is sorted lexicographically on the JSON-stringified form of each solution.",
     "examples": [
       {
         "input": "n = 4",
@@ -2252,7 +2252,7 @@
       "google",
       "amazon"
     ],
-    "description": "Given a 9x9 sudoku `board` (2D array, '.' for empty cells, '1'..'9' otherwise), fill in the empty cells. Return the solved board. Tests use puzzles with a unique solution.",
+    "description": "Given a partially filled `9 x 9` Sudoku `board` (a 2D array where `'.'` denotes an empty cell and `'1'`–`'9'` denote filled cells), fill the empty cells so that every row, every column, and each of the nine `3 x 3` sub-boxes contains the digits `1`–`9` exactly once. Return the completed board. Each puzzle is guaranteed to have a unique solution.",
     "examples": [
       {
         "input": "board = a 9x9 partially filled grid",
@@ -2711,7 +2711,7 @@
       "google",
       "amazon"
     ],
-    "description": "Uber's map grid contains characters representing landmarks. Given `board` and a list of `words`, return every word from the list that can be formed on the board by adjacent (up/down/left/right) cells, each cell used once per word. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given an `m x n` grid of characters `board` and a list of strings `words`, return all words from `words` that can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same cell may not be used more than once within a single word. Output is sorted lexicographically on the JSON-stringified form of each word.",
     "examples": [
       {
         "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
@@ -2864,7 +2864,7 @@
       "tcs",
       "google"
     ],
-    "description": "Infosys's expression engine inserts '+', '-', or '*' between digits of a numeric string `num` so that the resulting expression evaluates to `target`. Operands cannot have leading zeros (except '0' itself). Return all valid expressions. Output sorted lexicographically on JSON.stringify.",
+    "description": "Given a string `num` containing only digits and an integer `target`, return all expressions formed by inserting the binary operators `'+'`, `'-'`, or `'*'` between the digits of `num` so that the expression evaluates to `target`. Operands may not contain leading zeros (except the single digit `'0'`), and standard operator precedence applies. Output is sorted lexicographically on the JSON-stringified form of each expression.",
     "examples": [
       {
         "input": "num = \"123\", target = 6",

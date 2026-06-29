@@ -10,7 +10,7 @@
       "zomato",
       "dunzo"
     ],
-    "description": "A Swiggy delivery executive must climb `n` stairs to reach a customer's flat. Each step they can climb either 1 or 2 stairs at a time. Return the total number of distinct ways to reach the top.",
+    "description": "You are climbing a staircase with `n` steps. Each time you can climb either 1 or 2 steps. Return the number of distinct ways you can climb to the top.",
     "examples": [
       {
         "input": "n = 3",
@@ -122,7 +122,7 @@
       "stripe",
       "paytm"
     ],
-    "description": "Razorpay offers a tiered subscription with `n` levels. From any level a customer can upgrade by 1, 2, ..., up to `k` levels in one move. Starting at level 0, return the number of distinct upgrade paths to reach exactly level `n`.",
+    "description": "You are climbing a staircase with `n` steps. At each move you may climb any number of steps from 1 up to `k`. Starting from the ground (step 0), return the number of distinct ways to reach the top (step `n`).",
     "examples": [
       {
         "input": "n = 3, k = 2",
@@ -241,7 +241,7 @@
       "uber",
       "ola"
     ],
-    "description": "A delivery rider can climb stairs in steps of 1 or 2, but a rule forbids two consecutive 2-steps (the last two moves can't both be 2). Given `n`, return the number of distinct climbing sequences obeying this rule.",
+    "description": "You are climbing a staircase with `n` steps, taking either 1 or 2 steps at a time. You are not allowed to take two 2-steps in a row (the previous move and the current move cannot both be 2). Return the number of distinct climbing sequences that obey this rule.",
     "examples": [
       {
         "input": "n = 4",
@@ -353,7 +353,7 @@
       "amazon",
       "google"
     ],
-    "description": "A thief is planning to loot Flipkart's warehouse, where boxes are arranged linearly. Each box `nums[i]` has goods of value. Adjacent boxes are wired with a shared alarm: looting two adjacent boxes triggers it. Return the max value lootable without triggering the alarm.",
+    "description": "You are given an integer array `nums` representing values arranged in a row. Select a subset of elements to maximize their total sum, subject to the constraint that you may not pick two adjacent elements. Return the maximum total you can collect.",
     "examples": [
       {
         "input": "nums = [1, 2, 3, 1]",
@@ -488,7 +488,7 @@
       "phonepe",
       "google"
     ],
-    "description": "Paytm gives cashback in coins of fixed denominations `coins`. Given a target amount, return the minimum number of coins needed to make that amount exactly. If impossible, return -1. You have unlimited supply of each denomination.",
+    "description": "You are given an integer array `coins` of coin denominations and an integer `amount`. Return the minimum number of coins needed to make up exactly `amount`. You may use each denomination an unlimited number of times. If `amount` cannot be formed by any combination of the coins, return `-1`.",
     "examples": [
       {
         "input": "coins = [1, 2, 5], amount = 11",
@@ -627,7 +627,7 @@
       "stripe",
       "amazon"
     ],
-    "description": "Razorpay subscription plans cost certain integer amounts (`plans` array). A customer wants to spend exactly `amount` total by buying any combination (with repetition) of plans. Order doesn't matter (combinations, not permutations). Return the number of distinct combinations.",
+    "description": "You are given an integer array `plans` of distinct denominations and an integer `amount`. Return the number of distinct combinations of denominations (each usable an unlimited number of times) that sum to exactly `amount`. Order does not matter, so two selections using the same denominations in a different order count as one combination.",
     "examples": [
       {
         "input": "plans = [1, 2, 5], amount = 5",
@@ -766,7 +766,7 @@
       "google",
       "amazon"
     ],
-    "description": "PhonePe's merchant onboarding strips spaces from tags before storing. Given the stripped tag `s` and a dictionary `words` of valid lowercase words, return `true` if `s` can be segmented into a sequence of one or more dictionary words.",
+    "description": "Given a string `s` and a list of strings `words`, return `true` if `s` can be segmented into a sequence of one or more strings from `words`, and `false` otherwise. The same word from `words` may be reused any number of times in the segmentation.",
     "examples": [
       {
         "input": "s = \"phonepay\", words = [\"phone\", \"pay\"]",
@@ -907,7 +907,7 @@
       "uber",
       "amazon"
     ],
-    "description": "Ola tracks the rating each driver received per trip in a day, in order: `ratings[i]`. A 'streak' is a subsequence (not necessarily contiguous) whose ratings are strictly increasing. Return the length of the longest such streak.",
+    "description": "Given an integer array `ratings`, return the length of the longest strictly increasing subsequence. A subsequence is formed by deleting zero or more elements without changing the relative order of the remaining elements.",
     "examples": [
       {
         "input": "ratings = [3, 1, 4, 1, 5, 9, 2, 6]",
@@ -1054,7 +1054,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart logs hourly profit/loss as integers (negative = loss) across the day. Find the contiguous time window with the highest total profit. Return that maximum sum (Kadane's).",
+    "description": "Given an integer array `nums`, find the contiguous subarray (containing at least one element) with the largest sum and return that sum.",
     "examples": [
       {
         "input": "nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]",
@@ -1195,7 +1195,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Swiggy stores customer PINs encoded with a→1, b→2, ..., z→26. Given a digit string `s`, return the number of ways to decode it back into letters. A decoding is valid if every used number is in 1..26 (so '0' alone is invalid; '10', '20' are valid; '27', '00', '30' as a unit are invalid).",
+    "description": "A message containing letters A-Z is encoded using the mapping 'A' → 1, 'B' → 2, ..., 'Z' → 26. Given a string `s` consisting of digits, return the number of ways to decode it. A '0' has no valid single-digit mapping, and a two-digit group is valid only if it lies between 10 and 26.",
     "examples": [
       {
         "input": "s = \"12\"",
@@ -1313,7 +1313,7 @@
       "google",
       "facebook"
     ],
-    "description": "Two Amazon delivery agents want to fairly split a pile of parcels by weight (`weights` of positive integers): each agent takes some parcels so the two halves have equal total weight. Return `true` if a 50-50 split is possible.",
+    "description": "Given an array of positive integers `weights`, return `true` if the array can be partitioned into two subsets whose sums are equal, and `false` otherwise.",
     "examples": [
       {
         "input": "weights = [1, 5, 11, 5]",
@@ -1449,7 +1449,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart Big Billion Days: stock prices for `n` consecutive hours given as `prices`. You may buy once and sell once (sell strictly after buy). Return the max profit. If no profit is possible, return 0.",
+    "description": "You are given an integer array `prices` where `prices[i]` is the price of an asset on day `i`. You may buy on one day and sell on a strictly later day. Return the maximum profit you can achieve. If no profit is possible, return 0.",
     "examples": [
       {
         "input": "prices = [7, 1, 5, 3, 6, 4]",
@@ -1590,7 +1590,7 @@
       "google",
       "facebook"
     ],
-    "description": "Razorpay's trading bot can buy/sell unlimited times, but after each SELL, there's a 1-day cooldown (cannot buy on the day right after a sell). Given `prices`, return max total profit.",
+    "description": "You are given an integer array `prices` where `prices[i]` is the price on day `i`. You may complete as many buy-sell transactions as you like, but you can hold at most one unit at a time, and after you sell you must wait one day (cooldown) before buying again. Return the maximum profit you can achieve.",
     "examples": [
       {
         "input": "prices = [1, 2, 3, 0, 2]",
@@ -1730,7 +1730,7 @@
       "google",
       "amazon"
     ],
-    "description": "PhonePe charges a flat `fee` per round-trip transaction (paid on each sell). Given `prices` and `fee`, return the max profit with unlimited transactions.",
+    "description": "You are given an integer array `prices` where `prices[i]` is the price on day `i`, and an integer `fee` charged on each transaction. You may complete as many buy-sell transactions as you like but may hold at most one unit at a time. Return the maximum profit achievable after paying `fee` on every sale.",
     "examples": [
       {
         "input": "prices = [1, 3, 2, 8, 4, 9], fee = 2",
@@ -1881,7 +1881,7 @@
       "amazon",
       "google"
     ],
-    "description": "A robot starts at index 0 of `nums`. From any index `i`, it can jump to any index in `[i+1, i + nums[i]]`. Return `true` iff it can reach the last index.",
+    "description": "You are given an integer array `nums`. You start at index 0, and `nums[i]` is the maximum jump length from index `i`, meaning you can jump to any index in the range `[i+1, i + nums[i]]`. Return `true` if you can reach the last index, and `false` otherwise.",
     "examples": [
       {
         "input": "nums = [2, 3, 1, 1, 4]",
@@ -2017,7 +2017,7 @@
       "uber",
       "amazon"
     ],
-    "description": "From index 0 of `nums`, hop forward up to `nums[i]` steps. Return the minimum number of hops to reach the last index. Assume reachability (last index is always reachable).",
+    "description": "You are given an integer array `nums` and start at index 0. From index `i` you can jump forward at most `nums[i]` steps. Return the minimum number of jumps needed to reach the last index. The last index is guaranteed to be reachable.",
     "examples": [
       {
         "input": "nums = [2, 3, 1, 1, 4]",
@@ -2159,7 +2159,7 @@
       "google",
       "facebook"
     ],
-    "description": "Amazon analytics multiplies hourly factor signals (signed integers in `nums`). Find the contiguous subarray with the maximum product and return that product.",
+    "description": "Given an integer array `nums`, find the contiguous subarray (containing at least one element) that has the largest product and return that product.",
     "examples": [
       {
         "input": "nums = [2, 3, -2, 4]",
@@ -2295,7 +2295,7 @@
       "google",
       "amazon"
     ],
-    "description": "Razorpay's loyalty engine awards points only when the redemption amount equals a sum of perfect squares (1, 4, 9, 16, ...). Given target `n`, return the minimum count of perfect squares summing to `n` (squares may repeat).",
+    "description": "Given an integer `n`, return the minimum number of perfect squares (1, 4, 9, 16, ...) that sum to `n`. The same perfect square may be used more than once.",
     "examples": [
       {
         "input": "n = 12",
@@ -2408,7 +2408,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Given integer `n >= 2`, break it into a sum of at least 2 positive integers and maximize their product. Return that maximum product.",
+    "description": "Given an integer `n` with `n >= 2`, break it into a sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can obtain.",
     "examples": [
       {
         "input": "n = 2",
@@ -2521,7 +2521,7 @@
       "google",
       "amazon"
     ],
-    "description": "PhonePe trader can perform at most `k` buy-sell pairs (transactions) on `prices`. A new transaction can only start after the previous one closes. Return the max total profit.",
+    "description": "You are given an integer `k` and an integer array `prices` where `prices[i]` is the price on day `i`. You may complete at most `k` buy-sell transactions, holding at most one unit at a time and starting a new transaction only after the previous one is closed. Return the maximum profit you can achieve.",
     "examples": [
       {
         "input": "k = 2, prices = [3, 2, 6, 5, 0, 3]",
@@ -2675,7 +2675,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Ola driver lounges are arranged in a CIRCLE — boxes 0 and n-1 are now adjacent (shared alarm). All other rules from linear robber stand: no two adjacent looted. Given `nums`, return max loot.",
+    "description": "Given an integer array `nums` arranged in a circle, where the first and last elements are adjacent, return the maximum sum of a selected subset such that no two adjacent elements are chosen. Because the layout is circular, the first and last elements cannot both be selected.",
     "examples": [
       {
         "input": "nums = [2, 3, 2]",
@@ -2812,7 +2812,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon has `n` warehouse buildings to paint, each in one of 3 colors (red/blue/green). `costs[i]` is a 3-element array [costRed, costBlue, costGreen] for building `i`. Two adjacent buildings must NOT share a color. Return the minimum total cost.",
+    "description": "You are given an `n x 3` integer matrix `costs`, where `costs[i]` is a 3-element array giving the cost of painting item `i` with color 0, color 1, or color 2. No two adjacent items may be painted the same color. Return the minimum total cost to paint all items.",
     "examples": [
       {
         "input": "costs = [[17,2,17],[16,16,5],[14,3,19]]",
@@ -2992,7 +2992,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay offers `n` cashback offers, but you can claim non-adjacent ones (cooldown rules). Given `offers` array of integer values (could be 0), return the max sum of values claimed such that no two claimed indices are adjacent.",
+    "description": "Given an integer array `offers` of non-negative values, return the maximum sum obtainable by selecting elements such that no two selected elements are adjacent.",
     "examples": [
       {
         "input": "offers = [4, 1, 1, 4]",
@@ -3127,7 +3127,7 @@
       "amazon",
       "google"
     ],
-    "description": "Swiggy navigation game: on a 1-D path of length `n`, starting at index 0, the rider can jump exactly steps from `allowed` (a set of positive integers) at each move. Return the minimum number of jumps to land at index n-1 exactly. If impossible, return -1.",
+    "description": "You start at index 0 on a path of `n` cells indexed from 0 to `n-1`. At each move you may jump forward by exactly one of the step sizes given in `allowed`. Return the minimum number of jumps needed to land exactly on index `n-1`. If it cannot be reached, return `-1`.",
     "examples": [
       {
         "input": "n = 5, allowed = [1, 3]",
@@ -3264,7 +3264,7 @@
       "google",
       "facebook"
     ],
-    "description": "Amazon variant of decode ways: digit string `s` may also contain '*', which represents any single digit 1-9. Return the number of ways to decode (mod 10^9+7). a→1..z→26 mapping; '0' alone is invalid; '*' is never '0'.",
+    "description": "A message of letters A-Z is encoded using 'A' → 1, 'B' → 2, ..., 'Z' → 26. The string `s` may also contain the character '*', which can represent any single digit from 1 to 9. Return the number of ways to decode `s`, modulo 10^9 + 7. As in standard decoding, a '0' has no valid single-digit mapping and any two-digit group must lie between 10 and 26.",
     "examples": [
       {
         "input": "s = \"*\"",
@@ -3378,7 +3378,7 @@
       "amazon",
       "google"
     ],
-    "description": "Given Flipkart trip ratings array `nums`, return the number of longest strictly-increasing subsequences (LIS) — count, not the LIS itself.",
+    "description": "Given an integer array `nums`, return the number of longest strictly increasing subsequences. You must return the count of such subsequences, not the subsequences themselves.",
     "examples": [
       {
         "input": "nums = [1, 3, 5, 4, 7]",
@@ -3524,7 +3524,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon's recommendation feed has items with rank scores in `nums`. To make it strictly increasing, we delete a minimum number of items. Return that minimum number of deletions. (Equivalent to n - LIS.)",
+    "description": "Given an integer array `nums`, return the minimum number of elements you must delete so that the remaining elements, kept in their original order, form a strictly increasing sequence.",
     "examples": [
       {
         "input": "nums = [3, 1, 4, 1, 5, 9, 2, 6]",

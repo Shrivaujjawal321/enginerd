@@ -10,7 +10,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay shows merchants a transaction note like `\"payment for invoice 42\"`. The dashboard team wants to display the words reversed for a localized UI. Given a string `s` containing words separated by single spaces (no leading/trailing spaces), return a string with the order of the words reversed. Within each word, characters stay in their original order.",
+    "description": "Given a string `s` of words separated by single spaces (with no leading or trailing spaces), return a string with the order of the words reversed. The characters within each word remain in their original order.",
     "examples": [
       {
         "input": "s = \"payment for invoice 42\"",
@@ -124,7 +124,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy's marketing team launches palindrome-coupon promos: a coupon string is valid only if, after lowercasing and ignoring all non-alphanumeric characters, it reads the same forwards and backwards. Given a string `s`, return `true` if it is a palindrome under those rules, else `false`.",
+    "description": "Given a string `s`, return `true` if it reads the same forwards and backwards after converting all uppercase letters to lowercase and removing every non-alphanumeric character, and `false` otherwise. A string that is empty after filtering is considered a valid palindrome.",
     "examples": [
       {
         "input": "s = \"A man, a plan, a canal: Panama\"",
@@ -245,7 +245,7 @@
       "meesho",
       "amazon"
     ],
-    "description": "Flipkart's catalogue team compresses product codes with run-length encoding: each run of identical characters becomes the character followed by the run length (length only when length > 1). Given lowercase `s`, return the compressed string. If the compressed result is not strictly shorter than `s`, return `s` unchanged.",
+    "description": "Given a lowercase string `s`, compress it using run-length encoding: replace each maximal run of identical characters with that character followed by the run length, appending the length only when it is greater than 1. Return the compressed string, or return `s` unchanged if the compressed result is not strictly shorter than `s`.",
     "examples": [
       {
         "input": "s = \"aaabbc\"",
@@ -359,7 +359,7 @@
       "amazon",
       "google"
     ],
-    "description": "PhonePe needs to serialize a list of arbitrary user messages over the wire. Implement a single function `encodeDecode` that takes a list of strings, encodes them into one string using a length-prefix scheme (`<len>#<str>` for each), then decodes that encoded form back, and returns the decoded list. The point: round-trip must equal the input even when messages contain `#` or digits.",
+    "description": "Implement `encodeDecode`, which takes a list of strings `msgs`, encodes it into a single string using a length-prefix scheme (`<len>#<str>` for each element), then decodes that encoded string back into a list and returns it. The round-trip must reproduce `msgs` exactly, even when an element contains `#` or digit characters.",
     "examples": [
       {
         "input": "msgs = [\"hello\", \"world\"]",
@@ -506,7 +506,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Two strings belong to the same shift group if you can rotate one's characters around the alphabet (mod 26) to obtain the other (e.g., 'abc' and 'bcd' — each char shifted by 1). Given an array `strs` of lowercase strings, group them by shift class. Return the groups, each sorted lexicographically, and the outer list sorted by each group's first element.",
+    "description": "Two strings belong to the same shift group if one can be obtained from the other by shifting every character by the same amount around the alphabet modulo 26 (for example, `\"abc\"` and `\"bcd\"`). Given an array `strs` of lowercase strings, group them by shift class. Return the groups with each group sorted lexicographically, and the outer list sorted by each group's first element.",
     "examples": [
       {
         "input": "strs = [\"abc\", \"bcd\", \"acef\", \"xyz\", \"az\", \"ba\", \"a\", \"z\"]",
@@ -671,7 +671,7 @@
       "swiggy",
       "google"
     ],
-    "description": "Zomato's search wants every position in the menu string `s` where an anagram of the query `p` starts. Return the list of starting indices in ascending order. (Note: this is the standard 'find all anagrams' problem; even though it can use a sliding window, the focus here is character-frequency comparison.)",
+    "description": "Given two lowercase strings `s` and `p`, return a list of the starting indices of every substring of `s` that is an anagram of `p`. The indices must be returned in ascending order.",
     "examples": [
       {
         "input": "s = \"cbaebabacd\", p = \"abc\"",
@@ -804,7 +804,7 @@
       "flipkart",
       "meesho"
     ],
-    "description": "Amazon's catalogue groups SKUs by shared prefix (e.g., `'ELEC-TV-LG-55'` and `'ELEC-TV-LG-65'` share `'ELEC-TV-LG-'`). Given an array of SKU strings `strs`, return the longest common prefix shared by all of them. If no common prefix exists, return `''`.",
+    "description": "Given an array of strings `words`, return the longest string that is a common prefix of all of them. If there is no common prefix, or the array is empty, return the empty string `\"\"`.",
     "examples": [
       {
         "input": "strs = [\"flower\", \"flow\", \"flight\"]",
@@ -939,7 +939,7 @@
       "microsoft",
       "uber"
     ],
-    "description": "Implement substring search: given `haystack` and `needle`, return the lowest index where `needle` first appears in `haystack`, or `-1` if it doesn't. If `needle` is empty, return `0`. The expected solution uses KMP (Knuth–Morris–Pratt) for O(n+m) — this is enforced via the largest test cases.",
+    "description": "Given two strings `haystack` and `needle`, return the index of the first occurrence of `needle` in `haystack`, or `-1` if `needle` is not part of `haystack`. If `needle` is an empty string, return `0`.",
     "examples": [
       {
         "input": "haystack = \"sadbutsad\", needle = \"sad\"",
@@ -1066,7 +1066,7 @@
       "google",
       "amazon"
     ],
-    "description": "Given a non-empty string `s`, decide whether it can be constructed by taking some proper substring `t` of `s` and concatenating multiple copies of `t` (at least 2). Return `true`/`false`.",
+    "description": "Given a non-empty string `s`, return `true` if it can be constructed by taking a proper substring of `s` and concatenating two or more copies of it, and `false` otherwise.",
     "examples": [
       {
         "input": "s = \"abab\"",
@@ -1186,7 +1186,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Given `text` and `pattern`, return the index of the first occurrence of `pattern` in `text` using a Rabin-Karp rolling hash (with collision verification). Return `-1` if not found. If `pattern` is empty, return `0`. The grader accepts any correct answer — but the intended approach is the rolling-hash technique to handle large inputs in O(n + m) average time.",
+    "description": "Given two strings `text` and `pattern`, return the index of the first occurrence of `pattern` in `text`, or `-1` if `pattern` does not occur. If `pattern` is an empty string, return `0`.",
     "examples": [
       {
         "input": "text = \"abracadabra\", pattern = \"cad\"",
@@ -1313,7 +1313,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Given a Roman numeral string `s` (1 <= value <= 3999), return its integer value. Roman uses I=1, V=5, X=10, L=50, C=100, D=500, M=1000 with subtractive notation: IV=4, IX=9, XL=40, XC=90, CD=400, CM=900.",
+    "description": "Given a Roman numeral string `s` representing a value in the range [1, 3999], return its integer value. Roman numerals use the symbols I=1, V=5, X=10, L=50, C=100, D=500, M=1000, together with the subtractive pairs IV=4, IX=9, XL=40, XC=90, CD=400, and CM=900.",
     "examples": [
       {
         "input": "s = \"III\"",
@@ -1426,7 +1426,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Given integer `num` (1 <= num <= 3999), return its Roman numeral representation. Use the subtractive forms IV, IX, XL, XC, CD, CM where applicable.",
+    "description": "Given an integer `num` in the range [1, 3999], return its Roman numeral representation, using the subtractive forms IV, IX, XL, XC, CD, and CM where applicable.",
     "examples": [
       {
         "input": "num = 3",
@@ -1544,7 +1544,7 @@
       "google",
       "amazon"
     ],
-    "description": "Given two non-negative integers represented as strings `num1` and `num2`, return the product, also as a string. Do **not** convert the inputs to integers (they may exceed 64-bit). Implement long multiplication digit by digit.",
+    "description": "Given two non-negative integers represented as strings `num1` and `num2`, return their product as a string. Do not convert the inputs to a built-in integer type (the values may exceed 64 bits); perform the multiplication digit by digit. Neither input contains leading zeros except for the value `\"0\"` itself.",
     "examples": [
       {
         "input": "num1 = \"2\", num2 = \"3\"",
@@ -1663,7 +1663,7 @@
       "facebook",
       "microsoft"
     ],
-    "description": "Given two binary strings `a` and `b` (each contains only `'0'` and `'1'`), return their sum as a binary string. Don't use built-in big-integer parsing — do digit-by-digit addition.",
+    "description": "Given two binary strings `a` and `b`, each consisting only of the characters `'0'` and `'1'`, return their sum as a binary string. Perform the addition digit by digit rather than parsing the inputs into a built-in integer type.",
     "examples": [
       {
         "input": "a = \"11\", b = \"1\"",
@@ -1782,7 +1782,7 @@
       "google",
       "facebook"
     ],
-    "description": "Convert a non-negative integer `num` (0 <= num <= 2^31 - 1) to its English word representation. The expected format: capitalized words separated by single spaces, with thousand-grouping words (Thousand, Million, Billion). E.g., `1234567 → \"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven\"`. `0 → \"Zero\"`.",
+    "description": "Given a non-negative integer `num` in the range [0, 2^31 - 1], return its representation in English words. Words are capitalized and separated by single spaces, using the grouping words Thousand, Million, and Billion (for example, `1234567` becomes `\"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven\"`), and `0` returns `\"Zero\"`.",
     "examples": [
       {
         "input": "num = 123",
@@ -1904,7 +1904,7 @@
       "facebook",
       "lyft"
     ],
-    "description": "Given a string `s`, decide whether it is a valid number. Allowed forms: optional leading `+`/`-`; an integer or decimal; optional exponent part `e` or `E` followed by an optional `+`/`-` and an integer. `'2'`, `'0089'`, `'-0.1'`, `'+3.14'`, `'4.'`, `'.9'`, `'-.9'`, `'2e10'`, `'+6e-1'`, `'53.5e93'` are all valid. `'abc'`, `'1a'`, `'e3'`, `'.'`, `''`, `'+-5'`, `'1e'`, `' '` are not. Return `true`/`false`.",
+    "description": "Given a string `s`, return `true` if it represents a valid number and `false` otherwise. A valid number consists of an optional leading sign (`+` or `-`), an integer or decimal value, and an optional exponent part: `e` or `E` followed by an optional sign and an integer. Leading and trailing spaces are not allowed. For example, `\"2\"`, `\"-0.1\"`, `\"4.\"`, `\".9\"`, `\"2e10\"`, and `\"53.5e93\"` are valid, while `\"abc\"`, `\"1a\"`, `\"e3\"`, `\".\"`, `\"+-5\"`, and `\"1e\"` are not.",
     "examples": [
       {
         "input": "s = \"0\"",
@@ -2064,7 +2064,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "An editor records keystrokes where `'#'` means backspace (delete the previous char if any). Given two such typed sequences `s` and `t`, return `true` if they produce the same final text. Since this is a strings problem (not stack-only), implement with simple string building using a stack/array.",
+    "description": "Given two strings `s` and `t` representing sequences of typed keystrokes, where `'#'` denotes a backspace that deletes the preceding character (if any), return `true` if both strings produce the same final text, and `false` otherwise.",
     "examples": [
       {
         "input": "s = \"ab#c\", t = \"ad#c\"",
@@ -2196,7 +2196,7 @@
       "facebook",
       "amazon"
     ],
-    "description": "Decode a string of the form `k[encoded]` where the bracketed part is repeated `k` times. Encodings nest, e.g. `'3[a2[c]]'` decodes to `'accaccacc'`. Input is guaranteed valid: no extra brackets, `k` is a positive integer, and original characters are lowercase letters.",
+    "description": "Given an encoded string `s` following the rule `k[encoded]`, where the bracketed substring is repeated `k` times, return its decoded form. The encoding may be nested (for example, `\"3[a2[c]]\"` decodes to `\"accaccacc\"`). The input is guaranteed to be valid, `k` is a positive integer, and all original characters are lowercase letters.",
     "examples": [
       {
         "input": "s = \"3[a]2[bc]\"",
@@ -2313,7 +2313,7 @@
       "google",
       "amazon"
     ],
-    "description": "The count-and-say sequence: `S(1) = '1'`, and `S(n)` is generated by reading `S(n-1)` aloud — counting consecutive same digits and saying the count followed by the digit. E.g., `S(2) = '11'` ('one 1'), `S(3) = '21'` ('two 1s'), `S(4) = '1211'`, `S(5) = '111221'`. Given `n`, return `S(n)`.",
+    "description": "The count-and-say sequence is defined by `S(1) = \"1\"`, and each subsequent term `S(n)` is produced by reading the previous term aloud: for each run of identical digits, you say the count followed by the digit (so `S(2) = \"11\"`, `S(3) = \"21\"`, `S(4) = \"1211\"`, and `S(5) = \"111221\"`). Given an integer `n`, return `S(n)`.",
     "examples": [
       {
         "input": "n = 1",
@@ -2435,7 +2435,7 @@
       "facebook",
       "amazon"
     ],
-    "description": "Given an absolute Unix path string, return its canonical (simplified) form. Rules: `'.'` is current dir, `'..'` is parent, multiple slashes collapse to one, the result starts with a single `'/'` and (unless it's just `'/'`) does not end with one. Names other than `.` and `..` are kept as-is.",
+    "description": "Given a string `path` representing an absolute Unix file path, return its canonical (simplified) form. A single `'.'` refers to the current directory, `'..'` moves to the parent directory, and consecutive slashes collapse into one. The result must begin with a single `'/'` and must not end with a trailing `'/'` unless it is the root `'/'`. Directory names other than `.` and `..` are preserved as-is.",
     "examples": [
       {
         "input": "path = \"/home/\"",
@@ -2563,7 +2563,7 @@
       "facebook",
       "uber"
     ],
-    "description": "An IDE matches each query against a list of camel-case identifiers. The query may contain only uppercase letters that must appear (in order) as the uppercase letters of the candidate; lowercase letters in the query, if any, must also appear in order interspersed appropriately. For this simplified version: query consists of uppercase letters only, and a candidate matches iff the query is exactly the subsequence formed by all uppercase letters of the candidate. Given `queries` and a single `pattern` (uppercase-only), return a boolean array indicating which queries match.",
+    "description": "Given an array of camel-case strings `queries` and an uppercase-only string `pattern`, return a boolean array where each entry indicates whether the corresponding query matches the pattern. A query matches if the subsequence formed by all of its uppercase letters equals `pattern` exactly. If `pattern` contains any lowercase letter, no query matches.",
     "examples": [
       {
         "input": "queries = [\"FooBar\", \"FooBarTest\", \"FootBall\", \"FrameBuffer\", \"ForceFeedBack\"], pattern = \"FB\"",
@@ -2715,7 +2715,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay merchant IDs follow this format: prefix `'rzp_'`, then `'live_'` or `'test_'`, then exactly 14 alphanumeric characters (case-sensitive, `[A-Za-z0-9]`). Given a string `id`, return `true` if it matches the format, `false` otherwise. Do **not** use regex — implement the check explicitly with character/length comparisons.",
+    "description": "Given a string `id`, return `true` if it matches the following fixed format and `false` otherwise: the prefix `rzp_`, followed by either `live_` or `test_`, followed by exactly 14 case-sensitive alphanumeric characters (`[A-Za-z0-9]`). Do not use regular expressions; perform the check with explicit character and length comparisons.",
     "examples": [
       {
         "input": "id = \"rzp_live_AbCd1234EfGh56\"",
@@ -2844,7 +2844,7 @@
       "razorpay",
       "phonepe"
     ],
-    "description": "A KYC service validates two formats and returns a tuple-like array `[phoneOk, panOk]`.\n\n- **Indian phone** (`phone`): exactly 10 digits, first digit in `{6, 7, 8, 9}`. Optionally prefixed with `'+91'` or `'91'` (no spaces). Examples: `'9876543210'`, `'+919876543210'`, `'919876543210'`.\n- **PAN card** (`pan`): exactly 10 chars, format `[A-Z]{5}[0-9]{4}[A-Z]{1}`. Example: `'ABCDE1234F'`.\n\nReturn `[isValidPhone(phone), isValidPan(pan)]`. Implement the checks explicitly (no regex).",
+    "description": "Given two strings `phone` and `pan`, validate each against its format and return `[phoneOk, panOk]`. The string `phone` is valid if it consists of exactly 10 digits whose first digit is 6, 7, 8, or 9, optionally prefixed with `+91` or `91` (with no spaces). The string `pan` is valid if it has exactly 10 characters matching the pattern `[A-Z]{5}[0-9]{4}[A-Z]{1}`. Implement both checks explicitly, without regular expressions.",
     "examples": [
       {
         "input": "phone = \"9876543210\", pan = \"ABCDE1234F\"",
@@ -2996,7 +2996,7 @@
       "paytm",
       "swiggy"
     ],
-    "description": "BookMyShow seat codes follow the format `<row><number>` where `<row>` is 1-2 uppercase letters (`'A'..'Z'` or `'AA'..'ZZ'`) and `<number>` is an integer in `[1, 99]` with no leading zero. Given an array `codes`, return an object/dict with two fields:\n  - `valid`: number of codes that match the format.\n  - `maxRowSeen`: lexicographically greatest valid row prefix encountered (or empty string if none).\n\nReturn the result as `[valid, maxRowSeen]` to keep the JSON test format simple. Implement parsing with explicit char checks (no regex).",
+    "description": "Given an array `codes`, where each entry is a seat code of the form `<row><number>` (the `<row>` part is 1 or 2 uppercase letters, `A`..`Z` or `AA`..`ZZ`, and `<number>` is an integer in [1, 99] with no leading zero), return `[valid, maxRowSeen]`. Here `valid` is the count of codes that match the format, and `maxRowSeen` is the lexicographically greatest row prefix among the valid codes (or an empty string if there are none). Parse the codes with explicit character checks, without regular expressions.",
     "examples": [
       {
         "input": "codes = [\"A1\", \"B12\", \"AA5\", \"C99\"]",

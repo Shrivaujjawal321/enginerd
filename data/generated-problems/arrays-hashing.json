@@ -10,7 +10,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay's reconciliation team gets a list of payment IDs (as integers) processed in a day. They want to flag if any payment ID appears more than once because that signals a duplicate charge bug. Given an array `ids`, return `true` if at least one ID repeats, otherwise `false`.",
+    "description": "Given an integer array `ids`, return `true` if any value appears at least twice in the array, and `false` if every element is distinct.",
     "examples": [
       {
         "input": "ids = [101, 202, 303, 101]",
@@ -124,7 +124,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy is running a 'pair-and-save' promo: if any two orders in your cart sum exactly to the campaign target, you get a discount. Given `prices` (the cart) and `target` (the magic sum), return the indices of the two orders that match. Return them sorted ascending. Exactly one valid pair exists; you cannot pick the same index twice.",
+    "description": "Given an integer array `prices` and an integer `target`, return the indices of the two elements that add up to `target`. Exactly one valid pair is guaranteed to exist, and you may not use the same index twice. Return the two indices sorted in ascending order.",
     "examples": [
       {
         "input": "prices = [120, 350, 80, 200], target = 280",
@@ -251,7 +251,7 @@
       "meesho",
       "amazon"
     ],
-    "description": "Flipkart's warehouse expects SKU numbers from 0 to n in every shipment crate. Today's crate has only n SKUs (one is missing). Given the array `skus` of length n containing distinct integers from the range [0, n], return the missing SKU.",
+    "description": "Given an array `skus` of length `n` containing `n` distinct integers drawn from the range `[0, n]`, exactly one value from that range is absent. Return the missing number.",
     "examples": [
       {
         "input": "skus = [3, 0, 1]",
@@ -365,7 +365,7 @@
       "swiggy",
       "google"
     ],
-    "description": "Zomato's data team noticed many restaurant names are anagrams of each other (e.g., 'biryani' and 'aibinry'). Group them so the analytics dashboard can show clusters. Given `names` array of lowercase strings, return groups of anagrams. Each group should be sorted lexicographically internally, and the groups themselves should be sorted by their first element.",
+    "description": "Given an array of lowercase strings `names`, group together all strings that are anagrams of one another. Within each group the strings must be sorted lexicographically, and the groups themselves must be ordered by their first element. Return the resulting list of groups.",
     "examples": [
       {
         "input": "names = [\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]",
@@ -502,7 +502,7 @@
       "phonepe",
       "razorpay"
     ],
-    "description": "Paytm wants to know the single most common transaction amount in a list (the mode). Given `amounts`, return the value that appears most often. If there's a tie, return the smallest such value.",
+    "description": "Given an integer array `amounts`, return the value that occurs most frequently. If multiple values share the highest frequency, return the smallest such value.",
     "examples": [
       {
         "input": "amounts = [10, 20, 10, 30, 20, 10]",
@@ -610,7 +610,7 @@
       "paytm",
       "google"
     ],
-    "description": "PhonePe wants the top `k` merchants by transaction count. Given `merchants` (array of merchant ID integers, possibly repeating) and `k`, return the `k` IDs with the highest counts, sorted by count descending; if two merchants tie on count, the smaller ID comes first.",
+    "description": "Given an integer array `merchants` and an integer `k`, return the `k` values that occur most frequently. Order the result by frequency in descending order; when two values have the same frequency, the smaller value comes first.",
     "examples": [
       {
         "input": "merchants = [1, 2, 2, 3, 3, 3], k = 2",
@@ -744,7 +744,7 @@
       "flipkart",
       "meesho"
     ],
-    "description": "Two Amazon warehouses share a fulfillment center. Given two arrays `wA` and `wB` of product IDs (with possible duplicates), return the unique IDs that appear in both warehouses, sorted ascending.",
+    "description": "Given two integer arrays `wA` and `wB`, each of which may contain duplicates, return the distinct values that appear in both arrays, sorted in ascending order.",
     "examples": [
       {
         "input": "wA = [1, 2, 2, 3], wB = [2, 3, 4]",
@@ -874,7 +874,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Razorpay's audit team scans contiguous chunks of daily settlement amounts (which can be negative on refunds) looking for any window whose total exactly equals a target. Given `settlements` and `target`, return how many contiguous subarrays sum to `target`.",
+    "description": "Given an integer array `settlements`, whose values may be negative, and an integer `target`, return the total number of contiguous subarrays whose elements sum exactly to `target`.",
     "examples": [
       {
         "input": "settlements = [1, 1, 1], target = 2",
@@ -998,7 +998,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy plots the per-hour delivery counts for the day as an array. They want the leftmost hour `i` such that the total deliveries strictly before `i` equals the total strictly after `i`. Return that index, or `-1` if no such index exists.",
+    "description": "Given an integer array `deliveries`, return the leftmost index `i` such that the sum of the elements strictly to the left of `i` equals the sum of the elements strictly to the right of `i`. If no such index exists, return `-1`.",
     "examples": [
       {
         "input": "deliveries = [1, 7, 3, 6, 5, 6]",
@@ -1116,7 +1116,7 @@
       "meesho",
       "amazon"
     ],
-    "description": "Flipkart maintains a `currentStock` array (length n, distinct integers). They also have a `targetStock` array — the same set of values but possibly in a different order. Determine whether `currentStock` is a permutation of `targetStock` (i.e., contains exactly the same multiset of items). Return `true` or `false`.",
+    "description": "Given two integer arrays `currentStock` and `targetStock`, return `true` if one is a permutation of the other (that is, they contain exactly the same multiset of values), and `false` otherwise.",
     "examples": [
       {
         "input": "currentStock = [3, 1, 2], targetStock = [1, 2, 3]",
@@ -1245,7 +1245,7 @@
       "razorpay",
       "google"
     ],
-    "description": "CRED logs reward levels reached by users as integers. Find the length of the longest run of consecutive integer levels present in the unsorted log. The run can start anywhere; gaps break the streak.",
+    "description": "Given an unsorted integer array `levels`, return the length of the longest run of consecutive integers that appear in the array. The consecutive values need not be adjacent in `levels`.",
     "examples": [
       {
         "input": "levels = [100, 4, 200, 1, 3, 2]",
@@ -1365,7 +1365,7 @@
       "flipkart",
       "amazon"
     ],
-    "description": "Meesho is bundling product pairs whose price difference is exactly `d`. Given an array `prices` of distinct positive integers and a non-negative integer `d`, return the count of unique unordered pairs `(a, b)` with `a < b` and `b - a == d`.",
+    "description": "Given an array `prices` of distinct integers and a non-negative integer `d`, return the number of unique unordered pairs `(a, b)` with `a < b` and `b - a == d`.",
     "examples": [
       {
         "input": "prices = [1, 5, 3, 4, 2], d = 2",
@@ -1490,7 +1490,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Atlassian's collaboration tool stores giant sparse matrices (mostly zero). Two matrices are given as 2D arrays `A` and `B` of identical dimensions. Decide if they are equal by hashing only their non-zero cells (so the comparison stays cheap on sparse data). Return `true` if all non-zero cells match in position and value, else `false`.",
+    "description": "Given two 2D integer arrays `A` and `B` of identical dimensions, return `true` if the two matrices are equal (every corresponding cell holds the same value), and `false` otherwise.",
     "examples": [
       {
         "input": "A = [[0,0,3],[0,5,0]], B = [[0,0,3],[0,5,0]]",
@@ -1679,7 +1679,7 @@
       "atlassian",
       "uber"
     ],
-    "description": "Postman's analytics dashboard shows a stream of API endpoint IDs hit per second. For every window of size `k`, return the count of distinct endpoints in that window. Output is an array of length `n - k + 1`. If `k > n`, return `[]`.",
+    "description": "Given an integer array `stream` and a window size `k`, return an array whose i-th entry is the number of distinct values in the i-th contiguous window of size `k`. The output has length `n - k + 1`; if `k > n`, return an empty array.",
     "examples": [
       {
         "input": "stream = [1, 2, 1, 3, 4, 2, 3], k = 4",
@@ -1826,7 +1826,7 @@
       "swiggy",
       "zomato"
     ],
-    "description": "Uber bucketizes fares into buckets of width `w` (e.g., w=100 → buckets 0-99, 100-199, …). Given a `fares` array and bucket width `w` (positive), return the bucket id (the floor-division integer) that contains the most fares. Tie-break: return the smallest bucket id.",
+    "description": "Given an integer array `fares` and a positive bucket width `w`, assign each value to the bucket `floor(fare / w)`. Return the id of the bucket that contains the most values. If several buckets tie for the most, return the smallest such bucket id.",
     "examples": [
       {
         "input": "fares = [50, 99, 100, 250, 270, 320], w = 100",
@@ -1948,7 +1948,7 @@
       "microsoft",
       "atlassian"
     ],
-    "description": "A startup uses lowercase tag strings of equal length. Two tags are 'isomorphic' if you can rename characters in tag A (a consistent 1-to-1 mapping, no two source chars mapping to the same target) to obtain tag B. Given two strings `a` and `b`, return `true` if isomorphic, else `false`.",
+    "description": "Given two equal-length strings `a` and `b`, return `true` if they are isomorphic. Two strings are isomorphic if the characters of `a` can be replaced to obtain `b` using a consistent one-to-one mapping: each character of `a` maps to exactly one character of `b`, and no two characters of `a` map to the same character of `b`.",
     "examples": [
       {
         "input": "a = \"egg\", b = \"add\"",
@@ -2044,7 +2044,7 @@
       "paytm",
       "razorpay"
     ],
-    "description": "PhonePe records daily net cash flow (positive = inflow, negative = outflow). Find the LENGTH of the longest contiguous span of days where the net total is exactly zero. If none exists, return 0.",
+    "description": "Given an integer array `flow`, whose values may be negative, return the length of the longest contiguous subarray whose elements sum to exactly zero. If no such subarray exists, return `0`.",
     "examples": [
       {
         "input": "flow = [1, -1, 3, 2, -2, -3, 5]",
@@ -2160,7 +2160,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Razorpay's risk team scans an `R x C` grid where each cell is a signed integer (positive credits, negative debits). Find the AREA (cells × cells = R*C cells inside) of the largest contiguous rectangular submatrix whose elements sum to zero. If no zero-sum submatrix exists, return 0.",
+    "description": "Given an `R x C` integer matrix `grid`, whose values may be negative, return the area (number of cells) of the largest contiguous rectangular submatrix whose elements sum to exactly zero. If no zero-sum submatrix exists, return `0`.",
     "examples": [
       {
         "input": "grid = [[1,-1],[-1,1]]",
@@ -2295,7 +2295,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon's barcode scanner streams a string `s` of lowercase letters and a pattern `p`. Return the count of substrings of `s` of length `|p|` that are anagrams of `p`.",
+    "description": "Given a lowercase string `s` and a lowercase string `p`, return the number of substrings of `s` of length `|p|` that are anagrams of `p`.",
     "examples": [
       {
         "input": "s = \"cbaebabacd\", p = \"abc\"",
@@ -2391,7 +2391,7 @@
       "amazon",
       "google"
     ],
-    "description": "Swiggy's combo offer requires the customer cart to contain ALL items from a target list (with multiplicity). Given `cart` (string of lowercase letters where each letter is an item) and `combo` (also a string), return the SHORTEST contiguous slice of `cart` that contains every item in `combo` (with multiplicity). If no such slice exists, return the empty string. Among ties, return the one with the smallest starting index.",
+    "description": "Given two lowercase strings `cart` and `combo`, return the shortest contiguous substring of `cart` that contains every character of `combo`, including multiplicity. If no such substring exists, return the empty string. If several substrings tie for the shortest length, return the one with the smallest starting index.",
     "examples": [
       {
         "input": "cart = \"adobecodebanc\", combo = \"abc\"",
@@ -2486,7 +2486,7 @@
       "microsoft",
       "atlassian"
     ],
-    "description": "Given an integer array `nums` and integer `k`, count the number of UNORDERED pairs `(a, b)` with `a < b` (by value, distinct values) such that `a + b < k`. Each unordered pair of distinct values is counted at most once, regardless of how many copies appear in `nums`.",
+    "description": "Given an integer array `nums` and an integer `k`, count the number of unordered pairs of distinct values `(a, b)` with `a < b` and `a + b < k`. Each unordered pair of distinct values is counted at most once, regardless of how many times each value occurs in `nums`.",
     "examples": [
       {
         "input": "nums = [1, 2, 3, 4], k = 6",
@@ -2607,7 +2607,7 @@
       "google",
       "uber"
     ],
-    "description": "Sort the array `nums` so that elements with HIGHER frequency come first. If two values have the same frequency, the SMALLER value comes first. Within a value-group, repetitions are output consecutively.",
+    "description": "Given an integer array `nums`, sort the elements by decreasing frequency. When two values have the same frequency, the smaller value comes first, and all occurrences of a given value appear consecutively in the output. Return the sorted array.",
     "examples": [
       {
         "input": "nums = [1, 1, 2, 2, 3]",
@@ -2766,7 +2766,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay receives an array of `[accountId, amount]` settlement records. Aggregate the total amount per account. Return an array of `[accountId, total]` sorted by accountId ascending.",
+    "description": "Given an array `records` where each entry is a pair `[accountId, amount]`, aggregate the total `amount` for each `accountId`. Return an array of `[accountId, total]` pairs sorted by `accountId` in ascending order.",
     "examples": [
       {
         "input": "records = [[1, 100], [2, 50], [1, 200], [3, 75], [2, 25]]",
@@ -2932,7 +2932,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon's review pipeline emits a binary log: `1` for approval, `0` for rejection. Find the LENGTH of the longest contiguous span containing an equal number of `0`s and `1`s.",
+    "description": "Given a binary array `log` containing only `0`s and `1`s, return the length of the longest contiguous subarray that contains an equal number of `0`s and `1`s.",
     "examples": [
       {
         "input": "log = [0, 1]",
@@ -3050,7 +3050,7 @@
       "microsoft",
       "atlassian"
     ],
-    "description": "Given a lowercase string `s` and integer `k`, return the LENGTH of the shortest substring of `s` that contains exactly `k` distinct characters. If no such substring exists, return 0. (k=0 trivially has a 0-length valid substring; return 0 in that case.)",
+    "description": "Given a lowercase string `s` and an integer `k`, return the length of the shortest substring of `s` that contains exactly `k` distinct characters. If no such substring exists, return `0`. When `k` is `0`, return `0`.",
     "examples": [
       {
         "input": "s = \"abcabc\", k = 3",

@@ -10,7 +10,7 @@
       "zomato",
       "dunzo"
     ],
-    "description": "Swiggy maps a delivery street as an array `maxJump` where `maxJump[i]` is the maximum number of buildings a rider standing at index `i` can hop forward (because of fuel left). The rider starts at index 0. Return `true` if the rider can reach the last building, otherwise `false`.",
+    "description": "You are given an integer array `maxJump` where `maxJump[i]` is the maximum number of positions you can advance from index `i`. You start at index `0`. Return `true` if you can reach the last index, otherwise return `false`.",
     "examples": [
       {
         "input": "maxJump = [2, 3, 1, 1, 4]",
@@ -165,7 +165,7 @@
       "uber",
       "ola"
     ],
-    "description": "An IndianOil tanker drives a circular highway with `n` gas stations. At station `i` it can refill `gas[i]` litres, and going from station `i` to `i+1` costs `cost[i]` litres. Starting with an empty tank, return the index of the station from which you can complete a full clockwise loop. Return -1 if impossible. There is at most one valid start (when one exists).",
+    "description": "There are `n` stations arranged in a circle. The array `gas` gives the amount of fuel available at each station, and `cost[i]` is the fuel required to travel from station `i` to station `i+1` (the last station wraps around to the first). Starting with an empty tank at some station, return the index of the starting station from which you can complete one full loop, or `-1` if no such start exists. If a valid start exists, it is guaranteed to be unique.",
     "examples": [
       {
         "input": "gas = [1, 2, 3, 4, 5], cost = [3, 4, 5, 1, 2]",
@@ -337,7 +337,7 @@
       "amazon",
       "myntra"
     ],
-    "description": "Flipkart's packing line wants to ship products in bundles of exactly `groupSize`, where each bundle consists of `groupSize` consecutive product IDs (e.g., [4,5,6] for size 3). Given `productIds` and `groupSize`, return `true` if the array can be split entirely into such bundles, otherwise `false`.",
+    "description": "You are given an integer array `productIds` and an integer `groupSize`. Determine whether `productIds` can be partitioned entirely into groups of exactly `groupSize` consecutive integers (for example, `[4, 5, 6]` when `groupSize` is 3). Return `true` if such a partition is possible, otherwise return `false`.",
     "examples": [
       {
         "input": "productIds = [1,2,3,6,2,3,4,7,8], groupSize = 3",
@@ -508,7 +508,7 @@
       "swiggy",
       "dunzo"
     ],
-    "description": "Zomato rates each delivery batch by a triplet `[speed, accuracy, freshness]`. Operation: pick any two triplets `a` and `b` and replace either with the elementwise max. Given `triplets` and a target `target = [tx, ty, tz]`, decide whether some sequence of operations yields a triplet exactly equal to `target`. Return `true` or `false`.",
+    "description": "You are given a list of `triplets`, where each `triplets[i] = [a, b, c]`, and a `target` triplet `[tx, ty, tz]`. In one operation you may pick two triplets and replace one of them with their elementwise maximum. Return `true` if, after applying any number of such operations, some triplet becomes exactly equal to `target`; otherwise return `false`.",
     "examples": [
       {
         "input": "triplets = [[2,5,3],[1,8,4],[1,7,5]], target = [2,7,5]",
@@ -724,7 +724,7 @@
       "phonepe",
       "razorpay"
     ],
-    "description": "Paytm processes a stream of cashback events represented as a string `events` where each character is a campaign tag. Cut the string into the maximum number of contiguous parts such that no character appears in more than one part. Return the array of part lengths in order.",
+    "description": "You are given a string `events` consisting of lowercase English letters. Partition the string into as many contiguous parts as possible so that each letter appears in at most one part. Return an array of the lengths of these parts, in order.",
     "examples": [
       {
         "input": "events = \"ababcbacadefegdehijhklij\"",
@@ -852,7 +852,7 @@
       "swiggy",
       "rapido"
     ],
-    "description": "A tea stall sells one cup at Rs 5. Customers pay with Rs 5, 10, or 20 notes (in queue order in `bills`). The stall starts with no cash. For each customer you must give exact change. Return `true` if all customers are served correctly, otherwise `false`.",
+    "description": "Each item costs `5`. Customers pay in the order given by `bills`, where each value is `5`, `10`, or `20`, and for each customer you must give back exact change. You start with no money. Return `true` if you can provide every customer with correct change, otherwise return `false`.",
     "examples": [
       {
         "input": "bills = [5, 5, 5, 10, 20]",
@@ -994,7 +994,7 @@
       "zomato",
       "amazon"
     ],
-    "description": "Swiggy generated `orderIds` for the day but, due to a bug, some are duplicates. The fix: each duplicate may be incremented by +1 any number of times until all IDs are distinct. Return the minimum total number of increments needed.",
+    "description": "You are given an integer array `orderIds`. In one move you may increment any element by `1`. Return the minimum number of moves required to make every value in `orderIds` distinct.",
     "examples": [
       {
         "input": "orderIds = [1, 2, 2]",
@@ -1131,7 +1131,7 @@
       "paytm-insider",
       "google"
     ],
-    "description": "BookMyShow lists `events`, where `events[i] = [startDay, endDay]` means event `i` runs every day from `startDay` to `endDay` inclusive. You can attend at most one event per day, and you may attend on any single day in `[startDay, endDay]`. Return the maximum number of events you can attend.",
+    "description": "You are given an array `events` where `events[i] = [startDay, endDay]` means event `i` is available on every day in the inclusive range `[startDay, endDay]`. You can attend at most one event per day, and for any event you may attend on any single day within its range. Return the maximum number of events you can attend.",
     "examples": [
       {
         "input": "events = [[1,2],[2,3],[3,4]]",
@@ -1319,7 +1319,7 @@
       "infosys",
       "wipro"
     ],
-    "description": "TCS is flying `2n` candidates to two interview cities, exactly `n` to City A and `n` to City B. `costs[i] = [costA, costB]` is the flight cost for candidate `i` to each city. Return the minimum total cost to fly exactly `n` candidates to A and `n` to B.",
+    "description": "You are given an array `costs` of `2n` people, where `costs[i] = [costA, costB]` is the cost of sending person `i` to city A or city B respectively. Send exactly `n` people to each city. Return the minimum total cost.",
     "examples": [
       {
         "input": "costs = [[10,20],[30,200],[400,50],[30,20]]",
@@ -1503,7 +1503,7 @@
       "ola",
       "uber"
     ],
-    "description": "Rapido is helping with a flood evacuation. Each boat has the same `limit` weight capacity and can carry at most two people. Given `weights[i]` per person, return the minimum number of boats needed (assume each weight is at most the limit).",
+    "description": "You are given an integer array `weights`, where `weights[i]` is the weight of the `i`-th person, and an integer `limit` giving the maximum weight each boat can carry. Each boat carries at most two people, provided their combined weight does not exceed `limit`. Return the minimum number of boats needed to carry every person. It is guaranteed that each person's weight is at most `limit`.",
     "examples": [
       {
         "input": "weights = [1,2], limit = 3",
@@ -1647,7 +1647,7 @@
       "uber",
       "rapido"
     ],
-    "description": "Ola needs to hire exactly `k` drivers from a pool of `n` candidates, where candidate `i` has `quality[i]` and an expected `wage[i]`. Pay rules: every hired driver in a group must be paid at least their wage; within the group, pays must be proportional to quality. Return the minimum total wage bill, accurate to 1e-5.",
+    "description": "You are given two integer arrays `quality` and `wage`, where `quality[i]` and `wage[i]` describe worker `i`, and an integer `k`. You must hire exactly `k` workers and pay them so that: (1) within the hired group, each worker is paid in proportion to their quality, and (2) every hired worker is paid at least their expected `wage[i]`. Return the minimum total amount needed to hire `k` workers. Answers within `1e-5` of the correct value are accepted.",
     "examples": [
       {
         "input": "quality = [10,20,5], wage = [70,50,30], k = 2",
@@ -1805,7 +1805,7 @@
       "swiggy",
       "amazon"
     ],
-    "description": "Zomato dispatcher must run a list of `tasks` (each task labeled by an uppercase letter). Identical tasks must be separated by at least `n` time units (idle if needed). Return the minimum total time units to finish all tasks.",
+    "description": "You are given a character array `tasks`, where each element is an uppercase letter representing a task, and an integer `n`. Each task takes one unit of time, and two identical tasks must be separated by at least `n` units of time, during which the processor may be idle. Return the minimum number of time units required to finish all tasks.",
     "examples": [
       {
         "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2",
@@ -1970,7 +1970,7 @@
       "zerodha",
       "upstox"
     ],
-    "description": "Groww shows you the daily closing prices of a stock as `prices`. You may buy and sell as often as you want, but you must sell before you buy again (no shorting, no holding multiple lots). Return the maximum total profit.",
+    "description": "You are given an integer array `prices`, where `prices[i]` is the price of a stock on day `i`. You may complete as many transactions as you like, but you must sell any stock you hold before buying again (you can hold at most one unit at a time). Return the maximum profit you can achieve.",
     "examples": [
       {
         "input": "prices = [7,1,5,3,6,4]",
@@ -2108,7 +2108,7 @@
       "paytm",
       "google"
     ],
-    "description": "PhonePe gives you a list of non-negative integers `nums`. Concatenate them in some order to form the largest possible number, and return it as a string (without leading zeros, except a single '0' if the answer is zero).",
+    "description": "You are given a list of non-negative integers `nums`. Arrange them in some order and concatenate them to form the largest possible number. Return the result as a string. If the result would consist only of zeros, return `\"0\"`.",
     "examples": [
       {
         "input": "nums = [10, 2]",

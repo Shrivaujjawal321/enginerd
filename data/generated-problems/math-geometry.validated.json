@@ -10,7 +10,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay needs to compute GST tax on a base amount. Given an integer `amount` (in paise) and an integer `gstPercent` (0..28), return the GST tax rounded to the nearest paisa using banker-free standard rounding (round half away from zero). Use only integer math; do not rely on floating point for the final round.",
+    "description": "Given an integer `amount` and an integer `gstPercent` (0..28), return `amount * gstPercent / 100` rounded to the nearest integer using round-half-away-from-zero. Both inputs are non-negative. Use integer arithmetic for the final rounding rather than floating-point, to avoid precision errors.",
     "examples": [
       {
         "input": "amount = 10000, gstPercent = 18",
@@ -130,7 +130,7 @@
       "razorpay",
       "flipkart"
     ],
-    "description": "Paytm shows revenue in Indian numbering. 1 crore = 100 lakh. Given `lakhs` (integer), return an array `[crores, remainingLakhs]` such that `lakhs = crores * 100 + remainingLakhs` and `0 <= remainingLakhs < 100`. For negative input, return `[0, 0]` (treated as invalid).",
+    "description": "Given an integer `lakhs`, return an array `[crores, remainingLakhs]` such that `lakhs = crores * 100 + remainingLakhs` and `0 <= remainingLakhs < 100`. If `lakhs` is negative, treat it as invalid and return `[0, 0]`.",
     "examples": [
       {
         "input": "lakhs = 250",
@@ -261,7 +261,7 @@
       "amazon",
       "uber"
     ],
-    "description": "Flipkart's order-counter stores the next order number as a digit array (most-significant digit first). Given `digits`, increment the represented integer by 1 and return the new digit array. Each entry is in [0,9]; the leading digit is non-zero unless the number is 0.",
+    "description": "You are given a non-negative integer represented as an array of decimal digits `digits`, where the most significant digit is at the front and each element is in the range [0, 9]. The integer has no leading zeros except when it is `0` itself. Increment the integer by one and return the resulting array of digits.",
     "examples": [
       {
         "input": "digits = [1, 2, 3]",
@@ -398,7 +398,7 @@
       "zomato",
       "google"
     ],
-    "description": "Swiggy marks an order number 'happy' if iterating digit-square-sum eventually reaches 1 (else it cycles). Given a positive integer `n`, return `true` if `n` is happy. Detect cycles using Floyd's tortoise-and-hare or a hash set.",
+    "description": "A positive integer is called happy if repeatedly replacing it with the sum of the squares of its decimal digits eventually reaches `1`; otherwise the process loops endlessly in a cycle that never includes `1`. Given a positive integer `n`, return `true` if `n` is a happy number, and `false` otherwise.",
     "examples": [
       {
         "input": "n = 19",
@@ -510,7 +510,7 @@
       "paytm",
       "amazon"
     ],
-    "description": "PhonePe wants to flag order IDs that are numeric palindromes (read the same forward and backward). Given an integer `x`, return `true` if it's a palindrome. Negative numbers are NOT palindromes (because of the sign). Solve WITHOUT converting to a string.",
+    "description": "Given an integer `x`, return `true` if `x` reads the same forward and backward, and `false` otherwise. Negative numbers are not palindromes because of the leading sign. Solve this without converting the integer to a string.",
     "examples": [
       {
         "input": "x = 121",
@@ -633,7 +633,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Zomato's analytics flips signed 32-bit ints to obfuscate IDs. Given a signed integer `x`, return the integer formed by reversing its decimal digits. If reversing causes a 32-bit overflow (outside [-2^31, 2^31 - 1]), return 0. Sign is preserved.",
+    "description": "Given a signed 32-bit integer `x`, return `x` with its decimal digits reversed, preserving the sign. If reversing `x` causes the result to fall outside the signed 32-bit range [-2^31, 2^31 - 1], return `0`.",
     "examples": [
       {
         "input": "x = 123",
@@ -760,7 +760,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon's pricing engine needs `pow(x, n)` — `x` raised to integer power `n` — without using `Math.pow`. Use fast-exponentiation (binary exponentiation). For negative `n`, return `1 / pow(x, -n)`. Return result as a finite-precision `number`.",
+    "description": "Implement `pow(x, n)`, which raises `x` (a floating-point number) to the integer power `n`, without using a built-in power function. For negative `n`, the result is `1 / pow(x, -n)`. Return the result as a number.",
     "examples": [
       {
         "input": "x = 2.0, n = 10",
@@ -882,7 +882,7 @@
       "microsoft",
       "uber"
     ],
-    "description": "Given a non-negative integer `x`, return `floor(sqrt(x))` as an integer. Don't use `Math.sqrt` or `**0.5`. Use binary search.",
+    "description": "Given a non-negative integer `x`, return the integer square root of `x`, i.e. `floor(sqrt(x))`. You must not use any built-in square-root or exponentiation function; compute the answer using binary search.",
     "examples": [
       {
         "input": "x = 4",
@@ -998,7 +998,7 @@
       "amazon",
       "google"
     ],
-    "description": "Implement integer division of `dividend` by `divisor` without using `*`, `/`, or `%`. Truncate toward zero. The result must fit in a signed 32-bit integer; if `dividend / divisor` would exceed `2^31 - 1`, clamp to `2^31 - 1`. If it would underflow `-2^31`, clamp to `-2^31`.",
+    "description": "Given two integers `dividend` and `divisor`, return the quotient of dividing `dividend` by `divisor` without using multiplication, division, or the modulo operator. The division truncates toward zero. The result must fit in a signed 32-bit integer; if it would exceed `2^31 - 1`, return `2^31 - 1`, and if it would be less than `-2^31`, return `-2^31`. The divisor is never zero.",
     "examples": [
       {
         "input": "dividend = 10, divisor = 3",
@@ -1130,7 +1130,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Uber's billing module sometimes receives Roman numeral codes (legacy clients). Convert a valid Roman numeral string `s` (1..3999) to an integer. Use the rule: subtract when a smaller numeral precedes a larger (e.g., IV = 4, IX = 9).",
+    "description": "Given a string `s` representing a valid Roman numeral in the range 1 to 3999, convert it to its integer value. Roman numerals are normally written from largest to smallest left to right; when a smaller numeral precedes a larger one, it is subtracted (for example, `IV` is 4 and `IX` is 9).",
     "examples": [
       {
         "input": "s = \"III\"",
@@ -1248,7 +1248,7 @@
       "tcs",
       "microsoft"
     ],
-    "description": "Infosys's spreadsheet utility converts a 1-based column number to its Excel column title. Examples: 1→'A', 26→'Z', 27→'AA', 28→'AB', 701→'ZY', 702→'ZZ', 703→'AAA'. Note: this is bijective base-26 (no zero digit), so subtract 1 each step.",
+    "description": "Given a positive integer `n`, return its corresponding column title as it appears in a spreadsheet, where `1 -> \"A\"`, `2 -> \"B\"`, ..., `26 -> \"Z\"`, `27 -> \"AA\"`, `28 -> \"AB\"`, and so on. This is a bijective base-26 system with no zero digit, so subtract one before taking each digit.",
     "examples": [
       {
         "input": "n = 1",
@@ -1370,7 +1370,7 @@
       "infosys",
       "wipro"
     ],
-    "description": "TCS's interview asks: given a non-negative integer `n`, count the number of prime numbers strictly less than `n`. Use the Sieve of Eratosthenes for O(n log log n).",
+    "description": "Given a non-negative integer `n`, return the number of prime numbers that are strictly less than `n`.",
     "examples": [
       {
         "input": "n = 10",
@@ -1493,7 +1493,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Compute the greatest common divisor (GCD) of two non-negative integers `a` and `b`. By convention, `gcd(0, 0) = 0`. Use the Euclidean algorithm.",
+    "description": "Given two non-negative integers `a` and `b`, return their greatest common divisor (GCD) using the Euclidean algorithm. By convention, `gcd(0, 0) = 0`.",
     "examples": [
       {
         "input": "a = 12, b = 18",
@@ -1622,7 +1622,7 @@
       "zomato",
       "amazon"
     ],
-    "description": "Swiggy's heatmap visualizer reads an `m x n` grid in spiral order (right → down → left → up, peeling layers). Given the matrix, return the spiral order as a flat array.",
+    "description": "Given an `m x n` matrix `matrix`, return all of its elements in spiral order, traversing the layers from the outside inward (right across the top, down the right side, left across the bottom, then up the left side). Return the result as a flat array.",
     "examples": [
       {
         "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
@@ -1836,7 +1836,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon's image SDK rotates an `n x n` pixel matrix 90° clockwise IN PLACE (no new matrix). Modify the input. After rotation return the same reference.",
+    "description": "You are given an `n x n` matrix `matrix` representing an image. Rotate the image 90 degrees clockwise in place, modifying the input directly without allocating another matrix, and return the same matrix reference.",
     "examples": [
       {
         "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
@@ -2099,7 +2099,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Google asks: given an `m x n` integer matrix, if any element is 0, set its ENTIRE row and column to 0. Modify in place and return the matrix. Use O(1) extra space (besides the input).",
+    "description": "Given an `m x n` integer matrix `matrix`, if an element is `0`, set its entire row and its entire column to `0`. You must do this in place, using only constant extra space beyond the input, and return the modified matrix.",
     "examples": [
       {
         "input": "matrix = [[1,1,1],[1,0,1],[1,1,1]]",
@@ -2337,7 +2337,7 @@
       "tcs",
       "wipro"
     ],
-    "description": "Infosys's logistics team has waypoints on a grid (each integer coordinate). Given an array `points` of `[x, y]` waypoints visited in order, compute the MINIMUM number of unit steps to traverse them all. Each step moves one unit in any of the 8 directions (so the optimal between two points is `max(|dx|, |dy|)` — Chebyshev distance).",
+    "description": "Given an array `points` where each `points[i] = [x, y]` is an integer coordinate, return the minimum total number of unit steps to visit all points in the given order. In one step you may move one unit horizontally, vertically, or diagonally, so the minimum cost between two consecutive points is the Chebyshev distance `max(|dx|, |dy|)`.",
     "examples": [
       {
         "input": "points = [[1,1],[3,4],[-1,0]]",
@@ -2508,7 +2508,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Multiply two non-negative integers represented as strings `num1` and `num2`. Return the product as a string. Do NOT use BigInt or convert directly to numbers (the inputs may be longer than safe integer range).",
+    "description": "Given two non-negative integers `num1` and `num2` represented as strings, return their product, also as a string. Neither string has leading zeros except `\"0\"` itself. You must not convert the inputs directly to a numeric type or use any big-integer library; perform the multiplication digit by digit.",
     "examples": [
       {
         "input": "num1 = \"2\", num2 = \"3\"",
@@ -2631,7 +2631,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Given two integers `numerator` and `denominator` (denominator != 0), return the fraction's decimal representation as a string. If the fractional part repeats, enclose the repeating block in parentheses. Examples: 1/2 → '0.5', 2/1 → '2', 1/3 → '0.(3)', 4/333 → '0.(012)'.",
+    "description": "Given two integers `numerator` and `denominator` (with `denominator != 0`), return the value of the fraction `numerator / denominator` as a string. If the fractional part is repeating, enclose the repeating block in parentheses (for example, `1/3` becomes `\"0.(3)\"` and `4/333` becomes `\"0.(012)\"`). If multiple answers are possible, return any valid one.",
     "examples": [
       {
         "input": "numerator = 1, denominator = 2",
@@ -2769,7 +2769,7 @@
       "google",
       "microsoft"
     ],
-    "description": "The set [1, 2, ..., n] has n! permutations. Listed in lexicographic order, return the `k`-th permutation as a string of digits (1-indexed). Compute directly using factorials — do NOT enumerate permutations.",
+    "description": "The set `[1, 2, ..., n]` has `n!` distinct permutations. Listing them in lexicographic order, return the `k`-th permutation (1-indexed) as a string of digits. Compute the answer directly using factorials rather than generating all permutations.",
     "examples": [
       {
         "input": "n = 3, k = 3",

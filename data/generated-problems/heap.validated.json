@@ -10,7 +10,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy ke discovery page pe top restaurants list karte time PM ko `k`th largest rating chahiye taaki spotlight banner decide ho. Tujhe `ratings` array (integers, ratings *100 stored) aur `k` diya hai. `k`th largest rating return kar (sorted-descending order me k-th element, 1-indexed; duplicates count alag-alag).",
+    "description": "Given an integer array `ratings` and an integer `k`, return the `k`th largest element in `ratings`. This is the `k`th largest element in sorted-descending order (1-indexed), not the `k`th distinct element — duplicates are counted individually. It is guaranteed that `1 <= k <= ratings.length`.",
     "examples": [
       {
         "input": "ratings = [430, 480, 410, 495, 470], k = 2",
@@ -166,7 +166,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay ka end-of-day settlement engine har round me top 2 largest pending volumes uthata hai aur unhe net karta hai: agar dono equal hain toh dono cancel ho jaate hain (settled), nahi toh smaller wala settle ho jaata hai aur larger ki bachi hui difference vapas pool me chali jaati hai. Saare rounds chalne ke baad pool me at most ek hi value bachti hai (ya kuch bhi nahi → 0). Initial `volumes` array diya hai, final remaining volume return kar.",
+    "description": "You are given an integer array `volumes`. In each round, take the two largest values and combine them: if they are equal, both are removed; otherwise the smaller is removed and the difference of the two is added back. Repeat until at most one value remains. Return the weight of the last remaining value, or `0` if none remain.",
     "examples": [
       {
         "input": "volumes = [2, 7, 4, 1, 8, 1]",
@@ -308,7 +308,7 @@
       "swiggy",
       "dunzo"
     ],
-    "description": "Zomato ke ops dashboard pe Kth fastest delivery time chahiye (smallest k-th value). Tujhe `times` array (delivery minutes) aur `k` diya hai. Sorted ascending order me k-th smallest return kar (1-indexed). Duplicates alag count.",
+    "description": "Given an integer array `times` and an integer `k`, return the `k`th smallest element in `times`. This is the `k`th element in sorted-ascending order (1-indexed); duplicates are counted individually. It is guaranteed that `1 <= k <= times.length`.",
     "examples": [
       {
         "input": "times = [25, 18, 32, 14, 22], k = 3",
@@ -444,7 +444,7 @@
       "uber",
       "zomato"
     ],
-    "description": "Ola ke fleet ops me charging cables ke pieces hain. Do pieces ko jodne ka cost = un dono ki sum of lengths. Saare pieces ek single cable banane hain. Total minimum cost return kar.",
+    "description": "You are given an integer array `lengths` representing the lengths of several pieces. Connecting any two pieces costs the sum of their lengths and produces a single piece of that combined length. Connect all pieces into one and return the minimum total cost. If there is only one piece, the cost is `0`.",
     "examples": [
       {
         "input": "lengths = [4, 3, 2, 6]",
@@ -572,7 +572,7 @@
       "swiggy",
       "zepto"
     ],
-    "description": "Dunzo ke routing engine ko nearest `k` dark stores chahiye (origin = customer at (0,0)). Tujhe `points` 2D array `[[x,y],...]` aur `k` diya hai. Wo k points return kar jo origin se nearest hain (Euclidean distance). Order matter nahi karta — tujhe array of [x,y] return karna hai sorted by distance ascending; equal-distance ke case me x ascending, fir y ascending.",
+    "description": "Given an array `points` where `points[i] = [x, y]` represents a point on the plane, and an integer `k`, return the `k` points closest to the origin `(0, 0)`, measured by Euclidean distance. Return the result as an array of `[x, y]` points sorted by distance ascending; break ties by `x` ascending, then by `y` ascending.",
     "examples": [
       {
         "input": "points = [[1,3],[-2,2],[5,8],[0,1]], k = 2",
@@ -782,7 +782,7 @@
       "paytm",
       "google"
     ],
-    "description": "PhonePe analytics ko `k` merchants chahiye jinki transaction count sabse zyada hai. Tujhe `merchants` array (merchant IDs as integers, repeats allowed) aur `k` diya hai. Top k IDs return kar count descending order me; tie pe smaller ID pehle.",
+    "description": "Given an integer array `merchants` and an integer `k`, return the `k` most frequent values. Return them sorted by frequency in descending order; when two values have the same frequency, the smaller value comes first. It is guaranteed that `k` is at most the number of distinct values.",
     "examples": [
       {
         "input": "merchants = [1, 1, 1, 2, 2, 3], k = 2",
@@ -962,7 +962,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Flipkart ke seller portal pe `k` price feeds aate hain — har feed ek sorted ascending list of prices hai. In sab ko merge karke single sorted list banani hai. Tujhe `feeds` (2D array of integers, har inner array sorted asc) diya hai. Single sorted ascending array return kar.",
+    "description": "You are given `feeds`, an array of `k` integer arrays where each inner array is sorted in ascending order. Merge all of them into a single array sorted in ascending order and return it. The input may be empty or contain empty inner arrays.",
     "examples": [
       {
         "input": "feeds = [[1, 4, 5], [1, 3, 4], [2, 6]]",
@@ -1149,7 +1149,7 @@
       "paytm-insider",
       "netflix"
     ],
-    "description": "BookMyShow ke ek multiplex me different shows ke `[start, end]` time intervals (minutes from midnight) diye hain. Minimum kitne screens chahiye taaki sab shows simultaneously chal sake (overlap = same minute par dono running)? End time exclusive maano: ek show jo `end=120` pe khatam hota hai, doosre show jo `start=120` pe shuru hota hai, dono same screen pe possible.",
+    "description": "You are given an array `shows` where `shows[i] = [start, end]` represents a half-open interval `[start, end)`. Return the minimum number of rooms required so that no two overlapping intervals share a room. End times are exclusive: an interval ending at time `t` and another starting at time `t` do not overlap and may use the same room. Return `0` for an empty input.",
     "examples": [
       {
         "input": "shows = [[0, 30], [5, 10], [15, 20]]",
@@ -1332,7 +1332,7 @@
       "netflix",
       "youtube"
     ],
-    "description": "Hotstar ke homepage banner rotation me lagataar same category ke shows nahi dikhane chahiye. Tujhe ek string `s` di hai jisme har character ek category dikhata hai (lowercase). String ko reorganize kar taaki adjacent characters never equal ho. Possible nahi ho toh empty string return kar. Multiple valid outputs ho sakte — kisi bhi ek ko return karna hota hai but tests me hum lexicographically smallest valid arrangement check karenge.",
+    "description": "Given a string `s` of lowercase letters, rearrange its characters so that no two adjacent characters are equal. If no such arrangement is possible, return the empty string `\"\"`. When multiple valid arrangements exist, return the lexicographically smallest one.",
     "examples": [
       {
         "input": "s = \"aab\"",
@@ -1450,7 +1450,7 @@
       "razorpay",
       "stripe"
     ],
-    "description": "Paytm ke fraud team ko live transaction stream ka running median chahiye. Tujhe operations ka 2D array diya hai. Har operation ya toh `[\"addNum\", x]` (stream me x add karo, return null) ya `[\"findMedian\"]` (current median return karo as a number). Median = sorted middle ka element odd count me, ya middle two ka average even me. Result array return kar har op ke liye (addNum ke liye null, findMedian ke liye number; even count me float allowed, odd integer).",
+    "description": "Process a sequence of operations on a running data stream and return an array of results, one entry per operation. You are given `ops`, an array where each operation is either `[\"addNum\", x]` (add integer `x` to the stream; the result for this operation is `null`) or `[\"findMedian\"]` (return the current median of the stream). The median is the middle value when the count is odd, or the average of the two middle values when the count is even. `findMedian` is only called on a non-empty stream.",
     "examples": [
       {
         "input": "ops = [[\"addNum\",1],[\"addNum\",2],[\"findMedian\"],[\"addNum\",3],[\"findMedian\"]]",
@@ -1666,7 +1666,7 @@
       "ajio",
       "amazon"
     ],
-    "description": "Myntra ke sale dashboard ko har naya order add hone ke baad ab tak ka `k`th largest order value chahiye (1-indexed). Tujhe `k`, ek initial `seed` array, aur fir `add` operations ki sequence diya hai (as ops array). Har op `[\"add\", x]` hai — return current kth largest after that add. Agar abhi tak total elements < k hain, `null` return kar us op ke liye. Result array return kar (har op ke liye ek entry).",
+    "description": "Maintain the `k`th largest element (1-indexed) of a growing stream. You are given an integer `k`, an initial array `seed`, and an array `ops` where each operation is `[\"add\", x]`. For each operation, add `x` to the stream and return the current `k`th largest element after that addition; if fewer than `k` elements have been seen so far, return `null`. Return an array with one entry per operation.",
     "examples": [
       {
         "input": "k = 3, seed = [4, 5, 8, 2], ops = [[\"add\",3],[\"add\",5],[\"add\",10],[\"add\",9],[\"add\",4]]",
@@ -1872,7 +1872,7 @@
       "ola",
       "rapido"
     ],
-    "description": "Uber ke driver app me alag-alag categories ke `tasks` (string array of single chars) chalu hote hain. Same category ke do tasks ke beech `n` units ka cooldown chahiye (idle units allowed). Total minimum units chahiye saare tasks complete karne ke liye? Order kuch bhi rakh sakta hai.",
+    "description": "You are given an array `tasks` of single uppercase letters representing tasks, and an integer `n`. Each unit of time runs one task or sits idle, and two tasks of the same type must be separated by at least `n` units of cooldown. Tasks may be run in any order. Return the minimum number of time units needed to finish all tasks.",
     "examples": [
       {
         "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2",
@@ -2036,7 +2036,7 @@
       "flipkart",
       "meesho"
     ],
-    "description": "Amazon warehouse me cargo boxes ka weight smashing process: do heaviest boxes uthao, agar same weight hai toh dono destroy ho jaate hain; nahi toh smaller destroy hota hai aur larger ka diff bach jaata hai. Yeh repeat tab tak jab tak ek ya zero box bache. Initial `weights` array diya hai. Final remaining box weight (ya 0 if none) return kar.",
+    "description": "You are given an integer array `weights`. Repeatedly take the two heaviest values and combine them: if they are equal, both are removed; otherwise the smaller is removed and the difference of the two is added back. Continue until at most one value remains. Return the weight of the last remaining value, or `0` if none remain.",
     "examples": [
       {
         "input": "weights = [2, 7, 4, 1, 8, 1]",
@@ -2175,7 +2175,7 @@
       "zomato",
       "google"
     ],
-    "description": "Swiggy ke `k` cuisines hain, har ek ke ratings sorted ascending diye hain (`lists` 2D array). Tujhe smallest range `[a, b]` chahiye jo har cuisine ka kam se kam ek rating cover kare. Agar multiple ranges with same length hain, smallest `a` wala return kar; agar `a` bhi tie ho toh smallest `b` (auto). Output 2-element array `[a, b]`.",
+    "description": "You are given `lists`, an array of `k` integer arrays, each sorted in ascending order. Find the smallest range `[a, b]` that includes at least one number from each of the `k` arrays. A range `[a, b]` is smaller than `[c, d]` if `b - a < d - c`, or if `b - a == d - c` and `a < c`. Return the range as a two-element array `[a, b]`.",
     "examples": [
       {
         "input": "lists = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]",
@@ -2366,7 +2366,7 @@
       "stripe",
       "amazon"
     ],
-    "description": "Razorpay ke ledger me `k` payment streams hain, har ek sorted ascending by amount (could be empty). Tujhe top `n` smallest amounts merge karke return karne hain (sorted ascending). Agar total elements `< n` hain, jitne hain saare return kar. Tujhe `streams` (2D array) aur `n` integer diye hain.",
+    "description": "You are given `streams`, an array of `k` integer arrays where each inner array is sorted in ascending order (and may be empty), and an integer `n`. Return the `n` smallest values across all streams, sorted in ascending order. If the total number of elements is less than `n`, return all of them.",
     "examples": [
       {
         "input": "streams = [[1,4,5],[1,3,4],[2,6]], n = 5",

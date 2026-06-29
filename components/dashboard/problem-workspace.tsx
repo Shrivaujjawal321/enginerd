@@ -18,6 +18,7 @@ import { Select } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import type { Problem } from "@/lib/mock-data/types";
 import { runJavaScript, type RunCaseResult } from "@/lib/code-runner";
+import { runPython } from "@/lib/python-runner";
 import {
   CodeEditor,
   type CodeEditorLanguage,
@@ -178,13 +179,14 @@ export function ProblemWorkspace({
   isAuthed = true,
   serverRunnerConfigured = false,
 }: WorkspaceProps) {
-  // Language dropdown: JavaScript always shows (in-browser runner).
-  // Server languages (Python, Java, C++, Go, Rust, TypeScript, C) only appear
-  // when a self-hosted Piston runner is configured (PISTON_URL != emkc.org).
-  // Self-host: see docs/CODE_RUNNER.md.
+  // Language dropdown: JavaScript + Python always show — both run entirely in
+  // the browser (JS in a sandboxed iframe, Python via a Pyodide WASM worker),
+  // no backend needed. Compiled languages (Java, C++, Go, Rust, TypeScript, C)
+  // only appear when a self-hosted Piston runner is configured
+  // (PISTON_URL != emkc.org). Self-host: see docs/CODE_RUNNER.md.
   const languages = problem.starterCode
     .map((s) => s.language)
-    .filter((l) => l === "javascript" || serverRunnerConfigured);
+    .filter((l) => l === "javascript" || l === "python" || serverRunnerConfigured);
   const [language, setLanguage] = React.useState<string>(languages[0] ?? "javascript");
   const [code, setCode] = React.useState(
     problem.starterCode.find((s) => s.language === language)?.code ?? "",
@@ -215,8 +217,8 @@ export function ProblemWorkspace({
   const hasTests = !!problem.tests && problem.tests.length > 0 && !!problem.fnName;
   // Languages we can grade — JavaScript runs in-browser, others go through
   // the server-side Piston runner via /api/execute.
+  // Python runs in-browser (Pyodide), so it is NOT a server language.
   const SERVER_LANGS = new Set([
-    "python",
     "typescript",
     "java",
     "cpp",
@@ -227,6 +229,7 @@ export function ProblemWorkspace({
   const supportsRun =
     hasTests &&
     (language === "javascript" ||
+      language === "python" ||
       (serverRunnerConfigured && SERVER_LANGS.has(language)));
 
   async function execute(mode: "run" | "submit") {
@@ -240,7 +243,7 @@ export function ProblemWorkspace({
       toast.info(`Auto-grading not available for ${language} yet.`, {
         description: serverRunnerConfigured
           ? "Switch to JavaScript, Python, Java, C++, Go, or Rust."
-          : "Only JavaScript runs here — set PISTON_URL to enable server languages (see docs/CODE_RUNNER.md).",
+          : "JavaScript and Python run in your browser. Compiled languages need a server runner (see docs/CODE_RUNNER.md).",
       });
       return;
     }
@@ -249,10 +252,13 @@ export function ProblemWorkspace({
     if (mode === "run") setHasRunSinceEdit(true);
     const tests = problem.tests!;
 
-    // ---- Fast path: in-browser JavaScript sandbox ----
-    if (language === "javascript") {
+    // ---- Fast path: in-browser runners (JavaScript sandbox / Python Pyodide) ----
+    if (language === "javascript" || language === "python") {
       const slice = mode === "run" ? tests.slice(0, 1) : tests;
-      const outcome = await runJavaScript(code, problem.fnName!, slice);
+      const outcome =
+        language === "python"
+          ? await runPython(code, problem.fnName!, slice)
+          : await runJavaScript(code, problem.fnName!, slice);
 
       if (outcome.kind === "compile-error") {
         setResult({ kind: "compile-error", message: outcome.message });
@@ -802,7 +808,7 @@ export function ProblemWorkspace({
                 Auto-grading isn&apos;t set up for {language} on this problem.{" "}
                 {serverRunnerConfigured
                   ? "Try JavaScript, Python, Java, C++, Go, or Rust."
-                  : "Try JavaScript (server runner not configured — see docs/CODE_RUNNER.md)."}
+                  : "Try JavaScript or Python — both run in your browser. Compiled languages need a server runner (docs/CODE_RUNNER.md)."}
               </p>
             ) : null}
             {result.kind === "idle" && hasTests && supportsRun && language !== "javascript" ? (

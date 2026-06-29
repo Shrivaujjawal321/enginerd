@@ -10,7 +10,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay encodes per-transaction risk flags into a single 32-bit integer where each set bit signals a specific risk rule fired (KYC mismatch, velocity, geo, etc.). The fraud team wants to know how many flags are active for a transaction. Given a non-negative integer `n`, return the number of `1` bits in its binary representation (Hamming weight).",
+    "description": "Given a non-negative integer `n`, return the number of `1` bits in its binary representation (also known as the Hamming weight).",
     "examples": [
       {
         "input": "n = 11",
@@ -111,7 +111,7 @@
       "flipkart",
       "amazon"
     ],
-    "description": "Paytm's coupon engine encodes each user tier 0..n as a bitmask. The marketing team wants a quick lookup: for tiers 0 through n inclusive, how many bits are set in each tier id? Given an integer `n`, return an array `ans` of length n+1 where `ans[i]` is the popcount of `i`.",
+    "description": "Given a non-negative integer `n`, return an array `ans` of length `n + 1` where, for each `i` in the range `0 <= i <= n`, `ans[i]` is the number of `1` bits in the binary representation of `i`.",
     "examples": [
       {
         "input": "n = 5",
@@ -218,7 +218,7 @@
       "meesho",
       "amazon"
     ],
-    "description": "Flipkart's permissions service stores access flags as a 32-bit integer where bit 0 is the most senior role. A migration tool stored everything reversed. Given a 32-bit unsigned integer `n`, return the value obtained by reversing its 32 bits.",
+    "description": "Given a 32-bit unsigned integer `n`, return the value obtained by reversing the order of its 32 bits (bit 0 swaps with bit 31, bit 1 with bit 30, and so on).",
     "examples": [
       {
         "input": "n = 43261596",
@@ -307,7 +307,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy's dispatch logs every rider assignment twice (once at pickup, once at handoff). Due to a bug today, exactly one rider has only a single entry. Given a non-empty array `riders` where every ID appears twice except one, return that lone ID. Constant extra space required.",
+    "description": "Given a non-empty integer array `riders` in which every element appears exactly twice except for one element that appears only once, return that single element. You must solve it in linear time and use only constant extra space.",
     "examples": [
       {
         "input": "riders = [4, 1, 2, 1, 2]",
@@ -414,7 +414,7 @@
       "paytm",
       "google"
     ],
-    "description": "Razorpay's settlement engine batches payouts in powers-of-two for efficient parallelism. Given an integer `n`, return `true` if `n` is a power of two (1, 2, 4, 8, ...), else `false`. Use bit manipulation; do not use loops or `Math.log`.",
+    "description": "Given an integer `n`, return `true` if `n` is a power of two, and `false` otherwise. An integer is a power of two if it equals `2^x` for some non-negative integer `x`. Solve it using bit manipulation, without loops or `Math.log`.",
     "examples": [
       {
         "input": "n = 16",
@@ -514,7 +514,7 @@
       "razorpay",
       "google"
     ],
-    "description": "PhonePe assigns merchant IDs from 0 to n. A daily reconciliation file has n distinct IDs from this range; one is missing due to a sync gap. Given the array `ids` of length n, return the missing ID. Solve in O(n) time and O(1) extra space using XOR (no sum overflow allowed).",
+    "description": "Given an array `ids` of length `n` containing `n` distinct integers taken from the range `[0, n]`, exactly one integer in that range is missing from the array. Return the missing integer. Solve it in O(n) time and O(1) extra space using XOR, without relying on summation (to avoid overflow).",
     "examples": [
       {
         "input": "ids = [3, 0, 1]",
@@ -632,7 +632,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Flipkart's admin tool exposes a single 32-bit permissions integer per user. An operator wants to flip the k-th permission bit (0-indexed from LSB) — set it if clear, clear it if set. Given `mask` and `k`, return the new mask after toggling bit k.",
+    "description": "Given a non-negative integer `mask` and a bit index `k` (0-indexed from the least significant bit), toggle bit `k` of `mask` — set it if it is currently `0`, clear it if it is currently `1` — and return the resulting value.",
     "examples": [
       {
         "input": "mask = 5, k = 1",
@@ -732,7 +732,7 @@
       "google",
       "amazon"
     ],
-    "description": "An interviewer at Razorpay challenged a candidate to add two integers without using `+` or `-`. Given two integers `a` and `b`, return their sum using only bitwise operators.",
+    "description": "Given two integers `a` and `b`, return their sum without using the `+` or `-` operators. Use only bitwise operations.",
     "examples": [
       {
         "input": "a = 3, b = 5",
@@ -829,7 +829,7 @@
       "zomato",
       "amazon"
     ],
-    "description": "Swiggy logs delivery zones touched by every rider; each zone should appear an even number of times in a healthy day. Today exactly two zone IDs appear an odd number of times (technically once, while the rest appear twice). Given `zones`, return the two odd-occurrence zone IDs as an array sorted ascending. O(n) time, O(1) extra space.",
+    "description": "Given an integer array `zones` in which exactly two elements appear only once and every other element appears exactly twice, return the two single-occurrence elements as an array sorted in ascending order. Solve it in O(n) time and O(1) extra space.",
     "examples": [
       {
         "input": "zones = [1, 2, 1, 3, 2, 5]",
@@ -956,7 +956,7 @@
       "razorpay",
       "amazon"
     ],
-    "description": "Paytm's coupon system records every redemption; legitimate users redeem any given coupon exactly three times in a campaign window. A leak caused exactly one coupon ID to be redeemed only once. Given `redemptions` where every ID appears 3 times except one (which appears once), return the lone ID. O(n) time, O(1) extra space.",
+    "description": "Given an integer array `redemptions` in which every element appears exactly three times except for one element that appears only once, return that single element. Solve it in O(n) time and O(1) extra space.",
     "examples": [
       {
         "input": "redemptions = [2, 2, 3, 2]",
@@ -1066,7 +1066,7 @@
       "razorpay",
       "google"
     ],
-    "description": "PhonePe's anomaly job ANDs together all transaction IDs in a numeric range [left, right] to detect a common high-bit signature. Given two non-negative integers `left` and `right` with `left <= right`, return the bitwise AND of all integers in the inclusive range.",
+    "description": "Given two non-negative integers `left` and `right` with `left <= right`, return the bitwise AND of all integers in the inclusive range `[left, right]`.",
     "examples": [
       {
         "input": "left = 5, right = 7",
@@ -1164,7 +1164,7 @@
       "amazon",
       "google"
     ],
-    "description": "Razorpay's QA wants to test every subset of `n` distinct feature flags before a release. Given an array `flags` of distinct integers, return all possible subsets (the power set). Each subset must have its elements in the original input order, and the subsets themselves must be sorted ascending by their bitmask representation (subset `i` corresponds to bitmask `i`, where bit b set means `flags[b]` is included).",
+    "description": "Given an array `flags` of distinct integers, return all possible subsets (the power set). Within each subset, elements must appear in their original input order. The subsets must be returned in ascending order of their bitmask index, where subset `i` corresponds to bitmask `i` and bit `b` of the mask being set means `flags[b]` is included.",
     "examples": [
       {
         "input": "flags = [1, 2, 3]",
@@ -1361,7 +1361,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart stores per-event permission deltas as an array. The audit team runs many range-XOR queries — for each query [l, r], they need the XOR of `arr[l..r]` inclusive. Given the array `arr` and a list of `queries` (each `[l, r]`), return an array of XOR results, one per query.",
+    "description": "Given an integer array `arr` and a list of queries `queries`, where each query is a pair `[l, r]`, return an array in which the value for each query is the bitwise XOR of the elements `arr[l] ^ arr[l+1] ^ ... ^ arr[r]` (inclusive). The result array must have one entry per query, in the same order.",
     "examples": [
       {
         "input": "arr = [1, 3, 4, 8], queries = [[0, 1], [1, 2], [0, 3], [3, 3]]",
@@ -1538,7 +1538,7 @@
       "google",
       "amazon"
     ],
-    "description": "Razorpay's anti-fraud team measures the divergence between two transaction signatures by their bitwise XOR. Given an array `nums` of non-negative integers, return the maximum value of `a XOR b` over all index pairs (i, j) with i != j. Aim for better than O(n^2).",
+    "description": "Given an array `nums` of non-negative integers, return the maximum value of `nums[i] XOR nums[j]` over all pairs of indices `i` and `j` with `i != j`. If the array has fewer than two elements, return `0`. Aim for better than O(n^2) time.",
     "examples": [
       {
         "input": "nums = [3, 10, 5, 25, 2, 8]",
@@ -1667,7 +1667,7 @@
       "zomato",
       "google"
     ],
-    "description": "Swiggy maintains delivery zones as bitmasks. To move a rider from zone-mask `a` to zone-mask `b`, the dispatcher must flip individual bits. Given `a` and `b`, return the minimum number of bit flips needed so that `a` becomes equal to `b` (each flip toggles one bit).",
+    "description": "Given two non-negative integers `a` and `b`, return the minimum number of single-bit flips required to transform `a` into `b`. Each flip toggles exactly one bit, so this equals the number of bit positions at which `a` and `b` differ (their Hamming distance).",
     "examples": [
       {
         "input": "a = 29, b = 15",

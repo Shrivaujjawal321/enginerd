@@ -10,7 +10,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Flipkart's supply chain dashboard receives a list of order amounts in arbitrary order. The team wants a stable, predictable O(n log n) sort using classic merge sort (divide the array, sort each half, merge). Given `orders` (array of integers, possibly with duplicates and negatives), return a new array sorted ascending using merge sort. Built-in sort is not allowed — write the divide-and-conquer recursion yourself.",
+    "description": "Given an integer array `orders` (which may contain duplicates and negative values), return a new array containing the same elements sorted in ascending order. Implement the sort yourself using **merge sort** (divide the array into halves, recursively sort each half, then merge) in O(n log n) time. Built-in sort functions are not allowed.",
     "examples": [
       {
         "input": "orders = [5, 2, 8, 1, 3]",
@@ -128,7 +128,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy's pricing engine needs `x^n` for surge multipliers (x is a real number, n is an integer that can be negative). Implement `myPow(x, n)` using **recursive halving** (NOT Math.pow, NOT a linear loop). For negative n, compute the positive power then invert.",
+    "description": "Implement `myPow(x, n)`, which computes `x` raised to the power `n`, where `x` is a real number and `n` is an integer (possibly negative). Use **recursive halving** (fast exponentiation) for O(log n) time rather than a linear loop or a built-in power function. For negative `n`, compute the positive power and return its reciprocal.",
     "examples": [
       {
         "input": "x = 2.0, n = 10",
@@ -217,7 +217,7 @@
       "mpl",
       "jio"
     ],
-    "description": "A cricket inning sub-tournament has `n` players each with a power score. The selectors want both the minimum and maximum scores using a **tournament-style divide & conquer** that performs at most ~3n/2 comparisons total (better than the naive 2(n-1)). Given `scores`, return `[min, max]`.",
+    "description": "Given a non-empty integer array `scores`, return a two-element array `[min, max]` containing the minimum and maximum values. Use a **tournament-style divide & conquer** approach that uses at most about 3n/2 comparisons in total, fewer than the naive 2(n-1).",
     "examples": [
       {
         "input": "scores = [3, 5, 1, 4, 2]",
@@ -335,7 +335,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart wants the k-th largest order amount from today's stream. Use **Quickselect** (the divide & conquer cousin of quicksort): partition around a pivot and recurse only into the side that contains the answer. Given `orders` and `k` (1-indexed: k=1 means largest), return the k-th largest value. Expected average O(n).",
+    "description": "Given an integer array `orders` and an integer `k`, return the `k`-th largest element in the array (1-indexed, so `k = 1` is the largest). Use **Quickselect**: partition around a pivot and recurse only into the side that contains the answer, achieving expected O(n) time. Note that it is the k-th largest element in sorted order, not the k-th distinct element.",
     "examples": [
       {
         "input": "orders = [3, 2, 1, 5, 6, 4], k = 2",
@@ -451,7 +451,7 @@
       "zomato",
       "amazon"
     ],
-    "description": "Swiggy splits a delivery zone into bisected sub-zones whose hourly profit/loss values form an array. Find the **maximum contiguous subarray sum** using the **divide & conquer** approach (Bentley's algorithm) — distinct from Kadane's DP. The answer is the max of: best sum in left half, best sum in right half, or best sum that crosses the midpoint.",
+    "description": "Given an integer array `values`, find the contiguous subarray (containing at least one element) with the largest sum and return that sum. Solve it using the **divide & conquer** approach: the answer is the maximum of the best sum in the left half, the best sum in the right half, or the best sum of a subarray crossing the midpoint.",
     "examples": [
       {
         "input": "values = [-2, 1, -3, 4, -1, 2, 1, -5, 4]",
@@ -560,7 +560,7 @@
       "paytm",
       "amazon"
     ],
-    "description": "Razorpay's settlement audit defines an *inversion* as a pair (i, j) with i < j but `txn[i] > txn[j]` — a possibly out-of-order pair. Count the total number of inversions in O(n log n) using the **merge-sort variant**.",
+    "description": "An *inversion* is a pair of indices (i, j) with i < j but `txn[i] > txn[j]`. Given an integer array `txn`, return the total number of inversions. Solve it in O(n log n) time using a **modified merge sort** (count inversions during the merge step).",
     "examples": [
       {
         "input": "txn = [2, 4, 1, 3, 5]",
@@ -665,7 +665,7 @@
       "google",
       "amazon"
     ],
-    "description": "For each transaction in PhonePe's daily log, count how many later transactions have a strictly smaller amount. Given `txn`, return an array `result` where `result[i]` = number of indices j > i with `txn[j] < txn[i]`. Required complexity: O(n log n) using **merge sort with index tracking**.",
+    "description": "Given an integer array `txn`, return an array `result` where `result[i]` is the number of indices j > i such that `txn[j] < txn[i]` (the count of later elements strictly smaller than the current one). Solve it in O(n log n) time using **merge sort with index tracking**.",
     "examples": [
       {
         "input": "txn = [5, 2, 6, 1]",
@@ -787,7 +787,7 @@
       "google",
       "microsoft"
     ],
-    "description": "An Amazon analytics team defines a *reverse pair* as a pair (i, j) with i < j and `nums[i] > 2 * nums[j]`. Count the total number of reverse pairs. Required complexity: O(n log n) via the **merge-sort variant**.",
+    "description": "A *reverse pair* is a pair of indices (i, j) with i < j and `nums[i] > 2 * nums[j]`. Given an integer array `nums`, return the total number of reverse pairs. Solve it in O(n log n) time using a **modified merge sort**, using 64-bit-safe arithmetic to avoid overflow.",
     "examples": [
       {
         "input": "nums = [1, 3, 2, 3, 1]",
@@ -895,7 +895,7 @@
       "google",
       "amazon"
     ],
-    "description": "Razorpay wants to count how many contiguous transaction subarrays of `txn` have a sum lying in `[lower, upper]` (inclusive). Required complexity: O(n log n) using **merge sort over prefix sums**.",
+    "description": "Given an integer array `txn` and two integers `lower` and `upper` (with `lower <= upper`), return the number of contiguous subarrays whose sum lies in the inclusive range `[lower, upper]`. Solve it in O(n log n) time using **merge sort over prefix sums**.",
     "examples": [
       {
         "input": "txn = [-2, 5, -1], lower = -2, upper = 2",
@@ -1005,7 +1005,7 @@
       "google",
       "facebook"
     ],
-    "description": "A cricket sub-tournament scoring formula is given as a string of digits and operators (`+`, `-`, `*`). For every way to parenthesize the formula, compute its value, and return all possible results in any order. Solve using **operator-as-split-point divide & conquer**: each operator partitions the expression into a left and right sub-expression.",
+    "description": "Given a string `expr` of digits and the operators `+`, `-`, and `*`, return all possible results of evaluating the expression under every valid way of grouping it with parentheses. The results may be returned in any order. Solve it with **divide & conquer**: treat each operator as a split point that partitions the expression into a left and right sub-expression, then combine the sub-results.",
     "examples": [
       {
         "input": "expr = \"2-1-1\"",
@@ -1210,7 +1210,7 @@
       "google",
       "amazon"
     ],
-    "description": "Two Swiggy zones publish delivery times sorted ascending into `a` and `b`. Find the **median** of the combined stream in **O(log(min(m, n)))** using divide & conquer (binary search the partition).",
+    "description": "Given two sorted integer arrays `a` and `b`, return the median of the combined sorted set of all elements. The overall run time should be **O(log(min(m, n)))**, achieved via divide & conquer by binary searching for the correct partition.",
     "examples": [
       {
         "input": "a = [1, 3], b = [2]",
@@ -1322,7 +1322,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart's price feed gives two sorted arrays `a` and `b`. Find the **k-th smallest** element (1-indexed) of the combined collection in **O(log(m+n))** using divide & conquer — discard ~k/2 elements per step.",
+    "description": "Given two sorted integer arrays `a` and `b` and an integer `k`, return the `k`-th smallest element (1-indexed) of their combined collection. Solve it in **O(log(m + n))** using divide & conquer, discarding about k/2 elements per step rather than merging the arrays.",
     "examples": [
       {
         "input": "a = [1, 3, 5], b = [2, 4, 6], k = 4",
@@ -1601,7 +1601,7 @@
       "amazon",
       "google"
     ],
-    "description": "Flipkart's warehouse complex has rectangular buildings given as `[left, right, height]`. Compute the **skyline** silhouette — list of `[x, y]` key points where the visible roofline changes. Solve with **divide & conquer**: split buildings into halves, compute each silhouette recursively, then merge two silhouettes (line-sweep style).",
+    "description": "Given a list `buildings` where each element is `[left, right, height]` describing a rectangular building on a flat ground, compute the **skyline**: the list of `[x, y]` key points where the visible roofline changes height (the final key point marks the ground at the right edge). Solve it with **divide & conquer**: split the buildings into halves, compute each half's skyline recursively, then merge the two skylines with a line sweep.",
     "examples": [
       {
         "input": "buildings = [[2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8]]",

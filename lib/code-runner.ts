@@ -34,7 +34,7 @@ export type RunOutcome =
 
 const TIMEOUT_MS = 5000;
 
-function deepEqual(a: unknown, b: unknown): boolean {
+export function deepEqual(a: unknown, b: unknown): boolean {
   if (Object.is(a, b)) return true;
   if (typeof a !== typeof b) return false;
   if (a === null || b === null) return false;

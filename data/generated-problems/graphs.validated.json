@@ -10,7 +10,7 @@
       "zomato",
       "dunzo"
     ],
-    "description": "Swiggy's central kitchen at node 0 needs to push menu updates to every delivery hub. The delivery network is given as an adjacency list `graph` of `n` nodes (0-indexed). Return the BFS traversal order starting from node 0. Within a BFS level, neighbors are visited in the order they appear in the adjacency list.",
+    "description": "You are given an undirected graph of `n` nodes (0-indexed) represented as an adjacency list `graph`, where `graph[i]` lists the neighbours of node `i`. Return the breadth-first search (BFS) traversal order starting from node `0`. Within each BFS level, visit neighbours in the order they appear in the adjacency list. The graph may be disconnected, so only include nodes in the component that contains node `0`.",
     "examples": [
       {
         "input": "graph = [[1,2],[0,3],[0,3],[1,2]]",
@@ -226,7 +226,7 @@
       "stripe",
       "phonepe"
     ],
-    "description": "Razorpay's fraud team wants to walk the merchant trust graph (undirected, adjacency list) from a given start node using DFS. Return the iterative DFS pre-order, visiting neighbours in the order they appear in the adjacency list (left to right).",
+    "description": "You are given an undirected graph as an adjacency list `graph` and a starting node `start`. Return the depth-first search (DFS) pre-order traversal beginning at `start`, visiting neighbours in the order they appear in the adjacency list (left to right). Track visited nodes since the graph may contain cycles.",
     "examples": [
       {
         "input": "graph = [[1,2],[0,3],[0],[1]], start = 0",
@@ -423,7 +423,7 @@
       "ola",
       "amazon"
     ],
-    "description": "Indian Railways wants to know how many disconnected route clusters their station network has. Given `n` (number of stations) and `edges` (undirected route pairs), return the number of connected components.",
+    "description": "You are given an integer `n` representing the number of nodes (labeled `0` to `n - 1`) and a list `edges` of undirected edges. Return the number of connected components in the graph.",
     "examples": [
       {
         "input": "n = 5, edges = [[0,1],[1,2],[3,4]]",
@@ -594,7 +594,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Flipkart's warehouse conveyor map should be a forest (no loops) for safety. Given `n` warehouses and undirected `edges`, return `true` if any cycle exists, else `false`.",
+    "description": "You are given an integer `n` representing the number of nodes (labeled `0` to `n - 1`) and a list `edges` of undirected edges. Return `true` if the graph contains at least one cycle, otherwise return `false`. Note that a duplicate edge between two nodes also forms a cycle.",
     "examples": [
       {
         "input": "n = 4, edges = [[0,1],[1,2],[2,3]]",
@@ -783,7 +783,7 @@
       "uber",
       "ola"
     ],
-    "description": "Mumbai local train network is unweighted (each adjacent station = 1 stop). Given an adjacency list `graph`, a `source`, and a `target`, return the minimum number of stops between them, or `-1` if unreachable.",
+    "description": "You are given an undirected, unweighted graph as an adjacency list `graph`, a `source` node, and a `target` node. Return the minimum number of edges on a path from `source` to `target`, or `-1` if `target` is unreachable. If `source` equals `target`, the answer is `0`.",
     "examples": [
       {
         "input": "graph = [[1,2],[0,3],[0,3],[1,2,4],[3]], source = 0, target = 4",
@@ -979,7 +979,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Given a 2D grid of '1' (land) and '0' (water), count the number of islands. An island is a maximal 4-directionally connected region of '1's. Input is `number[][]` (1 = land, 0 = water).",
+    "description": "You are given a 2D `grid` where `1` represents land and `0` represents water. Return the number of islands. An island is a maximal group of `1`s connected 4-directionally (up, down, left, right). Assume all four edges of the grid are surrounded by water.",
     "examples": [
       {
         "input": "grid = [[1,1,0,0],[1,0,0,1],[0,0,1,1]]",
@@ -1156,7 +1156,7 @@
       "google",
       "facebook"
     ],
-    "description": "Given a 2D `grid` of 0s and 1s, return the area (cell count) of the largest 4-connected island. If no land exists, return 0.",
+    "description": "You are given a 2D `grid` of `0`s and `1`s, where `1` represents land and `0` represents water. The area of an island is the number of land cells in a maximal 4-directionally connected group of `1`s. Return the maximum island area, or `0` if there is no land.",
     "examples": [
       {
         "input": "grid = [[0,1,1],[0,1,0],[1,0,0]]",
@@ -1341,7 +1341,7 @@
       "google",
       "bloomberg"
     ],
-    "description": "Given a 2D `board` of 0s (blank) and 1s (captured marker), flip every 1-region that is fully surrounded by 0s on all sides to 0. A region touching any border is NOT flipped. Return the new board.",
+    "description": "You are given a 2D `board` containing `0`s and `1`s. Flip every region of `1`s that is entirely surrounded by `0`s (i.e., none of its cells touch the border of the board) to `0`. A region of `1`s that touches any border is not flipped. Cells are connected 4-directionally. Return the modified `board`.",
     "examples": [
       {
         "input": "board = [[0,0,0,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]",
@@ -1585,7 +1585,7 @@
       "swiggy",
       "zomato"
     ],
-    "description": "Each cell of the `grid` is 0 (empty), 1 (fresh orange), or 2 (rotten). Every minute, any fresh orange 4-adjacent to a rotten one rots. Return the minimum minutes until no fresh orange remains, or -1 if impossible.",
+    "description": "You are given a `grid` where each cell is `0` (empty), `1` (fresh orange), or `2` (rotten orange). Each minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return `-1`.",
     "examples": [
       {
         "input": "grid = [[2,1,1],[1,1,0],[0,1,1]]",
@@ -1749,7 +1749,7 @@
       "facebook",
       "amazon"
     ],
-    "description": "Each cell is `-1` (wall), `0` (gate), or `2147483647` (empty room). Fill every empty room with the distance to its nearest gate. If a room cannot reach any gate, leave it as is. Move 4-directionally.",
+    "description": "You are given an `m x n` grid `rooms` where each cell is `-1` (a wall), `0` (a gate), or `2147483647` (an empty room). Fill each empty room with the distance to its nearest gate, moving 4-directionally. If an empty room cannot reach any gate, leave its value unchanged. Return the modified grid.",
     "examples": [
       {
         "input": "rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]",
@@ -1939,7 +1939,7 @@
       "google",
       "uber"
     ],
-    "description": "Given `numCourses` and prerequisite pairs `[a, b]` meaning `b` must come before `a`, return `true` if you can finish all courses, else `false`. Equivalent to: does the directed graph have no cycle?",
+    "description": "You are given an integer `numCourses` (courses labeled `0` to `numCourses - 1`) and a list `prerequisites` where each pair `[a, b]` means course `b` must be taken before course `a`. Return `true` if you can finish all courses, otherwise return `false`. Equivalently, return `true` if the directed prerequisite graph has no cycle.",
     "examples": [
       {
         "input": "numCourses = 2, prerequisites = [[1,0]]",
@@ -2118,7 +2118,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Same as Course Schedule Feasibility but return a valid completion order (list of course IDs). If multiple are valid, return the lexicographically smallest one (treat as integer sequence). If impossible, return `[]`.",
+    "description": "You are given an integer `numCourses` (courses labeled `0` to `numCourses - 1`) and a list `prerequisites` where each pair `[a, b]` means course `b` must be taken before course `a`. Return a valid order in which to complete all courses. If multiple valid orders exist, return the lexicographically smallest one (compared as a sequence of integers). If it is impossible to finish all courses, return `[]`.",
     "examples": [
       {
         "input": "numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]",
@@ -2303,7 +2303,7 @@
       "amazon",
       "google"
     ],
-    "description": "An undirected graph is given as an adjacency list `graph` of `n` nodes (0-indexed). Return a deep copy as a new adjacency list. The clone must be structurally identical: each `clone[i]` lists the same neighbours in the same order. (Since we use index serialization in/out, this reduces to producing a fresh array of arrays with identical content.)",
+    "description": "You are given an undirected graph of `n` nodes (0-indexed) as an adjacency list `graph`, where `graph[i]` lists the neighbours of node `i`. Return a deep copy of the graph as a new adjacency list. The copy must be structurally identical: each `clone[i]` must list the same neighbours in the same order as `graph[i]`.",
     "examples": [
       {
         "input": "graph = [[1,2],[0,2],[0,1]]",
@@ -2481,7 +2481,7 @@
       "google",
       "facebook"
     ],
-    "description": "Given `beginWord`, `endWord`, and a `wordList`, return the length of the shortest transformation sequence from begin to end such that each step changes exactly one letter and every intermediate word is in the list. Return 0 if impossible. Counted length includes both endpoints.",
+    "description": "You are given two words `beginWord` and `endWord`, and a list `wordList`. A transformation sequence changes one letter at a time, where each intermediate word must appear in `wordList`. Return the number of words in the shortest transformation sequence from `beginWord` to `endWord` (counting both endpoints), or `0` if no such sequence exists. All words have the same length and consist of lowercase letters.",
     "examples": [
       {
         "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
@@ -2621,7 +2621,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Given an `m x n` grid of heights, water can flow from a cell to a 4-adjacent cell of equal or lower height. The Pacific touches the top and left edges; the Atlantic touches the bottom and right edges. Return the list of `[r, c]` coordinates from which water can reach BOTH oceans. Output sorted by `r` then `c`.",
+    "description": "You are given an `m x n` matrix `heights` representing the height of each cell. The Pacific ocean borders the top and left edges, and the Atlantic ocean borders the bottom and right edges. Water can flow from a cell to a 4-directionally adjacent cell whose height is less than or equal to the current cell's height. Return the list of `[r, c]` coordinates of cells from which water can flow to both oceans, sorted by `r` then by `c`.",
     "examples": [
       {
         "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
@@ -2867,7 +2867,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "There are `n` rooms 0..n-1. Room 0 is open initially; every other room is locked. `rooms[i]` is the list of keys you find in room i (each key opens one room). Return `true` if you can visit every room.",
+    "description": "There are `n` rooms labeled `0` to `n - 1`. Room `0` is unlocked initially and every other room is locked. `rooms[i]` is the list of keys found in room `i`, where each key unlocks the room with that label. Starting from room `0`, return `true` if you can visit every room, otherwise return `false`.",
     "examples": [
       {
         "input": "rooms = [[1],[2],[3],[]]",
@@ -3015,7 +3015,7 @@
       "google",
       "facebook"
     ],
-    "description": "A tree on `n` nodes (1..n) had ONE extra edge added. Given the resulting `edges` (in input order), return the edge that, if removed, makes it a tree again. If multiple choices are valid, return the one that appears LAST in `edges`.",
+    "description": "You are given a graph that started as a tree on `n` nodes (labeled `1` to `n`) with exactly one additional edge inserted. The graph is given as `edges` in the order the edges were added. Return the edge that can be removed so the result is a tree of `n` nodes. If multiple answers exist, return the edge that appears last in `edges`.",
     "examples": [
       {
         "input": "edges = [[1,2],[1,3],[2,3]]",
@@ -3223,7 +3223,7 @@
       "google",
       "swiggy"
     ],
-    "description": "`isConnected[i][j] = 1` means city `i` and city `j` are directly connected (n x n symmetric matrix, diagonal is 1). A province is a maximal group of directly or indirectly connected cities. Return the number of provinces.",
+    "description": "You are given an `n x n` symmetric matrix `isConnected` where `isConnected[i][j] = 1` means city `i` and city `j` are directly connected (and `isConnected[i][i] = 1`). A province is a maximal group of cities that are directly or indirectly connected. Return the total number of provinces.",
     "examples": [
       {
         "input": "isConnected = [[1,1,0],[1,1,0],[0,0,1]]",
@@ -3404,7 +3404,7 @@
       "uber",
       "phonepe"
     ],
-    "description": "A star graph on `n` nodes (1..n) has exactly one center connected to every other node. Given exactly `n - 1` `edges`, return the center node.",
+    "description": "You are given a star graph on `n` nodes (labeled `1` to `n`), where one center node is connected to every other node and there are no other edges. Given the `n - 1` `edges` of the graph, return the label of the center node.",
     "examples": [
       {
         "input": "edges = [[1,2],[2,3],[4,2]]",
@@ -3570,7 +3570,7 @@
       "google",
       "uber"
     ],
-    "description": "Given `points` (each `[x, y]`), connect all of them so any two are reachable. Edge cost between two points is Manhattan distance `|x1-x2| + |y1-y2|`. Return the minimum total cost (MST weight).",
+    "description": "You are given an array `points` where `points[i] = [x, y]` is a point on a 2D plane. The cost of connecting two points is the Manhattan distance between them: `|x1 - x2| + |y1 - y2|`. Return the minimum total cost to connect all points so that there is exactly one path between any two points (i.e., the weight of the minimum spanning tree).",
     "examples": [
       {
         "input": "points = [[0,0],[2,2],[3,10],[5,2],[7,0]]",
@@ -3739,7 +3739,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Given an undirected `graph` (adjacency list), determine whether it can be 2-colored — i.e., is it bipartite? Graph may be disconnected.",
+    "description": "You are given an undirected graph as an adjacency list `graph`, where `graph[i]` lists the neighbours of node `i`. Return `true` if the graph is bipartite (its nodes can be split into two sets such that every edge connects a node in one set to a node in the other), otherwise return `false`. The graph may be disconnected.",
     "examples": [
       {
         "input": "graph = [[1,3],[0,2],[1,3],[0,2]]",
@@ -3931,7 +3931,7 @@
       "google",
       "uber"
     ],
-    "description": "Given `n` and directed `edges` (each `[u, v]` meaning u → v), return `true` if a cycle exists.",
+    "description": "You are given an integer `n` representing the number of nodes (labeled `0` to `n - 1`) and a list of directed `edges`, where each `[u, v]` represents an edge from `u` to `v`. Return `true` if the directed graph contains a cycle, otherwise return `false`.",
     "examples": [
       {
         "input": "n = 3, edges = [[0,1],[1,2],[2,0]]",
@@ -4118,7 +4118,7 @@
       "swiggy",
       "flipkart"
     ],
-    "description": "Given `n` and undirected `edges`, return all connected components. Each component's vertices must be sorted ascending; components themselves must be sorted by their first (smallest) vertex.",
+    "description": "You are given an integer `n` representing the number of nodes (labeled `0` to `n - 1`) and a list `edges` of undirected edges. Return all connected components. The vertices within each component must be sorted in ascending order, and the components must be sorted by their smallest vertex.",
     "examples": [
       {
         "input": "n = 6, edges = [[5,4],[0,2],[2,1]]",
@@ -4306,7 +4306,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Given an `n x n` 0/1 grid, return the length of the shortest path from cell `(0,0)` to `(n-1, n-1)` traversing only 0-cells. You can move 8-directionally (including diagonals). Each visited cell counts (the path length is the number of cells). Return -1 if no path.",
+    "description": "You are given an `n x n` binary matrix `grid`. Return the length of the shortest clear path from the top-left cell `(0, 0)` to the bottom-right cell `(n - 1, n - 1)`, where the path may only pass through cells with value `0` and may move 8-directionally (including diagonals). The path length is the number of cells visited along it. Return `-1` if no such path exists.",
     "examples": [
       {
         "input": "grid = [[0,1],[1,0]]",
@@ -4475,7 +4475,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Given a `grid` containing exactly one island (connected 4-directionally) of 1s in a sea of 0s, return its perimeter — the number of edges shared between a land cell and either water or the grid boundary.",
+    "description": "You are given a `grid` of `0`s (water) and `1`s (land) that contains exactly one island, where land cells are connected 4-directionally. Return the perimeter of the island — the total number of edges of land cells that border water or the grid boundary.",
     "examples": [
       {
         "input": "grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]",
@@ -4629,7 +4629,7 @@
       "google",
       "adobe"
     ],
-    "description": "Given an `image` matrix, a starting pixel `(sr, sc)`, and a `color`, replace the color of the connected (4-directionally) region of same-colored pixels starting at `(sr, sc)` with `color`. Return the modified image.",
+    "description": "You are given an `image` matrix, a starting pixel at row `sr` and column `sc`, and a new `color`. Starting from `(sr, sc)`, replace the color of every pixel that is connected 4-directionally to the starting pixel and shares its original color with `color`. Return the modified `image`.",
     "examples": [
       {
         "input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2",
@@ -4846,7 +4846,7 @@
       "google",
       "facebook"
     ],
-    "description": "Given `n` and undirected `edges`, return `true` iff the graph is a tree: connected and acyclic. Equivalently: connected + has exactly `n - 1` edges.",
+    "description": "You are given an integer `n` representing the number of nodes (labeled `0` to `n - 1`) and a list `edges` of undirected edges. Return `true` if the graph forms a valid tree (it is connected and contains no cycle), otherwise return `false`.",
     "examples": [
       {
         "input": "n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]",
@@ -5036,7 +5036,7 @@
       "google",
       "uber"
     ],
-    "description": "Given a grid where 0 = water and 1 = land, return the number of CLOSED water-islands — i.e., 4-connected groups of 0s that do NOT touch any boundary.",
+    "description": "You are given a `grid` where `0` represents water and `1` represents land. A closed island is a maximal 4-directionally connected group of water cells (`0`s) that does not touch the boundary of the grid. Return the number of closed islands.",
     "examples": [
       {
         "input": "grid = [[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]]",
@@ -5246,7 +5246,7 @@
       "uber",
       "swiggy"
     ],
-    "description": "Ola wants to know all unique stops reachable from a `start` stop in a directed graph. Given `n` and `edges` (each `[u, v]` directed), and `start`, return the sorted list of reachable stops INCLUDING `start`.",
+    "description": "You are given an integer `n` representing the number of nodes (labeled `0` to `n - 1`), a list of directed `edges` where each `[u, v]` is an edge from `u` to `v`, and a `start` node. Return the sorted list of all nodes reachable from `start`, including `start` itself.",
     "examples": [
       {
         "input": "n = 5, edges = [[0,1],[1,2],[3,4]], start = 0",
@@ -5450,7 +5450,7 @@
       "google",
       "facebook"
     ],
-    "description": "On a standard 8x8 chessboard with rows/cols 0..7, a knight starts at `(sr, sc)` and wants to reach `(tr, tc)`. Return the minimum number of knight moves needed.",
+    "description": "On a standard 8x8 chessboard with rows and columns indexed `0` to `7`, a knight starts at `(sr, sc)` and wants to reach `(tr, tc)`. A knight moves in an L-shape: two cells in one direction and one cell perpendicular. Return the minimum number of moves needed to reach the target.",
     "examples": [
       {
         "input": "sr = 0, sc = 0, tr = 7, tc = 7",
@@ -5579,7 +5579,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "A lock has 4 wheels each showing 0..9; it starts at \"0000\". Each move turns one wheel forward or backward by one digit (with wrap). Given a list of `deadends` (states that lock the dial) and a `target`, return the minimum number of moves to reach `target`, or -1.",
+    "description": "A lock has 4 circular wheels, each showing a digit `0` to `9`, and starts at \"0000\". One move rotates a single wheel one step forward or backward (with `0` and `9` adjacent, wrapping around). You are given a list of `deadends` (states that jam the lock if reached) and a string `target`. Return the minimum number of moves to reach `target` from \"0000\", or `-1` if it is impossible.",
     "examples": [
       {
         "input": "deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\"",
@@ -5704,7 +5704,7 @@
       "amazon",
       "facebook"
     ],
-    "description": "Given `n x n` grid with 0 (water) and 1 (land), return the largest Manhattan distance from a water cell to its nearest land cell. If no land or no water, return -1.",
+    "description": "You are given an `n x n` grid where `0` represents water and `1` represents land. Return the largest Manhattan distance from any water cell to its nearest land cell. If the grid contains no land or no water, return `-1`.",
     "examples": [
       {
         "input": "grid = [[1,0,1],[0,0,0],[1,0,1]]",
@@ -5881,7 +5881,7 @@
       "google",
       "uber"
     ],
-    "description": "Given `n` nodes and undirected `edges` (multigraph allowed), return `true` iff the graph has an Eulerian path. An Eulerian path exists iff: (a) all edges lie in one connected component (isolated nodes ignored), and (b) the count of vertices with odd degree is 0 or 2.",
+    "description": "You are given an integer `n` representing the number of nodes (labeled `0` to `n - 1`) and a list of undirected `edges` (multiple edges between the same pair are allowed). Return `true` if the graph has an Eulerian path. An Eulerian path exists if and only if all edges belong to a single connected component (ignoring isolated nodes) and the number of vertices with odd degree is either `0` or `2`.",
     "examples": [
       {
         "input": "n = 4, edges = [[0,1],[1,2],[2,0],[1,3]]",
@@ -6098,7 +6098,7 @@
       "google",
       "facebook"
     ],
-    "description": "A grid has exactly two islands of 1s. Return the smallest number of 0-cells we must flip to 1 to connect them (4-directional connectivity). Equivalently, the minimum Manhattan-grid hop count between the two islands minus 1.",
+    "description": "You are given a `grid` containing exactly two islands of `1`s, where cells are connected 4-directionally. You may flip `0`s to `1`s to connect the islands. Return the minimum number of `0`s you must flip so that the two islands become connected.",
     "examples": [
       {
         "input": "grid = [[0,1],[1,0]]",
@@ -6285,7 +6285,7 @@
       "google",
       "uber"
     ],
-    "description": "Given `numCourses`, a list of direct prerequisite pairs `prerequisites[i] = [u, v]` meaning u must be taken before v, and a list of `queries[i] = [a, b]` asking 'is a a (direct or indirect) prerequisite of b?', return a boolean array answering each query. Assume the prerequisite graph is a DAG.",
+    "description": "You are given an integer `numCourses` (courses labeled `0` to `numCourses - 1`), a list `prerequisites` where each pair `[u, v]` means `u` must be taken before `v`, and a list of `queries` where each `[a, b]` asks whether `a` is a direct or indirect prerequisite of `b`. Return a boolean array answering each query in order. The prerequisite graph is guaranteed to be a DAG.",
     "examples": [
       {
         "input": "numCourses = 3, prerequisites = [[0,1],[1,2]], queries = [[0,2],[2,0]]",

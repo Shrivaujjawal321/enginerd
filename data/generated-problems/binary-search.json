@@ -10,7 +10,7 @@
       "amazon",
       "flipkart"
     ],
-    "description": "BookMyShow stores seat numbers of a sold-out PVR show in ascending order. Given the sorted array `seats` and a query `target`, return the index of the seat if found, else -1. Must run in O(log n).",
+    "description": "You are given a strictly increasing array `seats` and an integer `target`. Return the index of `target` in `seats` if it is present, otherwise return `-1`. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "seats = [3,7,12,18,25,40], target = 18",
@@ -132,7 +132,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay's fee tiers are stored sorted ascending in `fees`. Given a transaction amount `amt`, return the index of the smallest fee that is >= `amt` (lower bound). If no such fee exists return `fees.length`.",
+    "description": "You are given an array `fees` sorted in ascending order and an integer `amt`. Return the index of the smallest element in `fees` that is greater than or equal to `amt` (the lower bound). If no such element exists, return `fees.length`. Aim for `O(log n)` time.",
     "examples": [
       {
         "input": "fees = [10,20,30,40], amt = 25",
@@ -248,7 +248,7 @@
       "swiggy",
       "uber"
     ],
-    "description": "Zomato sorts dish prices ascending in `prices`. Given a budget `b`, return the index of the smallest price strictly greater than `b` (upper bound). If none, return `prices.length`.",
+    "description": "You are given an array `prices` sorted in ascending order and an integer `b`. Return the index of the smallest element in `prices` that is strictly greater than `b` (the upper bound). If no such element exists, return `prices.length`. Aim for `O(log n)` time.",
     "examples": [
       {
         "input": "prices = [50,100,150,200], b = 100",
@@ -364,7 +364,7 @@
       "meesho",
       "amazon"
     ],
-    "description": "Flipkart's warehouse log stores SKU IDs in non-decreasing order; duplicates indicate multiple units of the same SKU. Given `log` and a SKU `q`, return how many units exist (count of `q` in the array) using O(log n).",
+    "description": "You are given an array `log` sorted in non-decreasing order (duplicates allowed) and an integer `q`. Return the number of times `q` appears in `log`. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "log = [1,2,2,2,3,4,4], q = 2",
@@ -499,7 +499,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy needs the integer floor of square root of `area` to size delivery zones (no Math.sqrt allowed). Given non-negative integer `area`, return floor(sqrt(area)) using binary search on answer space.",
+    "description": "You are given a non-negative integer `area`. Return the integer floor of its square root, i.e. the largest integer `r` such that `r * r <= area`. You may not use any built-in square-root function; solve it by binary searching the answer space.",
     "examples": [
       {
         "input": "area = 16",
@@ -588,7 +588,7 @@
       "flipkart",
       "paytm"
     ],
-    "description": "Meesho's catalog `prices` is sorted with possible duplicates (same item priced same across resellers). Find the first index where `prices[i] === target`, else -1.",
+    "description": "You are given an array `prices` sorted in non-decreasing order (duplicates allowed) and an integer `target`. Return the index of the first occurrence of `target` in `prices`, or `-1` if `target` is not present. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "prices = [100,200,200,200,300], target = 200",
@@ -706,7 +706,7 @@
       "postman",
       "microsoft"
     ],
-    "description": "Atlassian ranks tickets by status code stored sorted ascending in `codes`. Given `q`, return the LAST index where `codes[i] === q`. If absent, return -1.",
+    "description": "You are given an array `codes` sorted in non-decreasing order (duplicates allowed) and an integer `q`. Return the index of the last occurrence of `q` in `codes`, or `-1` if `q` is not present. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "codes = [1,2,2,2,3], q = 2",
@@ -823,7 +823,7 @@
       "atlassian",
       "google"
     ],
-    "description": "Postman maintains sorted API version numbers in `versions`. Given a new version `v`, return the index where it should be inserted to keep order (leftmost valid). If `v` already exists, return its first index.",
+    "description": "You are given an array `versions` sorted in ascending order and an integer `v`. Return the index at which `v` should be inserted to keep `versions` sorted. If `v` already appears in `versions`, return the index of its first occurrence. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "versions = [1,3,5,6], v = 5",
@@ -946,7 +946,7 @@
       "paytm",
       "razorpay"
     ],
-    "description": "PhonePe's daily settlement log is a strictly increasing array that has been rotated once at an unknown pivot. All elements are unique. Given `log` and a `target`, return its index, else -1, in O(log n).",
+    "description": "You are given an integer array `log` that was originally sorted in strictly increasing order and then rotated at an unknown pivot. All elements are unique. Given an integer `target`, return its index in `log`, or `-1` if it is not present. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "log = [40,50,60,10,20,30], target = 20",
@@ -1092,7 +1092,7 @@
       "phonepe",
       "razorpay"
     ],
-    "description": "Cred's reward array was originally sorted ascending then rotated once. All elements unique. Return the minimum value in O(log n).",
+    "description": "You are given an integer array `rewards` that was originally sorted in ascending order and then rotated at an unknown pivot. All elements are unique. Return the minimum value in `rewards`. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "rewards = [40,50,60,10,20,30]",
@@ -1208,7 +1208,7 @@
       "swiggy",
       "bookmyshow"
     ],
-    "description": "Uber's hourly demand `demand[i]` differs from neighbors (`demand[i] !== demand[i+1]`). A peak is any index `i` where `demand[i]` is strictly greater than both neighbors (treat out-of-bounds as -Infinity). Return the index of ANY peak in O(log n).",
+    "description": "You are given an integer array `demand` in which no two adjacent elements are equal (`demand[i] != demand[i+1]`). A peak is an index `i` such that `demand[i]` is strictly greater than both of its neighbors, where out-of-bounds neighbors are treated as `-Infinity`. Return the index of any peak element. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "demand = [1,3,2]",
@@ -1316,7 +1316,7 @@
       "flipkart",
       "microsoft"
     ],
-    "description": "Amazon's warehouse grid `grid` (m x n) has each row sorted ascending and the first element of each row greater than the last of previous row (so flattening yields a sorted array). Given `target`, return true if present.",
+    "description": "You are given an `m x n` matrix `grid` in which each row is sorted in ascending order and the first element of each row is greater than the last element of the previous row (so reading the matrix row by row yields a fully sorted sequence). Given an integer `target`, return `true` if `target` appears in `grid`, otherwise return `false`. Aim for `O(log(m*n))` time.",
     "examples": [
       {
         "input": "grid = [[1,3,5],[7,9,11],[13,15,17]], target = 9",
@@ -1473,7 +1473,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Google has `piles` of pending log batches and `H` hours to finish. Each hour the server processes up to `k` items from one pile (if pile has fewer, it finishes that pile and moves on next hour). Return the minimum integer `k` such that all piles are processed within `H` hours.",
+    "description": "You are given an integer array `piles`, where `piles[i]` is the number of items in the i-th pile, and an integer `H` representing the number of available hours. Each hour you choose one pile and process up to `k` items from it; if the pile has fewer than `k` items remaining, you finish it and that hour is used up (you do not move to another pile within the same hour). Return the minimum integer rate `k` such that all piles can be processed within `H` hours.",
     "examples": [
       {
         "input": "piles = [3,6,7,11], H = 8",
@@ -1590,7 +1590,7 @@
       "zomato",
       "amazon"
     ],
-    "description": "Swiggy must dispatch packages `weights` IN ORDER over `D` days using a single truck. Each day, the truck carries some prefix of remaining packages whose sum <= capacity. Return the minimum truck capacity to finish in `D` days.",
+    "description": "You are given an integer array `weights` and an integer `D`. The packages must be shipped in the given order over `D` days; each day you load onto a single vehicle a contiguous prefix of the remaining packages whose total weight does not exceed the vehicle's capacity. Return the minimum capacity that allows all packages to be shipped within `D` days.",
     "examples": [
       {
         "input": "weights = [1,2,3,4,5,6,7,8,9,10], D = 5",
@@ -1717,7 +1717,7 @@
       "swiggy",
       "bookmyshow"
     ],
-    "description": "Zomato's ratings array (with possible duplicates) was sorted ascending and rotated once. Given `ratings` and `target`, return true if target exists.",
+    "description": "You are given an integer array `ratings` that was originally sorted in ascending order and then rotated at an unknown pivot. The array may contain duplicates. Given an integer `target`, return `true` if `target` exists in `ratings`, otherwise return `false`.",
     "examples": [
       {
         "input": "ratings = [2,5,6,0,0,1,2], target = 0",
@@ -1852,7 +1852,7 @@
       "google",
       "atlassian"
     ],
-    "description": "Microsoft has `n` sequential deploys; once a deploy goes bad, all subsequent are bad. Given `n` and a boolean array `bad` (1-indexed conceptually but here 0-indexed) where `bad[i]` is true if deploy `i+1` is bad, return the 1-indexed number of the first bad deploy. Guaranteed at least one bad.",
+    "description": "You are given an integer `n` representing `n` sequential versions numbered `1` to `n`, and a boolean array `bad` where `bad[i]` is `true` if version `i+1` is bad. Once a version is bad, every later version is also bad. Return the 1-indexed number of the first bad version. It is guaranteed that at least one version is bad. Aim for `O(log n)` time.",
     "examples": [
       {
         "input": "n = 5, bad = [false,false,true,true,true]",
@@ -1974,7 +1974,7 @@
       "phonepe",
       "cred"
     ],
-    "description": "Paytm's hourly transaction array `tx` strictly increases up to a peak then strictly decreases (mountain). Length >= 3. Return the index of the peak in O(log n).",
+    "description": "You are given a mountain array `tx`: the values strictly increase up to a single peak and then strictly decrease, with `tx.length >= 3`. Return the index of the peak element. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "tx = [1,3,5,4,2]",
@@ -2105,7 +2105,7 @@
       "meesho",
       "amazon"
     ],
-    "description": "Flipkart sizes warehouse buckets by `floor(x^(1/n))`. Given non-negative integer `x` and integer `n` (1 <= n <= 30), return floor of the n-th root of x using binary search.",
+    "description": "You are given a non-negative integer `x` and an integer `n`. Return the floor of the n-th root of `x`, i.e. the largest integer `r` such that `r^n <= x`. Solve it by binary searching the answer space and take care to avoid overflow when computing `r^n`.",
     "examples": [
       {
         "input": "x = 27, n = 3",
@@ -2202,7 +2202,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon's distinct sorted array `arr` may contain a magic index where `arr[i] === i`. Return the smallest such index, else -1, in O(log n).",
+    "description": "You are given a sorted array `arr` of distinct integers. A fixed point (magic index) is an index `i` such that `arr[i] === i`. Return the smallest such index, or `-1` if none exists. Your solution must run in `O(log n)` time.",
     "examples": [
       {
         "input": "arr = [-3,-1,1,3,5]",
@@ -2327,7 +2327,7 @@
       "uber",
       "amazon"
     ],
-    "description": "Google maps has `n` candidate parking spots at positions `pos` (sorted ascending). You must place `k` EV chargers at distinct spots so that the minimum distance between any two chargers is maximized. Return that max min-distance.",
+    "description": "You are given an array `pos` of distinct positions sorted in ascending order and an integer `k`. Place `k` items at `k` distinct positions chosen from `pos` so that the minimum distance between any two placed items is as large as possible. Return that maximized minimum distance.",
     "examples": [
       {
         "input": "pos = [1,2,4,8,9], k = 3",
@@ -2455,7 +2455,7 @@
       "google",
       "amazon"
     ],
-    "description": "BookMyShow merges sorted ticket-price arrays from two shows: `a` and `b`. Return the median of the combined sorted list in O(log(min(m,n))). If total length is even, return the average of the two middle values.",
+    "description": "You are given two arrays `a` and `b`, each sorted in ascending order. Return the median of the combined sorted sequence of all elements from `a` and `b`. If the total number of elements is even, return the average of the two middle values. Your solution must run in `O(log(min(m, n)))` time.",
     "examples": [
       {
         "input": "a = [1,3], b = [2]",
@@ -2596,7 +2596,7 @@
       "flipkart",
       "meesho"
     ],
-    "description": "Amazon has `n` packages with weights `pkg` (in given order) to distribute to `k` workers. Each worker takes a CONTIGUOUS subarray; every package must go to exactly one worker; each worker gets >= 1 package. Minimize the maximum total weight assigned to any worker. Return -1 if k > n.",
+    "description": "You are given an integer array `pkg` of length `n` and an integer `k`. Partition `pkg` into `k` contiguous, non-empty subarrays so that every element belongs to exactly one subarray. Minimize the largest subarray sum among the `k` parts and return that minimized value. If `k > n`, return `-1`.",
     "examples": [
       {
         "input": "pkg = [10,20,30,40], k = 2",
@@ -2732,7 +2732,7 @@
       "microsoft",
       "atlassian"
     ],
-    "description": "Google has fence boards with lengths `boards` to be painted by `painters`. Each painter paints a CONTIGUOUS sequence of boards at 1 unit time per length unit, all in parallel. Minimize total finish time = max painter load. Return -1 if painters > boards.length.",
+    "description": "You are given an integer array `boards` (board lengths) and an integer `painters`. Each painter paints a contiguous block of boards at a rate of 1 unit of time per unit of length, and all painters work in parallel. Partition the boards into `painters` contiguous blocks so that the maximum total length assigned to any single painter is minimized, and return that minimized finish time. If `painters > boards.length`, return `-1`.",
     "examples": [
       {
         "input": "boards = [10,20,30,40], painters = 2",
@@ -2864,7 +2864,7 @@
       "phonepe",
       "google"
     ],
-    "description": "Razorpay has two sorted (ascending) settlement arrays `a` and `b`. For every pair (i, j), define sum = a[i] + b[j]. Return the k-th SMALLEST such pair sum (1-indexed).",
+    "description": "You are given two arrays `a` and `b`, each sorted in ascending order, and an integer `k`. Consider all pair sums `a[i] + b[j]` over every pair of indices `(i, j)`. Return the k-th smallest such pair sum (1-indexed).",
     "examples": [
       {
         "input": "a = [1,7,11], b = [2,4,6], k = 3",
@@ -3016,7 +3016,7 @@
       "swiggy",
       "bookmyshow"
     ],
-    "description": "Uber has drivers; driver `i` takes `time[i]` minutes per trip and works without breaks. Given `totalTrips` to be completed across the fleet, return the minimum total minutes needed (driver i completes floor(t / time[i]) trips by minute t).",
+    "description": "You are given an integer array `time`, where `time[i]` is the number of minutes worker `i` takes to complete one trip, and an integer `totalTrips`. A worker completes `floor(t / time[i])` trips by minute `t`, and workers operate continuously in parallel. Return the minimum number of minutes required for the workers to complete at least `totalTrips` trips in total.",
     "examples": [
       {
         "input": "time = [1,2,3], totalTrips = 5",

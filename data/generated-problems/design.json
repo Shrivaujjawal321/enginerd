@@ -10,7 +10,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy ka dispatch system ek LRU (Least Recently Used) cache use karta hai delivery partner ke recent assignment dhyan rakhne ke liye. Cache me partner ka ID (key) aur unka current zone (value) store hota hai. Jab capacity full ho jaaye aur naya partner add ho, toh sabse purana (least recently used) hata do.\n\nImplement an LRU cache with `get(key)` and `put(key, value)`, both in O(1).\n\nSince the grader runs a flat function, dispatch operations as an array. The driver function `runOps` receives `ops` like `[[\"LRUCache\", capacity], [\"put\", k, v], [\"get\", k], ...]`. Constructor pushes `null`; `put` pushes `null`; `get` pushes the value (or `-1` if absent).",
+    "description": "Design a data structure that follows the Least Recently Used (LRU) cache eviction policy. Implement `get(key)`, which returns the value for `key` or `-1` if it is not present, and `put(key, value)`, which inserts or updates the key; if inserting a new key exceeds `capacity`, evict the least recently used key. Both operations must run in O(1) average time. The grader calls `runOps` with a flat operations array `ops` such as `[[\"LRUCache\", capacity], [\"put\", k, v], [\"get\", k], ...]`; return an array where the constructor and each `put` produce `null`, and each `get` produces its returned value.",
     "examples": [
       {
         "input": "ops = [[\"LRUCache\",2],[\"put\",1,1],[\"put\",2,2],[\"get\",1],[\"put\",3,3],[\"get\",2],[\"put\",4,4],[\"get\",1],[\"get\",3],[\"get\",4]]",
@@ -268,7 +268,7 @@
       "paytm",
       "razorpay"
     ],
-    "description": "PhonePe ka risk-engine LFU (Least Frequently Used) cache use karta hai recent transaction profiles store karne ke liye. Jab capacity full ho aur eviction zaroori ho, sabse kam baar use hua entry hatao; tie ho toh among those sabse purana (LRU within LFU bucket).\n\nImplement `get(key)` and `put(key, value)`, both O(1). Use the operations array — `[[\"LFUCache\", cap], [\"put\", k, v], [\"get\", k], ...]`.",
+    "description": "Design a data structure that follows the Least Frequently Used (LFU) cache eviction policy. Implement `get(key)` and `put(key, value)`, both in O(1) average time. When a new key is inserted and the cache is at `capacity`, evict the key with the smallest use frequency; if multiple keys tie on frequency, evict the least recently used among them. Both `get` and `put` on an existing key increase its frequency. The grader calls `runOps` with a flat operations array `ops` such as `[[\"LFUCache\", cap], [\"put\", k, v], [\"get\", k], ...]`; return an array where the constructor and each `put` produce `null`, and each `get` produces its value (`-1` if the key is absent).",
     "examples": [
       {
         "input": "ops = [[\"LFUCache\",2],[\"put\",1,1],[\"put\",2,2],[\"get\",1],[\"put\",3,3],[\"get\",2],[\"get\",3],[\"put\",4,4],[\"get\",1],[\"get\",3],[\"get\",4]]",
@@ -497,7 +497,7 @@
       "stripe",
       "amazon"
     ],
-    "description": "Razorpay ka fee-pipeline ek stack rakhta hai jisme har push ek fee adjustment hai. Engineering ko kabhi bhi pata chahiye stack me sabse chhota current fee — sab kuch O(1) me. Implement a `MinStack` supporting `push(x)`, `pop()`, `top()`, `getMin()`, all in O(1).\n\nOps array: `[[\"MinStack\"], [\"push\", x], [\"pop\"], [\"top\"], [\"getMin\"], ...]`. Constructor and `push`/`pop` push `null`; `top` and `getMin` push the value.",
+    "description": "Design a stack that supports `push(x)`, `pop()`, `top()`, and retrieving the minimum element with `getMin()`, all in O(1) time. The grader calls `runOps` with a flat operations array `ops` such as `[[\"MinStack\"], [\"push\", x], [\"pop\"], [\"top\"], [\"getMin\"], ...]`; return an array where the constructor, `push`, and `pop` produce `null`, while `top` and `getMin` produce the corresponding value. `pop`, `top`, and `getMin` are only called on a non-empty stack.",
     "examples": [
       {
         "input": "ops = [[\"MinStack\"],[\"push\",-2],[\"push\",0],[\"push\",-3],[\"getMin\"],[\"pop\"],[\"top\"],[\"getMin\"]]",
@@ -701,7 +701,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Flipkart ke training quiz me ek classic question — implement a LIFO stack using only two queues (FIFO). Support `push(x)`, `pop()`, `top()`, `empty()`.\n\nOps array: `[[\"MyStack\"], [\"push\", x], [\"pop\"], [\"top\"], [\"empty\"]]`. Constructor and `push` push `null`; `pop`/`top` push the value; `empty` pushes a boolean.",
+    "description": "Implement a last-in-first-out (LIFO) stack using only standard queue (FIFO) operations. Support `push(x)`, `pop()`, `top()`, and `empty()`. The grader calls `runOps` with a flat operations array `ops` such as `[[\"MyStack\"], [\"push\", x], [\"pop\"], [\"top\"], [\"empty\"]]`; return an array where the constructor and `push` produce `null`, `pop` and `top` produce the corresponding value, and `empty` produces a boolean. `pop` and `top` are only called on a non-empty stack.",
     "examples": [
       {
         "input": "ops = [[\"MyStack\"],[\"push\",1],[\"push\",2],[\"top\"],[\"pop\"],[\"empty\"]]",
@@ -904,7 +904,7 @@
       "amazon",
       "google"
     ],
-    "description": "Paytm ke onboarding system me FIFO queue chahiye but available data-structure library me sirf stacks hain. Build a `MyQueue` using only two stacks supporting `push(x)`, `pop()`, `peek()`, `empty()` — amortized O(1) for each.\n\nOps array: `[[\"MyQueue\"], [\"push\", x], [\"pop\"], [\"peek\"], [\"empty\"]]`.",
+    "description": "Implement a first-in-first-out (FIFO) queue using only standard stack operations. Support `push(x)`, `pop()`, `peek()`, and `empty()`, with each operation running in amortized O(1) time. The grader calls `runOps` with a flat operations array `ops` such as `[[\"MyQueue\"], [\"push\", x], [\"pop\"], [\"peek\"], [\"empty\"]]`; return an array where the constructor and `push` produce `null`, `pop` and `peek` produce the corresponding value, and `empty` produces a boolean. `pop` and `peek` are only called on a non-empty queue.",
     "examples": [
       {
         "input": "ops = [[\"MyQueue\"],[\"push\",1],[\"push\",2],[\"peek\"],[\"pop\"],[\"empty\"]]",
@@ -1108,7 +1108,7 @@
       "uber",
       "amazon"
     ],
-    "description": "Wait — actually a Medium. Ola ke fraud-detection module me apna hashset chahiye taaki built-in libraries pe dependency na ho. Implement `MyHashSet` with `add(key)`, `remove(key)`, `contains(key)` — all without using language Set/Map for the storage.\n\nOps array: `[[\"MyHashSet\"], [\"add\", k], [\"remove\", k], [\"contains\", k]]`. Constructor/add/remove push `null`; `contains` pushes a boolean.",
+    "description": "Design a hash set without using any built-in hash table library. Implement `add(key)` to insert a key, `remove(key)` to delete a key if present, and `contains(key)` to report whether the key exists. The grader calls `runOps` with a flat operations array `ops` such as `[[\"MyHashSet\"], [\"add\", k], [\"remove\", k], [\"contains\", k]]`; return an array where the constructor, `add`, and `remove` produce `null`, while `contains` produces a boolean.",
     "examples": [
       {
         "input": "ops = [[\"MyHashSet\"],[\"add\",1],[\"add\",2],[\"contains\",1],[\"contains\",3],[\"add\",2],[\"contains\",2],[\"remove\",2],[\"contains\",2]]",
@@ -1316,7 +1316,7 @@
       "flipkart",
       "amazon"
     ],
-    "description": "Myntra ka price-history service har SKU ka price timestamp ke saath store karta hai. Pricing analyst ko kabhi bhi pata chahiye: 'is timestamp pe (ya us se pehle ka latest) is SKU ka price kya tha?' Timestamps strictly increasing diye jaate hain per key.\n\nImplement `set(key, value, timestamp)` and `get(key, timestamp)`. `get` returns the value with the largest timestamp `<=` queried timestamp; if none, return empty string `\"\"`.\n\nOps: `[[\"TimeMap\"], [\"set\", k, v, ts], [\"get\", k, ts]]`. Constructor/set push `null`; get pushes the string.",
+    "description": "Design a time-based key-value store that records multiple values for the same key at different timestamps and retrieves the value as of a given time. Implement `set(key, value, timestamp)` to store `value` for `key` at `timestamp`, and `get(key, timestamp)` to return the value whose stored timestamp is the largest one less than or equal to the queried `timestamp`; if no such timestamp exists, return the empty string `\"\"`. For each key, the timestamps passed to `set` are strictly increasing. The grader calls `runOps` with a flat operations array `ops` such as `[[\"TimeMap\"], [\"set\", k, v, ts], [\"get\", k, ts]]`; return an array where the constructor and each `set` produce `null`, and each `get` produces its returned string.",
     "examples": [
       {
         "input": "ops = [[\"TimeMap\"],[\"set\",\"foo\",\"bar\",1],[\"get\",\"foo\",1],[\"get\",\"foo\",3],[\"set\",\"foo\",\"bar2\",4],[\"get\",\"foo\",4],[\"get\",\"foo\",5]]",
@@ -1529,7 +1529,7 @@
       "twitter",
       "sharechat"
     ],
-    "description": "Koo ka social feed engine — implement `postTweet(userId, tweetId)`, `follow(followerId, followeeId)`, `unfollow(followerId, followeeId)`, `getNewsFeed(userId)`. `getNewsFeed` returns up to 10 most recent tweet IDs from the user themselves and the people they follow, newest first.\n\nOps: `[[\"Twitter\"], [\"postTweet\", u, tw], [\"follow\", f, t], [\"unfollow\", f, t], [\"getNewsFeed\", u]]`. Constructor/post/follow/unfollow push `null`; getNewsFeed pushes array.",
+    "description": "Design a simplified social media feed. Implement `postTweet(userId, tweetId)` to publish a tweet, `follow(followerId, followeeId)` and `unfollow(followerId, followeeId)` to manage follow relationships, and `getNewsFeed(userId)` to return the IDs of the 10 most recent tweets in the user's feed, ordered newest first. A user's feed includes their own tweets and the tweets of everyone they follow. The grader calls `runOps` with a flat operations array `ops` such as `[[\"Twitter\"], [\"postTweet\", u, tw], [\"follow\", f, t], [\"unfollow\", f, t], [\"getNewsFeed\", u]]`; return an array where the constructor, `postTweet`, `follow`, and `unfollow` produce `null`, while `getNewsFeed` produces the array of tweet IDs.",
     "examples": [
       {
         "input": "ops = [[\"Twitter\"],[\"postTweet\",1,5],[\"getNewsFeed\",1],[\"follow\",1,2],[\"postTweet\",2,6],[\"getNewsFeed\",1],[\"unfollow\",1,2],[\"getNewsFeed\",1]]",
@@ -1745,7 +1745,7 @@
       "razorpay",
       "amazon"
     ],
-    "description": "CRED ka credit-score module ek snapshot-able array maintain karta hai. Indexes 0..length-1 sab 0 se start hote hain. Ops: `set(idx, val)`, `snap()` returning the next snap_id (starts 0), `get(idx, snap_id)` returning value at that index when that snapshot was taken.\n\nOps: `[[\"SnapshotArray\", length], [\"set\", i, v], [\"snap\"], [\"get\", i, snap_id]]`. Constructor/set push `null`; `snap` pushes the new snap_id; `get` pushes the value.",
+    "description": "Design an array of the given `length` whose elements all start at 0 and that supports taking immutable snapshots. Implement `set(idx, val)` to assign `val` at index `idx`, `snap()` to take a snapshot and return the new `snap_id` (snapshot ids start at 0 and increase by one each call), and `get(idx, snap_id)` to return the value at index `idx` at the time snapshot `snap_id` was taken. The grader calls `runOps` with a flat operations array `ops` such as `[[\"SnapshotArray\", length], [\"set\", i, v], [\"snap\"], [\"get\", i, snap_id]]`; return an array where the constructor and each `set` produce `null`, `snap` produces the new snapshot id, and `get` produces its value.",
     "examples": [
       {
         "input": "ops = [[\"SnapshotArray\",3],[\"set\",0,5],[\"snap\"],[\"set\",0,6],[\"get\",0,0]]",
@@ -1958,7 +1958,7 @@
       "stripe",
       "uber"
     ],
-    "description": "Razorpay ka API gateway count karna chahta hai last 300 seconds (5 minutes) me kitne hits aaye. `hit(timestamp)` ek hit log karta hai (timestamps in seconds, monotonically non-decreasing). `getHits(timestamp)` returns hits in the window `(timestamp-300, timestamp]`.\n\nOps: `[[\"HitCounter\"], [\"hit\", ts], [\"getHits\", ts]]`. Constructor/hit push `null`; getHits pushes the count.",
+    "description": "Design a hit counter that counts the number of hits received in the past 5 minutes (300 seconds). Implement `hit(timestamp)` to record a hit at the given time (in seconds), and `getHits(timestamp)` to return the number of hits in the window `(timestamp - 300, timestamp]`. Timestamps are passed in non-decreasing order. The grader calls `runOps` with a flat operations array `ops` such as `[[\"HitCounter\"], [\"hit\", ts], [\"getHits\", ts]]`; return an array where the constructor and each `hit` produce `null`, and each `getHits` produces the count.",
     "examples": [
       {
         "input": "ops = [[\"HitCounter\"],[\"hit\",1],[\"hit\",2],[\"hit\",3],[\"getHits\",4],[\"hit\",300],[\"getHits\",300],[\"getHits\",301]]",
@@ -2153,7 +2153,7 @@
       "stripe",
       "google"
     ],
-    "description": "Razorpay ka API gateway token-bucket rate-limiter use karta hai. Bucket capacity `cap` hai aur har second `refillRate` tokens add hote hain (capped at cap). `allow(timestamp)` ek request: agar token available hai, consume 1 and return `true`; else `false`. Bucket starts full.\n\nTokens are refilled lazily — between calls ka elapsed time integer-second granularity pe compute karo: `tokens = min(cap, tokens + (now - lastRefill) * refillRate)`. Use floor — partial tokens carry as fractional? **No** — keep tokens as integer count, refill `(now-lastRefill) * refillRate` tokens (timestamps in whole seconds, monotonic).\n\nOps: `[[\"RateLimiter\", cap, refillRate], [\"allow\", ts]]`. Constructor pushes `null`; allow pushes boolean.",
+    "description": "Design a token-bucket rate limiter. The bucket holds at most `cap` tokens and starts full; it refills lazily at `refillRate` tokens per second, capped at `cap`. Implement `allow(timestamp)`: when the bucket has at least one token, consume one and return `true`, otherwise return `false`. On each call, refill based on whole-second elapsed time as `tokens = min(cap, tokens + (now - lastRefill) * refillRate)`, keeping the token count as an integer. Timestamps are given in whole seconds in non-decreasing order. The grader calls `runOps` with a flat operations array `ops` such as `[[\"RateLimiter\", cap, refillRate], [\"allow\", ts]]`; return an array where the constructor produces `null` and each `allow` produces a boolean.",
     "examples": [
       {
         "input": "ops = [[\"RateLimiter\",3,1],[\"allow\",1],[\"allow\",1],[\"allow\",1],[\"allow\",1],[\"allow\",2],[\"allow\",2]]",
@@ -2374,7 +2374,7 @@
       "amazon",
       "myntra"
     ],
-    "description": "Flipkart ka search-bar autocomplete bana — user character-by-character type karta hai (lowercase a-z and `#` to commit). Past committed sentences ka frequency rakho, aur har keystroke pe suggestions return karo: top 3 sentences (by frequency desc, then ASCII asc) jinka prefix abhi-tak typed hai.\n\nConstructor takes initial sentences and counts. `input(c)`: if `c == '#'`, commit current buffer (increment freq, reset) and return `[]`. Else append `c` to buffer and return up to 3 matching sentences.\n\nOps: `[[\"AutocompleteSystem\", sentences, counts], [\"input\", c]]`. Constructor pushes `null`; input pushes the suggestions array.",
+    "description": "Design a search autocomplete system. The constructor receives an array of historical `sentences` and their corresponding `counts`. As a user types one character at a time, implement `input(c)`: if `c` is `'#'`, the current buffer is committed as a completed sentence (its frequency is incremented, the buffer is reset) and `[]` is returned; otherwise `c` is appended to the buffer and you return the top 3 historical sentences that start with the current buffer as a prefix, ranked by frequency descending and ties broken by ASCII order ascending. The grader calls `runOps` with a flat operations array `ops` such as `[[\"AutocompleteSystem\", sentences, counts], [\"input\", c]]`; return an array where the constructor produces `null` and each `input` produces the suggestions array.",
     "examples": [
       {
         "input": "ops = [[\"AutocompleteSystem\",[\"i love you\",\"island\",\"ironman\",\"i love leetcode\"],[5,3,2,2]],[\"input\",\"i\"],[\"input\",\" \"],[\"input\",\"a\"],[\"input\",\"#\"]]",
@@ -2600,7 +2600,7 @@
       "razorpay",
       "amazon"
     ],
-    "description": "Paytm idempotency-key store me operations chahiye: `insert(val)` → returns `true` if newly added, `remove(val)` → returns `true` if was present, `getRandom()` → returns a uniformly-random present value. All in O(1) average.\n\nFor deterministic testing, the grader replaces `Math.random` so `getRandom` returns the **last inserted element still present**. Implement using `Math.random` in your code; the test harness deterministically forces the last index. (The tests below use sequences where this is unambiguous.)\n\nActually — to make this deterministic for the grader, define `getRandom()` to return the element at index `array.length - 1` (the most recently added still-present element). This sidesteps randomness while still validating O(1) data-structure design.\n\nOps: `[[\"RandomizedSet\"], [\"insert\", x], [\"remove\", x], [\"getRandom\"]]`. Constructor pushes `null`; insert/remove push boolean; getRandom pushes a number.",
+    "description": "Design a set that supports insertion, deletion, and uniform random access in O(1) average time. Implement `insert(val)`, returning `true` if the value was newly added; `remove(val)`, returning `true` if the value was present; and `getRandom()`, returning an element currently in the set. For deterministic grading, `getRandom()` must return the element at the last index of the backing array (the most recently added element still present). The grader calls `runOps` with a flat operations array `ops` such as `[[\"RandomizedSet\"], [\"insert\", x], [\"remove\", x], [\"getRandom\"]]`; return an array where the constructor produces `null`, `insert` and `remove` produce a boolean, and `getRandom` produces the selected value. `getRandom` is only called when the set is non-empty.",
     "examples": [
       {
         "input": "ops = [[\"RandomizedSet\"],[\"insert\",1],[\"remove\",2],[\"insert\",2],[\"getRandom\"],[\"remove\",1],[\"insert\",2],[\"getRandom\"]]",
@@ -2808,7 +2808,7 @@
       "irctc",
       "uber"
     ],
-    "description": "Delhi Metro ka travel-time system: passengers tap-in at one station and tap-out at another. Track average travel time between station pairs.\n\n- `checkIn(id, station, t)` — passenger `id` enters `station` at time `t`.\n- `checkOut(id, station, t)` — same passenger exits at `station` at time `t`. Updates the avg between their checkIn station and this one.\n- `getAverageTime(start, end)` — return avg trip time from `start` to `end` (over all completed trips matching that ordered pair).\n\nReturn from `getAverageTime` is a number (use floating point — match expected to within problem tolerance, but for grader simplicity all expected values are exact integers in the tests below).\n\nOps: `[[\"UndergroundSystem\"], [\"checkIn\", id, st, t], [\"checkOut\", id, st, t], [\"getAverageTime\", a, b]]`.",
+    "description": "Design a system that tracks travel times between station pairs. Implement `checkIn(id, station, t)`, recording that customer `id` enters `station` at time `t`; `checkOut(id, station, t)`, recording that the same customer exits `station` at time `t` and updating the statistics for the trip from their check-in station to this one; and `getAverageTime(start, end)`, returning the average travel time over all completed trips from `start` to `end`. A customer is always checked out after checking in, and for any given `id`, times increase between check-in and check-out. The grader calls `runOps` with a flat operations array `ops` such as `[[\"UndergroundSystem\"], [\"checkIn\", id, st, t], [\"checkOut\", id, st, t], [\"getAverageTime\", a, b]]`; return an array where the constructor, `checkIn`, and `checkOut` produce `null`, and `getAverageTime` produces the average time. `getAverageTime` is always called for a pair with at least one completed trip.",
     "examples": [
       {
         "input": "ops = [[\"UndergroundSystem\"],[\"checkIn\",10,\"Leyton\",3],[\"checkOut\",10,\"Paradise\",8],[\"getAverageTime\",\"Leyton\",\"Paradise\"]]",
@@ -3047,7 +3047,7 @@
       "swiggy",
       "uber"
     ],
-    "description": "Zomato ka order-event logger rate-limit karta hai duplicate messages ko. `shouldPrintMessage(timestamp, message)` returns `true` if the message can be printed at this timestamp, else `false`. A message is printable only if it hasn't been printed in the last 10 seconds (so if it was printed at time `t`, the next allowed time is `t + 10`).\n\nAdditionally, support `purge(timestamp)` which evicts all entries whose last-printed time is `<= timestamp - 10` (memory hygiene). `purge` returns the number of entries evicted.\n\nOps: `[[\"Logger\"], [\"shouldPrintMessage\", t, msg], [\"purge\", t]]`. Constructor pushes `null`; shouldPrintMessage pushes boolean; purge pushes the integer evicted count.",
+    "description": "Design a logger system that rate-limits repeated messages. Implement `shouldPrintMessage(timestamp, message)`, which returns `true` if the message may be printed at the given `timestamp` and `false` otherwise; a message may be printed only if the same message has not been printed in the last 10 seconds, so after being printed at time `t` it is next allowed at `t + 10`. Also implement `purge(timestamp)`, which evicts every stored message whose last-printed time is `<= timestamp - 10` and returns the number of entries evicted. Timestamps are passed in non-decreasing order. The grader calls `runOps` with a flat operations array `ops` such as `[[\"Logger\"], [\"shouldPrintMessage\", t, msg], [\"purge\", t]]`; return an array where the constructor produces `null`, `shouldPrintMessage` produces a boolean, and `purge` produces the evicted count.",
     "examples": [
       {
         "input": "ops = [[\"Logger\"],[\"shouldPrintMessage\",1,\"foo\"],[\"shouldPrintMessage\",2,\"bar\"],[\"shouldPrintMessage\",3,\"foo\"],[\"shouldPrintMessage\",8,\"bar\"],[\"shouldPrintMessage\",10,\"foo\"],[\"shouldPrintMessage\",11,\"foo\"]]",

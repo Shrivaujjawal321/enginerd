@@ -10,7 +10,7 @@
       "zomato",
       "razorpay"
     ],
-    "description": "Swiggy generates internal order IDs as lowercase strings. Customer support wants a quick check whether an order ID reads the same forwards and backwards (a palindrome). Given a string `s`, return `true` if it is a palindrome, otherwise `false`.\n\nOnly the characters in `s` matter; do not normalize case (input is already lowercase).",
+    "description": "Given a string `s` consisting of lowercase English letters, return `true` if `s` reads the same forwards and backwards (i.e. it is a palindrome), and `false` otherwise. Do not normalize the input; compare the characters as given.",
     "examples": [
       {
         "input": "s = \"swiws\"",
@@ -100,7 +100,7 @@
       "phonepe",
       "razorpay"
     ],
-    "description": "Paytm has a sorted list `amounts` of transaction values (ascending). The fraud team wants to know whether any two **distinct** transactions add up exactly to a target value `target`. Return `true` if such a pair exists, else `false`.\n\nThe two transactions must be at different indices.",
+    "description": "Given an array `amounts` sorted in non-decreasing order and an integer `target`, return `true` if there exist two elements at distinct indices whose sum equals `target`, and `false` otherwise.",
     "examples": [
       {
         "input": "amounts = [1,2,4,7,11], target = 9",
@@ -221,7 +221,7 @@
       "swiggy",
       "meesho"
     ],
-    "description": "Zomato shows a customer's recently-viewed cuisines. The product team wants to display them in reverse order **in place** without using extra arrays. Given an array `cuisines`, reverse it in place and return it.",
+    "description": "Given an array `cuisines`, reverse the order of its elements in place using O(1) extra space, then return the modified array.",
     "examples": [
       {
         "input": "cuisines = [\"north\",\"south\",\"chinese\",\"italian\"]",
@@ -322,7 +322,7 @@
       "amazon",
       "meesho"
     ],
-    "description": "Flipkart's catalog system gets a sorted list `skus` of integer SKU IDs and wants to dedupe in place. Modify `skus` so that the first `k` elements are unique in original order, return `k`. Order of remaining elements doesn't matter.",
+    "description": "Given an array `skus` sorted in non-decreasing order, remove the duplicates in place so that each distinct value appears only once, keeping the relative order of the remaining elements. Return `k`, the number of distinct elements; the first `k` positions of `skus` must hold those distinct values. The contents beyond the first `k` positions do not matter.",
     "examples": [
       {
         "input": "skus = [1,1,2,2,3]",
@@ -434,7 +434,7 @@
       "google",
       "amazon"
     ],
-    "description": "Uber stores signed deviations of trip distances (negative = under estimate, positive = over) in a sorted array `devs` (ascending). Return a new array with the squares of each value, sorted in non-decreasing order.",
+    "description": "Given an integer array `devs` sorted in non-decreasing order, return a new array containing the square of each element, sorted in non-decreasing order.",
     "examples": [
       {
         "input": "devs = [-4,-1,0,3,10]",
@@ -569,7 +569,7 @@
       "paytm",
       "razorpay"
     ],
-    "description": "PhonePe has two sorted ledger arrays `a` and `b` of integers (both ascending). Return a single merged sorted array containing all elements (duplicates kept).",
+    "description": "Given two integer arrays `a` and `b`, each sorted in non-decreasing order, return a single array containing all elements of both arrays sorted in non-decreasing order. Duplicate values are kept.",
     "examples": [
       {
         "input": "a = [1,3,5], b = [2,4,6]",
@@ -714,7 +714,7 @@
       "paytm",
       "cred"
     ],
-    "description": "Razorpay represents payments as `0` (failed) and non-zero (successful amount). Move all `0`s to the end of `payments` while keeping the relative order of non-zero entries. Mutate in place and return the array.",
+    "description": "Given an integer array `payments`, move all `0`s to the end while maintaining the relative order of the non-zero elements. Modify `payments` in place and return it.",
     "examples": [
       {
         "input": "payments = [0,1,0,3,12]",
@@ -850,7 +850,7 @@
       "razorpay",
       "phonepe"
     ],
-    "description": "CRED detects masked card numbers. Given strings `s` and `t`, return `true` if `s` is a subsequence of `t` (characters appear in order, not necessarily contiguous).",
+    "description": "Given two strings `s` and `t`, return `true` if `s` is a subsequence of `t`, and `false` otherwise. A subsequence is formed by deleting zero or more characters from `t` without changing the relative order of the remaining characters.",
     "examples": [
       {
         "input": "s = \"abc\", t = \"ahbgdc\"",
@@ -947,7 +947,7 @@
       "flipkart",
       "amazon"
     ],
-    "description": "Meesho has two sorted arrays `a` and `b` of order IDs (ascending). Return the intersection as a sorted array. Each element should appear as many times as it appears in **both** arrays (i.e. multiset intersection).",
+    "description": "Given two integer arrays `a` and `b`, each sorted in non-decreasing order, return their intersection as a sorted array. Each value must appear in the result as many times as it appears in both `a` and `b` (the minimum of its two counts).",
     "examples": [
       {
         "input": "a = [1,2,2,3], b = [2,2,4]",
@@ -1095,7 +1095,7 @@
       "postman",
       "google"
     ],
-    "description": "Atlassian's spam filter checks if a Jira ticket title is a palindrome considering only alphanumeric characters and ignoring case. Given a string `s`, return `true` if it is such a palindrome.",
+    "description": "Given a string `s`, return `true` if it is a palindrome when considering only alphanumeric characters and ignoring letter case, and `false` otherwise. Non-alphanumeric characters are skipped; an empty cleaned string counts as a palindrome.",
     "examples": [
       {
         "input": "s = \"A man, a plan, a canal: Panama\"",
@@ -1185,7 +1185,7 @@
       "zomato",
       "uber"
     ],
-    "description": "Swiggy plots `n` delivery slot demand bars. Each `heights[i]` is the demand height at position `i`. Choose two positions `i < j` to form a virtual container; capacity = `min(heights[i], heights[j]) * (j - i)`. Return the maximum capacity.",
+    "description": "Given an integer array `heights` where `heights[i]` is the height of a vertical line at position `i`, choose two indices `i < j` that together with the x-axis form a container. The container holds `min(heights[i], heights[j]) * (j - i)` units. Return the maximum amount the container can hold.",
     "examples": [
       {
         "input": "heights = [1,8,6,2,5,4,8,3,7]",
@@ -1303,7 +1303,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Amazon refund team has signed adjustments `nums`. Find all unique triplets `[a, b, c]` such that `a + b + c == 0`. Return them as a sorted list of sorted triplets (each triplet itself sorted ascending; outer list lexicographically ascending). No duplicates.",
+    "description": "Given an integer array `nums`, return all unique triplets `[a, b, c]` such that `a + b + c == 0`. Each triplet must be sorted in ascending order, and the returned list must contain no duplicate triplets, sorted lexicographically in ascending order.",
     "examples": [
       {
         "input": "nums = [-1,0,1,2,-1,-4]",
@@ -1457,7 +1457,7 @@
       "uber",
       "atlassian"
     ],
-    "description": "Given an array `nums` and an integer `target`, pick exactly three numbers whose sum is closest to `target`. Return that closest sum. Assume the closest sum is unique.",
+    "description": "Given an integer array `nums` and an integer `target`, choose exactly three elements whose sum is closest to `target`. Return that sum. You may assume exactly one closest sum exists.",
     "examples": [
       {
         "input": "nums = [-1,2,1,-4], target = 1",
@@ -1569,7 +1569,7 @@
       "amazon",
       "atlassian"
     ],
-    "description": "Microsoft tags servers with tier `0`, `1`, or `2`. Sort the array `tiers` in place so that `0`s come first, then `1`s, then `2`s. Use one pass and constant extra memory (Dutch National Flag).",
+    "description": "Given an array `tiers` containing only the integers `0`, `1`, and `2`, sort it in place so that all `0`s come first, followed by all `1`s, then all `2`s. Use a single pass and O(1) extra space, then return the array.",
     "examples": [
       {
         "input": "tiers = [2,0,2,1,1,0]",
@@ -1715,7 +1715,7 @@
       "razorpay",
       "uber"
     ],
-    "description": "Given an array `codes` and an integer `val`, remove all occurrences of `val` from `codes` in place and return the new length `k`. Order of remaining elements must be preserved relative to original.",
+    "description": "Given an array `codes` and an integer `val`, remove all occurrences of `val` from `codes` in place and return the new length `k`. The relative order of the remaining elements must be preserved, and the first `k` positions of `codes` must hold them. The contents beyond the first `k` positions do not matter.",
     "examples": [
       {
         "input": "codes = [3,2,2,3], val = 3",
@@ -1829,7 +1829,7 @@
       "atlassian",
       "google"
     ],
-    "description": "Postman compresses repeated chars in lowercase logs. Given an array of characters `chars`, compress it in place: each group of consecutive identical chars becomes the char followed by the digits of the count if count > 1. Return the new length and the input array's first `k` elements should hold the compressed form.",
+    "description": "Given an array of characters `chars`, compress it in place: replace each maximal group of consecutive identical characters with that character, followed by the count as separate digit characters only when the count is greater than 1. Return the new length `k`; the first `k` elements of `chars` must hold the compressed result.",
     "examples": [
       {
         "input": "chars = [\"a\",\"a\",\"b\",\"b\",\"c\",\"c\",\"c\"]",
@@ -1948,7 +1948,7 @@
       "google",
       "amazon"
     ],
-    "description": "Uber maps city street elevation `heights` (non-negative ints, equal width). After heavy rain, water gets trapped between higher elevations. Return the total units of water trapped.",
+    "description": "Given a non-negative integer array `heights` representing an elevation map where each bar has width 1, return the total amount of water that can be trapped between the bars after raining.",
     "examples": [
       {
         "input": "heights = [0,1,0,2,1,0,1,3,2,1,2,1]",
@@ -2072,7 +2072,7 @@
       "swiggy",
       "uber"
     ],
-    "description": "Zomato has a list `slots` of `[start, end]` time intervals (inclusive ends in minutes). Merge all overlapping intervals and return the result sorted by start ascending. Two intervals overlap if `end1 >= start2`.",
+    "description": "Given a list `slots` of intervals where `slots[i] = [start, end]`, merge all overlapping intervals and return the merged intervals sorted by `start` in ascending order. Two intervals overlap when the end of one is greater than or equal to the start of the other.",
     "examples": [
       {
         "input": "slots = [[1,3],[2,6],[8,10],[15,18]]",
@@ -2264,7 +2264,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay has a sorted ascending array `nums` of distinct integers. Return the **count** of pairs `(i, j)` with `i < j` such that `nums[j] - nums[i] === k` (a given non-negative integer).",
+    "description": "Given an array `nums` of distinct integers sorted in ascending order and a non-negative integer `k`, return the number of index pairs `(i, j)` with `i < j` such that `nums[j] - nums[i] == k`.",
     "examples": [
       {
         "input": "nums = [1,2,3,4,5], k = 2",
@@ -2387,7 +2387,7 @@
       "uber",
       "amazon"
     ],
-    "description": "Swiggy logs hourly delivery counts on a route as `arr`. A 'mountain' is a contiguous sub-array of length >= 3 that strictly increases then strictly decreases (peak in middle). Return the length of the **longest** mountain. If no mountain exists, return 0.",
+    "description": "Given an integer array `arr`, a mountain is a contiguous subarray of length at least 3 that strictly increases to a single peak and then strictly decreases. Return the length of the longest mountain in `arr`, or `0` if there is none.",
     "examples": [
       {
         "input": "arr = [2,1,4,7,3,2,5]",
@@ -2513,7 +2513,7 @@
       "google",
       "microsoft"
     ],
-    "description": "Given an array `nums` and integer `target`, find all unique quadruplets `[a,b,c,d]` (each sorted ascending; outer list lex-ascending) such that `a+b+c+d === target`. No duplicate quadruplets.",
+    "description": "Given an integer array `nums` and an integer `target`, return all unique quadruplets `[a, b, c, d]` such that `a + b + c + d == target`. Each quadruplet must be sorted in ascending order, and the returned list must contain no duplicate quadruplets, sorted lexicographically in ascending order.",
     "examples": [
       {
         "input": "nums = [1,0,-1,0,-2,2], target = 0",
@@ -2710,7 +2710,7 @@
       "uber",
       "amazon"
     ],
-    "description": "Two sorted ascending arrays `a` and `b` of integer station coordinates are given. Find the pair `(x, y)` with `x` from `a` and `y` from `b` minimising `|x - y|`. Return that minimum absolute difference.",
+    "description": "Given two integer arrays `a` and `b`, each sorted in ascending order, find the pair `(x, y)` with `x` taken from `a` and `y` taken from `b` that minimizes `|x - y|`. Return that minimum absolute difference.",
     "examples": [
       {
         "input": "a = [1,3,15,11,2], b = [23,127,235,19,8]",
@@ -2844,7 +2844,7 @@
       "amazon",
       "google"
     ],
-    "description": "Given an integer array `nums` and integer `target`, return the number of index triplets `(i, j, k)` with `i < j < k` such that `nums[i] + nums[j] + nums[k] < target`.",
+    "description": "Given an integer array `nums` and an integer `target`, return the number of index triplets `(i, j, k)` with `i < j < k` such that `nums[i] + nums[j] + nums[k] < target`.",
     "examples": [
       {
         "input": "nums = [-2,0,1,3], target = 2",
@@ -2956,7 +2956,7 @@
       "google",
       "amazon"
     ],
-    "description": "Given an array `nums` of **positive** integers and integer `target`, return the **minimal length** of a contiguous subarray of which the sum is greater than or equal to `target`. If no such subarray exists, return 0.",
+    "description": "Given an array `nums` of positive integers and an integer `target`, return the minimal length of a contiguous subarray whose sum is greater than or equal to `target`. If no such subarray exists, return `0`.",
     "examples": [
       {
         "input": "target = 7, nums = [2,3,1,2,4,3]",
@@ -3084,7 +3084,7 @@
       "amazon",
       "microsoft"
     ],
-    "description": "Uber represents driver heatmap intensity in a non-negative array `bars`. Define `score(i, j) = (j - i) * min(bars[i], bars[j]) - sum(bars[i+1 .. j-1] capped by min)`. Concretely, this is the **container minus the obstacle volume between**, i.e. the empty volume actually free between the two pillars. Return the maximum such score over all `i < j`.\n\nFormally `score(i, j) = (j - i - 1) * min(bars[i], bars[j]) - sum_{k=i+1}^{j-1} min(bars[k], min(bars[i], bars[j]))` is **wrong shape**. Use exactly: `score(i, j) = sum_{k=i+1}^{j-1} max(0, min(bars[i], bars[j]) - bars[k])`. That is the trapped volume between two specific pillars. Maximise it.",
+    "description": "Given a non-negative integer array `bars`, define for any pair of indices `i < j` the value `score(i, j) = sum over k from i+1 to j-1 of max(0, min(bars[i], bars[j]) - bars[k])`, i.e. the water trapped strictly between the two chosen pillars. Return the maximum `score(i, j)` over all valid pairs `i < j`.",
     "examples": [
       {
         "input": "bars = [3,0,0,2,0,4]",

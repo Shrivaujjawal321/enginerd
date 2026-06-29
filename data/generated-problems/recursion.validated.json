@@ -10,7 +10,7 @@
       "dream11",
       "sony-liv"
     ],
-    "description": "A cricket scoreboard tracks runs scored ball-by-ball as an array `runs`. The producer wants the cumulative team total at the end of the over but the engine only allows recursion (no loops). Given the `runs` array, return the sum of all elements using a pure recursive approach.",
+    "description": "Given an integer array `runs`, return the sum of all its elements. Solve it recursively without using any loops.",
     "examples": [
       {
         "input": "runs = [1, 4, 0, 6, 2, 1]",
@@ -144,7 +144,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "Razorpay's analytics needs `n!` (factorial of n) to count the number of orderings of n distinct transactions on a date. Implement factorial recursively. Return the result for the given non-negative integer `n`.",
+    "description": "Given a non-negative integer `n`, return its factorial `n!` (the product of all positive integers up to `n`). Implement the computation recursively. By convention, `0! = 1`.",
     "examples": [
       {
         "input": "n = 5",
@@ -257,7 +257,7 @@
       "myntra",
       "cred"
     ],
-    "description": "A loyalty app rewards a user whose login pattern follows Fibonacci numbers. Given an integer `n`, return the n-th Fibonacci number where `fib(0) = 0`, `fib(1) = 1`, and `fib(n) = fib(n-1) + fib(n-2)` for n >= 2. Show the recursive definition; memoize for efficiency.",
+    "description": "Given an integer `n`, return the n-th Fibonacci number, where `fib(0) = 0`, `fib(1) = 1`, and `fib(n) = fib(n-1) + fib(n-2)` for `n >= 2`. Define the result recursively; memoize repeated subproblems for efficiency.",
     "examples": [
       {
         "input": "n = 6",
@@ -369,7 +369,7 @@
       "redbus",
       "makemytrip"
     ],
-    "description": "An IRCTC dashboard wants to print station numbers from 1 to N (announcement order) and N to 1 (return-trip order) using recursion only — no loops allowed. Given `n`, return an object `{forward: number[], reverse: number[]}` where `forward` is `[1, 2, ..., n]` and `reverse` is `[n, n-1, ..., 1]`.",
+    "description": "Given an integer `n`, return an object `{forward, reverse}` where `forward` is the array `[1, 2, ..., n]` and `reverse` is the array `[n, n-1, ..., 1]`. Build both sequences using recursion only, without any loops.",
     "examples": [
       {
         "input": "n = 3",
@@ -540,7 +540,7 @@
       "paytm",
       "phonepe"
     ],
-    "description": "A KYC service must compute the sum of decimal digits of a non-negative integer `n` recursively. Return the digit sum.",
+    "description": "Given a non-negative integer `n`, return the sum of its decimal digits. Compute the result recursively.",
     "examples": [
       {
         "input": "n = 12345",
@@ -652,7 +652,7 @@
       "swiggy",
       "flipkart"
     ],
-    "description": "A delivery app's name-display module needs to reverse a customer's name string using only recursion (no loops, no built-in reverse). Given a string `s`, return its reverse.",
+    "description": "Given a string `s`, return the string reversed. Solve it using recursion only, without loops or any built-in reverse function.",
     "examples": [
       {
         "input": "s = \"swiggy\"",
@@ -764,7 +764,7 @@
       "flipkart",
       "myntra"
     ],
-    "description": "An e-commerce coupon engine multiplies a discount factor `x` by itself `n` times to apply a compounded discount. To handle large `n` quickly, implement fast exponentiation recursively: compute `x^n` using divide-and-conquer (squaring). `n` may be negative — in which case return `1 / x^|n|`. Return the result as a JavaScript number rounded reasonably (tests use a tolerance via exact integer/half cases).",
+    "description": "Given a base `x` and an integer exponent `n`, return `x` raised to the power `n` (i.e. `x^n`). Implement fast exponentiation recursively using divide-and-conquer (repeated squaring). When `n` is negative, return `1 / x^|n|`.",
     "examples": [
       {
         "input": "x = 2.0, n = 10",
@@ -885,7 +885,7 @@
       "adobe",
       "tcs"
     ],
-    "description": "Classic Tower of Hanoi: `n` disks on rod `A`, move them to rod `C` using `B` as auxiliary, with the rule that no larger disk sits on a smaller one. Given `n`, return an object `{count: number, moves: string[]}` where `count` is the minimum number of moves and `moves` is the move sequence as strings like `\"A->C\"`.",
+    "description": "You are given `n` disks stacked on rod `A` and must move them all to rod `C`, using rod `B` as auxiliary, subject to the rule that a larger disk may never sit on a smaller one. Given `n`, return an object `{count, moves}`, where `count` is the minimum number of moves required and `moves` is the sequence of moves as strings of the form `\"A->C\"`. Solve it recursively.",
     "examples": [
       {
         "input": "n = 2",
@@ -1024,7 +1024,7 @@
       "myntra",
       "bigbasket"
     ],
-    "description": "A loyalty bot rewards users whose order ID string reads the same forwards and backwards. Implement a pure recursive palindrome check on a string `s`. Return `true` if `s` is a palindrome, otherwise `false`. Comparison is case-sensitive.",
+    "description": "Given a string `s`, return `true` if `s` reads the same forwards and backwards, and `false` otherwise. The comparison is case-sensitive. Solve it using pure recursion.",
     "examples": [
       {
         "input": "s = \"madam\"",
@@ -1135,7 +1135,7 @@
       "hdfc",
       "axis-bank"
     ],
-    "description": "A bank's encoder converts a non-negative account ID `n` to its binary string representation using recursion. Return the binary string with no leading zeros (except `n === 0` returns `\"0\"`).",
+    "description": "Given a non-negative integer `n`, return its binary representation as a string with no leading zeros. If `n` is `0`, return `\"0\"`. Build the string recursively.",
     "examples": [
       {
         "input": "n = 13",
@@ -1247,7 +1247,7 @@
       "razorpay",
       "google"
     ],
-    "description": "A coupon-merge service computes the greatest common divisor (GCD) of two non-negative integers `a` and `b` using the Euclidean algorithm — recursively. Return `gcd(a, b)`. By convention `gcd(0, 0) = 0`.",
+    "description": "Given two non-negative integers `a` and `b`, return their greatest common divisor using the Euclidean algorithm, implemented recursively. By convention, `gcd(0, 0) = 0`.",
     "examples": [
       {
         "input": "a = 48, b = 18",
@@ -1364,7 +1364,7 @@
       "flipkart",
       "google"
     ],
-    "description": "A campaign tool generates all permutations of a short coupon-code string. Given a string `s` of distinct characters (length ≤ 7), return all permutations as a sorted lexicographic array. Use pure recursion (insert-at-every-position style).",
+    "description": "Given a string `s` consisting of distinct characters (length at most 7), return all of its permutations as an array sorted in lexicographic order. Generate the permutations recursively.",
     "examples": [
       {
         "input": "s = \"ab\"",
@@ -1509,7 +1509,7 @@
       "facebook",
       "adobe"
     ],
-    "description": "A code-formatter generates all combinations of `n` pairs of well-formed parentheses (valid balanced strings). Given `n`, return all valid strings sorted lexicographically. Use a recursive function that tracks remaining open and close counts — open available, close available, current built string.",
+    "description": "Given an integer `n`, return all combinations of `n` pairs of well-formed (balanced) parentheses, as an array sorted in lexicographic order. Use a recursive function that tracks the number of open and close parentheses still available along with the string built so far.",
     "examples": [
       {
         "input": "n = 3",
@@ -1632,7 +1632,7 @@
       "flipkart",
       "delhivery"
     ],
-    "description": "A warehouse robot starts at the top-left of an `m x n` grid and must reach the bottom-right, moving only right or down. Count the number of unique paths. Use recursion with memoization.",
+    "description": "You start at the top-left cell of an `m x n` grid and want to reach the bottom-right cell, moving only right or down at each step. Return the number of unique paths. Solve it recursively with memoization.",
     "examples": [
       {
         "input": "m = 3, n = 3",
@@ -1750,7 +1750,7 @@
       "amazon",
       "adobe"
     ],
-    "description": "A logging service holds events in a stack and must reverse the stack using ONLY recursion — no extra data structure (no auxiliary array, no second stack). Given the stack as an array `stack` (top = last element), return the stack reversed (top should now be the original bottom). You may use the call stack as your only auxiliary memory.",
+    "description": "Given a stack represented as an array `stack` (where the last element is the top), return the stack reversed so that the original bottom element becomes the new top. You must use recursion only, with the call stack as your sole auxiliary memory — no extra array, list, or second stack is allowed.",
     "examples": [
       {
         "input": "stack = [1, 2, 3, 4]",
