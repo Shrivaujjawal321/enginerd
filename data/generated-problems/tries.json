@@ -2,7 +2,7 @@
   {
     "slug": "flipkart-product-autocomplete-trie",
     "number": 1701,
-    "title": "Flipkart Product Autocomplete Trie",
+    "title": "Implement Trie (Prefix Tree)",
     "difficulty": "Easy",
     "topic": "Tries",
     "companies": [
@@ -195,7 +195,7 @@
   {
     "slug": "amazon-longest-common-prefix",
     "number": 1702,
-    "title": "Amazon Catalog Longest Common Prefix",
+    "title": "Longest Common Prefix",
     "difficulty": "Easy",
     "topic": "Tries",
     "companies": [
@@ -313,7 +313,7 @@
   {
     "slug": "razorpay-merchant-prefix-count",
     "number": 1703,
-    "title": "Razorpay Merchant Prefix Counter",
+    "title": "Implement Trie II (Prefix Tree)",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -510,7 +510,7 @@
   {
     "slug": "swiggy-replace-words-with-roots",
     "number": 1704,
-    "title": "Swiggy Replace Words With Restaurant Codes",
+    "title": "Replace Words",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -622,7 +622,7 @@
   {
     "slug": "swiggy-restaurant-prefix-matches",
     "number": 1705,
-    "title": "Swiggy Restaurant Names Matching Prefixes",
+    "title": "Counting Words With a Given Prefix",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -770,7 +770,7 @@
   {
     "slug": "sharechat-hashtag-autocomplete",
     "number": 1706,
-    "title": "Sharechat Hashtag Top-K Autocomplete",
+    "title": "Top K Frequent Prefix Suggestions",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -919,7 +919,7 @@
   {
     "slug": "paytm-word-break-trie",
     "number": 1707,
-    "title": "Paytm Word Break Using Trie",
+    "title": "Word Break",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -1054,7 +1054,7 @@
   {
     "slug": "amazon-word-search-board-trie",
     "number": 1708,
-    "title": "Amazon Warehouse Word Search With Trie",
+    "title": "Word Search II",
     "difficulty": "Hard",
     "topic": "Tries",
     "companies": [
@@ -1262,7 +1262,7 @@
   {
     "slug": "phonepe-maximum-xor-bit-trie",
     "number": 1709,
-    "title": "PhonePe Maximum XOR With Bit Trie",
+    "title": "Maximum XOR of Two Numbers in an Array",
     "difficulty": "Hard",
     "topic": "Tries",
     "companies": [
@@ -1391,7 +1391,7 @@
   {
     "slug": "meesho-concatenated-words-trie",
     "number": 1710,
-    "title": "Meesho Concatenated Catalog Words",
+    "title": "Concatenated Words",
     "difficulty": "Hard",
     "topic": "Tries",
     "companies": [
@@ -1526,7 +1526,7 @@
   {
     "slug": "zomato-restaurant-search-suggestion",
     "number": 1711,
-    "title": "Zomato Restaurant Search Suggestion System",
+    "title": "Search Suggestions System",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -1735,7 +1735,7 @@
   {
     "slug": "freshworks-add-search-words-wildcard",
     "number": 1712,
-    "title": "Freshworks Add and Search Words With Wildcard",
+    "title": "Design Add and Search Words Data Structure",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -1989,7 +1989,7 @@
   {
     "slug": "atlassian-map-sum-prefix",
     "number": 1713,
-    "title": "Atlassian Map Sum Prefix Pairs",
+    "title": "Map Sum Pairs",
     "difficulty": "Easy",
     "topic": "Tries",
     "companies": [
@@ -2224,7 +2224,7 @@
   {
     "slug": "walmart-stream-of-characters-suffix-trie",
     "number": 1714,
-    "title": "Walmart Stream of Characters Suffix Trie",
+    "title": "Stream of Characters",
     "difficulty": "Hard",
     "topic": "Tries",
     "companies": [
@@ -2394,7 +2394,7 @@
   {
     "slug": "google-palindrome-pair-finder",
     "number": 1715,
-    "title": "Google Palindrome Pair Finder",
+    "title": "Palindrome Pairs",
     "difficulty": "Hard",
     "topic": "Tries",
     "companies": [
@@ -2576,7 +2576,7 @@
   {
     "slug": "microsoft-short-encoding-of-words",
     "number": 1716,
-    "title": "Microsoft Short Encoding of Words",
+    "title": "Short Encoding of Words",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -2702,7 +2702,7 @@
   {
     "slug": "uber-longest-buildable-word",
     "number": 1717,
-    "title": "Uber Longest Buildable Word",
+    "title": "Longest Word in Dictionary",
     "difficulty": "Easy",
     "topic": "Tries",
     "companies": [
@@ -2838,7 +2838,7 @@
   {
     "slug": "paytm-count-distinct-substrings",
     "number": 1718,
-    "title": "Paytm Count Distinct Substrings With Trie",
+    "title": "Number of Distinct Substrings in a String",
     "difficulty": "Hard",
     "topic": "Tries",
     "companies": [
@@ -2944,7 +2944,7 @@
   {
     "slug": "zomato-prefix-suffix-cuisine-search",
     "number": 1719,
-    "title": "Zomato Prefix And Suffix Cuisine Search",
+    "title": "Prefix and Suffix Search",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [
@@ -3155,7 +3155,7 @@
   {
     "slug": "microsoft-camelcase-matching",
     "number": 1720,
-    "title": "Microsoft CamelCase Matching",
+    "title": "Camelcase Matching",
     "difficulty": "Medium",
     "topic": "Tries",
     "companies": [

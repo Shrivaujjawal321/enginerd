@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/shared/glass-card";
 import { auth } from "@/auth";
-import { ROADMAPS, getRoadmap } from "@/lib/mock-data/roadmaps";
+import { getRoadmap } from "@/lib/mock-data/roadmaps";
 import { SUBJECTS_BY_SLUG } from "@/lib/mock-data/subjects";
 import { library } from "@/lib/agents/library";
 import { getLiveRoadmapStats } from "@/lib/roadmap-stats";
@@ -13,13 +13,12 @@ import { getUserProgressMaps } from "@/lib/user-progress-stats";
 import { RoadmapTabs } from "@/components/dashboard/roadmap-tabs";
 import { cn } from "@/lib/utils";
 
-// Generated roadmaps render dynamically via the library; they aren't known
-// at build time. Mock roadmaps stay statically prerendered.
-export const dynamicParams = true;
-
-export function generateStaticParams() {
-  return ROADMAPS.map((r) => ({ slug: r.slug }));
-}
+// This page reads the visitor's session via `auth()` (cookies — a dynamic
+// server API) for per-user progress, so it must render per-request. Declaring
+// `generateStaticParams` previously put the mock-roadmap slugs on the static
+// prerender path, where the `auth()` cookie read throws DYNAMIC_SERVER_USAGE.
+// Force dynamic rendering instead (roadmap data is cheap + cached).
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   props: { params: Promise<{ slug: string }> },

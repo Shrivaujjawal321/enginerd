@@ -15,6 +15,7 @@ import { env, hasDatabase } from "@/lib/env";
 import { consumeOtp } from "@/lib/otp/store";
 import { logAuditEvent } from "@/lib/audit";
 import { track, identify } from "@/lib/analytics-server";
+import { VALID_SLUGS } from "@/lib/goal-match";
 
 /* ============================================================================
  * Module augmentation — extend the Session/JWT shape with our user fields.
@@ -99,11 +100,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         phone: { label: "Phone (E.164)", type: "tel" },
         code: { label: "OTP", type: "text" },
+        goal: { label: "Goal slug (optional)", type: "text" },
       },
       async authorize(raw) {
         const phone = String(raw?.phone ?? "").trim();
         const code = String(raw?.code ?? "").trim();
         if (!phone || !code) return null;
+
+        // Validate the optional goal slug against the canonical set of 24 slugs.
+        const rawGoal = typeof raw?.goal === "string" ? raw.goal.trim() : "";
+        const validGoal: string | null =
+          rawGoal && VALID_SLUGS.has(rawGoal) ? rawGoal : null;
 
         const ok = await consumeOtp({ identifier: phone, code, channel: "phone" });
         if (!ok) {
@@ -117,9 +124,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
 
         if (existing) {
+          // Set preferredRoadmap only if the user hasn't chosen one yet.
           await db
             .update(users)
-            .set({ phoneVerified: new Date() })
+            .set({
+              phoneVerified: new Date(),
+              ...(validGoal && !existing.preferredRoadmap
+                ? { preferredRoadmap: validGoal }
+                : {}),
+            })
             .where(eq(users.id, existing.id));
           await logAuditEvent({
             userId: existing.id,
@@ -140,6 +153,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .values({
             phone,
             phoneVerified: new Date(),
+            ...(validGoal ? { preferredRoadmap: validGoal } : {}),
           })
           .returning();
         const created = inserted[0];
@@ -170,6 +184,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: { label: "Email", type: "email" },
         code: { label: "OTP", type: "text" },
+        goal: { label: "Goal slug (optional)", type: "text" },
       },
       async authorize(raw) {
         const email = String(raw?.email ?? "")
@@ -177,6 +192,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .toLowerCase();
         const code = String(raw?.code ?? "").trim();
         if (!email || !code) return null;
+
+        // Validate the optional goal slug against the canonical set of 24 slugs.
+        const rawGoal = typeof raw?.goal === "string" ? raw.goal.trim() : "";
+        const validGoal: string | null =
+          rawGoal && VALID_SLUGS.has(rawGoal) ? rawGoal : null;
 
         const ok = await consumeOtp({ identifier: email, code, channel: "email" });
         if (!ok) {
@@ -189,9 +209,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
 
         if (existing) {
+          // Set preferredRoadmap only if the user hasn't chosen one yet.
           await db
             .update(users)
-            .set({ emailVerified: new Date() })
+            .set({
+              emailVerified: new Date(),
+              ...(validGoal && !existing.preferredRoadmap
+                ? { preferredRoadmap: validGoal }
+                : {}),
+            })
             .where(eq(users.id, existing.id));
           await logAuditEvent({
             userId: existing.id,
@@ -212,6 +238,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .values({
             email,
             emailVerified: new Date(),
+            ...(validGoal ? { preferredRoadmap: validGoal } : {}),
           })
           .returning();
         const created = inserted[0];

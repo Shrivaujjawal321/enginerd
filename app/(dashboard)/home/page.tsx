@@ -15,7 +15,8 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { hasDatabase } from "@/lib/env";
-import { userProgress, submissions, problems as problemsTable } from "@/lib/db/schema";
+import { userProgress, submissions, problems as problemsTable, users } from "@/lib/db/schema";
+import { VALID_SLUGS } from "@/lib/goal-match";
 import { getUserStats, getUserProgress } from "@/lib/progress";
 import { computeLearningStyle } from "@/lib/learning-style";
 import { Badge } from "@/components/ui/badge";
@@ -144,7 +145,29 @@ function roadmapContaining(subjectSlug: string) {
   return ROADMAPS.find((r) => r.subjectSlugs.includes(subjectSlug));
 }
 
-export default async function HomePage() {
+/**
+ * Fetch the user's stored `preferredRoadmap` slug from the DB.
+ * Returns null when the DB is unavailable or no preference has been set.
+ */
+async function getPreferredRoadmap(userId: string): Promise<string | null> {
+  if (!hasDatabase) return null;
+  try {
+    const row = await db
+      .select({ preferredRoadmap: users.preferredRoadmap })
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+    return row[0]?.preferredRoadmap ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const session = await auth();
   if (!session?.user?.id) {
     // Defensive — proxy.ts already redirects to /login.
@@ -152,6 +175,19 @@ export default async function HomePage() {
   }
 
   const userId = session.user.id;
+
+  // Read the goal param forwarded from Google OAuth or hero → /home?goal=<slug>.
+  // This is the fallback path for Google users who came via the hero form.
+  const resolvedSearchParams = await searchParams;
+  const rawGoalParam =
+    typeof resolvedSearchParams.goal === "string"
+      ? resolvedSearchParams.goal
+      : Array.isArray(resolvedSearchParams.goal)
+        ? (resolvedSearchParams.goal[0] ?? "")
+        : "";
+  const validGoalParam: string | null =
+    rawGoalParam && VALID_SLUGS.has(rawGoalParam) ? rawGoalParam : null;
+
   // Render the page in two passes:
   //   1. Fast-path data needed for the above-the-fold hero + stats.
   //   2. Slow-path (job aggregator) is deferred via Suspense so the public
@@ -165,6 +201,7 @@ export default async function HomePage() {
     recentlyViewed,
     learningStyle,
     progressMap,
+    storedPreferredSlug,
   ] = await Promise.all([
     getUserStats(userId),
     getLastStudied(userId),
@@ -174,13 +211,36 @@ export default async function HomePage() {
     getRecentlyViewed(userId, 6),
     computeLearningStyle(userId),
     getUserProgress(userId),
+    getPreferredRoadmap(userId),
   ]);
 
-  // Resolve the "continue learning" card. Prefer the user's last-studied
-  // subject's roadmap; fall back to the first roadmap in the catalog.
+  // Resolve the "continue learning" card.
+  // Priority order:
+  //   1. Stored preferredRoadmap (set via OTP flow or Google OAuth ?goal= param)
+  //   2. URL ?goal= param (Google OAuth path — fire-and-forget persist for next visit)
+  //   3. Roadmap inferred from last-studied subject
+  //   4. ROADMAPS[0] (GenAI Developer — default)
   const lastSubject = lastSubjectSlug ? getSubject(lastSubjectSlug) : null;
+
+  // For Google OAuth users: if they arrived via ?goal= and have no stored preference,
+  // persist it now fire-and-forget so future visits don't need the URL param.
+  if (validGoalParam && !storedPreferredSlug && hasDatabase) {
+    void db
+      .update(users)
+      .set({ preferredRoadmap: validGoalParam })
+      .where(eq(users.id, userId))
+      .catch(() => undefined);
+  }
+
+  const effectivePreferredSlug = storedPreferredSlug ?? validGoalParam;
+  const resolvedByPreference = effectivePreferredSlug
+    ? (getRoadmap(effectivePreferredSlug) ?? null)
+    : null;
+
   const currentRoadmap =
-    (lastSubject && roadmapContaining(lastSubject.slug)) ?? ROADMAPS[0]!;
+    resolvedByPreference ??
+    (lastSubject && roadmapContaining(lastSubject.slug)) ??
+    ROADMAPS[0]!;
 
   // Up-next: first three subjects from the current roadmap.
   const upNextSubjects = currentRoadmap.subjectSlugs

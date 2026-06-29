@@ -398,6 +398,292 @@ int main() {
 `;
 }
 
+/**
+ * C harness — stdlib only (stdio.h, stdlib.h, string.h).
+ *
+ * Protocol: stdin = JSON array of test cases, each test case = array of args.
+ * stdout: one JSON-encoded result per line (or {"__err":"..."} on error).
+ *
+ * User function signature:
+ *   char* ${fnName}(int argc, char* argv[])
+ * where argv[i] is a null-terminated JSON string for the i-th argument, and
+ * the function returns a null-terminated JSON string (static or heap-alloc'd).
+ *
+ * Embeds a minimal balanced-token JSON extractor — no external libraries.
+ */
+function cHarness(userCode: string, fnName: string): string {
+  // String.raw prevents TS from eating the backslashes in the C source.
+  // ${userCode} and ${fnName} are still interpolated normally.
+  return String.raw`#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* ---- Begin user code ---- */
+${userCode}
+/* ---- End user code ---- */
+
+/* ---- Auto-grader harness — do not modify ---- */
+static void skip_ws(const char *s, int *p) {
+  while (s[*p]==' '||s[*p]=='\n'||s[*p]=='\r'||s[*p]=='\t') (*p)++;
+}
+
+/* Extract one balanced JSON value from s[*p], return malloc'd copy.
+   Advances *p past the value. */
+static char *extract_val(const char *s, int *p, int len) {
+  skip_ws(s, p);
+  if (*p >= len) return NULL;
+  int start = *p;
+  char c = s[*p];
+  if (c == '"') {
+    (*p)++;
+    while (*p < len && s[*p] != '"') {
+      if (s[*p] == '\\') (*p)++;
+      (*p)++;
+    }
+    if (*p < len) (*p)++;
+  } else if (c == '[' || c == '{') {
+    char close = (c == '[') ? ']' : '}';
+    int depth = 1; (*p)++;
+    while (*p < len && depth > 0) {
+      char ch = s[*p];
+      if (ch == '"') { (*p)++; while (*p < len && s[*p] != '"') { if (s[*p] == '\\') (*p)++; (*p)++; } if (*p < len) (*p)++; continue; }
+      if (ch == '[' || ch == '{') depth++;
+      else if (ch == ']' || ch == '}') depth--;
+      (*p)++;
+    }
+  } else {
+    while (*p < len && s[*p] != ',' && s[*p] != ']' && s[*p] != '}' &&
+           s[*p] != ' ' && s[*p] != '\n' && s[*p] != '\r' && s[*p] != '\t') (*p)++;
+  }
+  int vlen = *p - start;
+  char *out = (char *)malloc(vlen + 1);
+  if (!out) return NULL;
+  memcpy(out, s + start, vlen);
+  out[vlen] = '\0';
+  return out;
+}
+
+/* Parse a JSON array at s[*p] into argv[]. Returns count; free each argv[i]
+   and argv itself after use. Returns -1 on parse error. */
+static int parse_arr(const char *s, int *p, int len, char ***argv_out) {
+  skip_ws(s, p);
+  if (*p >= len || s[*p] != '[') return -1;
+  (*p)++;
+  *argv_out = (char **)malloc(64 * sizeof(char *));
+  int n = 0;
+  skip_ws(s, p);
+  if (*p < len && s[*p] == ']') { (*p)++; return 0; }
+  while (*p < len) {
+    char *v = extract_val(s, p, len);
+    if (!v) break;
+    (*argv_out)[n++] = v;
+    skip_ws(s, p);
+    if (*p < len && s[*p] == ',') { (*p)++; skip_ws(s, p); continue; }
+    if (*p < len && s[*p] == ']') { (*p)++; break; }
+    break;
+  }
+  return n;
+}
+
+int main(void) {
+  size_t cap = 65536, sz = 0;
+  char *buf = (char *)malloc(cap);
+  if (!buf) return 1;
+  int ch;
+  while ((ch = fgetc(stdin)) != EOF) {
+    if (sz + 1 >= cap) { cap *= 2; buf = (char *)realloc(buf, cap); if (!buf) return 1; }
+    buf[sz++] = (char)ch;
+  }
+  buf[sz] = '\0';
+
+  int pos = 0, slen = (int)sz;
+  skip_ws(buf, &pos);
+  if (pos >= slen || buf[pos] != '[') {
+    fprintf(stderr, "harness: expected outer JSON array\n");
+    free(buf); return 1;
+  }
+  pos++; skip_ws(buf, &pos);
+  if (pos < slen && buf[pos] == ']') { free(buf); return 0; }
+
+  while (pos < slen) {
+    char **argv = NULL;
+    int argc = parse_arr(buf, &pos, slen, &argv);
+    if (argc < 0) { printf("{\"__err\":\"harness: failed to parse test args\"}\n"); break; }
+    char *result = ${fnName}(argc, argv);
+    printf("%s\n", result ? result : "null");
+    for (int i = 0; i < argc; i++) free(argv[i]);
+    free(argv);
+    skip_ws(buf, &pos);
+    if (pos < slen && buf[pos] == ',') { pos++; skip_ws(buf, &pos); continue; }
+    if (pos < slen && buf[pos] == ']') break;
+    break;
+  }
+  free(buf);
+  return 0;
+}
+`;
+}
+
+/**
+ * Rust harness — stdlib only (no external crates, no Cargo.toml needed).
+ *
+ * Defines a `Val` enum (Null, Bool, Num, Str, Arr) + a compact recursive-
+ * descent JSON parser + a Display impl that serialises back to JSON.
+ *
+ * User function signature:
+ *   fn ${fnName}(args: Vec<Val>) -> Val
+ * where args[0..] are the parsed JSON arguments for each test case.
+ */
+function rustHarness(userCode: string, fnName: string): string {
+  // String.raw: backslashes in the Rust source are preserved as-is.
+  // ${userCode} and ${fnName} are still interpolated.
+  return String.raw`use std::io::{self, Read};
+use std::fmt;
+
+// ---- Auto-grader harness — do not modify ----------------------------------------
+/// Minimal JSON value type. Covers all DSA test-case shapes.
+/// Display serialises back to compact JSON so results print cleanly.
+#[derive(Debug, Clone)]
+pub enum Val { Null, Bool(bool), Num(f64), Str(String), Arr(Vec<Val>) }
+
+impl fmt::Display for Val {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Val::Null    => write!(f, "null"),
+            Val::Bool(b) => write!(f, "{b}"),
+            Val::Num(n)  => if n.fract() == 0.0 && n.abs() < 1e15 {
+                write!(f, "{}", *n as i64)
+            } else {
+                write!(f, "{n}")
+            },
+            Val::Str(s) => {
+                write!(f, "\"")?;
+                for c in s.chars() {
+                    match c {
+                        '"'  => write!(f, "\\\"")?,
+                        '\\' => write!(f, "\\\\")?,
+                        '\n' => write!(f, "\\n")?,
+                        '\r' => write!(f, "\\r")?,
+                        c    => write!(f, "{c}")?,
+                    }
+                }
+                write!(f, "\"")
+            },
+            Val::Arr(a) => {
+                write!(f, "[")?;
+                for (i, v) in a.iter().enumerate() {
+                    if i > 0 { write!(f, ",")?; }
+                    write!(f, "{v}")?;
+                }
+                write!(f, "]")
+            },
+        }
+    }
+}
+
+struct Jp<'a> { s: &'a [u8], i: usize }
+impl<'a> Jp<'a> {
+    fn ws(&mut self) {
+        while self.i < self.s.len() && matches!(self.s[self.i], b' '|b'\n'|b'\r'|b'\t') {
+            self.i += 1;
+        }
+    }
+    fn val(&mut self) -> Option<Val> {
+        self.ws();
+        if self.i >= self.s.len() { return None; }
+        match self.s[self.i] {
+            b'n' => { self.i += 4; Some(Val::Null) }
+            b't' => { self.i += 4; Some(Val::Bool(true)) }
+            b'f' => { self.i += 5; Some(Val::Bool(false)) }
+            b'"' => {
+                self.i += 1;
+                let mut r = String::new();
+                while self.i < self.s.len() && self.s[self.i] != b'"' {
+                    if self.s[self.i] == b'\\' {
+                        self.i += 1;
+                        if self.i < self.s.len() {
+                            match self.s[self.i] {
+                                b'n'  => r.push('\n'),
+                                b't'  => r.push('\t'),
+                                b'r'  => r.push('\r'),
+                                b'"'  => r.push('"'),
+                                b'\\' => r.push('\\'),
+                                c     => r.push(c as char),
+                            }
+                            self.i += 1;
+                        }
+                    } else {
+                        r.push(self.s[self.i] as char);
+                        self.i += 1;
+                    }
+                }
+                if self.i < self.s.len() { self.i += 1; } // skip closing "
+                Some(Val::Str(r))
+            }
+            b'[' => {
+                self.i += 1; self.ws();
+                let mut a: Vec<Val> = Vec::new();
+                if self.i < self.s.len() && self.s[self.i] == b']' {
+                    self.i += 1; return Some(Val::Arr(a));
+                }
+                loop {
+                    match self.val() { Some(v) => a.push(v), None => break }
+                    self.ws();
+                    if self.i < self.s.len() && self.s[self.i] == b',' { self.i += 1; continue; }
+                    if self.i < self.s.len() && self.s[self.i] == b']' { self.i += 1; break; }
+                    break;
+                }
+                Some(Val::Arr(a))
+            }
+            _ => {
+                let st = self.i;
+                while self.i < self.s.len()
+                    && !matches!(self.s[self.i], b','|b']'|b'}'|b' '|b'\n'|b'\r'|b'\t')
+                {
+                    self.i += 1;
+                }
+                let tok = std::str::from_utf8(&self.s[st..self.i]).unwrap_or("0");
+                tok.parse::<f64>().ok().map(Val::Num)
+            }
+        }
+    }
+}
+// ---- End harness preamble --------------------------------------------------------
+
+// ---- Begin user code ----
+${userCode}
+// ---- End user code ----
+
+fn main() {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input).unwrap();
+    let bytes = input.trim().as_bytes();
+    let mut p = Jp { s: bytes, i: 0 };
+    p.ws();
+    if p.i >= p.s.len() || p.s[p.i] != b'[' {
+        println!("{}", r#"{"__err":"expected outer array"}"#);
+        return;
+    }
+    p.i += 1; p.ws();
+    if p.i < p.s.len() && p.s[p.i] == b']' { return; }
+    loop {
+        // Parse one test-case (inner array) as a Val::Arr.
+        let args = match p.val() {
+            Some(Val::Arr(a)) => a,
+            Some(_) => { println!("{}", r#"{"__err":"test case must be an array"}"#); break; }
+            None    => break,
+        };
+        let result = ${fnName}(args);
+        println!("{result}");
+        p.ws();
+        if p.i < p.s.len() && p.s[p.i] == b',' { p.i += 1; p.ws(); continue; }
+        if p.i < p.s.len() && p.s[p.i] == b']' { break; }
+        break;
+    }
+}
+`;
+}
+
 function buildHarness(
   language: SupportedLang,
   userCode: string,
@@ -414,10 +700,14 @@ function buildHarness(
       return javaHarness(userCode, fnName);
     case "cpp":
       return cppHarness(userCode, fnName);
+    case "c":
+      return cHarness(userCode, fnName);
     case "go":
       return goHarness(userCode, fnName);
+    case "rust":
+      return rustHarness(userCode, fnName);
     default:
-      // Unsupported languages bypass the harness — caller will reject.
+      // Exhaustive — all SupportedLang values are handled above.
       return userCode;
   }
 }

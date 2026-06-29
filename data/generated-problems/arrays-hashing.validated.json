@@ -2,7 +2,7 @@
   {
     "slug": "razorpay-duplicate-payment-id",
     "number": 1001,
-    "title": "Razorpay Duplicate Payment ID",
+    "title": "Contains Duplicate",
     "difficulty": "Easy",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -55,6 +55,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc hasDuplicatePayment(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn hasDuplicatePayment(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* hasDuplicatePayment(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "hasDuplicatePayment",
@@ -132,7 +140,7 @@
   {
     "slug": "swiggy-order-pair-sum",
     "number": 1002,
-    "title": "Swiggy Order Pair Hitting Target",
+    "title": "Two Sum",
     "difficulty": "Easy",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -186,6 +194,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc findOrderPair(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn findOrderPair(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* findOrderPair(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "findOrderPair",
@@ -275,7 +291,7 @@
   {
     "slug": "flipkart-missing-sku",
     "number": 1003,
-    "title": "Flipkart Missing SKU Number",
+    "title": "Missing Number",
     "difficulty": "Easy",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -329,6 +345,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc findMissingSku(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn findMissingSku(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* findMissingSku(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "findMissingSku",
@@ -405,7 +429,7 @@
   {
     "slug": "zomato-restaurant-anagram-groups",
     "number": 1004,
-    "title": "Zomato Restaurant Name Anagrams",
+    "title": "Group Anagrams",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -459,6 +483,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc groupRestaurantAnagrams(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn groupRestaurantAnagrams(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* groupRestaurantAnagrams(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "groupRestaurantAnagrams",
@@ -558,7 +590,7 @@
   {
     "slug": "paytm-frequency-mode",
     "number": 1005,
-    "title": "Paytm Most Frequent Transaction Amount",
+    "title": "Most Frequent Element",
     "difficulty": "Easy",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -612,6 +644,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc mostFrequentAmount(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn mostFrequentAmount(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* mostFrequentAmount(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "mostFrequentAmount",
@@ -682,7 +722,7 @@
   {
     "slug": "phonepe-top-k-merchants",
     "number": 1006,
-    "title": "PhonePe Top K Merchants",
+    "title": "Top K Frequent Elements",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -737,6 +777,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc topKMerchants(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn topKMerchants(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* topKMerchants(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "topKMerchants",
@@ -832,7 +880,7 @@
   {
     "slug": "amazon-warehouse-intersect",
     "number": 1007,
-    "title": "Amazon Warehouse Common Inventory",
+    "title": "Intersection of Two Arrays",
     "difficulty": "Easy",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -884,6 +932,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc commonInventory(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn commonInventory(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* commonInventory(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "commonInventory",
@@ -978,7 +1034,7 @@
   {
     "slug": "razorpay-subarray-sum-target",
     "number": 1008,
-    "title": "Razorpay Subarray Sum Equals Target",
+    "title": "Subarray Sum Equals K",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -1033,6 +1089,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countSubarraysWithSum(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn countSubarraysWithSum(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* countSubarraysWithSum(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "countSubarraysWithSum",
@@ -1118,7 +1182,7 @@
   {
     "slug": "swiggy-delivery-equilibrium",
     "number": 1009,
-    "title": "Swiggy Delivery Equilibrium Index",
+    "title": "Find Pivot Index",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -1171,6 +1235,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc equilibriumIndex(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn equilibriumIndex(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* equilibriumIndex(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "equilibriumIndex",
@@ -1252,7 +1324,7 @@
   {
     "slug": "flipkart-product-reorder-needed",
     "number": 1010,
-    "title": "Flipkart Reorder Detection",
+    "title": "Array Permutation Check",
     "difficulty": "Easy",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -1304,6 +1376,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc isPermutation(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn isPermutation(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* isPermutation(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "isPermutation",
@@ -1397,7 +1477,7 @@
   {
     "slug": "cred-credit-card-streak",
     "number": 1011,
-    "title": "CRED Longest Consecutive Reward Streak",
+    "title": "Longest Consecutive Sequence",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -1451,6 +1531,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc longestConsecutiveStreak(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn longestConsecutiveStreak(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* longestConsecutiveStreak(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "longestConsecutiveStreak",
@@ -1533,7 +1621,7 @@
   {
     "slug": "meesho-product-difference-pairs",
     "number": 1012,
-    "title": "Meesho Product Price Difference Pairs",
+    "title": "K-diff Pairs in an Array",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -1589,6 +1677,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countDiffPairs(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn countDiffPairs(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* countDiffPairs(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "countDiffPairs",
@@ -1674,7 +1770,7 @@
   {
     "slug": "atlassian-sparse-matrix-equal",
     "number": 1013,
-    "title": "Atlassian Sparse Matrix Equality",
+    "title": "Sparse Matrix Equality",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -1727,6 +1823,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc sparseMatrixEqual(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn sparseMatrixEqual(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* sparseMatrixEqual(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "sparseMatrixEqual",
@@ -1879,7 +1983,7 @@
   {
     "slug": "postman-api-rolling-uniques",
     "number": 1014,
-    "title": "Postman Rolling Unique API Calls",
+    "title": "Distinct Elements in Every Window",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -1933,6 +2037,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc rollingUniqueCounts(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn rollingUniqueCounts(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* rollingUniqueCounts(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "rollingUniqueCounts",
@@ -2042,7 +2154,7 @@
   {
     "slug": "uber-fare-running-median-bucket",
     "number": 1015,
-    "title": "Uber Fare Bucket Modes",
+    "title": "Bucket With Most Elements",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2096,6 +2208,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc busiestFareBucket(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn busiestFareBucket(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* busiestFareBucket(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "busiestFareBucket",
@@ -2180,7 +2300,7 @@
   {
     "slug": "google-isomorphic-tags",
     "number": 1016,
-    "title": "Isomorphic Product Tags",
+    "title": "Isomorphic Strings",
     "difficulty": "Easy",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2234,6 +2354,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc areIsomorphic(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn areIsomorphic(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* areIsomorphic(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "areIsomorphic",
@@ -2292,7 +2420,7 @@
   {
     "slug": "phonepe-balance-zero-subarrays",
     "number": 1017,
-    "title": "PhonePe Net-Zero Day Spans",
+    "title": "Longest Subarray With Zero Sum",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2345,6 +2473,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc longestZeroSumSpan(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn longestZeroSumSpan(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* longestZeroSumSpan(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "longestZeroSumSpan",
@@ -2424,7 +2560,7 @@
   {
     "slug": "razorpay-largest-subgrid-zero-sum",
     "number": 1018,
-    "title": "Razorpay Largest Zero-Sum Submatrix",
+    "title": "Largest Zero-Sum Submatrix",
     "difficulty": "Hard",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2477,6 +2613,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc largestZeroSumSubmatrixArea(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn largestZeroSumSubmatrixArea(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* largestZeroSumSubmatrixArea(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "largestZeroSumSubmatrixArea",
@@ -2575,7 +2719,7 @@
   {
     "slug": "amazon-warehouse-checkin-anagram-windows",
     "number": 1019,
-    "title": "Amazon Check-in Anagram Windows",
+    "title": "Find All Anagrams in a String",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2629,6 +2773,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countAnagramWindows(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn countAnagramWindows(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* countAnagramWindows(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "countAnagramWindows",
@@ -2687,7 +2839,7 @@
   {
     "slug": "swiggy-min-window-cover",
     "number": 1020,
-    "title": "Swiggy Minimum Combo Window",
+    "title": "Minimum Window Substring",
     "difficulty": "Hard",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2740,6 +2892,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc minComboWindow(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn minComboWindow(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* minComboWindow(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "minComboWindow",
@@ -2798,7 +2958,7 @@
   {
     "slug": "google-distinct-subsequences-count",
     "number": 1021,
-    "title": "Distinct Pairs With Sum Below K",
+    "title": "Count Pairs With Sum Below K",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2853,6 +3013,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countDistinctPairsBelowK(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn countDistinctPairsBelowK(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* countDistinctPairsBelowK(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "countDistinctPairsBelowK",
@@ -2935,7 +3103,7 @@
   {
     "slug": "microsoft-frequency-sort-stable",
     "number": 1022,
-    "title": "Microsoft Stable Frequency Sort",
+    "title": "Sort Array by Frequency",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -2988,6 +3156,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc frequencySortStable(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn frequencySortStable(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* frequencySortStable(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "frequencySortStable",
@@ -3110,7 +3286,7 @@
   {
     "slug": "razorpay-merge-intervals-by-id",
     "number": 1023,
-    "title": "Razorpay Group Settlements by Account",
+    "title": "Aggregate Sums by Key",
     "difficulty": "Medium",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -3163,6 +3339,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc groupSettlements(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn groupSettlements(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* groupSettlements(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "groupSettlements",
@@ -3292,7 +3476,7 @@
   {
     "slug": "amazon-max-equal-zeros-ones",
     "number": 1024,
-    "title": "Amazon Equal Approvals and Rejections Span",
+    "title": "Contiguous Array",
     "difficulty": "Hard",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -3345,6 +3529,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc longestEqualBinarySpan(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn longestEqualBinarySpan(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* longestEqualBinarySpan(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "longestEqualBinarySpan",
@@ -3426,7 +3618,7 @@
   {
     "slug": "google-shortest-substring-k-distinct",
     "number": 1025,
-    "title": "Google Shortest Substring With K Distinct",
+    "title": "Shortest Substring With K Distinct Characters",
     "difficulty": "Hard",
     "topic": "Arrays & Hashing",
     "companies": [
@@ -3479,6 +3671,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc shortestKDistinct(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn shortestKDistinct(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* shortestKDistinct(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "shortestKDistinct",

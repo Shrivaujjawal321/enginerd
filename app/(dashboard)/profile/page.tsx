@@ -219,7 +219,7 @@ export default async function ProfilePage() {
         <GlassCard className="p-6">
           <h2 className="text-base font-semibold text-slate-100">Settings</h2>
           <p className="mt-1 text-xs text-slate-400">
-            Profile editing + notification preferences land in Phase 5.
+            Appearance and account preferences.
           </p>
           <div className="mt-5 space-y-3 text-sm text-slate-300">
             <div className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">

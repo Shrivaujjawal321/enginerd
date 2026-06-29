@@ -58,7 +58,7 @@ const PLACEMENT_TRACKS = [
 
 const SECONDARY = [
   { href: "/profile", label: "Profile", icon: User },
-  { href: "/profile?tab=settings", label: "Settings", icon: Settings },
+  { href: "/profile", label: "Settings", icon: Settings },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -150,7 +150,7 @@ export function Sidebar() {
           const active = isActive(pathname, item.href);
           return (
             <Link
-              key={item.href}
+              key={item.label}
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(

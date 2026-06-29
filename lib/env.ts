@@ -151,3 +151,24 @@ export const hasPosthog = Boolean(env.NEXT_PUBLIC_POSTHOG_KEY);
 export const hasRazorpay = Boolean(
   env.RAZORPAY_KEY_ID && env.RAZORPAY_KEY_SECRET,
 );
+
+/**
+ * Server-side check: has the operator configured a self-hosted Piston runner?
+ *
+ * Returns false when PISTON_URL is still the public emkc.org default, which
+ * went whitelist-only on 2026-02-15 and rejects unauthenticated calls.
+ * Any other host (Railway, Fly.io, Render, localhost) is treated as configured.
+ *
+ * Call this ONLY from server-side code (RSC pages, route handlers, server
+ * actions). PISTON_URL is a server-only env var and is not accessible on the
+ * client. Pass the boolean result as a prop to any client component that needs it.
+ */
+export function isServerRunnerConfigured(): boolean {
+  try {
+    const { hostname } = new URL(env.PISTON_URL);
+    // emkc.org is the dead public default — treat as unconfigured.
+    return !hostname.endsWith("emkc.org");
+  } catch {
+    return false;
+  }
+}

@@ -2,7 +2,7 @@
   {
     "slug": "razorpay-transaction-flag-bits",
     "number": 2701,
-    "title": "Razorpay Transaction Flag Bit Count",
+    "title": "Number of 1 Bits",
     "difficulty": "Easy",
     "topic": "Bit Manipulation",
     "companies": [
@@ -60,6 +60,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc countTransactionFlags(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn countTransactionFlags(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* countTransactionFlags(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "countTransactionFlags",
@@ -119,7 +127,7 @@
   {
     "slug": "paytm-coupon-eligibility-counts",
     "number": 2702,
-    "title": "Paytm Coupon Eligibility Bit Counts",
+    "title": "Counting Bits",
     "difficulty": "Easy",
     "topic": "Bit Manipulation",
     "companies": [
@@ -171,6 +179,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc couponBitCounts(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn couponBitCounts(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* couponBitCounts(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "couponBitCounts",
@@ -242,7 +258,7 @@
   {
     "slug": "flipkart-reverse-permission-bits",
     "number": 2703,
-    "title": "Flipkart Reverse 32-bit Permission Mask",
+    "title": "Reverse Bits",
     "difficulty": "Easy",
     "topic": "Bit Manipulation",
     "companies": [
@@ -295,6 +311,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc reversePermissionBits(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn reversePermissionBits(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* reversePermissionBits(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "reversePermissionBits",
@@ -347,7 +371,7 @@
   {
     "slug": "swiggy-single-rider-id",
     "number": 2704,
-    "title": "Swiggy Lone Delivery Rider ID",
+    "title": "Single Number",
     "difficulty": "Easy",
     "topic": "Bit Manipulation",
     "companies": [
@@ -401,6 +425,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc findLoneRider(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn findLoneRider(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* findLoneRider(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "findLoneRider",
@@ -470,7 +502,7 @@
   {
     "slug": "razorpay-power-of-two-batch",
     "number": 2705,
-    "title": "Razorpay Power-of-Two Batch Size",
+    "title": "Power of Two",
     "difficulty": "Easy",
     "topic": "Bit Manipulation",
     "companies": [
@@ -527,6 +559,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc isPowerOfTwoBatch(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn isPowerOfTwoBatch(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* isPowerOfTwoBatch(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "isPowerOfTwoBatch",
@@ -586,7 +626,7 @@
   {
     "slug": "phonepe-missing-merchant-id",
     "number": 2706,
-    "title": "PhonePe Missing Merchant ID",
+    "title": "Missing Number",
     "difficulty": "Medium",
     "topic": "Bit Manipulation",
     "companies": [
@@ -644,6 +684,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc missingMerchantId(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn missingMerchantId(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* missingMerchantId(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "missingMerchantId",
@@ -720,7 +768,7 @@
   {
     "slug": "flipkart-permission-toggle-kth",
     "number": 2707,
-    "title": "Flipkart Toggle K-th Permission Bit",
+    "title": "Toggle Kth Bit",
     "difficulty": "Medium",
     "topic": "Bit Manipulation",
     "companies": [
@@ -778,6 +826,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc togglePermissionBit(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn togglePermissionBit(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* togglePermissionBit(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "togglePermissionBit",
@@ -836,7 +892,7 @@
   {
     "slug": "razorpay-sum-without-plus",
     "number": 2708,
-    "title": "Razorpay Sum Without Plus Operator",
+    "title": "Sum of Two Integers",
     "difficulty": "Medium",
     "topic": "Bit Manipulation",
     "companies": [
@@ -891,6 +947,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc sumWithoutPlus(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn sumWithoutPlus(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* sumWithoutPlus(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "sumWithoutPlus",
@@ -949,7 +1013,7 @@
   {
     "slug": "swiggy-zone-bit-pair-uniques",
     "number": 2709,
-    "title": "Swiggy Two Lonely Delivery Zones",
+    "title": "Single Number III",
     "difficulty": "Medium",
     "topic": "Bit Manipulation",
     "companies": [
@@ -1003,6 +1067,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc findTwoLonelyZones(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn findTwoLonelyZones(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* findTwoLonelyZones(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "findTwoLonelyZones",
@@ -1092,7 +1164,7 @@
   {
     "slug": "paytm-coupon-once-only",
     "number": 2710,
-    "title": "Paytm Coupon Used Once vs Thrice",
+    "title": "Single Number II",
     "difficulty": "Medium",
     "topic": "Bit Manipulation",
     "companies": [
@@ -1145,6 +1217,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc findOnceCoupon(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn findOnceCoupon(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* findOnceCoupon(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "findOnceCoupon",
@@ -1218,7 +1298,7 @@
   {
     "slug": "phonepe-bitwise-and-transaction-range",
     "number": 2711,
-    "title": "PhonePe Bitwise AND of Transaction Range",
+    "title": "Bitwise AND of Numbers Range",
     "difficulty": "Hard",
     "topic": "Bit Manipulation",
     "companies": [
@@ -1274,6 +1354,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc rangeBitwiseAnd(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn rangeBitwiseAnd(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* rangeBitwiseAnd(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "rangeBitwiseAnd",
@@ -1332,7 +1420,7 @@
   {
     "slug": "razorpay-feature-flag-subsets",
     "number": 2712,
-    "title": "Razorpay Feature Flag Subsets",
+    "title": "Subsets",
     "difficulty": "Medium",
     "topic": "Bit Manipulation",
     "companies": [
@@ -1384,6 +1472,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc featureFlagSubsets(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn featureFlagSubsets(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* featureFlagSubsets(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "featureFlagSubsets",
@@ -1545,7 +1641,7 @@
   {
     "slug": "flipkart-prefix-xor-queries",
     "number": 2713,
-    "title": "Flipkart XOR-Permission Subarray Queries",
+    "title": "XOR Queries of a Subarray",
     "difficulty": "Medium",
     "topic": "Bit Manipulation",
     "companies": [
@@ -1600,6 +1696,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc rangeXorQueries(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn rangeXorQueries(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* rangeXorQueries(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "rangeXorQueries",
@@ -1738,7 +1842,7 @@
   {
     "slug": "razorpay-max-xor-pair",
     "number": 2714,
-    "title": "Razorpay Maximum XOR Pair",
+    "title": "Maximum XOR of Two Numbers in an Array",
     "difficulty": "Hard",
     "topic": "Bit Manipulation",
     "companies": [
@@ -1796,6 +1900,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc maxXorPair(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn maxXorPair(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* maxXorPair(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "maxXorPair",
@@ -1883,7 +1995,7 @@
   {
     "slug": "swiggy-min-flips-target-zone",
     "number": 2715,
-    "title": "Swiggy Minimum Flips to Reach Target Zone Mask",
+    "title": "Hamming Distance",
     "difficulty": "Hard",
     "topic": "Bit Manipulation",
     "companies": [
@@ -1939,6 +2051,14 @@
       {
         "language": "go",
         "code": "// Write your solution here.\n// args[0], args[1], ... contain the test arguments (type assertion required).\nfunc minFlipsToTarget(args []interface{}) interface{} {\n\t// Write your solution here.\n\t// example: nums := args[0].([]interface{})\n\treturn nil\n}\n"
+      },
+      {
+        "language": "rust",
+        "code": "// EngiNerd Rust starter — bhar de.\n//\n// Val enum (provided by the harness — no import needed):\n//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)\n//\n// Example usage:\n//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };\n//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };\nfn minFlipsToTarget(args: Vec<Val>) -> Val {\n    // tu yahan apna solution likh\n    let _ = args; // suppress unused-variable warning\n    Val::Null\n}\n"
+      },
+      {
+        "language": "c",
+        "code": "/* EngiNerd C starter — bhar de.\n * argc = number of test arguments\n * argv[i] = i-th argument as a null-terminated JSON string\n *   e.g. argv[0]=\"[2,7,11,15]\"  argv[1]=\"9\"\n * Return a null-terminated JSON string (static literal OK for simple cases).\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar* minFlipsToTarget(int argc, char* argv[]) {\n    (void)argc; (void)argv; /* suppress unused warnings */\n    /* tu yahan apna solution likh */\n    return \"null\";\n}\n"
       }
     ],
     "fnName": "minFlipsToTarget",

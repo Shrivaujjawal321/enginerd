@@ -114,7 +114,7 @@ export function JobAgent() {
   const [matches, setMatches] = React.useState<Record<string, MatchResult>>({});
   const [matchProgress, setMatchProgress] = React.useState({ done: 0, total: 0 });
   const [searchError, setSearchError] = React.useState<string | null>(null);
-  const [source, setSource] = React.useState<"live" | "stub" | null>(null);
+  const [source, setSource] = React.useState<"live" | null>(null);
 
   React.useEffect(() => {
     setSetup(loadInitial());
@@ -214,14 +214,14 @@ export function JobAgent() {
       );
       const data = (await res.json()) as {
         jobs?: NormalizedJob[];
-        source?: "live" | "stub";
+        source?: "live";
         error?: string;
       };
       if (!res.ok || data.error) {
         throw new Error(data.error || `Search failed (${res.status})`);
       }
       const fetched = data.jobs ?? [];
-      setSource(data.source ?? "stub");
+      setSource(data.source ?? "live");
       if (fetched.length === 0) {
         setSearchError(
           "No jobs found right now. Try a different keyword or check back later.",
@@ -378,7 +378,7 @@ export function JobAgent() {
           </div>
 
           <p className="mt-2 text-[11px] text-slate-500">
-            Sources: Remotive · Arbeitnow · The Muse — global/remote roles. Indian sources coming soon.
+            Aggregates live listings from Remotive, Arbeitnow, and The Muse — remote and global roles, LLM-matched to your profile.
           </p>
 
           {searching && matchProgress.total > 0 ? (

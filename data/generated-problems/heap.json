@@ -2,312 +2,1255 @@
   {
     "slug": "swiggy-kth-largest-rating",
     "number": 1801,
-    "title": "Swiggy Kth Largest Restaurant Rating",
+    "title": "Kth Largest Element in an Array",
     "difficulty": "Easy",
     "topic": "Heap & Priority Queue",
-    "companies": ["swiggy", "zomato", "uber"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
     "description": "Swiggy ke discovery page pe top restaurants list karte time PM ko `k`th largest rating chahiye taaki spotlight banner decide ho. Tujhe `ratings` array (integers, ratings *100 stored) aur `k` diya hai. `k`th largest rating return kar (sorted-descending order me k-th element, 1-indexed; duplicates count alag-alag).",
     "examples": [
-      {"input": "ratings = [430, 480, 410, 495, 470], k = 2", "output": "480", "explanation": "Sorted desc: [495, 480, 470, 430, 410]. 2nd largest = 480."},
-      {"input": "ratings = [400, 400, 400], k = 2", "output": "400", "explanation": "Duplicates count individually."}
+      {
+        "input": "ratings = [430, 480, 410, 495, 470], k = 2",
+        "output": "480",
+        "explanation": "Sorted desc: [495, 480, 470, 430, 410]. 2nd largest = 480."
+      },
+      {
+        "input": "ratings = [400, 400, 400], k = 2",
+        "output": "400",
+        "explanation": "Duplicates count individually."
+      }
     ],
-    "constraints": ["1 <= ratings.length <= 10^5", "1 <= k <= ratings.length", "0 <= ratings[i] <= 500"],
+    "constraints": [
+      "1 <= ratings.length <= 10^5",
+      "1 <= k <= ratings.length",
+      "0 <= ratings[i] <= 500"
+    ],
     "hints": [
       "Min-heap of size k maintain kar — top hamesha kth largest hota hai.",
       "Har element push, heap size > k hone par pop kar de.",
       "End me heap.peek() = answer."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function kthLargestRating(ratings, k) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def kth_largest_rating(ratings, k):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function kthLargestRating(ratings, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def kth_largest_rating(ratings, k):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "kthLargestRating",
     "tests": [
-      {"args": [[430, 480, 410, 495, 470], 2], "expected": 480, "label": "basic"},
-      {"args": [[400, 400, 400], 2], "expected": 400, "label": "duplicates"},
-      {"args": [[100], 1], "expected": 100, "label": "single element"},
-      {"args": [[3, 2, 1, 5, 6, 4], 2], "expected": 5, "label": "classic case"},
-      {"args": [[3, 2, 3, 1, 2, 4, 5, 5, 6], 4], "expected": 4, "label": "longer with dups"},
-      {"args": [[1, 2, 3, 4, 5], 5], "expected": 1, "label": "k = n smallest"}
+      {
+        "args": [
+          [
+            430,
+            480,
+            410,
+            495,
+            470
+          ],
+          2
+        ],
+        "expected": 480,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            400,
+            400,
+            400
+          ],
+          2
+        ],
+        "expected": 400,
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          [
+            100
+          ],
+          1
+        ],
+        "expected": 100,
+        "label": "single element"
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            1,
+            5,
+            6,
+            4
+          ],
+          2
+        ],
+        "expected": 5,
+        "label": "classic case"
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            3,
+            1,
+            2,
+            4,
+            5,
+            5,
+            6
+          ],
+          4
+        ],
+        "expected": 4,
+        "label": "longer with dups"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": 1,
+        "label": "k = n smallest"
+      }
     ],
     "editorial": "**Brute force**: Sort descending, return arr[k-1] — O(n log n).\n\n**Optimal — min-heap of size k**: Iterate ratings; push each into a min-heap. Whenever heap size exceeds k, pop the smallest. End of loop: heap top = kth largest overall.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction kthLargestRating(ratings, k) {\n  const heap = new MinHeap();\n  for (const r of ratings) {\n    heap.push(r);\n    if (heap.size() > k) heap.pop();\n  }\n  return heap.peek();\n}\n```\n\n**Time**: O(n log k). **Space**: O(k).\n\nQuickselect bhi O(n) avg dega, but heap interview-friendly aur stable hai."
   },
   {
     "slug": "razorpay-last-stone-volume",
     "number": 1802,
-    "title": "Razorpay Last Settlement Volume",
+    "title": "Last Stone Weight",
     "difficulty": "Easy",
     "topic": "Heap & Priority Queue",
-    "companies": ["razorpay", "paytm", "phonepe"],
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
     "description": "Razorpay ka end-of-day settlement engine har round me top 2 largest pending volumes uthata hai aur unhe net karta hai: agar dono equal hain toh dono cancel ho jaate hain (settled), nahi toh smaller wala settle ho jaata hai aur larger ki bachi hui difference vapas pool me chali jaati hai. Saare rounds chalne ke baad pool me at most ek hi value bachti hai (ya kuch bhi nahi → 0). Initial `volumes` array diya hai, final remaining volume return kar.",
     "examples": [
-      {"input": "volumes = [2, 7, 4, 1, 8, 1]", "output": "1", "explanation": "8&7→1; pool [2,4,1,1,1]. 4&2→2; [1,1,1,2]. 2&1→1; [1,1,1]. 1&1→0; [1]. Return 1."},
-      {"input": "volumes = [1]", "output": "1", "explanation": "Single — nothing to combine."}
+      {
+        "input": "volumes = [2, 7, 4, 1, 8, 1]",
+        "output": "1",
+        "explanation": "8&7→1; pool [2,4,1,1,1]. 4&2→2; [1,1,1,2]. 2&1→1; [1,1,1]. 1&1→0; [1]. Return 1."
+      },
+      {
+        "input": "volumes = [1]",
+        "output": "1",
+        "explanation": "Single — nothing to combine."
+      }
     ],
-    "constraints": ["1 <= volumes.length <= 30", "1 <= volumes[i] <= 1000"],
+    "constraints": [
+      "1 <= volumes.length <= 30",
+      "1 <= volumes[i] <= 1000"
+    ],
     "hints": [
       "Max-heap rakh — har baar top 2 nikaal.",
       "Difference > 0 ho toh wapas push kar de.",
       "Loop tab tak chalao jab heap size >= 2 ho. End me 0 ya top return kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function lastSettlementVolume(volumes) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def last_settlement_volume(volumes):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function lastSettlementVolume(volumes) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def last_settlement_volume(volumes):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "lastSettlementVolume",
     "tests": [
-      {"args": [[2, 7, 4, 1, 8, 1]], "expected": 1, "label": "classic"},
-      {"args": [[1]], "expected": 1, "label": "single"},
-      {"args": [[2, 2]], "expected": 0, "label": "two equal cancel"},
-      {"args": [[10, 4]], "expected": 6, "label": "two different"},
-      {"args": [[3, 7, 8, 5, 2, 1]], "expected": 0, "label": "all cancel out"},
-      {"args": [[1, 1, 1, 1, 1]], "expected": 1, "label": "odd ones"}
+      {
+        "args": [
+          [
+            2,
+            7,
+            4,
+            1,
+            8,
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            2,
+            2
+          ]
+        ],
+        "expected": 0,
+        "label": "two equal cancel"
+      },
+      {
+        "args": [
+          [
+            10,
+            4
+          ]
+        ],
+        "expected": 6,
+        "label": "two different"
+      },
+      {
+        "args": [
+          [
+            3,
+            7,
+            8,
+            5,
+            2,
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "all cancel out"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "odd ones"
+      }
     ],
     "editorial": "**Idea — max-heap**: Each round needs the two largest values. A max-heap delivers them in O(log n). After comparing, push back the difference if non-zero. Repeat until at most one value remains.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction lastSettlementVolume(volumes) {\n  const heap = new MinHeap((a, b) => b - a); // max-heap via reversed cmp\n  for (const v of volumes) heap.push(v);\n  while (heap.size() >= 2) {\n    const a = heap.pop();\n    const b = heap.pop();\n    if (a !== b) heap.push(a - b);\n  }\n  return heap.size() ? heap.peek() : 0;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n).\n\nMax-heap pattern: same MinHeap class with reversed comparator — clean trick."
   },
   {
     "slug": "zomato-kth-fastest-delivery",
     "number": 1803,
-    "title": "Zomato Kth Fastest Delivery",
+    "title": "Kth Smallest Element in an Array",
     "difficulty": "Easy",
     "topic": "Heap & Priority Queue",
-    "companies": ["zomato", "swiggy", "dunzo"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "dunzo"
+    ],
     "description": "Zomato ke ops dashboard pe Kth fastest delivery time chahiye (smallest k-th value). Tujhe `times` array (delivery minutes) aur `k` diya hai. Sorted ascending order me k-th smallest return kar (1-indexed). Duplicates alag count.",
     "examples": [
-      {"input": "times = [25, 18, 32, 14, 22], k = 3", "output": "22", "explanation": "Sorted: [14, 18, 22, 25, 32]. 3rd smallest = 22."},
-      {"input": "times = [10, 10, 20], k = 2", "output": "10"}
+      {
+        "input": "times = [25, 18, 32, 14, 22], k = 3",
+        "output": "22",
+        "explanation": "Sorted: [14, 18, 22, 25, 32]. 3rd smallest = 22."
+      },
+      {
+        "input": "times = [10, 10, 20], k = 2",
+        "output": "10"
+      }
     ],
-    "constraints": ["1 <= times.length <= 10^5", "1 <= k <= times.length", "1 <= times[i] <= 10^4"],
+    "constraints": [
+      "1 <= times.length <= 10^5",
+      "1 <= k <= times.length",
+      "1 <= times[i] <= 10^4"
+    ],
     "hints": [
       "Max-heap of size k rakh — top largest of k smallest = answer.",
       "Push current; size > k toh pop.",
       "End: heap top hi answer."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function kthFastestDelivery(times, k) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def kth_fastest_delivery(times, k):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function kthFastestDelivery(times, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def kth_fastest_delivery(times, k):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "kthFastestDelivery",
     "tests": [
-      {"args": [[25, 18, 32, 14, 22], 3], "expected": 22, "label": "basic"},
-      {"args": [[10, 10, 20], 2], "expected": 10, "label": "duplicates"},
-      {"args": [[7], 1], "expected": 7, "label": "single"},
-      {"args": [[5, 4, 3, 2, 1], 1], "expected": 1, "label": "k=1 minimum"},
-      {"args": [[5, 4, 3, 2, 1], 5], "expected": 5, "label": "k=n maximum"}
+      {
+        "args": [
+          [
+            25,
+            18,
+            32,
+            14,
+            22
+          ],
+          3
+        ],
+        "expected": 22,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            10,
+            10,
+            20
+          ],
+          2
+        ],
+        "expected": 10,
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          [
+            7
+          ],
+          1
+        ],
+        "expected": 7,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          1
+        ],
+        "expected": 1,
+        "label": "k=1 minimum"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          5
+        ],
+        "expected": 5,
+        "label": "k=n maximum"
+      }
     ],
     "editorial": "**Approach — max-heap of size k**: Mirror of kth-largest. Maintain a max-heap with the `k` smallest elements seen so far; the heap's root is the largest of those k, which equals the kth smallest overall.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction kthFastestDelivery(times, k) {\n  const heap = new MinHeap((a, b) => b - a); // max-heap\n  for (const t of times) {\n    heap.push(t);\n    if (heap.size() > k) heap.pop();\n  }\n  return heap.peek();\n}\n```\n\n**Time**: O(n log k). **Space**: O(k)."
   },
   {
     "slug": "ola-ropes-min-cost",
     "number": 1804,
-    "title": "Ola Cable Joining Minimum Cost",
+    "title": "Minimum Cost to Connect Ropes",
     "difficulty": "Easy",
     "topic": "Heap & Priority Queue",
-    "companies": ["ola", "uber", "zomato"],
+    "companies": [
+      "ola",
+      "uber",
+      "zomato"
+    ],
     "description": "Ola ke fleet ops me charging cables ke pieces hain. Do pieces ko jodne ka cost = un dono ki sum of lengths. Saare pieces ek single cable banane hain. Total minimum cost return kar.",
     "examples": [
-      {"input": "lengths = [4, 3, 2, 6]", "output": "29", "explanation": "Join 2+3=5(cost 5), then 4+5=9(cost 9), then 6+9=15(cost 15). Total = 5+9+15 = 29."},
-      {"input": "lengths = [10]", "output": "0", "explanation": "Already one piece."}
+      {
+        "input": "lengths = [4, 3, 2, 6]",
+        "output": "29",
+        "explanation": "Join 2+3=5(cost 5), then 4+5=9(cost 9), then 6+9=15(cost 15). Total = 5+9+15 = 29."
+      },
+      {
+        "input": "lengths = [10]",
+        "output": "0",
+        "explanation": "Already one piece."
+      }
     ],
-    "constraints": ["1 <= lengths.length <= 10^4", "1 <= lengths[i] <= 10^5"],
+    "constraints": [
+      "1 <= lengths.length <= 10^4",
+      "1 <= lengths[i] <= 10^5"
+    ],
     "hints": [
       "Greedy: smallest do hamesha pehle jodo — Huffman style.",
       "Min-heap se min do nikalo, sum push karo, cost add.",
       "Single piece ka cost 0."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minCableCost(lengths) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_cable_cost(lengths):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minCableCost(lengths) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_cable_cost(lengths):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minCableCost",
     "tests": [
-      {"args": [[4, 3, 2, 6]], "expected": 29, "label": "classic"},
-      {"args": [[10]], "expected": 0, "label": "single piece"},
-      {"args": [[1, 2, 3, 4, 5]], "expected": 33, "label": "five pieces"},
-      {"args": [[1, 1]], "expected": 2, "label": "two equal"},
-      {"args": [[20, 4, 8, 2]], "expected": 54, "label": "mixed sizes"}
+      {
+        "args": [
+          [
+            4,
+            3,
+            2,
+            6
+          ]
+        ],
+        "expected": 29,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            10
+          ]
+        ],
+        "expected": 0,
+        "label": "single piece"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 33,
+        "label": "five pieces"
+      },
+      {
+        "args": [
+          [
+            1,
+            1
+          ]
+        ],
+        "expected": 2,
+        "label": "two equal"
+      },
+      {
+        "args": [
+          [
+            20,
+            4,
+            8,
+            2
+          ]
+        ],
+        "expected": 54,
+        "label": "mixed sizes"
+      }
     ],
     "editorial": "**Greedy insight**: Smaller pieces participate in MORE merges (early ones get added into every later sum). To minimize total cost, always combine the two smallest available — classic Huffman/Optimal Merge Pattern.\n\n**Implementation — min-heap**: Push all lengths. While size >= 2, pop two minima, add their sum to cost, push the sum back.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction minCableCost(lengths) {\n  const heap = new MinHeap();\n  for (const l of lengths) heap.push(l);\n  let cost = 0;\n  while (heap.size() >= 2) {\n    const a = heap.pop();\n    const b = heap.pop();\n    cost += a + b;\n    heap.push(a + b);\n  }\n  return cost;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "dunzo-k-closest-stores",
     "number": 1805,
-    "title": "Dunzo K Closest Dark Stores",
+    "title": "K Closest Points to Origin",
     "difficulty": "Medium",
     "topic": "Heap & Priority Queue",
-    "companies": ["dunzo", "swiggy", "zepto"],
+    "companies": [
+      "dunzo",
+      "swiggy",
+      "zepto"
+    ],
     "description": "Dunzo ke routing engine ko nearest `k` dark stores chahiye (origin = customer at (0,0)). Tujhe `points` 2D array `[[x,y],...]` aur `k` diya hai. Wo k points return kar jo origin se nearest hain (Euclidean distance). Order matter nahi karta — tujhe array of [x,y] return karna hai sorted by distance ascending; equal-distance ke case me x ascending, fir y ascending.",
     "examples": [
-      {"input": "points = [[1,3],[-2,2],[5,8],[0,1]], k = 2", "output": "[[0,1],[-2,2]]", "explanation": "Distances²: 10, 8, 89, 1. Top 2 smallest: (0,1) dist 1, (-2,2) dist √8."},
-      {"input": "points = [[3,3],[5,-1],[-2,4]], k = 2", "output": "[[3,3],[-2,4]]", "explanation": "dist²: 18, 26, 20. Closest two: (3,3) then (-2,4)."}
+      {
+        "input": "points = [[1,3],[-2,2],[5,8],[0,1]], k = 2",
+        "output": "[[0,1],[-2,2]]",
+        "explanation": "Distances²: 10, 8, 89, 1. Top 2 smallest: (0,1) dist 1, (-2,2) dist √8."
+      },
+      {
+        "input": "points = [[3,3],[5,-1],[-2,4]], k = 2",
+        "output": "[[3,3],[-2,4]]",
+        "explanation": "dist²: 18, 26, 20. Closest two: (3,3) then (-2,4)."
+      }
     ],
-    "constraints": ["1 <= k <= points.length <= 10^4", "-10^4 <= x, y <= 10^4"],
+    "constraints": [
+      "1 <= k <= points.length <= 10^4",
+      "-10^4 <= x, y <= 10^4"
+    ],
     "hints": [
       "Distance² use kar — sqrt avoid.",
       "Max-heap of size k, har point push, size > k toh pop.",
       "End me heap me k closest. Sort kar dist asc, fir x, fir y."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function kClosestStores(points, k) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def k_closest_stores(points, k):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function kClosestStores(points, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def k_closest_stores(points, k):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "kClosestStores",
     "tests": [
-      {"args": [[[1, 3], [-2, 2], [5, 8], [0, 1]], 2], "expected": [[0, 1], [-2, 2]], "label": "basic"},
-      {"args": [[[3, 3], [5, -1], [-2, 4]], 2], "expected": [[3, 3], [-2, 4]], "label": "negative coords"},
-      {"args": [[[1, 1]], 1], "expected": [[1, 1]], "label": "single point"},
-      {"args": [[[0, 0], [1, 0], [2, 0]], 2], "expected": [[0, 0], [1, 0]], "label": "on x-axis"},
-      {"args": [[[1, 0], [0, 1]], 2], "expected": [[0, 1], [1, 0]], "label": "tie distance"}
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              -2,
+              2
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          2
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            -2,
+            2
+          ]
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              -1
+            ],
+            [
+              -2,
+              4
+            ]
+          ],
+          2
+        ],
+        "expected": [
+          [
+            3,
+            3
+          ],
+          [
+            -2,
+            4
+          ]
+        ],
+        "label": "negative coords"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ]
+          ],
+          1
+        ],
+        "expected": [
+          [
+            1,
+            1
+          ]
+        ],
+        "label": "single point"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          2
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "label": "on x-axis"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          2
+        ],
+        "expected": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "label": "tie distance"
+      }
     ],
     "editorial": "**Idea — max-heap of k closest**: Maintain heap of size k ordered by distance² (max at root). Push each point; if size > k, pop the farthest. End: heap holds k closest. Then sort the result for stable output.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction kClosestStores(points, k) {\n  // max-heap on distance² (first tuple element)\n  const heap = new MinHeap((a, b) => b[0] - a[0]);\n  for (const [x, y] of points) {\n    const d = x * x + y * y;\n    heap.push([d, x, y]);\n    if (heap.size() > k) heap.pop();\n  }\n  const out = [];\n  while (heap.size()) { const [, x, y] = heap.pop(); out.push([x, y]); }\n  out.sort((p, q) => (p[0]*p[0]+p[1]*p[1]) - (q[0]*q[0]+q[1]*q[1]) || p[0]-q[0] || p[1]-q[1]);\n  return out;\n}\n```\n\n**Time**: O(n log k). **Space**: O(k)."
   },
   {
     "slug": "phonepe-top-k-merchants-volume",
     "number": 1806,
-    "title": "PhonePe Top K Merchant Volumes",
+    "title": "Top K Frequent Elements",
     "difficulty": "Medium",
     "topic": "Heap & Priority Queue",
-    "companies": ["phonepe", "paytm", "google"],
+    "companies": [
+      "phonepe",
+      "paytm",
+      "google"
+    ],
     "description": "PhonePe analytics ko `k` merchants chahiye jinki transaction count sabse zyada hai. Tujhe `merchants` array (merchant IDs as integers, repeats allowed) aur `k` diya hai. Top k IDs return kar count descending order me; tie pe smaller ID pehle.",
     "examples": [
-      {"input": "merchants = [1, 1, 1, 2, 2, 3], k = 2", "output": "[1, 2]", "explanation": "Counts: 1→3, 2→2, 3→1. Top 2: [1, 2]."},
-      {"input": "merchants = [4, 5, 4, 5, 6], k = 2", "output": "[4, 5]", "explanation": "Tie at count 2; smaller id first."}
+      {
+        "input": "merchants = [1, 1, 1, 2, 2, 3], k = 2",
+        "output": "[1, 2]",
+        "explanation": "Counts: 1→3, 2→2, 3→1. Top 2: [1, 2]."
+      },
+      {
+        "input": "merchants = [4, 5, 4, 5, 6], k = 2",
+        "output": "[4, 5]",
+        "explanation": "Tie at count 2; smaller id first."
+      }
     ],
-    "constraints": ["1 <= merchants.length <= 10^5", "1 <= k <= number of distinct merchants", "0 <= merchants[i] <= 10^9"],
+    "constraints": [
+      "1 <= merchants.length <= 10^5",
+      "1 <= k <= number of distinct merchants",
+      "0 <= merchants[i] <= 10^9"
+    ],
     "hints": [
       "Frequency count nikal Map me.",
       "Min-heap of size k ordered by (count asc, id desc) — agar size > k toh pop bottom.",
       "End me heap drain karke reverse / sort by (count desc, id asc)."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function topKMerchantVolumes(merchants, k) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def top_k_merchant_volumes(merchants, k):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function topKMerchantVolumes(merchants, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def top_k_merchant_volumes(merchants, k):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "topKMerchantVolumes",
     "tests": [
-      {"args": [[1, 1, 1, 2, 2, 3], 2], "expected": [1, 2], "label": "basic"},
-      {"args": [[4, 5, 4, 5, 6], 2], "expected": [4, 5], "label": "tie smaller first"},
-      {"args": [[7], 1], "expected": [7], "label": "single"},
-      {"args": [[10, 10, 20, 20, 20, 30, 30, 30, 30], 2], "expected": [30, 20], "label": "clear ranks"},
-      {"args": [[1, 2, 3, 4], 3], "expected": [1, 2, 3], "label": "all tied at 1"},
-      {"args": [[5, 5, 5, 1, 1, 1, 9, 9, 9], 3], "expected": [1, 5, 9], "label": "all tied higher"}
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            2,
+            2,
+            3
+          ],
+          2
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            4,
+            5,
+            4,
+            5,
+            6
+          ],
+          2
+        ],
+        "expected": [
+          4,
+          5
+        ],
+        "label": "tie smaller first"
+      },
+      {
+        "args": [
+          [
+            7
+          ],
+          1
+        ],
+        "expected": [
+          7
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            10,
+            10,
+            20,
+            20,
+            20,
+            30,
+            30,
+            30,
+            30
+          ],
+          2
+        ],
+        "expected": [
+          30,
+          20
+        ],
+        "label": "clear ranks"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          3
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "all tied at 1"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            1,
+            1,
+            1,
+            9,
+            9,
+            9
+          ],
+          3
+        ],
+        "expected": [
+          1,
+          5,
+          9
+        ],
+        "label": "all tied higher"
+      }
     ],
     "editorial": "**Idea**: Count frequencies, then keep a min-heap of size k where the 'minimum' is by `(count asc, id desc)` — that way the WORST entry is at the root and gets evicted when a better one arrives. After processing, drain the heap and sort the survivors by `(count desc, id asc)`.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction topKMerchantVolumes(merchants, k) {\n  const freq = new Map();\n  for (const m of merchants) freq.set(m, (freq.get(m) || 0) + 1);\n  // root = worst surviving entry: lowest count, then largest id\n  const heap = new MinHeap((a, b) => a[1] - b[1] || b[0] - a[0]);\n  for (const [id, c] of freq) {\n    heap.push([id, c]);\n    if (heap.size() > k) heap.pop();\n  }\n  const out = [];\n  while (heap.size()) out.push(heap.pop());\n  out.sort((a, b) => b[1] - a[1] || a[0] - b[0]);\n  return out.map(e => e[0]);\n}\n```\n\n**Time**: O(n + d log k). **Space**: O(d)."
   },
   {
     "slug": "flipkart-merge-k-sorted-feeds",
     "number": 1807,
-    "title": "Flipkart Merge K Sorted Price Feeds",
+    "title": "Merge K Sorted Lists",
     "difficulty": "Medium",
     "topic": "Heap & Priority Queue",
-    "companies": ["flipkart", "amazon", "meesho"],
+    "companies": [
+      "flipkart",
+      "amazon",
+      "meesho"
+    ],
     "description": "Flipkart ke seller portal pe `k` price feeds aate hain — har feed ek sorted ascending list of prices hai. In sab ko merge karke single sorted list banani hai. Tujhe `feeds` (2D array of integers, har inner array sorted asc) diya hai. Single sorted ascending array return kar.",
     "examples": [
-      {"input": "feeds = [[1, 4, 5], [1, 3, 4], [2, 6]]", "output": "[1, 1, 2, 3, 4, 4, 5, 6]"},
-      {"input": "feeds = []", "output": "[]"}
+      {
+        "input": "feeds = [[1, 4, 5], [1, 3, 4], [2, 6]]",
+        "output": "[1, 1, 2, 3, 4, 4, 5, 6]"
+      },
+      {
+        "input": "feeds = []",
+        "output": "[]"
+      }
     ],
-    "constraints": ["0 <= feeds.length <= 10^4", "0 <= feeds[i].length <= 500", "Total elements <= 10^5", "-10^4 <= feeds[i][j] <= 10^4", "Each inner array is sorted ascending"],
+    "constraints": [
+      "0 <= feeds.length <= 10^4",
+      "0 <= feeds[i].length <= 500",
+      "Total elements <= 10^5",
+      "-10^4 <= feeds[i][j] <= 10^4",
+      "Each inner array is sorted ascending"
+    ],
     "hints": [
       "Min-heap of (value, listIndex, elemIndex) — initialize with first elem of each feed.",
       "Pop smallest, push next from same feed.",
       "Empty inner arrays skip kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function mergeKFeeds(feeds) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def merge_k_feeds(feeds):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function mergeKFeeds(feeds) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def merge_k_feeds(feeds):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "mergeKFeeds",
     "tests": [
-      {"args": [[[1, 4, 5], [1, 3, 4], [2, 6]]], "expected": [1, 1, 2, 3, 4, 4, 5, 6], "label": "classic"},
-      {"args": [[]], "expected": [], "label": "empty input"},
-      {"args": [[[]]], "expected": [], "label": "single empty feed"},
-      {"args": [[[1, 2, 3]]], "expected": [1, 2, 3], "label": "single feed"},
-      {"args": [[[-5, 0, 5], [-3, -1, 8]]], "expected": [-5, -3, -1, 0, 5, 8], "label": "negatives"},
-      {"args": [[[1], [2], [3], [4]]], "expected": [1, 2, 3, 4], "label": "k singletons"}
+      {
+        "args": [
+          [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              4
+            ],
+            [
+              2,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          2,
+          3,
+          4,
+          4,
+          5,
+          6
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty input"
+      },
+      {
+        "args": [
+          [
+            []
+          ]
+        ],
+        "expected": [],
+        "label": "single empty feed"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "single feed"
+      },
+      {
+        "args": [
+          [
+            [
+              -5,
+              0,
+              5
+            ],
+            [
+              -3,
+              -1,
+              8
+            ]
+          ]
+        ],
+        "expected": [
+          -5,
+          -3,
+          -1,
+          0,
+          5,
+          8
+        ],
+        "label": "negatives"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "label": "k singletons"
+      }
     ],
     "editorial": "**Idea — k-way merge with min-heap**: Seed the heap with the head of every non-empty feed as `[value, feedIdx, elemIdx]`. Repeatedly pop the smallest, append it to output, and push the next element from the same feed if any.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction mergeKFeeds(feeds) {\n  const heap = new MinHeap((a, b) => a[0] - b[0]);\n  for (let i = 0; i < feeds.length; i++) {\n    if (feeds[i].length > 0) heap.push([feeds[i][0], i, 0]);\n  }\n  const out = [];\n  while (heap.size()) {\n    const [val, fi, ei] = heap.pop();\n    out.push(val);\n    if (ei + 1 < feeds[fi].length) heap.push([feeds[fi][ei + 1], fi, ei + 1]);\n  }\n  return out;\n}\n```\n\n**Time**: O(N log k) where N = total elements, k = number of feeds. **Space**: O(k)."
   },
   {
     "slug": "bookmyshow-meeting-rooms",
     "number": 1808,
-    "title": "BookMyShow Minimum Screens Required",
+    "title": "Meeting Rooms II",
     "difficulty": "Medium",
     "topic": "Heap & Priority Queue",
-    "companies": ["bookmyshow", "paytm-insider", "netflix"],
+    "companies": [
+      "bookmyshow",
+      "paytm-insider",
+      "netflix"
+    ],
     "description": "BookMyShow ke ek multiplex me different shows ke `[start, end]` time intervals (minutes from midnight) diye hain. Minimum kitne screens chahiye taaki sab shows simultaneously chal sake (overlap = same minute par dono running)? End time exclusive maano: ek show jo `end=120` pe khatam hota hai, doosre show jo `start=120` pe shuru hota hai, dono same screen pe possible.",
     "examples": [
-      {"input": "shows = [[0, 30], [5, 10], [15, 20]]", "output": "2", "explanation": "Show 1 [0,30) overlaps with both others; need 2 screens."},
-      {"input": "shows = [[7, 10], [2, 4]]", "output": "1", "explanation": "Disjoint intervals."},
-      {"input": "shows = []", "output": "0"}
+      {
+        "input": "shows = [[0, 30], [5, 10], [15, 20]]",
+        "output": "2",
+        "explanation": "Show 1 [0,30) overlaps with both others; need 2 screens."
+      },
+      {
+        "input": "shows = [[7, 10], [2, 4]]",
+        "output": "1",
+        "explanation": "Disjoint intervals."
+      },
+      {
+        "input": "shows = []",
+        "output": "0"
+      }
     ],
-    "constraints": ["0 <= shows.length <= 10^4", "0 <= start < end <= 10^6"],
+    "constraints": [
+      "0 <= shows.length <= 10^4",
+      "0 <= start < end <= 10^6"
+    ],
     "hints": [
       "Sort by start time.",
       "Min-heap of currently-running ends.",
       "Har naya show: agar uska start >= heap top end, pop (room reuse). Push new end. Heap size = answer."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minScreensRequired(shows) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_screens_required(shows):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minScreensRequired(shows) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_screens_required(shows):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minScreensRequired",
     "tests": [
-      {"args": [[[0, 30], [5, 10], [15, 20]]], "expected": 2, "label": "two overlap"},
-      {"args": [[[7, 10], [2, 4]]], "expected": 1, "label": "disjoint"},
-      {"args": [[]], "expected": 0, "label": "empty"},
-      {"args": [[[1, 5]]], "expected": 1, "label": "single show"},
-      {"args": [[[1, 4], [4, 7], [7, 10]]], "expected": 1, "label": "back-to-back"},
-      {"args": [[[1, 10], [2, 7], [3, 19], [8, 12], [10, 20], [11, 30]]], "expected": 4, "label": "many overlap"}
+      {
+        "args": [
+          [
+            [
+              0,
+              30
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              15,
+              20
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two overlap"
+      },
+      {
+        "args": [
+          [
+            [
+              7,
+              10
+            ],
+            [
+              2,
+              4
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "disjoint"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single show"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              7,
+              10
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "back-to-back"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              3,
+              19
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              11,
+              30
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "many overlap"
+      }
     ],
     "editorial": "**Idea — sort + min-heap of end times**: Process shows in start-time order. The heap holds end times of currently-running shows. For each new show, if the smallest end time in the heap is `<= newStart`, that screen is freed — pop it. Then push the new end. Heap size at any point = screens currently in use; the maximum size encountered is the answer.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction minScreensRequired(shows) {\n  if (shows.length === 0) return 0;\n  const sorted = shows.slice().sort((a, b) => a[0] - b[0]);\n  const heap = new MinHeap();\n  let best = 0;\n  for (const [s, e] of sorted) {\n    while (heap.size() && heap.peek() <= s) heap.pop();\n    heap.push(e);\n    if (heap.size() > best) best = heap.size();\n  }\n  return best;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "hotstar-reorganize-banner",
     "number": 1809,
-    "title": "Hotstar Reorganize Banner Sequence",
+    "title": "Reorganize String",
     "difficulty": "Medium",
     "topic": "Heap & Priority Queue",
-    "companies": ["hotstar", "netflix", "youtube"],
+    "companies": [
+      "hotstar",
+      "netflix",
+      "youtube"
+    ],
     "description": "Hotstar ke homepage banner rotation me lagataar same category ke shows nahi dikhane chahiye. Tujhe ek string `s` di hai jisme har character ek category dikhata hai (lowercase). String ko reorganize kar taaki adjacent characters never equal ho. Possible nahi ho toh empty string return kar. Multiple valid outputs ho sakte — kisi bhi ek ko return karna hota hai but tests me hum lexicographically smallest valid arrangement check karenge.",
     "examples": [
-      {"input": "s = \"aab\"", "output": "\"aba\"", "explanation": "Valid, lexicographically smallest."},
-      {"input": "s = \"aaab\"", "output": "\"\"", "explanation": "3 a's, 1 b — impossible."},
-      {"input": "s = \"vvvlo\"", "output": "\"vlvov\""}
+      {
+        "input": "s = \"aab\"",
+        "output": "\"aba\"",
+        "explanation": "Valid, lexicographically smallest."
+      },
+      {
+        "input": "s = \"aaab\"",
+        "output": "\"\"",
+        "explanation": "3 a's, 1 b — impossible."
+      },
+      {
+        "input": "s = \"vvvlo\"",
+        "output": "\"vlvov\""
+      }
     ],
-    "constraints": ["1 <= s.length <= 500", "s consists of lowercase letters only"],
+    "constraints": [
+      "1 <= s.length <= 500",
+      "s consists of lowercase letters only"
+    ],
     "hints": [
       "Most frequent char count > (n+1)/2 toh impossible.",
       "Max-heap by frequency. Pop top, append, decrement; pehle isko 'parking' me rakh, doosra pop kar, append, decrement, fir parking ko wapas push.",
       "Tie pe lex-smallest: max-heap me freq desc, char asc se compare kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function reorganizeBanner(s) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def reorganize_banner(s):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function reorganizeBanner(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reorganize_banner(s):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "reorganizeBanner",
     "tests": [
-      {"args": ["aab"], "expected": "aba", "label": "basic possible"},
-      {"args": ["aaab"], "expected": "", "label": "impossible"},
-      {"args": ["vvvlo"], "expected": "vlvov", "label": "five chars"},
-      {"args": ["a"], "expected": "a", "label": "single"},
-      {"args": ["aabb"], "expected": "abab", "label": "even"},
-      {"args": ["aaabc"], "expected": "abaca", "label": "five mixed"}
+      {
+        "args": [
+          "aab"
+        ],
+        "expected": "aba",
+        "label": "basic possible"
+      },
+      {
+        "args": [
+          "aaab"
+        ],
+        "expected": "",
+        "label": "impossible"
+      },
+      {
+        "args": [
+          "vvvlo"
+        ],
+        "expected": "vlvov",
+        "label": "five chars"
+      },
+      {
+        "args": [
+          "a"
+        ],
+        "expected": "a",
+        "label": "single"
+      },
+      {
+        "args": [
+          "aabb"
+        ],
+        "expected": "abab",
+        "label": "even"
+      },
+      {
+        "args": [
+          "aaabc"
+        ],
+        "expected": "abaca",
+        "label": "five mixed"
+      }
     ],
     "editorial": "**Feasibility**: If the most frequent character occurs more than `ceil(n/2)` times, no valid arrangement exists.\n\n**Greedy with max-heap**: Always place the character with the highest remaining count, but never the same as the previous one. Standard trick: pop top, append to result, decrement; HOLD it aside; pop the next top, append, decrement; push the held one back if its count > 0.\n\nFor 'lexicographically smallest among valid', the comparator orders by `(count desc, char asc)`.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction reorganizeBanner(s) {\n  const freq = {};\n  for (const ch of s) freq[ch] = (freq[ch] || 0) + 1;\n  const n = s.length;\n  for (const ch in freq) if (freq[ch] > Math.ceil(n / 2)) return '';\n  // max-heap: count desc, char asc\n  const heap = new MinHeap((a, b) => b[0] - a[0] || a[1].localeCompare(b[1]));\n  for (const ch in freq) heap.push([freq[ch], ch]);\n  let out = '';\n  while (heap.size() >= 2) {\n    const a = heap.pop();\n    const b = heap.pop();\n    out += a[1] + b[1];\n    if (a[0] - 1 > 0) heap.push([a[0] - 1, a[1]]);\n    if (b[0] - 1 > 0) heap.push([b[0] - 1, b[1]]);\n  }\n  if (heap.size()) out += heap.pop()[1];\n  return out;\n}\n```\n\n**Time**: O(n log a) where a = alphabet (≤26). **Space**: O(a)."
   },
   {
     "slug": "paytm-stream-median",
     "number": 1810,
-    "title": "Paytm Live Transaction Median",
+    "title": "Find Median from Data Stream",
     "difficulty": "Hard",
     "topic": "Heap & Priority Queue",
-    "companies": ["paytm", "razorpay", "stripe"],
+    "companies": [
+      "paytm",
+      "razorpay",
+      "stripe"
+    ],
     "description": "Paytm ke fraud team ko live transaction stream ka running median chahiye. Tujhe operations ka 2D array diya hai. Har operation ya toh `[\"addNum\", x]` (stream me x add karo, return null) ya `[\"findMedian\"]` (current median return karo as a number). Median = sorted middle ka element odd count me, ya middle two ka average even me. Result array return kar har op ke liye (addNum ke liye null, findMedian ke liye number; even count me float allowed, odd integer).",
     "examples": [
-      {"input": "ops = [[\"addNum\",1],[\"addNum\",2],[\"findMedian\"],[\"addNum\",3],[\"findMedian\"]]", "output": "[null,null,1.5,null,2]", "explanation": "After 1,2 → median (1+2)/2=1.5. After 3 → median 2."},
-      {"input": "ops = [[\"addNum\",5],[\"findMedian\"]]", "output": "[null,5]"}
+      {
+        "input": "ops = [[\"addNum\",1],[\"addNum\",2],[\"findMedian\"],[\"addNum\",3],[\"findMedian\"]]",
+        "output": "[null,null,1.5,null,2]",
+        "explanation": "After 1,2 → median (1+2)/2=1.5. After 3 → median 2."
+      },
+      {
+        "input": "ops = [[\"addNum\",5],[\"findMedian\"]]",
+        "output": "[null,5]"
+      }
     ],
-    "constraints": ["1 <= ops.length <= 10^4", "findMedian sirf non-empty stream pe call hoga", "-10^5 <= x <= 10^5"],
+    "constraints": [
+      "1 <= ops.length <= 10^4",
+      "findMedian sirf non-empty stream pe call hoga",
+      "-10^5 <= x <= 10^5"
+    ],
     "hints": [
       "Two-heap pattern: max-heap (lower half) + min-heap (upper half).",
       "Invariant: lower.size = upper.size ya lower.size = upper.size + 1.",
@@ -315,184 +1258,951 @@
       "Median: odd → lower.peek(); even → (lower.peek() + upper.peek()) / 2."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function runOps(ops) {\n  // tu yahan apna solution likh — return array of results\n}\n"},
-      {"language": "python", "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function runOps(ops) {\n  // tu yahan apna solution likh — return array of results\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def run_ops(ops):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "runOps",
     "tests": [
-      {"args": [[["addNum", 1], ["addNum", 2], ["findMedian"], ["addNum", 3], ["findMedian"]]], "expected": [null, null, 1.5, null, 2], "label": "basic"},
-      {"args": [[["addNum", 5], ["findMedian"]]], "expected": [null, 5], "label": "single"},
-      {"args": [[["addNum", 1], ["addNum", 1], ["findMedian"]]], "expected": [null, null, 1], "label": "duplicates"},
-      {"args": [[["addNum", -1], ["addNum", -2], ["addNum", -3], ["findMedian"]]], "expected": [null, null, null, -2], "label": "negatives odd"},
-      {"args": [[["addNum", 6], ["addNum", 10], ["addNum", 2], ["addNum", 8], ["findMedian"], ["addNum", 4], ["findMedian"]]], "expected": [null, null, null, null, 7, null, 6], "label": "even then odd"}
+      {
+        "args": [
+          [
+            [
+              "addNum",
+              1
+            ],
+            [
+              "addNum",
+              2
+            ],
+            [
+              "findMedian"
+            ],
+            [
+              "addNum",
+              3
+            ],
+            [
+              "findMedian"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          1.5,
+          null,
+          2
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            [
+              "addNum",
+              5
+            ],
+            [
+              "findMedian"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          5
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              "addNum",
+              1
+            ],
+            [
+              "addNum",
+              1
+            ],
+            [
+              "findMedian"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          1
+        ],
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          [
+            [
+              "addNum",
+              -1
+            ],
+            [
+              "addNum",
+              -2
+            ],
+            [
+              "addNum",
+              -3
+            ],
+            [
+              "findMedian"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          -2
+        ],
+        "label": "negatives odd"
+      },
+      {
+        "args": [
+          [
+            [
+              "addNum",
+              6
+            ],
+            [
+              "addNum",
+              10
+            ],
+            [
+              "addNum",
+              2
+            ],
+            [
+              "addNum",
+              8
+            ],
+            [
+              "findMedian"
+            ],
+            [
+              "addNum",
+              4
+            ],
+            [
+              "findMedian"
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          null,
+          null,
+          null,
+          7,
+          null,
+          6
+        ],
+        "label": "even then odd"
+      }
     ],
     "editorial": "**Idea — two heaps**: A max-heap `lower` keeps the lower half, a min-heap `upper` keeps the upper half. We maintain `lower.size === upper.size` (even total) or `lower.size === upper.size + 1` (odd total).\n\n**addNum(x)**: Push to `lower`. Then if `lower.peek() > upper.peek()`, move the top of `lower` to `upper`. Rebalance sizes.\n\n**findMedian**: If sizes equal, return (lower.peek() + upper.peek()) / 2. Else lower.peek().\n\nBoth ops are O(log n).\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction runOps(ops) {\n  const lower = new MinHeap((a, b) => b - a); // max-heap\n  const upper = new MinHeap();                 // min-heap\n  const out = [];\n  for (const op of ops) {\n    if (op[0] === 'addNum') {\n      const x = op[1];\n      lower.push(x);\n      // move max of lower to upper if order broken\n      if (upper.size() && lower.peek() > upper.peek()) upper.push(lower.pop());\n      // rebalance sizes: lower allowed to have one extra\n      if (lower.size() > upper.size() + 1) upper.push(lower.pop());\n      else if (upper.size() > lower.size()) lower.push(upper.pop());\n      out.push(null);\n    } else {\n      // findMedian\n      if (lower.size() === upper.size()) out.push((lower.peek() + upper.peek()) / 2);\n      else out.push(lower.peek());\n    }\n  }\n  return out;\n}\n```\n\n**Time**: O(log n) per addNum, O(1) per findMedian. **Space**: O(n)."
   },
   {
     "slug": "myntra-kth-largest-stream",
     "number": 1811,
-    "title": "Myntra Kth Largest Sale Stream",
+    "title": "Kth Largest Element in a Stream",
     "difficulty": "Medium",
     "topic": "Heap & Priority Queue",
-    "companies": ["myntra", "ajio", "amazon"],
+    "companies": [
+      "myntra",
+      "ajio",
+      "amazon"
+    ],
     "description": "Myntra ke sale dashboard ko har naya order add hone ke baad ab tak ka `k`th largest order value chahiye (1-indexed). Tujhe `k`, ek initial `seed` array, aur fir `add` operations ki sequence diya hai (as ops array). Har op `[\"add\", x]` hai — return current kth largest after that add. Agar abhi tak total elements < k hain, `null` return kar us op ke liye. Result array return kar (har op ke liye ek entry).",
     "examples": [
-      {"input": "k = 3, seed = [4, 5, 8, 2], ops = [[\"add\",3],[\"add\",5],[\"add\",10],[\"add\",9],[\"add\",4]]", "output": "[4,5,5,8,8]", "explanation": "Run k=3 largest after each add."},
-      {"input": "k = 2, seed = [], ops = [[\"add\",1],[\"add\",2],[\"add\",3]]", "output": "[null,1,2]"}
+      {
+        "input": "k = 3, seed = [4, 5, 8, 2], ops = [[\"add\",3],[\"add\",5],[\"add\",10],[\"add\",9],[\"add\",4]]",
+        "output": "[4,5,5,8,8]",
+        "explanation": "Run k=3 largest after each add."
+      },
+      {
+        "input": "k = 2, seed = [], ops = [[\"add\",1],[\"add\",2],[\"add\",3]]",
+        "output": "[null,1,2]"
+      }
     ],
-    "constraints": ["1 <= k <= 10^4", "0 <= seed.length <= 10^4", "1 <= ops.length <= 10^4", "-10^4 <= x, seed[i] <= 10^4"],
+    "constraints": [
+      "1 <= k <= 10^4",
+      "0 <= seed.length <= 10^4",
+      "1 <= ops.length <= 10^4",
+      "-10^4 <= x, seed[i] <= 10^4"
+    ],
     "hints": [
       "Min-heap of size k. Seed insert kar — size > k toh pop.",
       "Har add: push, size > k toh pop. Agar size == k, peek = answer; else null.",
       "Yeh classic 'KthLargest' design pattern hai but ops-array driven."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function kthLargestStream(k, seed, ops) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def kth_largest_stream(k, seed, ops):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function kthLargestStream(k, seed, ops) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def kth_largest_stream(k, seed, ops):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "kthLargestStream",
     "tests": [
-      {"args": [3, [4, 5, 8, 2], [["add", 3], ["add", 5], ["add", 10], ["add", 9], ["add", 4]]], "expected": [4, 5, 5, 8, 8], "label": "classic"},
-      {"args": [2, [], [["add", 1], ["add", 2], ["add", 3]]], "expected": [null, 1, 2], "label": "empty seed"},
-      {"args": [1, [5], [["add", 3], ["add", 9]]], "expected": [5, 9], "label": "k=1"},
-      {"args": [3, [1, 2], [["add", 3], ["add", 4]]], "expected": [1, 2], "label": "fill to k then grow"},
-      {"args": [2, [10, 10], [["add", 10]]], "expected": [10], "label": "duplicates"}
+      {
+        "args": [
+          3,
+          [
+            4,
+            5,
+            8,
+            2
+          ],
+          [
+            [
+              "add",
+              3
+            ],
+            [
+              "add",
+              5
+            ],
+            [
+              "add",
+              10
+            ],
+            [
+              "add",
+              9
+            ],
+            [
+              "add",
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          4,
+          5,
+          5,
+          8,
+          8
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          2,
+          [],
+          [
+            [
+              "add",
+              1
+            ],
+            [
+              "add",
+              2
+            ],
+            [
+              "add",
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          null,
+          1,
+          2
+        ],
+        "label": "empty seed"
+      },
+      {
+        "args": [
+          1,
+          [
+            5
+          ],
+          [
+            [
+              "add",
+              3
+            ],
+            [
+              "add",
+              9
+            ]
+          ]
+        ],
+        "expected": [
+          5,
+          9
+        ],
+        "label": "k=1"
+      },
+      {
+        "args": [
+          3,
+          [
+            1,
+            2
+          ],
+          [
+            [
+              "add",
+              3
+            ],
+            [
+              "add",
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ],
+        "label": "fill to k then grow"
+      },
+      {
+        "args": [
+          2,
+          [
+            10,
+            10
+          ],
+          [
+            [
+              "add",
+              10
+            ]
+          ]
+        ],
+        "expected": [
+          10
+        ],
+        "label": "duplicates"
+      }
     ],
     "editorial": "**Idea**: Maintain a min-heap holding the `k` largest values seen so far. Whenever size > k, pop the smallest. The root is the kth-largest.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction kthLargestStream(k, seed, ops) {\n  const heap = new MinHeap();\n  for (const v of seed) {\n    heap.push(v);\n    if (heap.size() > k) heap.pop();\n  }\n  const out = [];\n  for (const op of ops) {\n    // op = ['add', x]\n    heap.push(op[1]);\n    if (heap.size() > k) heap.pop();\n    out.push(heap.size() === k ? heap.peek() : null);\n  }\n  return out;\n}\n```\n\n**Time**: O((s + q) log k). **Space**: O(k)."
   },
   {
     "slug": "uber-driver-task-scheduler",
     "number": 1812,
-    "title": "Uber Driver Task Scheduler Cooldown",
+    "title": "Task Scheduler",
     "difficulty": "Medium",
     "topic": "Heap & Priority Queue",
-    "companies": ["uber", "ola", "rapido"],
+    "companies": [
+      "uber",
+      "ola",
+      "rapido"
+    ],
     "description": "Uber ke driver app me alag-alag categories ke `tasks` (string array of single chars) chalu hote hain. Same category ke do tasks ke beech `n` units ka cooldown chahiye (idle units allowed). Total minimum units chahiye saare tasks complete karne ke liye? Order kuch bhi rakh sakta hai.",
     "examples": [
-      {"input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2", "output": "8", "explanation": "A B idle A B idle A B → 8 units."},
-      {"input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 0", "output": "6", "explanation": "Koi cooldown nahi."},
-      {"input": "tasks = [\"A\"], n = 5", "output": "1"}
+      {
+        "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2",
+        "output": "8",
+        "explanation": "A B idle A B idle A B → 8 units."
+      },
+      {
+        "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 0",
+        "output": "6",
+        "explanation": "Koi cooldown nahi."
+      },
+      {
+        "input": "tasks = [\"A\"], n = 5",
+        "output": "1"
+      }
     ],
-    "constraints": ["1 <= tasks.length <= 10^4", "tasks[i] is uppercase A-Z", "0 <= n <= 100"],
+    "constraints": [
+      "1 <= tasks.length <= 10^4",
+      "tasks[i] is uppercase A-Z",
+      "0 <= n <= 100"
+    ],
     "hints": [
       "Greedy: highest-frequency category ko jab bhi possible execute kar.",
       "Max-heap of remaining counts + queue of (count, readyTime) cooldown me.",
       "Time tick karte raho — heap empty + queue empty hone tak."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function leastInterval(tasks, n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def least_interval(tasks, n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function leastInterval(tasks, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def least_interval(tasks, n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "leastInterval",
     "tests": [
-      {"args": [["A", "A", "A", "B", "B", "B"], 2], "expected": 8, "label": "classic"},
-      {"args": [["A", "A", "A", "B", "B", "B"], 0], "expected": 6, "label": "no cooldown"},
-      {"args": [["A"], 5], "expected": 1, "label": "single task"},
-      {"args": [["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"], 2], "expected": 16, "label": "lots of A"},
-      {"args": [["A", "B", "C", "D"], 2], "expected": 4, "label": "all distinct"},
-      {"args": [["A", "A", "B", "B"], 2], "expected": 5, "label": "two of two"}
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "A",
+            "B",
+            "B",
+            "B"
+          ],
+          2
+        ],
+        "expected": 8,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "A",
+            "B",
+            "B",
+            "B"
+          ],
+          0
+        ],
+        "expected": 6,
+        "label": "no cooldown"
+      },
+      {
+        "args": [
+          [
+            "A"
+          ],
+          5
+        ],
+        "expected": 1,
+        "label": "single task"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          2
+        ],
+        "expected": 16,
+        "label": "lots of A"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          2
+        ],
+        "expected": 4,
+        "label": "all distinct"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "B",
+            "B"
+          ],
+          2
+        ],
+        "expected": 5,
+        "label": "two of two"
+      }
     ],
     "editorial": "**Idea — simulate with max-heap + cooldown queue**: Count frequencies. Use a max-heap of remaining counts. At every time unit, prefer to run the most-frequent task. If just run, push it into a cooldown queue with `readyTime = now + n + 1`. Each tick, move ready tasks from queue back into the heap. Continue until both empty.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction leastInterval(tasks, n) {\n  const freq = {};\n  for (const t of tasks) freq[t] = (freq[t] || 0) + 1;\n  const heap = new MinHeap((a, b) => b - a); // max-heap of counts\n  for (const k in freq) heap.push(freq[k]);\n  const queue = []; // [count, readyTime]\n  let time = 0;\n  while (heap.size() || queue.length) {\n    time++;\n    if (heap.size()) {\n      const c = heap.pop() - 1;\n      if (c > 0) queue.push([c, time + n]);\n    }\n    if (queue.length && queue[0][1] === time) heap.push(queue.shift()[0]);\n  }\n  return time;\n}\n```\n\n**Time**: O(N log A) where A = distinct categories (≤26). **Space**: O(A)."
   },
   {
     "slug": "amazon-cargo-stones",
     "number": 1813,
-    "title": "Amazon Last Cargo Box Weight",
+    "title": "Last Stone Weight II",
     "difficulty": "Easy",
     "topic": "Heap & Priority Queue",
-    "companies": ["amazon", "flipkart", "meesho"],
+    "companies": [
+      "amazon",
+      "flipkart",
+      "meesho"
+    ],
     "description": "Amazon warehouse me cargo boxes ka weight smashing process: do heaviest boxes uthao, agar same weight hai toh dono destroy ho jaate hain; nahi toh smaller destroy hota hai aur larger ka diff bach jaata hai. Yeh repeat tab tak jab tak ek ya zero box bache. Initial `weights` array diya hai. Final remaining box weight (ya 0 if none) return kar.",
     "examples": [
-      {"input": "weights = [2, 7, 4, 1, 8, 1]", "output": "1"},
-      {"input": "weights = [1]", "output": "1"},
-      {"args_note": "Same as last-stone-weight LeetCode classic."}
+      {
+        "input": "weights = [2, 7, 4, 1, 8, 1]",
+        "output": "1"
+      },
+      {
+        "input": "weights = [1]",
+        "output": "1"
+      },
+      {
+        "args_note": "Same as last-stone-weight LeetCode classic."
+      }
     ],
-    "constraints": ["1 <= weights.length <= 30", "1 <= weights[i] <= 1000"],
+    "constraints": [
+      "1 <= weights.length <= 30",
+      "1 <= weights[i] <= 1000"
+    ],
     "hints": [
       "Max-heap, top 2 nikalo, diff push.",
       "Loop till size <= 1.",
       "Empty hua toh 0 return."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function lastCargoWeight(weights) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def last_cargo_weight(weights):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function lastCargoWeight(weights) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def last_cargo_weight(weights):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "lastCargoWeight",
     "tests": [
-      {"args": [[2, 7, 4, 1, 8, 1]], "expected": 1, "label": "classic"},
-      {"args": [[1]], "expected": 1, "label": "single"},
-      {"args": [[3, 3]], "expected": 0, "label": "two equal"},
-      {"args": [[10, 4]], "expected": 6, "label": "two different"},
-      {"args": [[2, 2, 2, 2]], "expected": 0, "label": "all equal even"},
-      {"args": [[5, 5, 5]], "expected": 5, "label": "all equal odd"}
+      {
+        "args": [
+          [
+            2,
+            7,
+            4,
+            1,
+            8,
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            3,
+            3
+          ]
+        ],
+        "expected": 0,
+        "label": "two equal"
+      },
+      {
+        "args": [
+          [
+            10,
+            4
+          ]
+        ],
+        "expected": 6,
+        "label": "two different"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": 0,
+        "label": "all equal even"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5
+          ]
+        ],
+        "expected": 5,
+        "label": "all equal odd"
+      }
     ],
     "editorial": "**Approach**: Max-heap; at each step pop the two largest weights. If they differ, push their difference. Continue until at most one element remains.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction lastCargoWeight(weights) {\n  const heap = new MinHeap((a, b) => b - a);\n  for (const w of weights) heap.push(w);\n  while (heap.size() > 1) {\n    const a = heap.pop();\n    const b = heap.pop();\n    if (a !== b) heap.push(a - b);\n  }\n  return heap.size() ? heap.peek() : 0;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "swiggy-smallest-range-cuisines",
     "number": 1814,
-    "title": "Swiggy Smallest Rating Range Across Cuisines",
+    "title": "Smallest Range Covering Elements from K Lists",
     "difficulty": "Hard",
     "topic": "Heap & Priority Queue",
-    "companies": ["swiggy", "zomato", "google"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "google"
+    ],
     "description": "Swiggy ke `k` cuisines hain, har ek ke ratings sorted ascending diye hain (`lists` 2D array). Tujhe smallest range `[a, b]` chahiye jo har cuisine ka kam se kam ek rating cover kare. Agar multiple ranges with same length hain, smallest `a` wala return kar; agar `a` bhi tie ho toh smallest `b` (auto). Output 2-element array `[a, b]`.",
     "examples": [
-      {"input": "lists = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]", "output": "[20,24]", "explanation": "Range [20,24] covers 24, 20, 22 — length 4. Smallest possible."},
-      {"input": "lists = [[1,2,3],[1,2,3],[1,2,3]]", "output": "[1,1]"},
-      {"input": "lists = [[1]]", "output": "[1,1]"}
+      {
+        "input": "lists = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]",
+        "output": "[20,24]",
+        "explanation": "Range [20,24] covers 24, 20, 22 — length 4. Smallest possible."
+      },
+      {
+        "input": "lists = [[1,2,3],[1,2,3],[1,2,3]]",
+        "output": "[1,1]"
+      },
+      {
+        "input": "lists = [[1]]",
+        "output": "[1,1]"
+      }
     ],
-    "constraints": ["1 <= lists.length <= 50", "1 <= lists[i].length <= 50", "Each lists[i] is sorted ascending", "-10^5 <= lists[i][j] <= 10^5"],
+    "constraints": [
+      "1 <= lists.length <= 50",
+      "1 <= lists[i].length <= 50",
+      "Each lists[i] is sorted ascending",
+      "-10^5 <= lists[i][j] <= 10^5"
+    ],
     "hints": [
       "Min-heap with one elem per list initially. Track current max.",
       "Pop min, range = [min, max]. Update best.",
       "Push next from same list; new max = max(currentMax, pushed). Stop when koi list khatam ho jaaye."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function smallestRange(lists) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def smallest_range(lists):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function smallestRange(lists) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def smallest_range(lists):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "smallestRange",
     "tests": [
-      {"args": [[[4, 10, 15, 24, 26], [0, 9, 12, 20], [5, 18, 22, 30]]], "expected": [20, 24], "label": "classic"},
-      {"args": [[[1, 2, 3], [1, 2, 3], [1, 2, 3]]], "expected": [1, 1], "label": "identical lists"},
-      {"args": [[[1]]], "expected": [1, 1], "label": "single list single element"},
-      {"args": [[[1, 5], [2, 6], [3, 7]]], "expected": [1, 3], "label": "small example"},
-      {"args": [[[-5, 0, 5], [-3, 0, 3]]], "expected": [0, 0], "label": "with zero"}
+      {
+        "args": [
+          [
+            [
+              4,
+              10,
+              15,
+              24,
+              26
+            ],
+            [
+              0,
+              9,
+              12,
+              20
+            ],
+            [
+              5,
+              18,
+              22,
+              30
+            ]
+          ]
+        ],
+        "expected": [
+          20,
+          24
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          1
+        ],
+        "label": "identical lists"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          1
+        ],
+        "label": "single list single element"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              7
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          3
+        ],
+        "label": "small example"
+      },
+      {
+        "args": [
+          [
+            [
+              -5,
+              0,
+              5
+            ],
+            [
+              -3,
+              0,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          0
+        ],
+        "label": "with zero"
+      }
     ],
     "editorial": "**Idea — min-heap k-way pointers**: Imagine sliding a window across the merged stream so it always contains at least one value from each list. Min-heap stores `[value, listIdx, elemIdx]`; we also track `curMax` = max value currently in window. Each step:\n1. `curMin = heap.peek().value`. If `curMax - curMin` is smaller than best, update best.\n2. Pop the min; advance that list's pointer; if exhausted, stop. Push next, update `curMax`.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction smallestRange(lists) {\n  const heap = new MinHeap((a, b) => a[0] - b[0]);\n  let curMax = -Infinity;\n  for (let i = 0; i < lists.length; i++) {\n    heap.push([lists[i][0], i, 0]);\n    if (lists[i][0] > curMax) curMax = lists[i][0];\n  }\n  let bestA = heap.peek()[0], bestB = curMax;\n  while (true) {\n    const [val, li, ei] = heap.pop();\n    if (curMax - val < bestB - bestA) { bestA = val; bestB = curMax; }\n    else if (curMax - val === bestB - bestA && val < bestA) { bestA = val; bestB = curMax; }\n    if (ei + 1 >= lists[li].length) break;\n    const next = lists[li][ei + 1];\n    if (next > curMax) curMax = next;\n    heap.push([next, li, ei + 1]);\n  }\n  return [bestA, bestB];\n}\n```\n\n**Time**: O(N log k) where N = total elements, k = number of lists. **Space**: O(k)."
   },
   {
     "slug": "razorpay-merge-k-payment-streams",
     "number": 1815,
-    "title": "Razorpay Merge K Payment Streams Top N",
+    "title": "Smallest N Elements from K Sorted Lists",
     "difficulty": "Hard",
     "topic": "Heap & Priority Queue",
-    "companies": ["razorpay", "stripe", "amazon"],
+    "companies": [
+      "razorpay",
+      "stripe",
+      "amazon"
+    ],
     "description": "Razorpay ke ledger me `k` payment streams hain, har ek sorted ascending by amount (could be empty). Tujhe top `n` smallest amounts merge karke return karne hain (sorted ascending). Agar total elements `< n` hain, jitne hain saare return kar. Tujhe `streams` (2D array) aur `n` integer diye hain.",
     "examples": [
-      {"input": "streams = [[1,4,5],[1,3,4],[2,6]], n = 5", "output": "[1,1,2,3,4]"},
-      {"input": "streams = [[10,20,30]], n = 2", "output": "[10,20]"},
-      {"input": "streams = [[1,2],[3]], n = 10", "output": "[1,2,3]", "explanation": "n exceeds total; return all."}
+      {
+        "input": "streams = [[1,4,5],[1,3,4],[2,6]], n = 5",
+        "output": "[1,1,2,3,4]"
+      },
+      {
+        "input": "streams = [[10,20,30]], n = 2",
+        "output": "[10,20]"
+      },
+      {
+        "input": "streams = [[1,2],[3]], n = 10",
+        "output": "[1,2,3]",
+        "explanation": "n exceeds total; return all."
+      }
     ],
-    "constraints": ["0 <= streams.length <= 10^4", "0 <= streams[i].length <= 500", "Total <= 10^5", "1 <= n <= 10^5", "-10^4 <= streams[i][j] <= 10^4", "Each streams[i] sorted ascending"],
+    "constraints": [
+      "0 <= streams.length <= 10^4",
+      "0 <= streams[i].length <= 500",
+      "Total <= 10^5",
+      "1 <= n <= 10^5",
+      "-10^4 <= streams[i][j] <= 10^4",
+      "Each streams[i] sorted ascending"
+    ],
     "hints": [
       "Standard k-way merge but stop after n elements.",
       "Min-heap of (val, listIdx, elemIdx).",
       "n se zyada total elements ho ya na ho — early break."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function topNFromStreams(streams, n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def top_n_from_streams(streams, n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function topNFromStreams(streams, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def top_n_from_streams(streams, n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "topNFromStreams",
     "tests": [
-      {"args": [[[1, 4, 5], [1, 3, 4], [2, 6]], 5], "expected": [1, 1, 2, 3, 4], "label": "basic"},
-      {"args": [[[10, 20, 30]], 2], "expected": [10, 20], "label": "single stream"},
-      {"args": [[[1, 2], [3]], 10], "expected": [1, 2, 3], "label": "n exceeds total"},
-      {"args": [[], 5], "expected": [], "label": "no streams"},
-      {"args": [[[]], 3], "expected": [], "label": "empty stream"},
-      {"args": [[[-5, 0], [-3, 2], [-1, 4]], 4], "expected": [-5, -3, -1, 0], "label": "negatives"},
-      {"args": [[[1], [1], [1]], 3], "expected": [1, 1, 1], "label": "all equal"}
+      {
+        "args": [
+          [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              4
+            ],
+            [
+              2,
+              6
+            ]
+          ],
+          5
+        ],
+        "expected": [
+          1,
+          1,
+          2,
+          3,
+          4
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            [
+              10,
+              20,
+              30
+            ]
+          ],
+          2
+        ],
+        "expected": [
+          10,
+          20
+        ],
+        "label": "single stream"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3
+            ]
+          ],
+          10
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ],
+        "label": "n exceeds total"
+      },
+      {
+        "args": [
+          [],
+          5
+        ],
+        "expected": [],
+        "label": "no streams"
+      },
+      {
+        "args": [
+          [
+            []
+          ],
+          3
+        ],
+        "expected": [],
+        "label": "empty stream"
+      },
+      {
+        "args": [
+          [
+            [
+              -5,
+              0
+            ],
+            [
+              -3,
+              2
+            ],
+            [
+              -1,
+              4
+            ]
+          ],
+          4
+        ],
+        "expected": [
+          -5,
+          -3,
+          -1,
+          0
+        ],
+        "label": "negatives"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              1
+            ],
+            [
+              1
+            ]
+          ],
+          3
+        ],
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "label": "all equal"
+      }
     ],
     "editorial": "**Idea — k-way merge with early stop**: Push the first element of every non-empty stream into a min-heap. Pop n times (or until heap empty), each time advancing the pointer of the popped stream.\n\n```javascript\nclass MinHeap {\n  constructor(cmp = (a,b) => a-b) { this.h = []; this.cmp = cmp; }\n  push(x) { this.h.push(x); this._up(this.h.length-1); }\n  pop() { if (!this.h.length) return undefined; const t = this.h[0]; const last = this.h.pop(); if (this.h.length) { this.h[0] = last; this._down(0); } return t; }\n  peek() { return this.h[0]; }\n  size() { return this.h.length; }\n  _up(i) { while (i > 0) { const p = (i-1)>>1; if (this.cmp(this.h[i], this.h[p]) < 0) { [this.h[i], this.h[p]] = [this.h[p], this.h[i]]; i = p; } else break; } }\n  _down(i) { const n = this.h.length; while (true) { let l = 2*i+1, r = 2*i+2, s = i; if (l < n && this.cmp(this.h[l], this.h[s]) < 0) s = l; if (r < n && this.cmp(this.h[r], this.h[s]) < 0) s = r; if (s === i) break; [this.h[i], this.h[s]] = [this.h[s], this.h[i]]; i = s; } }\n}\n\nfunction topNFromStreams(streams, n) {\n  const heap = new MinHeap((a, b) => a[0] - b[0]);\n  for (let i = 0; i < streams.length; i++) {\n    if (streams[i].length > 0) heap.push([streams[i][0], i, 0]);\n  }\n  const out = [];\n  while (heap.size() && out.length < n) {\n    const [v, li, ei] = heap.pop();\n    out.push(v);\n    if (ei + 1 < streams[li].length) heap.push([streams[li][ei + 1], li, ei + 1]);\n  }\n  return out;\n}\n```\n\n**Time**: O(min(n, N) log k). **Space**: O(k)."
   }

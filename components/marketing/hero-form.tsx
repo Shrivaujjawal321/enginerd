@@ -5,8 +5,9 @@
  *
  * Owns ALL interactivity for the landing-page hero:
  *   - the "I want to be ___" form (controlled `goal`, submit, focus mgmt)
+ *   - goal validation via matchGoal — garbage input is blocked with an error
  *   - the rotating placeholder (SAMPLE_GOALS interval)
- *   - the typewriter `streaming` / `streamIndex` state
+ *   - roadmap-matched typewriter streaming (one blurb per slug)
  *   - the right-column visual: Logo3D before submit, live stream after
  *
  * Split out of `hero.tsx` (Cycle 14, PERF-1) so the H1 + subhead in `<Hero>`
@@ -22,6 +23,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/shared/logo-svg";
+import { matchGoal, GOAL_PREVIEWS } from "@/lib/goal-match";
 
 // Lazy-load the 3D canvas — Three.js is ~150KB; defer until hero is needed.
 const Logo3D = dynamic(() => import("@/components/marketing/logo-3d"), {
@@ -36,23 +38,26 @@ const Logo3D = dynamic(() => import("@/components/marketing/logo-3d"), {
 const SAMPLE_GOALS = [
   "Amazon mein backend developer",
   "Razorpay mein data analyst",
-  "Swiggy mein product manager",
+  "Swiggy mein ML engineer",
   "Google mein SRE",
   "Flipkart mein full-stack engineer",
 ];
 
-/** Hinglish content that streams when the user hits Enter. Real content,
- *  pulled in spirit from `content/da-business-fundamentals.md`. */
-const STREAM = `Dekh bhai, seedha point pe aata hoon.
-
-Tu agar product company mein backend dev banna chahta hai, sabse pehle ek baat samajh — DSA crack karna ek skill hai, system design dusri, aur asli interview mein dono ke beech ka cross-questioning hota hai.
-
-Hum start karenge HTTP basics se. Ek REST API kya cheez hai? Restaurant ka waiter samajh — client (tu) order deta hai, server (kitchen) banata hai, waiter response laata hai. Agar kitchen busy hai, 503 milta hai. Agar tu galat order de raha hai, 400. Yahin se shuru hoti hai woh seedhi line jo Amazon mein 18 LPA tak le jaati hai.`;
+const MATCH_ERROR_MSG =
+  "Hmm, ye samajh nahi aaya. Try: 'backend developer', 'data analyst', 'ML engineer', 'frontend', 'DevOps', 'TCS NQT'…";
 
 export function HeroForm() {
   const [goal, setGoal] = React.useState("");
-  const [streaming, setStreaming] = React.useState<string | null>(null);
+  // matched holds the roadmap resolved from the last successful submit.
+  const [matched, setMatched] = React.useState<{
+    slug: string;
+    title: string;
+  } | null>(null);
+  // streamContent is the full blurb we're typewriting — set once on submit.
+  const [streamContent, setStreamContent] = React.useState("");
   const [streamIndex, setStreamIndex] = React.useState(0);
+  // matchError is set when the input doesn't map to any roadmap.
+  const [matchError, setMatchError] = React.useState<string | null>(null);
   const [placeholder, setPlaceholder] = React.useState(SAMPLE_GOALS[0]);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
@@ -68,34 +73,53 @@ export function HeroForm() {
     return () => clearInterval(id);
   }, [goal]);
 
-  // Typewriter effect — stream STREAM char by char once the user submits.
+  // Typewriter effect — char by char once the user submits a recognized goal.
   React.useEffect(() => {
-    if (streaming === null) return;
-    if (streamIndex >= STREAM.length) return;
+    if (matched === null) return;
+    if (streamIndex >= streamContent.length) return;
     const id = setTimeout(() => setStreamIndex((i) => i + 1), 18);
     return () => clearTimeout(id);
-  }, [streaming, streamIndex]);
+  }, [matched, streamIndex, streamContent.length]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!goal.trim()) {
+    const trimmed = goal.trim();
+    if (!trimmed) {
       inputRef.current?.focus();
       return;
     }
-    setStreaming(goal.trim());
+
+    const result = matchGoal(trimmed);
+    if (!result) {
+      // Block progression — show inline error, keep focus on input.
+      setMatchError(MATCH_ERROR_MSG);
+      inputRef.current?.focus();
+      return;
+    }
+
+    // Valid roadmap matched — clear any prior error and start streaming.
+    setMatchError(null);
+    const preview =
+      GOAL_PREVIEWS[result.slug] ??
+      `${result.title} — yeh roadmap tumhare liye hai. Chalo shuru karte hain.`;
+    setMatched(result);
+    setStreamContent(preview);
     setStreamIndex(0);
   };
 
-  const visible = streaming ? STREAM.slice(0, streamIndex) : "";
-  const showCursor = streaming !== null && streamIndex < STREAM.length;
+  const visible = matched ? streamContent.slice(0, streamIndex) : "";
+  const showCursor =
+    matched !== null && streamIndex < streamContent.length;
 
   return (
     <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 sm:px-8 lg:grid-cols-[1.15fr_1fr]">
-      {/* LEFT — interactive form + login link */}
+      {/* LEFT — interactive form + error + login link */}
       <div className="flex flex-col items-start">
         <form
           onSubmit={onSubmit}
           className="flex w-full max-w-2xl flex-col gap-2 sm:flex-row"
+          aria-describedby={matchError ? "hero-goal-error" : undefined}
+          noValidate
         >
           <div className="relative flex-1">
             {/* The visible "I want to be" prefix is the label — mapping
@@ -111,9 +135,15 @@ export function HeroForm() {
               id="hero-goal"
               ref={inputRef}
               value={goal}
-              onChange={(e) => setGoal(e.target.value)}
+              onChange={(e) => {
+                setGoal(e.target.value);
+                // Clear error as soon as the user starts typing again.
+                if (matchError) setMatchError(null);
+              }}
               placeholder={placeholder}
-              className="h-14 w-full rounded-xl border border-white/[0.08] bg-white/[0.02] pl-[110px] pr-4 text-lg text-slate-100 outline-none transition-colors placeholder:text-slate-600 focus:border-violet-400/40 focus:bg-white/[0.04]"
+              aria-invalid={matchError !== null}
+              aria-errormessage={matchError ? "hero-goal-error" : undefined}
+              className="h-14 w-full rounded-xl border border-white/[0.08] bg-white/[0.02] pl-[110px] pr-4 text-lg text-slate-100 outline-none transition-colors placeholder:text-slate-600 focus:border-violet-400/40 focus:bg-white/[0.04] aria-[invalid=true]:border-amber-400/50"
             />
           </div>
           <Button type="submit" size="lg" className="h-14 px-6 text-base">
@@ -121,6 +151,17 @@ export function HeroForm() {
             Get started
           </Button>
         </form>
+
+        {/* Inline error — shown when matchGoal returns null */}
+        {matchError ? (
+          <p
+            id="hero-goal-error"
+            role="alert"
+            className="mt-2 max-w-2xl text-sm text-amber-300"
+          >
+            {matchError}
+          </p>
+        ) : null}
 
         <Link
           href="/login"
@@ -131,7 +172,7 @@ export function HeroForm() {
         </Link>
       </div>
 
-      {/* RIGHT — 3D logo OR live stream */}
+      {/* RIGHT — 3D logo OR live roadmap-specific stream */}
       <div className="relative">
         {/* Subtle glow behind the logo / stream — kept singular: no rainbow */}
         <div
@@ -142,7 +183,7 @@ export function HeroForm() {
               "radial-gradient(circle at center, rgba(139,92,246,0.30), rgba(6,182,212,0.18) 50%, transparent 75%)",
           }}
         />
-        {streaming === null ? (
+        {matched === null ? (
           <Logo3D />
         ) : (
           <motion.div
@@ -152,7 +193,7 @@ export function HeroForm() {
             className="rounded-2xl border border-white/[0.08] bg-[#0d0d12] p-6 sm:p-8"
           >
             <p className="mb-3 text-xs uppercase tracking-wider text-slate-400">
-              {streaming} — first lesson
+              {matched.title} — first lesson
             </p>
             <pre className="whitespace-pre-wrap font-sans text-[15px] leading-[1.75] text-slate-200 sm:text-base">
               {visible}
@@ -161,7 +202,10 @@ export function HeroForm() {
               ) : null}
             </pre>
             {!showCursor ? (
-              <Link href="/login" className="mt-6 inline-block">
+              <Link
+                href={`/login?goal=${encodeURIComponent(matched.slug)}`}
+                className="mt-6 inline-block"
+              >
                 <Button size="lg">
                   Continue — log in
                   <ArrowRight className="h-4 w-4" />

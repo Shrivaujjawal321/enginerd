@@ -46,9 +46,9 @@ export async function POST(req: Request) {
   if (!hasRazorpay) {
     return NextResponse.json(
       {
-        error: "razorpay_not_configured",
+        error: "payments_unavailable",
         message:
-          "Set RAZORPAY_KEY_ID + RAZORPAY_KEY_SECRET in env to enable checkout.",
+          "Payments are temporarily unavailable. Please try again later or contact support.",
       },
       { status: 503 },
     );

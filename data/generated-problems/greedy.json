@@ -2,666 +2,2669 @@
   {
     "slug": "swiggy-rider-jump-coverage",
     "number": 2401,
-    "title": "Swiggy Rider Jump Coverage",
+    "title": "Jump Game",
     "difficulty": "Easy",
     "topic": "Greedy",
-    "companies": ["swiggy", "zomato", "dunzo"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "dunzo"
+    ],
     "description": "Swiggy maps a delivery street as an array `maxJump` where `maxJump[i]` is the maximum number of buildings a rider standing at index `i` can hop forward (because of fuel left). The rider starts at index 0. Return `true` if the rider can reach the last building, otherwise `false`.",
     "examples": [
-      {"input": "maxJump = [2, 3, 1, 1, 4]", "output": "true", "explanation": "0 -> 1 -> 4 covers the street."},
-      {"input": "maxJump = [3, 2, 1, 0, 4]", "output": "false", "explanation": "Stuck at index 3 with jump 0."}
+      {
+        "input": "maxJump = [2, 3, 1, 1, 4]",
+        "output": "true",
+        "explanation": "0 -> 1 -> 4 covers the street."
+      },
+      {
+        "input": "maxJump = [3, 2, 1, 0, 4]",
+        "output": "false",
+        "explanation": "Stuck at index 3 with jump 0."
+      }
     ],
-    "constraints": ["1 <= maxJump.length <= 10^5", "0 <= maxJump[i] <= 10^5"],
+    "constraints": [
+      "1 <= maxJump.length <= 10^5",
+      "0 <= maxJump[i] <= 10^5"
+    ],
     "hints": [
       "Track sabse aage tak ka reachable index ek pass me.",
       "Agar current index reachable se aage hai toh wahi pe atak gaya.",
       "Single element ka case: already at end, return true."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function canRiderReachEnd(maxJump) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def can_rider_reach_end(max_jump):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function canRiderReachEnd(maxJump) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_rider_reach_end(max_jump):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "canRiderReachEnd",
     "tests": [
-      {"args": [[2, 3, 1, 1, 4]], "expected": true, "label": "basic reachable"},
-      {"args": [[3, 2, 1, 0, 4]], "expected": false, "label": "blocked by zero"},
-      {"args": [[0]], "expected": true, "label": "single building already end"},
-      {"args": [[2, 0, 0]], "expected": true, "label": "exact reach"},
-      {"args": [[1, 1, 1, 1, 1]], "expected": true, "label": "all ones"},
-      {"args": [[0, 1]], "expected": false, "label": "zero at start"},
-      {"args": [[5, 0, 0, 0, 0, 0]], "expected": true, "label": "big first jump"}
+      {
+        "args": [
+          [
+            2,
+            3,
+            1,
+            1,
+            4
+          ]
+        ],
+        "expected": true,
+        "label": "basic reachable"
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            1,
+            0,
+            4
+          ]
+        ],
+        "expected": false,
+        "label": "blocked by zero"
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": true,
+        "label": "single building already end"
+      },
+      {
+        "args": [
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "expected": true,
+        "label": "exact reach"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": true,
+        "label": "all ones"
+      },
+      {
+        "args": [
+          [
+            0,
+            1
+          ]
+        ],
+        "expected": false,
+        "label": "zero at start"
+      },
+      {
+        "args": [
+          [
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": true,
+        "label": "big first jump"
+      }
     ],
     "editorial": "**Brute force**: Try every reachable index recursively — exponential.\n\n**Greedy — track furthest reachable**: Walk left to right, maintain `farthest = max(farthest, i + maxJump[i])`. The moment `i > farthest`, the rider is stranded. If we finish the loop, the last index was reachable.\n\n**Why greedy works (exchange argument)**: If from index `i` we could pick any jump `<= maxJump[i]`, picking the maximum dominates: any sequence reaching the end using a smaller hop from `i` can be replaced by the bigger hop and still reach the end. So always extending the frontier is optimal.\n\n```javascript\nfunction canRiderReachEnd(maxJump) {\n  let farthest = 0;\n  for (let i = 0; i < maxJump.length; i++) {\n    if (i > farthest) return false;\n    farthest = Math.max(farthest, i + maxJump[i]);\n    if (farthest >= maxJump.length - 1) return true;\n  }\n  return true;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
   },
   {
     "slug": "razorpay-min-refund-batches",
     "number": 2402,
-    "title": "Razorpay Minimum Refund Batches",
+    "title": "Minimum Number of Arrows to Burst Balloons",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["razorpay", "paytm", "stripe"],
+    "companies": [
+      "razorpay",
+      "paytm",
+      "stripe"
+    ],
     "description": "Razorpay batches refunds: each refund is an interval `[start, end]` describing when it must be processed. A batch worker can hold any number of refunds whose intervals all overlap at one common instant. Return the minimum number of batch workers needed so every refund is covered. Equivalently, this is the classic 'jump game II' on an array: given `maxJump[i]`, return minimum hops from index 0 to the last index. We use the second formulation directly.\n\nGiven `maxJump`, return the minimum number of jumps to reach the last index. You may assume the last index is always reachable.",
     "examples": [
-      {"input": "maxJump = [2, 3, 1, 1, 4]", "output": "2", "explanation": "0 -> 1 -> 4."},
-      {"input": "maxJump = [1, 1, 1, 1]", "output": "3"}
+      {
+        "input": "maxJump = [2, 3, 1, 1, 4]",
+        "output": "2",
+        "explanation": "0 -> 1 -> 4."
+      },
+      {
+        "input": "maxJump = [1, 1, 1, 1]",
+        "output": "3"
+      }
     ],
-    "constraints": ["1 <= maxJump.length <= 10^4", "0 <= maxJump[i] <= 1000", "Last index always reachable"],
+    "constraints": [
+      "1 <= maxJump.length <= 10^4",
+      "0 <= maxJump[i] <= 1000",
+      "Last index always reachable"
+    ],
     "hints": [
       "Window-based BFS: current jump's reachable range is [l, r]; next range is [r+1, max(i+maxJump[i]) for i in window].",
       "Har baar window khatam hone par jumps++ kar.",
       "Single-element array → 0 jumps."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minRefundBatches(maxJump) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_refund_batches(max_jump):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minRefundBatches(maxJump) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_refund_batches(max_jump):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minRefundBatches",
     "tests": [
-      {"args": [[2, 3, 1, 1, 4]], "expected": 2, "label": "classic"},
-      {"args": [[1, 1, 1, 1]], "expected": 3, "label": "all ones"},
-      {"args": [[1]], "expected": 0, "label": "single element"},
-      {"args": [[2, 1]], "expected": 1, "label": "two elements"},
-      {"args": [[5, 1, 1, 1, 1, 1]], "expected": 1, "label": "first hop covers all"},
-      {"args": [[3, 4, 3, 2, 5, 4, 3]], "expected": 2, "label": "longer array"}
+      {
+        "args": [
+          [
+            2,
+            3,
+            1,
+            1,
+            4
+          ]
+        ],
+        "expected": 2,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 3,
+        "label": "all ones"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "single element"
+      },
+      {
+        "args": [
+          [
+            2,
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "two elements"
+      },
+      {
+        "args": [
+          [
+            5,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "first hop covers all"
+      },
+      {
+        "args": [
+          [
+            3,
+            4,
+            3,
+            2,
+            5,
+            4,
+            3
+          ]
+        ],
+        "expected": 2,
+        "label": "longer array"
+      }
     ],
     "editorial": "**Brute force**: BFS over indices treating each jump as an edge — O(n^2) worst case.\n\n**Greedy — implicit BFS by levels**: Maintain `currentEnd` (the rightmost index reachable using `jumps` hops) and `farthest` (the rightmost index reachable using `jumps + 1` hops). Iterate `i` from 0 to n-2, updating `farthest`. When `i === currentEnd`, we've consumed the current level — increment `jumps` and set `currentEnd = farthest`.\n\n**Why greedy works (exchange argument)**: Within one BFS level, expanding to the maximum reachable index never hurts — any solution using a less-far frontier can be rewritten to use the further one with the same number of jumps.\n\n```javascript\nfunction minRefundBatches(maxJump) {\n  let jumps = 0, currentEnd = 0, farthest = 0;\n  for (let i = 0; i < maxJump.length - 1; i++) {\n    farthest = Math.max(farthest, i + maxJump[i]);\n    if (i === currentEnd) {\n      jumps++;\n      currentEnd = farthest;\n    }\n  }\n  return jumps;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
   },
   {
     "slug": "indianoil-gas-station-circuit",
     "number": 2403,
-    "title": "IndianOil Gas Station Circuit",
+    "title": "Gas Station",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["indianoil", "uber", "ola"],
+    "companies": [
+      "indianoil",
+      "uber",
+      "ola"
+    ],
     "description": "An IndianOil tanker drives a circular highway with `n` gas stations. At station `i` it can refill `gas[i]` litres, and going from station `i` to `i+1` costs `cost[i]` litres. Starting with an empty tank, return the index of the station from which you can complete a full clockwise loop. Return -1 if impossible. There is at most one valid start (when one exists).",
     "examples": [
-      {"input": "gas = [1, 2, 3, 4, 5], cost = [3, 4, 5, 1, 2]", "output": "3"},
-      {"input": "gas = [2, 3, 4], cost = [3, 4, 3]", "output": "-1"}
+      {
+        "input": "gas = [1, 2, 3, 4, 5], cost = [3, 4, 5, 1, 2]",
+        "output": "3"
+      },
+      {
+        "input": "gas = [2, 3, 4], cost = [3, 4, 3]",
+        "output": "-1"
+      }
     ],
-    "constraints": ["1 <= gas.length == cost.length <= 10^5", "0 <= gas[i], cost[i] <= 10^4"],
+    "constraints": [
+      "1 <= gas.length == cost.length <= 10^5",
+      "0 <= gas[i], cost[i] <= 10^4"
+    ],
     "hints": [
       "Agar total gas < total cost, answer -1.",
       "Otherwise unique start exists. Track running tank; jab negative ho, next index se restart kar.",
       "Sum-condition guarantee karta hai single pass kaafi hai."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function findGasStationStart(gas, cost) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def find_gas_station_start(gas, cost):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function findGasStationStart(gas, cost) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_gas_station_start(gas, cost):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "findGasStationStart",
     "tests": [
-      {"args": [[1, 2, 3, 4, 5], [3, 4, 5, 1, 2]], "expected": 3, "label": "classic"},
-      {"args": [[2, 3, 4], [3, 4, 3]], "expected": -1, "label": "impossible total"},
-      {"args": [[5], [4]], "expected": 0, "label": "single station ok"},
-      {"args": [[3], [4]], "expected": -1, "label": "single station fail"},
-      {"args": [[4, 5, 2, 6, 5, 3], [3, 2, 7, 3, 2, 9]], "expected": -1, "label": "no valid"},
-      {"args": [[5, 1, 2, 3, 4], [4, 4, 1, 5, 1]], "expected": 4, "label": "wrap around"}
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            3,
+            4,
+            5,
+            1,
+            2
+          ]
+        ],
+        "expected": 3,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            3,
+            4,
+            3
+          ]
+        ],
+        "expected": -1,
+        "label": "impossible total"
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          [
+            4
+          ]
+        ],
+        "expected": 0,
+        "label": "single station ok"
+      },
+      {
+        "args": [
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "expected": -1,
+        "label": "single station fail"
+      },
+      {
+        "args": [
+          [
+            4,
+            5,
+            2,
+            6,
+            5,
+            3
+          ],
+          [
+            3,
+            2,
+            7,
+            3,
+            2,
+            9
+          ]
+        ],
+        "expected": -1,
+        "label": "no valid"
+      },
+      {
+        "args": [
+          [
+            5,
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            4,
+            4,
+            1,
+            5,
+            1
+          ]
+        ],
+        "expected": 4,
+        "label": "wrap around"
+      }
     ],
     "editorial": "**Brute force**: Try each index as a start, simulate the loop — O(n^2).\n\n**Greedy — single pass with reset**: \n1. If `sum(gas) < sum(cost)` no answer exists, return -1.\n2. Otherwise scan once. Track `tank = 0` and a candidate `start = 0`. For each `i`, do `tank += gas[i] - cost[i]`. If `tank < 0`, none of the indices in `[start..i]` can be a valid start, so set `start = i + 1` and `tank = 0`.\n\n**Why greedy works (exchange argument)**: If starting at `start` we run out by index `i`, then starting from any `j` in `(start, i]` we'd run out no later — because the partial sum from `start..j-1` was non-negative, dropping it only makes the prefix sum from `j` smaller. So we can safely skip to `i+1`.\n\n```javascript\nfunction findGasStationStart(gas, cost) {\n  let total = 0, tank = 0, start = 0;\n  for (let i = 0; i < gas.length; i++) {\n    const diff = gas[i] - cost[i];\n    total += diff;\n    tank += diff;\n    if (tank < 0) {\n      start = i + 1;\n      tank = 0;\n    }\n  }\n  return total >= 0 ? start : -1;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
   },
   {
     "slug": "flipkart-hand-of-straights",
     "number": 2404,
-    "title": "Flipkart Group Order in Consecutive Bundles",
+    "title": "Hand of Straights",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["flipkart", "amazon", "myntra"],
+    "companies": [
+      "flipkart",
+      "amazon",
+      "myntra"
+    ],
     "description": "Flipkart's packing line wants to ship products in bundles of exactly `groupSize`, where each bundle consists of `groupSize` consecutive product IDs (e.g., [4,5,6] for size 3). Given `productIds` and `groupSize`, return `true` if the array can be split entirely into such bundles, otherwise `false`.",
     "examples": [
-      {"input": "productIds = [1,2,3,6,2,3,4,7,8], groupSize = 3", "output": "true", "explanation": "[1,2,3], [2,3,4], [6,7,8]."},
-      {"input": "productIds = [1,2,3,4,5], groupSize = 4", "output": "false", "explanation": "Length not divisible by groupSize."}
+      {
+        "input": "productIds = [1,2,3,6,2,3,4,7,8], groupSize = 3",
+        "output": "true",
+        "explanation": "[1,2,3], [2,3,4], [6,7,8]."
+      },
+      {
+        "input": "productIds = [1,2,3,4,5], groupSize = 4",
+        "output": "false",
+        "explanation": "Length not divisible by groupSize."
+      }
     ],
-    "constraints": ["1 <= productIds.length <= 10^4", "1 <= groupSize <= productIds.length", "0 <= productIds[i] <= 10^9"],
+    "constraints": [
+      "1 <= productIds.length <= 10^4",
+      "1 <= groupSize <= productIds.length",
+      "0 <= productIds[i] <= 10^9"
+    ],
     "hints": [
       "Sabse chhota element kisi bundle ka start hi banega — usse start kar.",
       "TreeMap / sorted Map of frequencies use kar; iterate ascending key.",
       "Length % groupSize !== 0 → straight false."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function canFormConsecutiveBundles(productIds, groupSize) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def can_form_consecutive_bundles(product_ids, group_size):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function canFormConsecutiveBundles(productIds, groupSize) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_form_consecutive_bundles(product_ids, group_size):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "canFormConsecutiveBundles",
     "tests": [
-      {"args": [[1, 2, 3, 6, 2, 3, 4, 7, 8], 3], "expected": true, "label": "classic"},
-      {"args": [[1, 2, 3, 4, 5], 4], "expected": false, "label": "length mismatch"},
-      {"args": [[1], 1], "expected": true, "label": "single element size 1"},
-      {"args": [[1, 1, 2, 2, 3, 3], 3], "expected": true, "label": "two bundles"},
-      {"args": [[1, 2, 3, 4], 2], "expected": true, "label": "two pairs"},
-      {"args": [[1, 2, 4, 5], 2], "expected": true, "label": "non-overlapping pairs"},
-      {"args": [[3, 3, 2, 2, 1, 1], 3], "expected": true, "label": "shuffled duplicates"}
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            6,
+            2,
+            3,
+            4,
+            7,
+            8
+          ],
+          3
+        ],
+        "expected": true,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          4
+        ],
+        "expected": false,
+        "label": "length mismatch"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": true,
+        "label": "single element size 1"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            2,
+            2,
+            3,
+            3
+          ],
+          3
+        ],
+        "expected": true,
+        "label": "two bundles"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          2
+        ],
+        "expected": true,
+        "label": "two pairs"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            4,
+            5
+          ],
+          2
+        ],
+        "expected": true,
+        "label": "non-overlapping pairs"
+      },
+      {
+        "args": [
+          [
+            3,
+            3,
+            2,
+            2,
+            1,
+            1
+          ],
+          3
+        ],
+        "expected": true,
+        "label": "shuffled duplicates"
+      }
     ],
     "editorial": "**Greedy — smallest-first packing**: \n1. If `n % groupSize !== 0` return false.\n2. Build a frequency map and the sorted list of distinct values.\n3. For each value `v` in ascending order, while `freq[v] > 0`, start a new bundle at `v`: for `j` in `[v, v+groupSize)`, decrement `freq[j]`. If any becomes negative, return false.\n\n**Why greedy works (exchange argument)**: The smallest unused value can only be the *start* of a bundle (no smaller value exists to extend backward). So we have no choice but to consume it as a start. Repeating this argument inductively kills all degrees of freedom.\n\n```javascript\nfunction canFormConsecutiveBundles(productIds, groupSize) {\n  if (productIds.length % groupSize !== 0) return false;\n  const freq = new Map();\n  for (const x of productIds) freq.set(x, (freq.get(x) || 0) + 1);\n  const keys = [...freq.keys()].sort((a, b) => a - b);\n  for (const v of keys) {\n    const c = freq.get(v) || 0;\n    if (c === 0) continue;\n    for (let j = 0; j < groupSize; j++) {\n      const cur = freq.get(v + j) || 0;\n      if (cur < c) return false;\n      freq.set(v + j, cur - c);\n    }\n  }\n  return true;\n}\n```\n\n**Time**: O(n log n + n * groupSize). **Space**: O(n)."
   },
   {
     "slug": "zomato-merge-delivery-triplets",
     "number": 2405,
-    "title": "Zomato Merge Delivery Triplets",
+    "title": "Merge Triplets to Form Target Triplet",
     "difficulty": "Easy",
     "topic": "Greedy",
-    "companies": ["zomato", "swiggy", "dunzo"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "dunzo"
+    ],
     "description": "Zomato rates each delivery batch by a triplet `[speed, accuracy, freshness]`. Operation: pick any two triplets `a` and `b` and replace either with the elementwise max. Given `triplets` and a target `target = [tx, ty, tz]`, decide whether some sequence of operations yields a triplet exactly equal to `target`. Return `true` or `false`.",
     "examples": [
-      {"input": "triplets = [[2,5,3],[1,8,4],[1,7,5]], target = [2,7,5]", "output": "true", "explanation": "Use [2,5,3] and [1,7,5] -> [2,7,5]."},
-      {"input": "triplets = [[3,4,5],[4,5,6]], target = [3,2,5]", "output": "false", "explanation": "No triplet has y <= 2 and matches x=3."}
+      {
+        "input": "triplets = [[2,5,3],[1,8,4],[1,7,5]], target = [2,7,5]",
+        "output": "true",
+        "explanation": "Use [2,5,3] and [1,7,5] -> [2,7,5]."
+      },
+      {
+        "input": "triplets = [[3,4,5],[4,5,6]], target = [3,2,5]",
+        "output": "false",
+        "explanation": "No triplet has y <= 2 and matches x=3."
+      }
     ],
-    "constraints": ["1 <= triplets.length <= 10^5", "triplets[i].length == 3", "1 <= triplets[i][j], target[j] <= 1000"],
+    "constraints": [
+      "1 <= triplets.length <= 10^5",
+      "triplets[i].length == 3",
+      "1 <= triplets[i][j], target[j] <= 1000"
+    ],
     "hints": [
       "Koi triplet jisme koi component target se bada hai, vo useless hai (use karoge toh max barbaad).",
       "Useful triplets ka componentwise max nikaalo.",
       "Vo max == target ho toh true."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function canMergeToTarget(triplets, target) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def can_merge_to_target(triplets, target):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function canMergeToTarget(triplets, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_merge_to_target(triplets, target):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "canMergeToTarget",
     "tests": [
-      {"args": [[[2, 5, 3], [1, 8, 4], [1, 7, 5]], [2, 7, 5]], "expected": true, "label": "classic"},
-      {"args": [[[3, 4, 5], [4, 5, 6]], [3, 2, 5]], "expected": false, "label": "component too small needed"},
-      {"args": [[[2, 7, 5]], [2, 7, 5]], "expected": true, "label": "single match"},
-      {"args": [[[1, 1, 1]], [2, 2, 2]], "expected": false, "label": "single too small"},
-      {"args": [[[1, 3, 5], [2, 5, 7], [3, 2, 1]], [3, 5, 5]], "expected": false, "label": "no merge produces"},
-      {"args": [[[1, 2, 3], [4, 5, 6], [3, 4, 5]], [3, 4, 5]], "expected": true, "label": "exact present"}
+      {
+        "args": [
+          [
+            [
+              2,
+              5,
+              3
+            ],
+            [
+              1,
+              8,
+              4
+            ],
+            [
+              1,
+              7,
+              5
+            ]
+          ],
+          [
+            2,
+            7,
+            5
+          ]
+        ],
+        "expected": true,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              4,
+              5
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ],
+          [
+            3,
+            2,
+            5
+          ]
+        ],
+        "expected": false,
+        "label": "component too small needed"
+      },
+      {
+        "args": [
+          [
+            [
+              2,
+              7,
+              5
+            ]
+          ],
+          [
+            2,
+            7,
+            5
+          ]
+        ],
+        "expected": true,
+        "label": "single match"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ]
+          ],
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": false,
+        "label": "single too small"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              5,
+              7
+            ],
+            [
+              3,
+              2,
+              1
+            ]
+          ],
+          [
+            3,
+            5,
+            5
+          ]
+        ],
+        "expected": false,
+        "label": "no merge produces"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ],
+          [
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": true,
+        "label": "exact present"
+      }
     ],
     "editorial": "**Insight**: The merge operation can only push components *up*, so the final triplet equals the elementwise max over some subset of the inputs. We need that max to be exactly `target`.\n\n**Greedy — filter then max**: Discard any triplet that has a component strictly greater than the corresponding target component (using it would overshoot). Among the survivors, take the elementwise max. Return whether it equals target.\n\n**Why greedy works (exchange argument)**: A 'bad' triplet (with some component > target) can never be in the final mix because once merged its excess never decreases. So restricting to survivors loses nothing. Among survivors, including more can only help — so taking the max over all survivors is optimal.\n\n```javascript\nfunction canMergeToTarget(triplets, target) {\n  const [tx, ty, tz] = target;\n  let mx = 0, my = 0, mz = 0;\n  for (const [a, b, c] of triplets) {\n    if (a > tx || b > ty || c > tz) continue;\n    if (a > mx) mx = a;\n    if (b > my) my = b;\n    if (c > mz) mz = c;\n  }\n  return mx === tx && my === ty && mz === tz;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
   },
   {
     "slug": "paytm-cashback-partition-labels",
     "number": 2406,
-    "title": "Paytm Cashback Partition Labels",
+    "title": "Partition Labels",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["paytm", "phonepe", "razorpay"],
+    "companies": [
+      "paytm",
+      "phonepe",
+      "razorpay"
+    ],
     "description": "Paytm processes a stream of cashback events represented as a string `events` where each character is a campaign tag. Cut the string into the maximum number of contiguous parts such that no character appears in more than one part. Return the array of part lengths in order.",
     "examples": [
-      {"input": "events = \"ababcbacadefegdehijhklij\"", "output": "[9, 7, 8]"},
-      {"input": "events = \"eccbbbbdec\"", "output": "[10]"}
+      {
+        "input": "events = \"ababcbacadefegdehijhklij\"",
+        "output": "[9, 7, 8]"
+      },
+      {
+        "input": "events = \"eccbbbbdec\"",
+        "output": "[10]"
+      }
     ],
-    "constraints": ["1 <= events.length <= 500", "events consists of lowercase English letters"],
+    "constraints": [
+      "1 <= events.length <= 500",
+      "events consists of lowercase English letters"
+    ],
     "hints": [
       "Har char ka last occurrence pre-compute kar.",
       "Window walk kar: end = max(end, lastOccurrence[ch]). Jab i == end, ek part katt.",
       "Empty string would return [], single char returns [1]."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function partitionCashbackLabels(events) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def partition_cashback_labels(events):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function partitionCashbackLabels(events) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def partition_cashback_labels(events):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "partitionCashbackLabels",
     "tests": [
-      {"args": ["ababcbacadefegdehijhklij"], "expected": [9, 7, 8], "label": "classic"},
-      {"args": ["eccbbbbdec"], "expected": [10], "label": "single part"},
-      {"args": ["a"], "expected": [1], "label": "single char"},
-      {"args": ["abc"], "expected": [1, 1, 1], "label": "all unique"},
-      {"args": ["aaaa"], "expected": [4], "label": "all same"},
-      {"args": ["abacccba"], "expected": [8], "label": "interleaved"}
+      {
+        "args": [
+          "ababcbacadefegdehijhklij"
+        ],
+        "expected": [
+          9,
+          7,
+          8
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          "eccbbbbdec"
+        ],
+        "expected": [
+          10
+        ],
+        "label": "single part"
+      },
+      {
+        "args": [
+          "a"
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single char"
+      },
+      {
+        "args": [
+          "abc"
+        ],
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "label": "all unique"
+      },
+      {
+        "args": [
+          "aaaa"
+        ],
+        "expected": [
+          4
+        ],
+        "label": "all same"
+      },
+      {
+        "args": [
+          "abacccba"
+        ],
+        "expected": [
+          8
+        ],
+        "label": "interleaved"
+      }
     ],
     "editorial": "**Greedy — extend window to last occurrence**: Build `last[c]` = last index of character `c`. Walk i from 0 with a current window `[start, end]`, where `end = max(end, last[s[i]])`. When `i === end`, close the part, push `end - start + 1`, set `start = i + 1`.\n\n**Why greedy works (exchange argument)**: Any valid partition must end the part containing the first occurrence of `c` no earlier than `last[c]`. Since this constraint applies to every character we have seen so far, the smallest legal cut point is exactly the running `end`. Cutting at this point maximizes the number of remaining cuts — any later cut would only merge two future parts into one, never splitting one into two.\n\n```javascript\nfunction partitionCashbackLabels(events) {\n  const last = new Map();\n  for (let i = 0; i < events.length; i++) last.set(events[i], i);\n  const out = [];\n  let start = 0, end = 0;\n  for (let i = 0; i < events.length; i++) {\n    end = Math.max(end, last.get(events[i]));\n    if (i === end) {\n      out.push(end - start + 1);\n      start = i + 1;\n    }\n  }\n  return out;\n}\n```\n\n**Time**: O(n). **Space**: O(σ)."
   },
   {
     "slug": "razorpay-valid-paren-with-wildcard",
     "number": 2407,
-    "title": "Razorpay Webhook Bracket Validator",
+    "title": "Valid Parenthesis String",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["razorpay", "stripe", "paytm"],
+    "companies": [
+      "razorpay",
+      "stripe",
+      "paytm"
+    ],
     "description": "Razorpay's webhook payload validator receives a string `s` containing only `'('`, `')'`, and `'*'`. The `*` may represent a `'('`, a `')'`, or an empty string. Return `true` if `s` can be made into a valid balanced parenthesis string, otherwise `false`.",
     "examples": [
-      {"input": "s = \"(*)\"", "output": "true"},
-      {"input": "s = \"(*))\"", "output": "true"},
-      {"input": "s = \")(\"", "output": "false"}
+      {
+        "input": "s = \"(*)\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"(*))\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \")(\"",
+        "output": "false"
+      }
     ],
-    "constraints": ["0 <= s.length <= 100", "s contains only '(', ')', '*'"],
+    "constraints": [
+      "0 <= s.length <= 100",
+      "s contains only '(', ')', '*'"
+    ],
     "hints": [
       "Track range [lo, hi] of possible open-counts as you scan.",
       "'(' → lo++, hi++. ')' → lo--, hi--. '*' → lo--, hi++.",
       "Agar hi < 0 toh fail. lo ko 0 par clamp kar (negative possibility ka matlab hai us path ko discard)."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function isValidWebhookBrackets(s) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def is_valid_webhook_brackets(s):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function isValidWebhookBrackets(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_valid_webhook_brackets(s):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "isValidWebhookBrackets",
     "tests": [
-      {"args": ["(*)"], "expected": true, "label": "star middle"},
-      {"args": ["(*))"], "expected": true, "label": "star helps balance"},
-      {"args": [")("], "expected": false, "label": "wrong order"},
-      {"args": [""], "expected": true, "label": "empty"},
-      {"args": ["*"], "expected": true, "label": "single star"},
-      {"args": ["((*)"], "expected": false, "label": "extra open"},
-      {"args": ["(((((*)))))"], "expected": true, "label": "deep nest"}
+      {
+        "args": [
+          "(*)"
+        ],
+        "expected": true,
+        "label": "star middle"
+      },
+      {
+        "args": [
+          "(*))"
+        ],
+        "expected": true,
+        "label": "star helps balance"
+      },
+      {
+        "args": [
+          ")("
+        ],
+        "expected": false,
+        "label": "wrong order"
+      },
+      {
+        "args": [
+          ""
+        ],
+        "expected": true,
+        "label": "empty"
+      },
+      {
+        "args": [
+          "*"
+        ],
+        "expected": true,
+        "label": "single star"
+      },
+      {
+        "args": [
+          "((*)"
+        ],
+        "expected": false,
+        "label": "extra open"
+      },
+      {
+        "args": [
+          "(((((*)))))"
+        ],
+        "expected": true,
+        "label": "deep nest"
+      }
     ],
     "editorial": "**Brute force**: Try every interpretation of each `*` — exponential.\n\n**Greedy — open-count interval**: Let `lo` = minimum possible open-paren count so far, `hi` = maximum possible. As you scan:\n- `'('`: `lo++; hi++`.\n- `')'`: `lo--; hi--`.\n- `'*'`: `lo--; hi++` (could be `(`, `)`, or empty so the range widens).\nAt every step, if `hi < 0`, even the most optimistic interpretation has overflowed `)`s — fail. Clamp `lo` to 0 (negative open count is impossible, those interpretations are simply ruled out). At the end the string is valid iff `lo === 0` (some interpretation lands on perfect balance).\n\n**Why greedy works (exchange argument)**: We do not need to track every possible open-count individually because the set of possible open-counts at each prefix forms a contiguous range — adding any single character shifts and/or stretches the range. So tracking endpoints suffices.\n\n```javascript\nfunction isValidWebhookBrackets(s) {\n  let lo = 0, hi = 0;\n  for (const c of s) {\n    if (c === '(') { lo++; hi++; }\n    else if (c === ')') { lo--; hi--; }\n    else { lo--; hi++; }\n    if (hi < 0) return false;\n    if (lo < 0) lo = 0;\n  }\n  return lo === 0;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
   },
   {
     "slug": "chai-stall-lemonade-change",
     "number": 2408,
-    "title": "Chai Stall Lemonade Change",
+    "title": "Lemonade Change",
     "difficulty": "Easy",
     "topic": "Greedy",
-    "companies": ["zomato", "swiggy", "rapido"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "rapido"
+    ],
     "description": "A tea stall sells one cup at Rs 5. Customers pay with Rs 5, 10, or 20 notes (in queue order in `bills`). The stall starts with no cash. For each customer you must give exact change. Return `true` if all customers are served correctly, otherwise `false`.",
     "examples": [
-      {"input": "bills = [5, 5, 5, 10, 20]", "output": "true"},
-      {"input": "bills = [5, 5, 10, 10, 20]", "output": "false"}
+      {
+        "input": "bills = [5, 5, 5, 10, 20]",
+        "output": "true"
+      },
+      {
+        "input": "bills = [5, 5, 10, 10, 20]",
+        "output": "false"
+      }
     ],
-    "constraints": ["1 <= bills.length <= 10^5", "bills[i] in {5, 10, 20}"],
+    "constraints": [
+      "1 <= bills.length <= 10^5",
+      "bills[i] in {5, 10, 20}"
+    ],
     "hints": [
       "Sirf 5 aur 10 ke counts track karne padenge (20 ke wapas dene ka kaam hota nahi).",
       "20 ke liye prefer karo: 1×10 + 1×5 (better than 3×5).",
       "Greedy reason: 5 ka note flexible hai, isliye 10 pehle kharch karo."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function chaiStallChange(bills) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def chai_stall_change(bills):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function chaiStallChange(bills) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def chai_stall_change(bills):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "chaiStallChange",
     "tests": [
-      {"args": [[5, 5, 5, 10, 20]], "expected": true, "label": "happy path"},
-      {"args": [[5, 5, 10, 10, 20]], "expected": false, "label": "stuck on 20"},
-      {"args": [[5]], "expected": true, "label": "single five"},
-      {"args": [[10]], "expected": false, "label": "first customer ten"},
-      {"args": [[5, 5, 5, 5, 20, 20, 5, 5, 20]], "expected": false, "label": "too many twenties later"},
-      {"args": [[5, 5, 10]], "expected": true, "label": "exact tens"}
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            10,
+            20
+          ]
+        ],
+        "expected": true,
+        "label": "happy path"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            10,
+            10,
+            20
+          ]
+        ],
+        "expected": false,
+        "label": "stuck on 20"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": true,
+        "label": "single five"
+      },
+      {
+        "args": [
+          [
+            10
+          ]
+        ],
+        "expected": false,
+        "label": "first customer ten"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5,
+            20,
+            20,
+            5,
+            5,
+            20
+          ]
+        ],
+        "expected": false,
+        "label": "too many twenties later"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            10
+          ]
+        ],
+        "expected": true,
+        "label": "exact tens"
+      }
     ],
     "editorial": "**Greedy — prefer to dump tens**: When a Rs 20 customer arrives, the change is Rs 15. Two ways: (a) 1×10 + 1×5, (b) 3×5. Always pick (a) when possible.\n\n**Why greedy works (exchange argument)**: Rs 5 notes can serve every type of change (Rs 10 → 5, Rs 20 → 15 via 3×5). Rs 10 notes can only serve Rs 20 change. Therefore preserving Rs 5 notes is more valuable, so spend Rs 10 first whenever possible. Any future state reachable using strategy (b) is a superset of the states from (a) — formal induction confirms (a) is never worse.\n\n```javascript\nfunction chaiStallChange(bills) {\n  let five = 0, ten = 0;\n  for (const b of bills) {\n    if (b === 5) five++;\n    else if (b === 10) {\n      if (five === 0) return false;\n      five--;\n      ten++;\n    } else { // 20\n      if (ten > 0 && five > 0) { ten--; five--; }\n      else if (five >= 3) { five -= 3; }\n      else return false;\n    }\n  }\n  return true;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
   },
   {
     "slug": "swiggy-min-increment-unique-orders",
     "number": 2409,
-    "title": "Swiggy Make Order IDs Unique",
+    "title": "Minimum Increment to Make Array Unique",
     "difficulty": "Easy",
     "topic": "Greedy",
-    "companies": ["swiggy", "zomato", "amazon"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "amazon"
+    ],
     "description": "Swiggy generated `orderIds` for the day but, due to a bug, some are duplicates. The fix: each duplicate may be incremented by +1 any number of times until all IDs are distinct. Return the minimum total number of increments needed.",
     "examples": [
-      {"input": "orderIds = [1, 2, 2]", "output": "1", "explanation": "Increment one 2 → 3."},
-      {"input": "orderIds = [3, 2, 1, 2, 1, 7]", "output": "6", "explanation": "Result like [3,2,1,4,5,7] with cost 6."}
+      {
+        "input": "orderIds = [1, 2, 2]",
+        "output": "1",
+        "explanation": "Increment one 2 → 3."
+      },
+      {
+        "input": "orderIds = [3, 2, 1, 2, 1, 7]",
+        "output": "6",
+        "explanation": "Result like [3,2,1,4,5,7] with cost 6."
+      }
     ],
-    "constraints": ["0 <= orderIds.length <= 10^5", "0 <= orderIds[i] <= 10^9"],
+    "constraints": [
+      "0 <= orderIds.length <= 10^5",
+      "0 <= orderIds[i] <= 10^9"
+    ],
     "hints": [
       "Sort kar de.",
       "Adjacent traverse: agar arr[i] <= arr[i-1], usko arr[i-1] + 1 par push kar; cost += diff.",
       "Empty array → 0."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minIncrementsToUnique(orderIds) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_increments_to_unique(order_ids):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minIncrementsToUnique(orderIds) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_increments_to_unique(order_ids):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minIncrementsToUnique",
     "tests": [
-      {"args": [[1, 2, 2]], "expected": 1, "label": "small dup"},
-      {"args": [[3, 2, 1, 2, 1, 7]], "expected": 6, "label": "multi dup"},
-      {"args": [[]], "expected": 0, "label": "empty"},
-      {"args": [[5]], "expected": 0, "label": "single"},
-      {"args": [[1, 1, 1, 1]], "expected": 6, "label": "all same"},
-      {"args": [[1, 2, 3, 4]], "expected": 0, "label": "already unique"}
+      {
+        "args": [
+          [
+            1,
+            2,
+            2
+          ]
+        ],
+        "expected": 1,
+        "label": "small dup"
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            1,
+            2,
+            1,
+            7
+          ]
+        ],
+        "expected": 6,
+        "label": "multi dup"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 6,
+        "label": "all same"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": 0,
+        "label": "already unique"
+      }
     ],
     "editorial": "**Greedy — sort then push forward**: Sort ascending. Walk left to right; for each `i >= 1`, if `arr[i] <= arr[i-1]`, set `arr[i] = arr[i-1] + 1` and add the difference to the cost.\n\n**Why greedy works (exchange argument)**: Pushing a smaller value upward by the minimum needed is never worse than pushing it further. And we never benefit from pushing the larger of two equals down (we cannot — only +1 is allowed). Inductively, the multiset of final values is uniquely determined by sorting and packing tight. Any other valid assignment uses at least as many total increments.\n\n```javascript\nfunction minIncrementsToUnique(orderIds) {\n  if (orderIds.length === 0) return 0;\n  const a = [...orderIds].sort((x, y) => x - y);\n  let cost = 0;\n  for (let i = 1; i < a.length; i++) {\n    if (a[i] <= a[i - 1]) {\n      const need = a[i - 1] + 1;\n      cost += need - a[i];\n      a[i] = need;\n    }\n  }\n  return cost;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n) for the sorted copy."
   },
   {
     "slug": "bookmyshow-max-events-attendable",
     "number": 2410,
-    "title": "BookMyShow Max Events Attendable",
+    "title": "Maximum Number of Events That Can Be Attended",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["bookmyshow", "paytm-insider", "google"],
+    "companies": [
+      "bookmyshow",
+      "paytm-insider",
+      "google"
+    ],
     "description": "BookMyShow lists `events`, where `events[i] = [startDay, endDay]` means event `i` runs every day from `startDay` to `endDay` inclusive. You can attend at most one event per day, and you may attend on any single day in `[startDay, endDay]`. Return the maximum number of events you can attend.",
     "examples": [
-      {"input": "events = [[1,2],[2,3],[3,4]]", "output": "3", "explanation": "Day 1 → event 0, Day 2 → event 1, Day 3 → event 2."},
-      {"input": "events = [[1,2],[2,3],[3,4],[1,2]]", "output": "4"}
+      {
+        "input": "events = [[1,2],[2,3],[3,4]]",
+        "output": "3",
+        "explanation": "Day 1 → event 0, Day 2 → event 1, Day 3 → event 2."
+      },
+      {
+        "input": "events = [[1,2],[2,3],[3,4],[1,2]]",
+        "output": "4"
+      }
     ],
-    "constraints": ["1 <= events.length <= 10^5", "events[i].length == 2", "1 <= startDay <= endDay <= 10^5"],
+    "constraints": [
+      "1 <= events.length <= 10^5",
+      "events[i].length == 2",
+      "1 <= startDay <= endDay <= 10^5"
+    ],
     "hints": [
       "Day-by-day simulate kar. Min-heap of endDays of currently-available events.",
       "Har din: jo events aaj start hue add kar, jinka endDay aaj se chhota tha unhe pop kar.",
       "Heap me sabse jaldi khatam hone wala event aaj attend kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function maxEventsAttendable(events) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def max_events_attendable(events):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function maxEventsAttendable(events) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_events_attendable(events):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "maxEventsAttendable",
     "tests": [
-      {"args": [[[1, 2], [2, 3], [3, 4]]], "expected": 3, "label": "chained"},
-      {"args": [[[1, 2], [2, 3], [3, 4], [1, 2]]], "expected": 4, "label": "with overlap"},
-      {"args": [[[1, 1]]], "expected": 1, "label": "single event"},
-      {"args": [[[1, 5], [1, 5], [1, 5], [2, 3], [2, 3]]], "expected": 5, "label": "all in window"},
-      {"args": [[[1, 1], [1, 1], [1, 1]]], "expected": 1, "label": "all same single day"},
-      {"args": [[[1, 100000]]], "expected": 1, "label": "long range solo"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "chained"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "with overlap"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single event"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 5,
+        "label": "all in window"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "all same single day"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              100000
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "long range solo"
+      }
     ],
     "editorial": "**Greedy — earliest-deadline-first**: Sort events by `startDay`. Walk through days `d = 1, 2, ...`. Push the `endDay` of every event whose `startDay === d` into a min-heap. Pop and discard heap tops with `endDay < d` (already expired). If the heap is non-empty, attend the event with smallest `endDay` (pop it) and increment the counter.\n\n**Why greedy works (exchange argument)**: Among the events available today, the one with the smallest end day is the most 'fragile' — it has the fewest days left. Any optimal schedule that attends a different available event today can be modified to attend the smallest-end-day one today and the other event later (still possible because the other has a later deadline) without losing any attended events. Repeating this swap proves earliest-deadline-first is optimal.\n\n```javascript\nfunction maxEventsAttendable(events) {\n  events.sort((a, b) => a[0] - b[0]);\n  // simple binary-heap implementation\n  const heap = [];\n  const push = (v) => {\n    heap.push(v);\n    let i = heap.length - 1;\n    while (i > 0) {\n      const p = (i - 1) >> 1;\n      if (heap[p] <= heap[i]) break;\n      [heap[p], heap[i]] = [heap[i], heap[p]];\n      i = p;\n    }\n  };\n  const pop = () => {\n    const top = heap[0];\n    const last = heap.pop();\n    if (heap.length) {\n      heap[0] = last;\n      let i = 0;\n      while (true) {\n        const l = 2 * i + 1, r = 2 * i + 2;\n        let s = i;\n        if (l < heap.length && heap[l] < heap[s]) s = l;\n        if (r < heap.length && heap[r] < heap[s]) s = r;\n        if (s === i) break;\n        [heap[s], heap[i]] = [heap[i], heap[s]];\n        i = s;\n      }\n    }\n    return top;\n  };\n  let count = 0, j = 0;\n  let maxDay = 0;\n  for (const [s, e] of events) if (e > maxDay) maxDay = e;\n  for (let d = 1; d <= maxDay; d++) {\n    while (j < events.length && events[j][0] === d) push(events[j++][1]);\n    while (heap.length && heap[0] < d) pop();\n    if (heap.length) { pop(); count++; }\n  }\n  return count;\n}\n```\n\n**Time**: O((n + D) log n) where D = max end day. **Space**: O(n)."
   },
   {
     "slug": "tcs-two-city-flight-cost",
     "number": 2411,
-    "title": "TCS Two-City Interview Flights",
+    "title": "Two City Scheduling",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["tcs", "infosys", "wipro"],
+    "companies": [
+      "tcs",
+      "infosys",
+      "wipro"
+    ],
     "description": "TCS is flying `2n` candidates to two interview cities, exactly `n` to City A and `n` to City B. `costs[i] = [costA, costB]` is the flight cost for candidate `i` to each city. Return the minimum total cost to fly exactly `n` candidates to A and `n` to B.",
     "examples": [
-      {"input": "costs = [[10,20],[30,200],[400,50],[30,20]]", "output": "110", "explanation": "Send 0,3 to A (10+30) and 1,2 to B (200+50)."},
-      {"input": "costs = [[259,770],[448,54],[926,667],[184,139],[840,118],[577,469]]", "output": "1859"}
+      {
+        "input": "costs = [[10,20],[30,200],[400,50],[30,20]]",
+        "output": "110",
+        "explanation": "Send 0,3 to A (10+30) and 1,2 to B (200+50)."
+      },
+      {
+        "input": "costs = [[259,770],[448,54],[926,667],[184,139],[840,118],[577,469]]",
+        "output": "1859"
+      }
     ],
-    "constraints": ["2 <= costs.length <= 1000", "costs.length is even", "1 <= costs[i][0], costs[i][1] <= 1000"],
+    "constraints": [
+      "2 <= costs.length <= 1000",
+      "costs.length is even",
+      "1 <= costs[i][0], costs[i][1] <= 1000"
+    ],
     "hints": [
       "Pretend everyone goes to A, total = sum of costA. Sending candidate i to B instead changes cost by (costB - costA).",
       "Pick n candidates with smallest (costB - costA) to switch — sort by that diff.",
       "Equivalent statement: sort by costA - costB; first n go to A."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function twoCityFlightCost(costs) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def two_city_flight_cost(costs):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function twoCityFlightCost(costs) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def two_city_flight_cost(costs):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "twoCityFlightCost",
     "tests": [
-      {"args": [[[10, 20], [30, 200], [400, 50], [30, 20]]], "expected": 110, "label": "classic"},
-      {"args": [[[259, 770], [448, 54], [926, 667], [184, 139], [840, 118], [577, 469]]], "expected": 1859, "label": "longer"},
-      {"args": [[[10, 10], [10, 10]]], "expected": 20, "label": "all equal"},
-      {"args": [[[1, 100], [100, 1]]], "expected": 2, "label": "obvious split"},
-      {"args": [[[5, 5], [3, 7], [7, 3], [9, 1]]], "expected": 12, "label": "balanced"}
+      {
+        "args": [
+          [
+            [
+              10,
+              20
+            ],
+            [
+              30,
+              200
+            ],
+            [
+              400,
+              50
+            ],
+            [
+              30,
+              20
+            ]
+          ]
+        ],
+        "expected": 110,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              259,
+              770
+            ],
+            [
+              448,
+              54
+            ],
+            [
+              926,
+              667
+            ],
+            [
+              184,
+              139
+            ],
+            [
+              840,
+              118
+            ],
+            [
+              577,
+              469
+            ]
+          ]
+        ],
+        "expected": 1859,
+        "label": "longer"
+      },
+      {
+        "args": [
+          [
+            [
+              10,
+              10
+            ],
+            [
+              10,
+              10
+            ]
+          ]
+        ],
+        "expected": 20,
+        "label": "all equal"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              100
+            ],
+            [
+              100,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "obvious split"
+      },
+      {
+        "args": [
+          [
+            [
+              5,
+              5
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              7,
+              3
+            ],
+            [
+              9,
+              1
+            ]
+          ]
+        ],
+        "expected": 12,
+        "label": "balanced"
+      }
     ],
     "editorial": "**Greedy — sort by cost difference**: For each candidate define `diff = costA - costB`. Sort candidates by `diff` ascending; the first `n` go to A (they save the most by going to A) and the remaining `n` go to B.\n\n**Why greedy works (exchange argument)**: Suppose in the optimum candidate `x` goes to B and candidate `y` goes to A but `diff_x < diff_y` (so x prefers A more). Swap their assignments. The cost change is `(costA_x + costB_y) - (costB_x + costA_y) = diff_x - diff_y < 0`. Strict improvement contradicts optimality. So in any optimum, the n smallest diffs go to A.\n\n```javascript\nfunction twoCityFlightCost(costs) {\n  const arr = [...costs].sort((a, b) => (a[0] - a[1]) - (b[0] - b[1]));\n  const n = arr.length / 2;\n  let total = 0;\n  for (let i = 0; i < arr.length; i++) {\n    total += i < n ? arr[i][0] : arr[i][1];\n  }\n  return total;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n) for the sorted copy."
   },
   {
     "slug": "rapido-boats-to-save",
     "number": 2412,
-    "title": "Rapido Evacuation Boats",
+    "title": "Boats to Save People",
     "difficulty": "Easy",
     "topic": "Greedy",
-    "companies": ["rapido", "ola", "uber"],
+    "companies": [
+      "rapido",
+      "ola",
+      "uber"
+    ],
     "description": "Rapido is helping with a flood evacuation. Each boat has the same `limit` weight capacity and can carry at most two people. Given `weights[i]` per person, return the minimum number of boats needed (assume each weight is at most the limit).",
     "examples": [
-      {"input": "weights = [1,2], limit = 3", "output": "1"},
-      {"input": "weights = [3,2,2,1], limit = 3", "output": "3"}
+      {
+        "input": "weights = [1,2], limit = 3",
+        "output": "1"
+      },
+      {
+        "input": "weights = [3,2,2,1], limit = 3",
+        "output": "3"
+      }
     ],
-    "constraints": ["1 <= weights.length <= 5*10^4", "1 <= weights[i] <= limit <= 3*10^4"],
+    "constraints": [
+      "1 <= weights.length <= 5*10^4",
+      "1 <= weights[i] <= limit <= 3*10^4"
+    ],
     "hints": [
       "Sort kar, do pointers — heaviest aur lightest.",
       "Agar dono fit ho jaayein, dono leke jao; warna heaviest akela.",
       "Single person → 1 boat."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function evacuationBoats(weights, limit) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def evacuation_boats(weights, limit):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function evacuationBoats(weights, limit) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def evacuation_boats(weights, limit):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "evacuationBoats",
     "tests": [
-      {"args": [[1, 2], 3], "expected": 1, "label": "two fit"},
-      {"args": [[3, 2, 2, 1], 3], "expected": 3, "label": "classic"},
-      {"args": [[3, 5, 3, 4], 5], "expected": 4, "label": "no pairs fit"},
-      {"args": [[1], 2], "expected": 1, "label": "single under limit"},
-      {"args": [[2, 2, 2, 2], 4], "expected": 2, "label": "all same pair up"},
-      {"args": [[1, 1, 1, 1, 1], 2], "expected": 3, "label": "ones leftover"}
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          3
+        ],
+        "expected": 1,
+        "label": "two fit"
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            2,
+            1
+          ],
+          3
+        ],
+        "expected": 3,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            3,
+            5,
+            3,
+            4
+          ],
+          5
+        ],
+        "expected": 4,
+        "label": "no pairs fit"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          2
+        ],
+        "expected": 1,
+        "label": "single under limit"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2,
+            2
+          ],
+          4
+        ],
+        "expected": 2,
+        "label": "all same pair up"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          2
+        ],
+        "expected": 3,
+        "label": "ones leftover"
+      }
     ],
     "editorial": "**Greedy — two pointers from ends**: Sort `weights`. Use `l = 0`, `r = n - 1`. While `l <= r`: if `weights[l] + weights[r] <= limit`, both go in one boat (`l++`, `r--`). Otherwise the heaviest goes alone (`r--`). Each iteration uses one boat.\n\n**Why greedy works (exchange argument)**: Consider the heaviest remaining person H. They must take a boat. The only question is whether to add a partner. The lightest remaining person L is the cheapest possible partner; if L cannot fit with H, no one can. If L fits with H, pairing them up is at least as good as any alternative — we cannot be worse off taking the cheapest pairing now since L would otherwise have to occupy a boat seat later that could hold someone else.\n\n```javascript\nfunction evacuationBoats(weights, limit) {\n  const a = [...weights].sort((x, y) => x - y);\n  let l = 0, r = a.length - 1, boats = 0;\n  while (l <= r) {\n    if (a[l] + a[r] <= limit) { l++; r--; }\n    else { r--; }\n    boats++;\n  }\n  return boats;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "ola-min-cost-k-drivers",
     "number": 2413,
-    "title": "Ola Minimum Cost to Hire K Drivers",
+    "title": "Minimum Cost to Hire K Workers",
     "difficulty": "Hard",
     "topic": "Greedy",
-    "companies": ["ola", "uber", "rapido"],
+    "companies": [
+      "ola",
+      "uber",
+      "rapido"
+    ],
     "description": "Ola needs to hire exactly `k` drivers from a pool of `n` candidates, where candidate `i` has `quality[i]` and an expected `wage[i]`. Pay rules: every hired driver in a group must be paid at least their wage; within the group, pays must be proportional to quality. Return the minimum total wage bill, accurate to 1e-5.",
     "examples": [
-      {"input": "quality = [10,20,5], wage = [70,50,30], k = 2", "output": "105.00000", "explanation": "Hire workers 0 and 2 with rate 7 → pay 70 + 35 = 105."},
-      {"input": "quality = [3,1,10,10,1], wage = [4,8,2,2,7], k = 3", "output": "30.66667"}
+      {
+        "input": "quality = [10,20,5], wage = [70,50,30], k = 2",
+        "output": "105.00000",
+        "explanation": "Hire workers 0 and 2 with rate 7 → pay 70 + 35 = 105."
+      },
+      {
+        "input": "quality = [3,1,10,10,1], wage = [4,8,2,2,7], k = 3",
+        "output": "30.66667"
+      }
     ],
-    "constraints": ["1 <= k <= n <= 10^4", "1 <= quality[i], wage[i] <= 10^7"],
+    "constraints": [
+      "1 <= k <= n <= 10^4",
+      "1 <= quality[i], wage[i] <= 10^7"
+    ],
     "hints": [
       "Group ka 'rate' = max over members of (wage[i]/quality[i]).",
       "Total = rate * (sum of qualities). So pick a candidate as 'captain' (sets rate), then add k-1 cheapest qualities among those with rate <= captain.",
       "Sort by ratio; iterate, maintain max-heap of qualities of size k."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minCostHireKDrivers(quality, wage, k) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_cost_hire_k_drivers(quality, wage, k):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minCostHireKDrivers(quality, wage, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_cost_hire_k_drivers(quality, wage, k):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minCostHireKDrivers",
     "tests": [
-      {"args": [[10, 20, 5], [70, 50, 30], 2], "expected": 105, "label": "classic"},
-      {"args": [[3, 1, 10, 10, 1], [4, 8, 2, 2, 7], 3], "expected": 30.666666666666664, "label": "fractional"},
-      {"args": [[1], [5], 1], "expected": 5, "label": "single"},
-      {"args": [[2, 2, 2], [3, 3, 3], 2], "expected": 6, "label": "all same ratio"},
-      {"args": [[5, 5, 5, 5], [10, 10, 10, 10], 3], "expected": 30, "label": "all same need 3"}
+      {
+        "args": [
+          [
+            10,
+            20,
+            5
+          ],
+          [
+            70,
+            50,
+            30
+          ],
+          2
+        ],
+        "expected": 105,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            3,
+            1,
+            10,
+            10,
+            1
+          ],
+          [
+            4,
+            8,
+            2,
+            2,
+            7
+          ],
+          3
+        ],
+        "expected": 30.666666666666664,
+        "label": "fractional"
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          [
+            5
+          ],
+          1
+        ],
+        "expected": 5,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ],
+          [
+            3,
+            3,
+            3
+          ],
+          2
+        ],
+        "expected": 6,
+        "label": "all same ratio"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5,
+            5
+          ],
+          [
+            10,
+            10,
+            10,
+            10
+          ],
+          3
+        ],
+        "expected": 30,
+        "label": "all same need 3"
+      }
     ],
     "editorial": "**Greedy — fix captain by ratio**: Define ratio_i = wage[i] / quality[i]. The wage paid to anyone in the group is `groupRate * quality_i`, where `groupRate = max ratio` in the group. The total is `groupRate * sum(quality in group)`. We want to minimize this product.\n\nSort candidates by ratio ascending. As we sweep `i` from 0 to n-1, we 'consider' candidate `i` as the captain (so groupRate = ratio_i, only candidates `0..i` are usable). To minimize total, pick the `k` candidates among `0..i` with smallest `quality` — total = ratio_i * (sum of those k qualities). Track this with a max-heap of size k over qualities; whenever the heap holds k items, compute the candidate cost and keep the minimum.\n\n**Why greedy works (exchange argument)**: In any feasible group, swap the captain to the highest ratio inside; the total only depends on that ratio and the sum of qualities in the group. Replacing a member that's not the captain with someone of smaller quality (and ratio <= captain's) strictly lowers total. So the optimum chooses the k smallest qualities from the prefix sorted by ratio, for some choice of captain in the prefix. Iterating all captains finds the true minimum.\n\n```javascript\nfunction minCostHireKDrivers(quality, wage, k) {\n  const n = quality.length;\n  const idx = [...Array(n).keys()].sort((a, b) => wage[a] / quality[a] - wage[b] / quality[b]);\n  // max-heap over quality\n  const heap = [];\n  const push = (v) => {\n    heap.push(v);\n    let i = heap.length - 1;\n    while (i > 0) {\n      const p = (i - 1) >> 1;\n      if (heap[p] >= heap[i]) break;\n      [heap[p], heap[i]] = [heap[i], heap[p]];\n      i = p;\n    }\n  };\n  const pop = () => {\n    const top = heap[0];\n    const last = heap.pop();\n    if (heap.length) {\n      heap[0] = last;\n      let i = 0;\n      while (true) {\n        const l = 2 * i + 1, r = 2 * i + 2;\n        let s = i;\n        if (l < heap.length && heap[l] > heap[s]) s = l;\n        if (r < heap.length && heap[r] > heap[s]) s = r;\n        if (s === i) break;\n        [heap[s], heap[i]] = [heap[i], heap[s]];\n        i = s;\n      }\n    }\n    return top;\n  };\n  let qSum = 0, best = Infinity;\n  for (const i of idx) {\n    push(quality[i]);\n    qSum += quality[i];\n    if (heap.length > k) qSum -= pop();\n    if (heap.length === k) {\n      const ratio = wage[i] / quality[i];\n      best = Math.min(best, ratio * qSum);\n    }\n  }\n  return best;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "zomato-task-scheduling-cooldown",
     "number": 2414,
-    "title": "Zomato Delivery Task Scheduling",
+    "title": "Task Scheduler",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["zomato", "swiggy", "amazon"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "amazon"
+    ],
     "description": "Zomato dispatcher must run a list of `tasks` (each task labeled by an uppercase letter). Identical tasks must be separated by at least `n` time units (idle if needed). Return the minimum total time units to finish all tasks.",
     "examples": [
-      {"input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2", "output": "8", "explanation": "A -> B -> idle -> A -> B -> idle -> A -> B."},
-      {"input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 0", "output": "6"}
+      {
+        "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2",
+        "output": "8",
+        "explanation": "A -> B -> idle -> A -> B -> idle -> A -> B."
+      },
+      {
+        "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 0",
+        "output": "6"
+      }
     ],
-    "constraints": ["1 <= tasks.length <= 10^4", "tasks[i] is an uppercase English letter", "0 <= n <= 100"],
+    "constraints": [
+      "1 <= tasks.length <= 10^4",
+      "tasks[i] is an uppercase English letter",
+      "0 <= n <= 100"
+    ],
     "hints": [
       "Maximum frequency = f. (f - 1) windows ka length n+1, plus tail of all tasks tied at f.",
       "Formula: max(tasks.length, (f-1)*(n+1) + numWithMaxFreq).",
       "n = 0 → just tasks.length."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function deliveryTaskSchedule(tasks, n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def delivery_task_schedule(tasks, n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function deliveryTaskSchedule(tasks, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def delivery_task_schedule(tasks, n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "deliveryTaskSchedule",
     "tests": [
-      {"args": [["A", "A", "A", "B", "B", "B"], 2], "expected": 8, "label": "classic"},
-      {"args": [["A", "A", "A", "B", "B", "B"], 0], "expected": 6, "label": "no cooldown"},
-      {"args": [["A"], 5], "expected": 1, "label": "single task"},
-      {"args": [["A", "B", "C", "D"], 2], "expected": 4, "label": "all distinct"},
-      {"args": [["A", "A", "A", "A", "B", "B", "B", "C", "C", "D"], 2], "expected": 10, "label": "tight pack"},
-      {"args": [["A", "A", "A", "B", "B", "B", "C", "C", "C", "D", "D", "E"], 2], "expected": 12, "label": "no idle needed"}
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "A",
+            "B",
+            "B",
+            "B"
+          ],
+          2
+        ],
+        "expected": 8,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "A",
+            "B",
+            "B",
+            "B"
+          ],
+          0
+        ],
+        "expected": 6,
+        "label": "no cooldown"
+      },
+      {
+        "args": [
+          [
+            "A"
+          ],
+          5
+        ],
+        "expected": 1,
+        "label": "single task"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          2
+        ],
+        "expected": 4,
+        "label": "all distinct"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "A",
+            "A",
+            "B",
+            "B",
+            "B",
+            "C",
+            "C",
+            "D"
+          ],
+          2
+        ],
+        "expected": 10,
+        "label": "tight pack"
+      },
+      {
+        "args": [
+          [
+            "A",
+            "A",
+            "A",
+            "B",
+            "B",
+            "B",
+            "C",
+            "C",
+            "C",
+            "D",
+            "D",
+            "E"
+          ],
+          2
+        ],
+        "expected": 12,
+        "label": "no idle needed"
+      }
     ],
     "editorial": "**Greedy — schedule the most frequent first**: Let `f` be the highest task frequency, and `m` the number of distinct tasks tied at frequency `f`. Lay the `f - 1` copies of any max-frequency task at distance `n + 1` apart, creating `f - 1` 'slots' of width `n + 1`. The other tasks fill these slots. The minimum makespan is therefore `(f - 1) * (n + 1) + m`. But that can underestimate when there are very many distinct lower-frequency tasks (the array length). The real answer is the max of the two.\n\n**Why greedy works (exchange argument)**: Spreading the most frequent label first is optimal because it is the binding constraint — every schedule must allocate at least `(f - 1) * (n + 1) + 1` slots just for it. Any longer schedule gains nothing; the extra time only happens when too many other tasks force the array length to dominate.\n\n```javascript\nfunction deliveryTaskSchedule(tasks, n) {\n  const freq = new Map();\n  for (const t of tasks) freq.set(t, (freq.get(t) || 0) + 1);\n  let f = 0, m = 0;\n  for (const v of freq.values()) {\n    if (v > f) { f = v; m = 1; }\n    else if (v === f) m++;\n  }\n  return Math.max(tasks.length, (f - 1) * (n + 1) + m);\n}\n```\n\n**Time**: O(n). **Space**: O(σ)."
   },
   {
     "slug": "groww-buy-sell-stock-unlimited",
     "number": 2415,
-    "title": "Groww Best Time to Buy and Sell Stock",
+    "title": "Best Time to Buy and Sell Stock II",
     "difficulty": "Easy",
     "topic": "Greedy",
-    "companies": ["groww", "zerodha", "upstox"],
+    "companies": [
+      "groww",
+      "zerodha",
+      "upstox"
+    ],
     "description": "Groww shows you the daily closing prices of a stock as `prices`. You may buy and sell as often as you want, but you must sell before you buy again (no shorting, no holding multiple lots). Return the maximum total profit.",
     "examples": [
-      {"input": "prices = [7,1,5,3,6,4]", "output": "7", "explanation": "Buy@1 sell@5 (+4), buy@3 sell@6 (+3)."},
-      {"input": "prices = [1,2,3,4,5]", "output": "4"}
+      {
+        "input": "prices = [7,1,5,3,6,4]",
+        "output": "7",
+        "explanation": "Buy@1 sell@5 (+4), buy@3 sell@6 (+3)."
+      },
+      {
+        "input": "prices = [1,2,3,4,5]",
+        "output": "4"
+      }
     ],
-    "constraints": ["1 <= prices.length <= 10^5", "0 <= prices[i] <= 10^4"],
+    "constraints": [
+      "1 <= prices.length <= 10^5",
+      "0 <= prices[i] <= 10^4"
+    ],
     "hints": [
       "Har up-day ka diff jodte jao.",
       "Equivalent: sum of max(0, prices[i] - prices[i-1]).",
       "Single price → 0."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function maxStockProfit(prices) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def max_stock_profit(prices):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function maxStockProfit(prices) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_stock_profit(prices):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "maxStockProfit",
     "tests": [
-      {"args": [[7, 1, 5, 3, 6, 4]], "expected": 7, "label": "two trades"},
-      {"args": [[1, 2, 3, 4, 5]], "expected": 4, "label": "monotonic up"},
-      {"args": [[5, 4, 3, 2, 1]], "expected": 0, "label": "monotonic down"},
-      {"args": [[3]], "expected": 0, "label": "single price"},
-      {"args": [[]], "expected": 0, "label": "empty"},
-      {"args": [[2, 2, 2]], "expected": 0, "label": "all same"}
+      {
+        "args": [
+          [
+            7,
+            1,
+            5,
+            3,
+            6,
+            4
+          ]
+        ],
+        "expected": 7,
+        "label": "two trades"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 4,
+        "label": "monotonic up"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 0,
+        "label": "monotonic down"
+      },
+      {
+        "args": [
+          [
+            3
+          ]
+        ],
+        "expected": 0,
+        "label": "single price"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": 0,
+        "label": "all same"
+      }
     ],
     "editorial": "**Greedy — collect every uphill**: The total profit from any number of trades equals the sum of every positive day-to-day price increase: `sum(max(0, prices[i] - prices[i-1]))`.\n\n**Why greedy works (exchange argument)**: A real trade [b, s] with `prices[s] > prices[b]` decomposes into the telescoping sum `(p[b+1]-p[b]) + (p[b+2]-p[b+1]) + ... + (p[s]-p[s-1])`. Each adjacent positive segment can be 'sold and rebought' at no cost, so the maximum is the sum of all positive segments. No trading strategy can exceed this bound, and the greedy collects all of it.\n\n```javascript\nfunction maxStockProfit(prices) {\n  let profit = 0;\n  for (let i = 1; i < prices.length; i++) {\n    if (prices[i] > prices[i - 1]) profit += prices[i] - prices[i - 1];\n  }\n  return profit;\n}\n```\n\n**Time**: O(n). **Space**: O(1)."
   },
   {
     "slug": "phonepe-largest-number-merge",
     "number": 2416,
-    "title": "PhonePe Largest Concatenated Number",
+    "title": "Largest Number",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["phonepe", "paytm", "google"],
+    "companies": [
+      "phonepe",
+      "paytm",
+      "google"
+    ],
     "description": "PhonePe gives you a list of non-negative integers `nums`. Concatenate them in some order to form the largest possible number, and return it as a string (without leading zeros, except a single '0' if the answer is zero).",
     "examples": [
-      {"input": "nums = [10, 2]", "output": "\"210\""},
-      {"input": "nums = [3, 30, 34, 5, 9]", "output": "\"9534330\""},
-      {"input": "nums = [0, 0]", "output": "\"0\""}
+      {
+        "input": "nums = [10, 2]",
+        "output": "\"210\""
+      },
+      {
+        "input": "nums = [3, 30, 34, 5, 9]",
+        "output": "\"9534330\""
+      },
+      {
+        "input": "nums = [0, 0]",
+        "output": "\"0\""
+      }
     ],
-    "constraints": ["1 <= nums.length <= 100", "0 <= nums[i] <= 10^9"],
+    "constraints": [
+      "1 <= nums.length <= 100",
+      "0 <= nums[i] <= 10^9"
+    ],
     "hints": [
       "Sort by custom comparator: a vs b → compare strings (a+b) vs (b+a).",
       "Edge case: leading zeros (e.g., [0,0] → '0').",
       "Strings ka concatenation comparison hi correct order deta hai."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function largestConcatNumber(nums) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def largest_concat_number(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function largestConcatNumber(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def largest_concat_number(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "largestConcatNumber",
     "tests": [
-      {"args": [[10, 2]], "expected": "210", "label": "two nums"},
-      {"args": [[3, 30, 34, 5, 9]], "expected": "9534330", "label": "classic"},
-      {"args": [[0, 0]], "expected": "0", "label": "all zeros"},
-      {"args": [[1]], "expected": "1", "label": "single"},
-      {"args": [[12, 121]], "expected": "12121", "label": "tricky prefix"},
-      {"args": [[0, 1]], "expected": "10", "label": "with zero"}
+      {
+        "args": [
+          [
+            10,
+            2
+          ]
+        ],
+        "expected": "210",
+        "label": "two nums"
+      },
+      {
+        "args": [
+          [
+            3,
+            30,
+            34,
+            5,
+            9
+          ]
+        ],
+        "expected": "9534330",
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            0,
+            0
+          ]
+        ],
+        "expected": "0",
+        "label": "all zeros"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": "1",
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            12,
+            121
+          ]
+        ],
+        "expected": "12121",
+        "label": "tricky prefix"
+      },
+      {
+        "args": [
+          [
+            0,
+            1
+          ]
+        ],
+        "expected": "10",
+        "label": "with zero"
+      }
     ],
     "editorial": "**Greedy — sort by concatenation comparator**: For any two strings `a` and `b`, place `a` before `b` iff `a + b > b + a` (lexicographic compare on equal-length-after-concat strings).\n\n**Why greedy works (exchange argument)**: Suppose the optimal arrangement has `a` followed later by `b` but `b + a > a + b`. Swapping all elements between `a` and `b` doesn't change the relation; the local swap of `a` and `b` strictly increases the concatenated number, contradicting optimality. So in any optimum, every adjacent pair satisfies `a + b >= b + a`. The comparator is also transitive (provable), so sort produces the unique optimal order.\n\nHandle the all-zeros edge case separately to avoid '00...0'.\n\n```javascript\nfunction largestConcatNumber(nums) {\n  const arr = nums.map(String).sort((a, b) => (b + a).localeCompare(a + b));\n  if (arr[0] === '0') return '0';\n  return arr.join('');\n}\n```\n\n**Time**: O(n log n * L) where L = max digit length. **Space**: O(n)."
   },
   {
     "slug": "dream11-bag-of-tokens-score",
     "number": 2417,
-    "title": "Dream11 Bag of Power Tokens",
+    "title": "Bag of Tokens",
     "difficulty": "Medium",
     "topic": "Greedy",
-    "companies": ["dream11", "mpl", "rummycircle"],
+    "companies": [
+      "dream11",
+      "mpl",
+      "rummycircle"
+    ],
     "description": "In a Dream11 mini-game you have an initial `power` value, a `score` of 0, and a multiset `tokens` of token values. Two operations on a token:\n1. Play face up (cost: token's value in power; gain: +1 score). Requires `power >= token`.\n2. Play face down (cost: -1 score; gain: token's value added to power). Requires `score >= 1`.\nEach token is used at most once. Return the maximum achievable score.",
     "examples": [
-      {"input": "tokens = [100], power = 50", "output": "0"},
-      {"input": "tokens = [100, 200], power = 150", "output": "1"},
-      {"input": "tokens = [100, 200, 300, 400], power = 200", "output": "2"}
+      {
+        "input": "tokens = [100], power = 50",
+        "output": "0"
+      },
+      {
+        "input": "tokens = [100, 200], power = 150",
+        "output": "1"
+      },
+      {
+        "input": "tokens = [100, 200, 300, 400], power = 200",
+        "output": "2"
+      }
     ],
-    "constraints": ["0 <= tokens.length <= 1000", "0 <= tokens[i], power <= 10^4"],
+    "constraints": [
+      "0 <= tokens.length <= 1000",
+      "0 <= tokens[i], power <= 10^4"
+    ],
     "hints": [
       "Sort tokens. Two pointers (l, r).",
       "Agar power kaafi hai sabse chhota khelne ke liye → up, l++, score++.",
       "Else agar score >=1 aur tokens bachhe hain → biggest down, r--, score--, power += big."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function bagOfTokensScore(tokens, power) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def bag_of_tokens_score(tokens, power):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function bagOfTokensScore(tokens, power) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def bag_of_tokens_score(tokens, power):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "bagOfTokensScore",
     "tests": [
-      {"args": [[100], 50], "expected": 0, "label": "cant play"},
-      {"args": [[100, 200], 150], "expected": 1, "label": "one face up"},
-      {"args": [[100, 200, 300, 400], 200], "expected": 2, "label": "trade for big"},
-      {"args": [[], 0], "expected": 0, "label": "empty"},
-      {"args": [[1, 1, 1], 1], "expected": 3, "label": "all small"},
-      {"args": [[26, 67, 71, 86, 87], 39], "expected": 2, "label": "mixed"}
+      {
+        "args": [
+          [
+            100
+          ],
+          50
+        ],
+        "expected": 0,
+        "label": "cant play"
+      },
+      {
+        "args": [
+          [
+            100,
+            200
+          ],
+          150
+        ],
+        "expected": 1,
+        "label": "one face up"
+      },
+      {
+        "args": [
+          [
+            100,
+            200,
+            300,
+            400
+          ],
+          200
+        ],
+        "expected": 2,
+        "label": "trade for big"
+      },
+      {
+        "args": [
+          [],
+          0
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          1
+        ],
+        "expected": 3,
+        "label": "all small"
+      },
+      {
+        "args": [
+          [
+            26,
+            67,
+            71,
+            86,
+            87
+          ],
+          39
+        ],
+        "expected": 2,
+        "label": "mixed"
+      }
     ],
     "editorial": "**Greedy — cheapest up, costliest down**: Sort tokens. Maintain two pointers `l = 0` (cheap end) and `r = n - 1` (expensive end), plus running `score` and the current `best`. Loop while `l <= r`:\n- If `power >= tokens[l]`: play face up — `power -= tokens[l]; l++; score++; best = max(best, score)`.\n- Else if `score >= 1 && l < r`: play face down on `tokens[r]` — `power += tokens[r]; r--; score--`.\n- Else break.\n\n**Why greedy works (exchange argument)**: When we go up, choosing the smallest available token costs the least power per +1 score, so it's never worse than buying with a bigger token. When we trade down, choosing the largest token gives the most power per -1 score. Any optimal sequence can be re-ordered to obey both rules without losing score. Tracking `best` covers the case where we trade down at the end (which would lower the final score).\n\n```javascript\nfunction bagOfTokensScore(tokens, power) {\n  const a = [...tokens].sort((x, y) => x - y);\n  let l = 0, r = a.length - 1, score = 0, best = 0;\n  while (l <= r) {\n    if (power >= a[l]) {\n      power -= a[l++];\n      score++;\n      if (score > best) best = score;\n    } else if (score >= 1 && l < r) {\n      power += a[r--];\n      score--;\n    } else {\n      break;\n    }\n  }\n  return best;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "myntra-non-overlapping-intervals",
     "number": 2418,
-    "title": "Myntra Promotion Slot Removal",
+    "title": "Non-overlapping Intervals",
     "difficulty": "Hard",
     "topic": "Greedy",
-    "companies": ["myntra", "flipkart", "amazon"],
+    "companies": [
+      "myntra",
+      "flipkart",
+      "amazon"
+    ],
     "description": "Myntra has booked `slots` for promotional banners as intervals `[start, end)`. Two slots overlap if their open ranges intersect. Return the minimum number of slots to remove so the remaining set is pairwise non-overlapping.",
     "examples": [
-      {"input": "slots = [[1,2],[2,3],[3,4],[1,3]]", "output": "1"},
-      {"input": "slots = [[1,2],[1,2],[1,2]]", "output": "2"},
-      {"input": "slots = [[1,2],[2,3]]", "output": "0"}
+      {
+        "input": "slots = [[1,2],[2,3],[3,4],[1,3]]",
+        "output": "1"
+      },
+      {
+        "input": "slots = [[1,2],[1,2],[1,2]]",
+        "output": "2"
+      },
+      {
+        "input": "slots = [[1,2],[2,3]]",
+        "output": "0"
+      }
     ],
-    "constraints": ["1 <= slots.length <= 10^5", "slots[i].length == 2", "-5*10^4 <= start < end <= 5*10^4"],
+    "constraints": [
+      "1 <= slots.length <= 10^5",
+      "slots[i].length == 2",
+      "-5*10^4 <= start < end <= 5*10^4"
+    ],
     "hints": [
       "Greedy interval scheduling: sort by end time.",
       "Maintain currentEnd; agar slot.start >= currentEnd, keep it; warna remove count++.",
       "Single interval → 0."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minSlotRemovals(slots) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_slot_removals(slots):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minSlotRemovals(slots) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_slot_removals(slots):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minSlotRemovals",
     "tests": [
-      {"args": [[[1, 2], [2, 3], [3, 4], [1, 3]]], "expected": 1, "label": "classic"},
-      {"args": [[[1, 2], [1, 2], [1, 2]]], "expected": 2, "label": "duplicates"},
-      {"args": [[[1, 2], [2, 3]]], "expected": 0, "label": "touching ok"},
-      {"args": [[[1, 5]]], "expected": 0, "label": "single"},
-      {"args": [[[1, 100], [2, 3], [4, 5]]], "expected": 1, "label": "dominant covers many"},
-      {"args": [[[0, 2], [1, 3], [2, 4], [3, 5]]], "expected": 1, "label": "alternating"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "touching ok"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              100
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "dominant covers many"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "alternating"
+      }
     ],
     "editorial": "**Greedy — interval scheduling by earliest finish**: Sort slots by `end` ascending. Walk through; keep a running `currentEnd = -∞`. For each slot, if `start >= currentEnd`, keep it and update `currentEnd = end`; else mark it for removal.\n\n**Why greedy works (exchange argument)**: Sorting by earliest finish time leaves the maximum room for future intervals. If an optimal solution kept some slot `X` instead of the earliest-finishing compatible slot `Y`, swap `X` for `Y`. Since `Y` finishes no later than `X`, no slot kept after `X` is invalidated; the swapped solution is still optimal (and we removed the same number of slots). Inductively, picking earliest finish always works.\n\n```javascript\nfunction minSlotRemovals(slots) {\n  const a = [...slots].sort((x, y) => x[1] - y[1]);\n  let kept = 0, currentEnd = -Infinity;\n  for (const [s, e] of a) {\n    if (s >= currentEnd) { kept++; currentEnd = e; }\n  }\n  return a.length - kept;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "uber-min-platforms-required",
     "number": 2419,
-    "title": "Uber Minimum Cab Bays Required",
+    "title": "Minimum Number of Platforms",
     "difficulty": "Hard",
     "topic": "Greedy",
-    "companies": ["uber", "ola", "rapido"],
+    "companies": [
+      "uber",
+      "ola",
+      "rapido"
+    ],
     "description": "Uber's airport pickup zone has cabs arriving and departing throughout the day. Given two arrays `arrivals` and `departures` (same length, in HHMM integer format) for one day, return the minimum number of bays needed so that no cab is ever waiting outside. A cab arriving at the same minute another departs counts as overlap (needs a separate bay).",
     "examples": [
-      {"input": "arrivals = [900,940,950,1100,1500,1800], departures = [910,1200,1120,1130,1900,2000]", "output": "3"},
-      {"input": "arrivals = [900], departures = [910]", "output": "1"}
+      {
+        "input": "arrivals = [900,940,950,1100,1500,1800], departures = [910,1200,1120,1130,1900,2000]",
+        "output": "3"
+      },
+      {
+        "input": "arrivals = [900], departures = [910]",
+        "output": "1"
+      }
     ],
-    "constraints": ["0 <= arrivals.length == departures.length <= 10^5", "0 <= arrivals[i] < departures[i] <= 2359"],
+    "constraints": [
+      "0 <= arrivals.length == departures.length <= 10^5",
+      "0 <= arrivals[i] < departures[i] <= 2359"
+    ],
     "hints": [
       "Sort both arrays separately.",
       "Two pointers: agar next arrival <= next departure, ek aur bay chahiye; warna ek free ho gayi.",
       "Empty input → 0."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minCabBays(arrivals, departures) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_cab_bays(arrivals, departures):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minCabBays(arrivals, departures) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_cab_bays(arrivals, departures):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minCabBays",
     "tests": [
-      {"args": [[900, 940, 950, 1100, 1500, 1800], [910, 1200, 1120, 1130, 1900, 2000]], "expected": 3, "label": "classic"},
-      {"args": [[900], [910]], "expected": 1, "label": "single cab"},
-      {"args": [[], []], "expected": 0, "label": "empty"},
-      {"args": [[900, 1100, 1300], [950, 1150, 1350]], "expected": 1, "label": "no overlap"},
-      {"args": [[900, 905, 910], [1200, 1200, 1200]], "expected": 3, "label": "all overlap"},
-      {"args": [[900, 910, 920], [910, 920, 930]], "expected": 2, "label": "touching counts"}
+      {
+        "args": [
+          [
+            900,
+            940,
+            950,
+            1100,
+            1500,
+            1800
+          ],
+          [
+            910,
+            1200,
+            1120,
+            1130,
+            1900,
+            2000
+          ]
+        ],
+        "expected": 3,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            900
+          ],
+          [
+            910
+          ]
+        ],
+        "expected": 1,
+        "label": "single cab"
+      },
+      {
+        "args": [
+          [],
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            900,
+            1100,
+            1300
+          ],
+          [
+            950,
+            1150,
+            1350
+          ]
+        ],
+        "expected": 1,
+        "label": "no overlap"
+      },
+      {
+        "args": [
+          [
+            900,
+            905,
+            910
+          ],
+          [
+            1200,
+            1200,
+            1200
+          ]
+        ],
+        "expected": 3,
+        "label": "all overlap"
+      },
+      {
+        "args": [
+          [
+            900,
+            910,
+            920
+          ],
+          [
+            910,
+            920,
+            930
+          ]
+        ],
+        "expected": 2,
+        "label": "touching counts"
+      }
     ],
     "editorial": "**Greedy — two-pointer sweep**: Sort `arrivals` and `departures` independently. Use `i = 0` over arrivals and `j = 0` over departures. Track `inUse` and `peak`. While `i < n`:\n- If `arrivals[i] <= departures[j]`: a cab arrives before/at the next departure, so we need one more bay (`inUse++; i++; peak = max(peak, inUse)`).\n- Else: a cab departs first, so a bay frees (`inUse--; j++`).\n\n**Why greedy works (exchange argument)**: At any moment the number of bays in use equals (number of arrivals so far) - (number of departures so far). The maximum of this quantity over time is the answer. Sorting both arrays and walking with two pointers computes exactly that running count without needing the original (arrival, departure) pairing — pairings can be swapped freely without changing how many bays are simultaneously occupied.\n\n```javascript\nfunction minCabBays(arrivals, departures) {\n  if (arrivals.length === 0) return 0;\n  const a = [...arrivals].sort((x, y) => x - y);\n  const d = [...departures].sort((x, y) => x - y);\n  let i = 0, j = 0, inUse = 0, peak = 0;\n  while (i < a.length) {\n    if (a[i] <= d[j]) { inUse++; i++; if (inUse > peak) peak = inUse; }\n    else { inUse--; j++; }\n  }\n  return peak;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n)."
   },
   {
     "slug": "amazon-candy-distribution-rating",
     "number": 2420,
-    "title": "Amazon Candy Distribution Among Workers",
+    "title": "Candy",
     "difficulty": "Hard",
     "topic": "Greedy",
-    "companies": ["amazon", "flipkart", "myntra"],
+    "companies": [
+      "amazon",
+      "flipkart",
+      "myntra"
+    ],
     "description": "Amazon distributes Diwali candies to warehouse workers standing in a line. Each worker has a `rating[i]`. Rules: every worker gets at least 1 candy, and any worker with a strictly higher rating than an adjacent neighbor must get more candies than that neighbor. Return the minimum total candies needed.",
     "examples": [
-      {"input": "ratings = [1,0,2]", "output": "5", "explanation": "[2,1,2]"},
-      {"input": "ratings = [1,2,2]", "output": "4", "explanation": "[1,2,1]"}
+      {
+        "input": "ratings = [1,0,2]",
+        "output": "5",
+        "explanation": "[2,1,2]"
+      },
+      {
+        "input": "ratings = [1,2,2]",
+        "output": "4",
+        "explanation": "[1,2,1]"
+      }
     ],
-    "constraints": ["1 <= ratings.length <= 2*10^4", "0 <= ratings[i] <= 2*10^4"],
+    "constraints": [
+      "1 <= ratings.length <= 2*10^4",
+      "0 <= ratings[i] <= 2*10^4"
+    ],
     "hints": [
       "Two passes: left-to-right (left[i] = left[i-1]+1 if rating bigger else 1).",
       "Right-to-left (right[i] = right[i+1]+1 if bigger else 1).",
       "candy[i] = max(left[i], right[i]); sum nikaal."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function diwaliCandyDistribution(ratings) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def diwali_candy_distribution(ratings):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function diwaliCandyDistribution(ratings) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def diwali_candy_distribution(ratings):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "diwaliCandyDistribution",
     "tests": [
-      {"args": [[1, 0, 2]], "expected": 5, "label": "valley"},
-      {"args": [[1, 2, 2]], "expected": 4, "label": "plateau"},
-      {"args": [[1]], "expected": 1, "label": "single"},
-      {"args": [[1, 2, 3, 4, 5]], "expected": 15, "label": "monotonic up"},
-      {"args": [[5, 4, 3, 2, 1]], "expected": 15, "label": "monotonic down"},
-      {"args": [[1, 1, 1, 1]], "expected": 4, "label": "all equal"},
-      {"args": [[1, 3, 2, 2, 1]], "expected": 7, "label": "mixed"}
+      {
+        "args": [
+          [
+            1,
+            0,
+            2
+          ]
+        ],
+        "expected": 5,
+        "label": "valley"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            2
+          ]
+        ],
+        "expected": 4,
+        "label": "plateau"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 15,
+        "label": "monotonic up"
+      },
+      {
+        "args": [
+          [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 15,
+        "label": "monotonic down"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 4,
+        "label": "all equal"
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            2,
+            2,
+            1
+          ]
+        ],
+        "expected": 7,
+        "label": "mixed"
+      }
     ],
     "editorial": "**Greedy — two passes**: Build two arrays.\n- Left pass: `left[0] = 1`. For `i >= 1`, if `ratings[i] > ratings[i-1]` then `left[i] = left[i-1] + 1`, else `left[i] = 1`.\n- Right pass: `right[n-1] = 1`. For `i < n-1`, if `ratings[i] > ratings[i+1]` then `right[i] = right[i+1] + 1`, else `right[i] = 1`.\nThe minimum candy at each index is `max(left[i], right[i])`. Sum these.\n\n**Why greedy works (exchange argument)**: The constraint at each index is local — only depends on left and right neighbors. The left pass ensures every left-side constraint is satisfied minimally; the right pass does the same for right-side. Taking the max of the two is the smallest value satisfying both. Any solution at index `i` smaller than this max would violate a constraint, and any larger value is wasteful (we can decrease it without violating anything because no constraint depends on absolute counts, only on differences with strictly higher-rated neighbors).\n\n```javascript\nfunction diwaliCandyDistribution(ratings) {\n  const n = ratings.length;\n  if (n === 0) return 0;\n  const left = new Array(n).fill(1);\n  for (let i = 1; i < n; i++) if (ratings[i] > ratings[i - 1]) left[i] = left[i - 1] + 1;\n  let total = 0;\n  let right = 1;\n  for (let i = n - 1; i >= 0; i--) {\n    if (i < n - 1 && ratings[i] > ratings[i + 1]) right += 1;\n    else right = 1;\n    total += Math.max(left[i], right);\n  }\n  return total;\n}\n```\n\n**Time**: O(n). **Space**: O(n)."
   }

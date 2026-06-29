@@ -101,6 +101,80 @@ func ${fnName}(args []interface{}) interface{} {
 `;
 }
 
+/**
+ * Python stub — fallback for problems whose upstream JSON doesn't already
+ * include a python entry. ensureStarter is idempotent so this is a no-op when
+ * the upstream stub already exists (which is the common case).
+ *
+ * The harness tries camelCase first, then snake_case, so either naming works.
+ */
+function pythonStub(fnName: string): string {
+  // Convert camelCase to snake_case for PEP 8 convention.
+  const snakeName = fnName
+    .replace(/([A-Z])/g, "_$1")
+    .toLowerCase()
+    .replace(/^_/, "");
+  return `# EngiNerd Python starter — bhar de.
+# Harness camelCase aur snake_case dono try karta hai.
+def ${snakeName}(*args):
+    # tu yahan apna solution likh
+    # example: nums = args[0]; target = args[1]
+    return None
+`;
+}
+
+/**
+ * Rust stub — matches the signature that rustHarness() in
+ * lib/code-runner-server.ts expects:
+ *   fn ${fnName}(args: Vec<Val>) -> Val
+ *
+ * The harness injects the Val enum + parser into the file before user code,
+ * so Val is available without an import in the stub.
+ */
+function rustStub(fnName: string): string {
+  return `// EngiNerd Rust starter — bhar de.
+//
+// Val enum (provided by the harness — no import needed):
+//   Val::Null | Val::Bool(bool) | Val::Num(f64) | Val::Str(String) | Val::Arr(Vec<Val>)
+//
+// Example usage:
+//   let nums = if let Val::Arr(v) = &args[0] { v } else { return Val::Null };
+//   let target = if let Val::Num(n) = args[1] { *n as i64 } else { return Val::Null };
+fn ${fnName}(args: Vec<Val>) -> Val {
+    // tu yahan apna solution likh
+    let _ = args; // suppress unused-variable warning
+    Val::Null
+}
+`;
+}
+
+/**
+ * C stub — matches the signature that cHarness() in
+ * lib/code-runner-server.ts expects:
+ *   char* ${fnName}(int argc, char* argv[])
+ *
+ * Each argv[i] is a null-terminated JSON string for that argument.
+ * Return a null-terminated JSON string (static literal is fine for simple cases).
+ */
+function cStub(fnName: string): string {
+  return `/* EngiNerd C starter — bhar de.
+ * argc = number of test arguments
+ * argv[i] = i-th argument as a null-terminated JSON string
+ *   e.g. argv[0]="[2,7,11,15]"  argv[1]="9"
+ * Return a null-terminated JSON string (static literal OK for simple cases).
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* ${fnName}(int argc, char* argv[]) {
+    (void)argc; (void)argv; /* suppress unused warnings */
+    /* tu yahan apna solution likh */
+    return "null";
+}
+`;
+}
+
 /** Try to extract the JS signature `(arg1, arg2, ...)` from existing starter. */
 function extractJsSignature(code: string, fnName: string): string | null {
   const re = new RegExp(`function\\s+${fnName}\\s*\\(([^)]*)\\)`);
@@ -139,10 +213,13 @@ function augment(problem: Problem): {
     : null;
 
   for (const [lang, builder] of [
+    ["python", () => pythonStub(problem.fnName)],
     ["java", () => javaStub(problem.fnName)],
     ["cpp", () => cppStub(problem.fnName)],
     ["typescript", () => typescriptStub(problem.fnName, jsSignature)],
     ["go", () => goStub(problem.fnName)],
+    ["rust", () => rustStub(problem.fnName)],
+    ["c", () => cStub(problem.fnName)],
   ] as const) {
     const ok = ensureStarter(problem, lang, builder);
     (ok ? added : skipped).push(lang);

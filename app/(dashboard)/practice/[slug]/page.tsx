@@ -5,19 +5,18 @@ import { ArrowLeft } from "lucide-react";
 import { auth } from "@/auth";
 import {
   getProblemBySlug,
-  listProblemSlugs,
   listRecentSubmissionsForProblem,
 } from "@/lib/problems-store";
+import { isServerRunnerConfigured } from "@/lib/env";
 import { ProblemWorkspace } from "@/components/dashboard/problem-workspace";
 
-export const dynamicParams = true;
-// New problems land via DB after this build; allow on-demand SSG for them.
-export const revalidate = 300;
-
-export async function generateStaticParams() {
-  const slugs = await listProblemSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
+// This page reads the visitor's session via `auth()` (cookies — a dynamic
+// server API), so it must render per-request. It previously declared
+// `revalidate` + `generateStaticParams`, which put it on the ISR/static path;
+// once the DB was seeded, Next tried to statically render each slug and the
+// `auth()` cookie read threw DYNAMIC_SERVER_USAGE. Force dynamic rendering —
+// problem reads are already process-cached in lib/problems-store.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   props: { params: Promise<{ slug: string }> },
@@ -74,6 +73,7 @@ export default async function ProblemDetail(
           submittedAt: s.submittedAt.toISOString(),
         }))}
         isAuthed={!!session?.user?.id}
+        serverRunnerConfigured={isServerRunnerConfigured()}
       />
     </div>
   );

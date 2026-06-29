@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { FieldError } from "@/components/auth/field-error";
 import { SocialButtons } from "@/components/auth/social-buttons";
 import { cn } from "@/lib/utils";
+import { VALID_SLUGS } from "@/lib/goal-match";
 
 type Channel = "phone" | "email";
 type Stage = "identifier" | "code";
@@ -28,16 +29,42 @@ function formatMmSs(totalSecs: number): string {
 
 type Mode = "login" | "register";
 
+/** Build an auth link (/login or /register) that threads both callbackUrl and goal. */
+function buildAuthLink(
+  base: string,
+  callbackUrl: string,
+  goal: string | null,
+): string {
+  const qs = new URLSearchParams();
+  if (callbackUrl !== "/home") qs.set("callbackUrl", callbackUrl);
+  if (goal) qs.set("goal", goal);
+  const qsStr = qs.toString();
+  return qsStr ? `${base}?${qsStr}` : base;
+}
+
+/** Build the Google OAuth callbackUrl, appending ?goal=<slug> when present. */
+function buildSocialCallbackUrl(callbackUrl: string, goal: string | null): string {
+  if (!goal) return callbackUrl;
+  return callbackUrl.includes("?")
+    ? `${callbackUrl}&goal=${encodeURIComponent(goal)}`
+    : `${callbackUrl}?goal=${encodeURIComponent(goal)}`;
+}
+
 export function LoginForm({ mode = "login" }: { mode?: Mode } = {}) {
   const router = useRouter();
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl") || "/home";
 
+  // Read and validate the goal slug from the URL (set by hero form → /login?goal=<slug>).
+  // Ignore anything that isn't one of the 24 known roadmap slugs.
+  const rawGoal = params.get("goal") ?? "";
+  const goal: string | null = rawGoal && VALID_SLUGS.has(rawGoal) ? rawGoal : null;
+
   const [channel, setChannel] = React.useState<Channel>("phone");
 
   return (
     <div className="space-y-5">
-      <SocialButtons callbackUrl={callbackUrl} />
+      <SocialButtons callbackUrl={buildSocialCallbackUrl(callbackUrl, goal)} />
       <Separator label="or" />
 
       {/* Channel switcher */}
@@ -64,6 +91,7 @@ export function LoginForm({ mode = "login" }: { mode?: Mode } = {}) {
 
       <OtpFlow
         channel={channel}
+        goal={goal}
         onSwitchChannel={setChannel}
         onSuccess={() => router.push(callbackUrl)}
       />
@@ -73,11 +101,7 @@ export function LoginForm({ mode = "login" }: { mode?: Mode } = {}) {
           <>
             New to EngiNerd?{" "}
             <Link
-              href={
-                callbackUrl === "/home"
-                  ? "/register"
-                  : `/register?callbackUrl=${encodeURIComponent(callbackUrl)}`
-              }
+              href={buildAuthLink("/register", callbackUrl, goal)}
               className="font-medium text-violet-300 hover:text-violet-200"
             >
               Create an account
@@ -87,11 +111,7 @@ export function LoginForm({ mode = "login" }: { mode?: Mode } = {}) {
           <>
             Already have an account?{" "}
             <Link
-              href={
-                callbackUrl === "/home"
-                  ? "/login"
-                  : `/login?callbackUrl=${encodeURIComponent(callbackUrl)}`
-              }
+              href={buildAuthLink("/login", callbackUrl, goal)}
               className="font-medium text-violet-300 hover:text-violet-200"
             >
               Log in
@@ -139,10 +159,12 @@ function TabButton({
 
 function OtpFlow({
   channel,
+  goal,
   onSwitchChannel,
   onSuccess,
 }: {
   channel: Channel;
+  goal: string | null;
   onSwitchChannel: (c: Channel) => void;
   onSuccess: () => void;
 }) {
@@ -257,12 +279,14 @@ function OtpFlow({
     setBusy(true);
     setError(null);
     try {
+      // Pass goal slug so auth.ts can persist preferredRoadmap for new/returning users.
       const result = await signIn(
         channel === "phone" ? "phone-otp" : "email-otp",
         {
           [channel]: identifier,
           code,
           redirect: false,
+          ...(goal ? { goal } : {}),
         },
       );
 

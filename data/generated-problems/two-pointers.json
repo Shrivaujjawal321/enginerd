@@ -2,727 +2,3190 @@
   {
     "slug": "swiggy-palindrome-orderid",
     "number": 1101,
-    "title": "Swiggy Order ID Palindrome Check",
+    "title": "Palindrome String Check",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["swiggy", "zomato", "razorpay"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "razorpay"
+    ],
     "description": "Swiggy generates internal order IDs as lowercase strings. Customer support wants a quick check whether an order ID reads the same forwards and backwards (a palindrome). Given a string `s`, return `true` if it is a palindrome, otherwise `false`.\n\nOnly the characters in `s` matter; do not normalize case (input is already lowercase).",
     "examples": [
-      {"input": "s = \"swiws\"", "output": "true", "explanation": "Reads the same both ways."},
-      {"input": "s = \"swiggy\"", "output": "false", "explanation": "Reverse is yggiws, not equal."}
+      {
+        "input": "s = \"swiws\"",
+        "output": "true",
+        "explanation": "Reads the same both ways."
+      },
+      {
+        "input": "s = \"swiggy\"",
+        "output": "false",
+        "explanation": "Reverse is yggiws, not equal."
+      }
     ],
-    "constraints": ["1 <= s.length <= 10^5", "s consists of lowercase English letters only"],
-    "hints": ["Do opposite ends pointers — left aur right", "Move left++ aur right-- jab tak match karein", "Edge case: single char string is always palindrome"],
+    "constraints": [
+      "1 <= s.length <= 10^5",
+      "s consists of lowercase English letters only"
+    ],
+    "hints": [
+      "Do opposite ends pointers — left aur right",
+      "Move left++ aur right-- jab tak match karein",
+      "Edge case: single char string is always palindrome"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function isOrderPalindrome(s) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def is_order_palindrome(s):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function isOrderPalindrome(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_order_palindrome(s):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "isOrderPalindrome",
     "tests": [
-      {"args": ["swiws"], "expected": true},
-      {"args": ["swiggy"], "expected": false},
-      {"args": ["a"], "expected": true},
-      {"args": ["aa"], "expected": true},
-      {"args": ["ab"], "expected": false},
-      {"args": ["racecar"], "expected": true},
-      {"args": ["abcba"], "expected": true}
+      {
+        "args": [
+          "swiws"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "swiggy"
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          "a"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "aa"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "ab"
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          "racecar"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "abcba"
+        ],
+        "expected": true
+      }
     ],
     "editorial": "**Brute force:** Reverse the string and compare — O(n) time, O(n) space.\n\n**Optimal (Two Pointers):** Rakhte hain do pointer — `left = 0` aur `right = s.length - 1`. Jab tak `left < right`, check karo `s[left] !== s[right]` ho to false return karo. Warna `left++`, `right--`. Loop end ke baad true return karo.\n\n```js\nfunction isOrderPalindrome(s) {\n  let l = 0, r = s.length - 1;\n  while (l < r) {\n    if (s[l] !== s[r]) return false;\n    l++; r--;\n  }\n  return true;\n}\n```\n\n**Complexity:** Time O(n), Space O(1). Better than reversing because no extra string allocation hoti."
   },
   {
     "slug": "paytm-pair-sum-sorted",
     "number": 1102,
-    "title": "Paytm Transaction Pair Sum",
+    "title": "Two Sum II - Input Array Is Sorted",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["paytm", "phonepe", "razorpay"],
+    "companies": [
+      "paytm",
+      "phonepe",
+      "razorpay"
+    ],
     "description": "Paytm has a sorted list `amounts` of transaction values (ascending). The fraud team wants to know whether any two **distinct** transactions add up exactly to a target value `target`. Return `true` if such a pair exists, else `false`.\n\nThe two transactions must be at different indices.",
     "examples": [
-      {"input": "amounts = [1,2,4,7,11], target = 9", "output": "true", "explanation": "2 + 7 = 9."},
-      {"input": "amounts = [1,3,5], target = 2", "output": "false", "explanation": "No pair sums to 2."}
+      {
+        "input": "amounts = [1,2,4,7,11], target = 9",
+        "output": "true",
+        "explanation": "2 + 7 = 9."
+      },
+      {
+        "input": "amounts = [1,3,5], target = 2",
+        "output": "false",
+        "explanation": "No pair sums to 2."
+      }
     ],
-    "constraints": ["2 <= amounts.length <= 10^5", "-10^9 <= amounts[i] <= 10^9", "amounts is sorted in non-decreasing order"],
-    "hints": ["Sorted array hai to opposite-end pointers use kar", "Sum chhota hai to left++ , bada hai to right--", "Equal mil gaya to true"],
+    "constraints": [
+      "2 <= amounts.length <= 10^5",
+      "-10^9 <= amounts[i] <= 10^9",
+      "amounts is sorted in non-decreasing order"
+    ],
+    "hints": [
+      "Sorted array hai to opposite-end pointers use kar",
+      "Sum chhota hai to left++ , bada hai to right--",
+      "Equal mil gaya to true"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function hasPairSum(amounts, target) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def has_pair_sum(amounts, target):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function hasPairSum(amounts, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def has_pair_sum(amounts, target):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "hasPairSum",
     "tests": [
-      {"args": [[1,2,4,7,11], 9], "expected": true},
-      {"args": [[1,3,5], 2], "expected": false},
-      {"args": [[-3,-1,0,2,4], 1], "expected": true},
-      {"args": [[1,1], 2], "expected": true},
-      {"args": [[1,2,3,4,5], 100], "expected": false},
-      {"args": [[0,0,0,0], 0], "expected": true}
+      {
+        "args": [
+          [
+            1,
+            2,
+            4,
+            7,
+            11
+          ],
+          9
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            5
+          ],
+          2
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          [
+            -3,
+            -1,
+            0,
+            2,
+            4
+          ],
+          1
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            1,
+            1
+          ],
+          2
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          100
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          0
+        ],
+        "expected": true
+      }
     ],
     "editorial": "**Brute force:** Two nested loops, O(n^2).\n\n**Optimal (Two Pointers):** Array sorted hai isliye `l = 0`, `r = n - 1` rakho. Jab `amounts[l] + amounts[r] === target` to true. Agar sum chhota hai target se to `l++` (sum badhega), agar bada hai to `r--` (sum kam hoga). Jab `l >= r` ho jaye, false return karo.\n\n```js\nfunction hasPairSum(amounts, target) {\n  let l = 0, r = amounts.length - 1;\n  while (l < r) {\n    const s = amounts[l] + amounts[r];\n    if (s === target) return true;\n    if (s < target) l++; else r--;\n  }\n  return false;\n}\n```\n\n**Complexity:** Time O(n), Space O(1)."
   },
   {
     "slug": "zomato-reverse-cuisine-list",
     "number": 1103,
-    "title": "Zomato Reverse Cuisine List",
+    "title": "Reverse Array In Place",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["zomato", "swiggy", "meesho"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "meesho"
+    ],
     "description": "Zomato shows a customer's recently-viewed cuisines. The product team wants to display them in reverse order **in place** without using extra arrays. Given an array `cuisines`, reverse it in place and return it.",
     "examples": [
-      {"input": "cuisines = [\"north\",\"south\",\"chinese\",\"italian\"]", "output": "[\"italian\",\"chinese\",\"south\",\"north\"]", "explanation": "Order reversed."}
+      {
+        "input": "cuisines = [\"north\",\"south\",\"chinese\",\"italian\"]",
+        "output": "[\"italian\",\"chinese\",\"south\",\"north\"]",
+        "explanation": "Order reversed."
+      }
     ],
-    "constraints": ["1 <= cuisines.length <= 10^5", "Each string length <= 20"],
-    "hints": ["l=0, r=n-1 swap karte ja", "Centre tak hi jana hai, warna double reverse ho jayega", "Single element ka kuch karne ki zarurat nahi"],
+    "constraints": [
+      "1 <= cuisines.length <= 10^5",
+      "Each string length <= 20"
+    ],
+    "hints": [
+      "l=0, r=n-1 swap karte ja",
+      "Centre tak hi jana hai, warna double reverse ho jayega",
+      "Single element ka kuch karne ki zarurat nahi"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function reverseCuisines(cuisines) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def reverse_cuisines(cuisines):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function reverseCuisines(cuisines) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reverse_cuisines(cuisines):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "reverseCuisines",
     "tests": [
-      {"args": [["north","south","chinese","italian"]], "expected": ["italian","chinese","south","north"]},
-      {"args": [["a"]], "expected": ["a"]},
-      {"args": [["a","b"]], "expected": ["b","a"]},
-      {"args": [["a","b","c"]], "expected": ["c","b","a"]},
-      {"args": [[]], "expected": []}
+      {
+        "args": [
+          [
+            "north",
+            "south",
+            "chinese",
+            "italian"
+          ]
+        ],
+        "expected": [
+          "italian",
+          "chinese",
+          "south",
+          "north"
+        ]
+      },
+      {
+        "args": [
+          [
+            "a"
+          ]
+        ],
+        "expected": [
+          "a"
+        ]
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "expected": [
+          "b",
+          "a"
+        ]
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b",
+            "c"
+          ]
+        ],
+        "expected": [
+          "c",
+          "b",
+          "a"
+        ]
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": []
+      }
     ],
     "editorial": "**Idea:** Classic two pointer reverse. `l = 0`, `r = n - 1`. Swap karo aur converge karo.\n\n```js\nfunction reverseCuisines(c) {\n  let l = 0, r = c.length - 1;\n  while (l < r) {\n    [c[l], c[r]] = [c[r], c[l]];\n    l++; r--;\n  }\n  return c;\n}\n```\n\n**Complexity:** Time O(n), Space O(1). In-place hone ki wajah se memory waste nahi hoti — Zomato ke production lists ke liye useful."
   },
   {
     "slug": "flipkart-remove-duplicate-skus",
     "number": 1104,
-    "title": "Flipkart Remove Duplicate SKUs",
+    "title": "Remove Duplicates from Sorted Array",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["flipkart", "amazon", "meesho"],
+    "companies": [
+      "flipkart",
+      "amazon",
+      "meesho"
+    ],
     "description": "Flipkart's catalog system gets a sorted list `skus` of integer SKU IDs and wants to dedupe in place. Modify `skus` so that the first `k` elements are unique in original order, return `k`. Order of remaining elements doesn't matter.",
     "examples": [
-      {"input": "skus = [1,1,2,2,3]", "output": "3", "explanation": "First three become [1,2,3]."},
-      {"input": "skus = [1,2,3]", "output": "3", "explanation": "Already unique."}
+      {
+        "input": "skus = [1,1,2,2,3]",
+        "output": "3",
+        "explanation": "First three become [1,2,3]."
+      },
+      {
+        "input": "skus = [1,2,3]",
+        "output": "3",
+        "explanation": "Already unique."
+      }
     ],
-    "constraints": ["1 <= skus.length <= 10^5", "skus is sorted in non-decreasing order"],
-    "hints": ["Slow pointer 'write' index, fast pointer scan karta hai", "Naya unique mile to slow ko aage badha aur copy kar", "k = slow + 1 hota hai"],
+    "constraints": [
+      "1 <= skus.length <= 10^5",
+      "skus is sorted in non-decreasing order"
+    ],
+    "hints": [
+      "Slow pointer 'write' index, fast pointer scan karta hai",
+      "Naya unique mile to slow ko aage badha aur copy kar",
+      "k = slow + 1 hota hai"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function removeDuplicateSkus(skus) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def remove_duplicate_skus(skus):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function removeDuplicateSkus(skus) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def remove_duplicate_skus(skus):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "removeDuplicateSkus",
     "tests": [
-      {"args": [[1,1,2,2,3]], "expected": 3},
-      {"args": [[1,2,3]], "expected": 3},
-      {"args": [[1,1,1,1]], "expected": 1},
-      {"args": [[1]], "expected": 1},
-      {"args": [[]], "expected": 0},
-      {"args": [[0,0,1,1,1,2,2,3,3,4]], "expected": 5}
+      {
+        "args": [
+          [
+            1,
+            1,
+            2,
+            2,
+            3
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            1,
+            1,
+            1,
+            2,
+            2,
+            3,
+            3,
+            4
+          ]
+        ],
+        "expected": 5
+      }
     ],
     "editorial": "**Idea:** Slow-fast same-direction pointers. `slow = 0`. Loop `fast` from 1 to n-1: if `skus[fast] !== skus[slow]`, then `slow++` and `skus[slow] = skus[fast]`. Return `slow + 1` (handle empty array separately).\n\n```js\nfunction removeDuplicateSkus(s) {\n  if (s.length === 0) return 0;\n  let slow = 0;\n  for (let fast = 1; fast < s.length; fast++) {\n    if (s[fast] !== s[slow]) {\n      slow++;\n      s[slow] = s[fast];\n    }\n  }\n  return slow + 1;\n}\n```\n\n**Complexity:** Time O(n), Space O(1)."
   },
   {
     "slug": "uber-squared-distances-sorted",
     "number": 1105,
-    "title": "Uber Squared Trip Distances",
+    "title": "Squares of a Sorted Array",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["uber", "google", "amazon"],
+    "companies": [
+      "uber",
+      "google",
+      "amazon"
+    ],
     "description": "Uber stores signed deviations of trip distances (negative = under estimate, positive = over) in a sorted array `devs` (ascending). Return a new array with the squares of each value, sorted in non-decreasing order.",
     "examples": [
-      {"input": "devs = [-4,-1,0,3,10]", "output": "[0,1,9,16,100]", "explanation": "Squares sorted."},
-      {"input": "devs = [-7,-3,2,3,11]", "output": "[4,9,9,49,121]", "explanation": "Squares re-sorted."}
+      {
+        "input": "devs = [-4,-1,0,3,10]",
+        "output": "[0,1,9,16,100]",
+        "explanation": "Squares sorted."
+      },
+      {
+        "input": "devs = [-7,-3,2,3,11]",
+        "output": "[4,9,9,49,121]",
+        "explanation": "Squares re-sorted."
+      }
     ],
-    "constraints": ["1 <= devs.length <= 10^4", "-10^4 <= devs[i] <= 10^4", "devs sorted ascending"],
-    "hints": ["Largest squares are at the two ends", "Two pointers from both ends, fill result from back", "Compare absolute values"],
+    "constraints": [
+      "1 <= devs.length <= 10^4",
+      "-10^4 <= devs[i] <= 10^4",
+      "devs sorted ascending"
+    ],
+    "hints": [
+      "Largest squares are at the two ends",
+      "Two pointers from both ends, fill result from back",
+      "Compare absolute values"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function squaredDistances(devs) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def squared_distances(devs):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function squaredDistances(devs) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def squared_distances(devs):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "squaredDistances",
     "tests": [
-      {"args": [[-4,-1,0,3,10]], "expected": [0,1,9,16,100]},
-      {"args": [[-7,-3,2,3,11]], "expected": [4,9,9,49,121]},
-      {"args": [[1,2,3]], "expected": [1,4,9]},
-      {"args": [[-3,-2,-1]], "expected": [1,4,9]},
-      {"args": [[0]], "expected": [0]},
-      {"args": [[-1,1]], "expected": [1,1]}
+      {
+        "args": [
+          [
+            -4,
+            -1,
+            0,
+            3,
+            10
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          9,
+          16,
+          100
+        ]
+      },
+      {
+        "args": [
+          [
+            -7,
+            -3,
+            2,
+            3,
+            11
+          ]
+        ],
+        "expected": [
+          4,
+          9,
+          9,
+          49,
+          121
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          4,
+          9
+        ]
+      },
+      {
+        "args": [
+          [
+            -3,
+            -2,
+            -1
+          ]
+        ],
+        "expected": [
+          1,
+          4,
+          9
+        ]
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": [
+          0
+        ]
+      },
+      {
+        "args": [
+          [
+            -1,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          1
+        ]
+      }
     ],
     "editorial": "**Brute force:** Square each then sort, O(n log n).\n\n**Optimal:** Sorted ascending mein largest absolute value either start ya end pe hota hai. Two pointers `l=0, r=n-1`, result fill back-to-front. Jiska abs bada wo daalo and pointer move.\n\n```js\nfunction squaredDistances(d) {\n  const n = d.length, res = new Array(n);\n  let l = 0, r = n - 1, k = n - 1;\n  while (l <= r) {\n    if (Math.abs(d[l]) > Math.abs(d[r])) {\n      res[k--] = d[l] * d[l]; l++;\n    } else {\n      res[k--] = d[r] * d[r]; r--;\n    }\n  }\n  return res;\n}\n```\n\n**Complexity:** O(n) time, O(n) space."
   },
   {
     "slug": "phonepe-merge-two-ledgers",
     "number": 1106,
-    "title": "PhonePe Merge Two Sorted Ledgers",
+    "title": "Merge Sorted Array",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["phonepe", "paytm", "razorpay"],
+    "companies": [
+      "phonepe",
+      "paytm",
+      "razorpay"
+    ],
     "description": "PhonePe has two sorted ledger arrays `a` and `b` of integers (both ascending). Return a single merged sorted array containing all elements (duplicates kept).",
     "examples": [
-      {"input": "a = [1,3,5], b = [2,4,6]", "output": "[1,2,3,4,5,6]", "explanation": "Standard merge."},
-      {"input": "a = [], b = [1,2]", "output": "[1,2]", "explanation": "One side empty."}
+      {
+        "input": "a = [1,3,5], b = [2,4,6]",
+        "output": "[1,2,3,4,5,6]",
+        "explanation": "Standard merge."
+      },
+      {
+        "input": "a = [], b = [1,2]",
+        "output": "[1,2]",
+        "explanation": "One side empty."
+      }
     ],
-    "constraints": ["0 <= a.length, b.length <= 10^4", "-10^9 <= values <= 10^9"],
-    "hints": ["Do pointers i, j — chote wala uthao aur aage badho", "Ek list khatam to dusri ki tail copy kar", "Empty input ka edge case handle kar"],
+    "constraints": [
+      "0 <= a.length, b.length <= 10^4",
+      "-10^9 <= values <= 10^9"
+    ],
+    "hints": [
+      "Do pointers i, j — chote wala uthao aur aage badho",
+      "Ek list khatam to dusri ki tail copy kar",
+      "Empty input ka edge case handle kar"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function mergeLedgers(a, b) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def merge_ledgers(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function mergeLedgers(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def merge_ledgers(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "mergeLedgers",
     "tests": [
-      {"args": [[1,3,5],[2,4,6]], "expected": [1,2,3,4,5,6]},
-      {"args": [[],[1,2]], "expected": [1,2]},
-      {"args": [[1,2],[]], "expected": [1,2]},
-      {"args": [[],[]], "expected": []},
-      {"args": [[1,1,1],[1,1]], "expected": [1,1,1,1,1]},
-      {"args": [[-3,0,4],[-5,2,2]], "expected": [-5,-3,0,2,2,4]}
+      {
+        "args": [
+          [
+            1,
+            3,
+            5
+          ],
+          [
+            2,
+            4,
+            6
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "args": [
+          [],
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ],
+          []
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "args": [
+          [],
+          []
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "args": [
+          [
+            -3,
+            0,
+            4
+          ],
+          [
+            -5,
+            2,
+            2
+          ]
+        ],
+        "expected": [
+          -5,
+          -3,
+          0,
+          2,
+          2,
+          4
+        ]
+      }
     ],
     "editorial": "**Idea:** Classic merge. Two pointers `i=0` for `a`, `j=0` for `b`. Whichever is smaller append, pointer increment. Phir leftover append.\n\n```js\nfunction mergeLedgers(a, b) {\n  const out = [];\n  let i = 0, j = 0;\n  while (i < a.length && j < b.length) {\n    if (a[i] <= b[j]) out.push(a[i++]);\n    else out.push(b[j++]);\n  }\n  while (i < a.length) out.push(a[i++]);\n  while (j < b.length) out.push(b[j++]);\n  return out;\n}\n```\n\n**Complexity:** O(n + m) time, O(n + m) space."
   },
   {
     "slug": "razorpay-valid-anagram-rotation",
     "number": 1107,
-    "title": "Razorpay Move Failed Payments to End",
+    "title": "Move Zeroes",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["razorpay", "paytm", "cred"],
+    "companies": [
+      "razorpay",
+      "paytm",
+      "cred"
+    ],
     "description": "Razorpay represents payments as `0` (failed) and non-zero (successful amount). Move all `0`s to the end of `payments` while keeping the relative order of non-zero entries. Mutate in place and return the array.",
     "examples": [
-      {"input": "payments = [0,1,0,3,12]", "output": "[1,3,12,0,0]", "explanation": "Order preserved."},
-      {"input": "payments = [0]", "output": "[0]", "explanation": "Single element."}
+      {
+        "input": "payments = [0,1,0,3,12]",
+        "output": "[1,3,12,0,0]",
+        "explanation": "Order preserved."
+      },
+      {
+        "input": "payments = [0]",
+        "output": "[0]",
+        "explanation": "Single element."
+      }
     ],
-    "constraints": ["1 <= payments.length <= 10^4", "-2^31 <= payments[i] <= 2^31 - 1"],
-    "hints": ["Slow = next write index for non-zero", "Fast scan karta hai", "Phir slow se end tak zero bhar"],
+    "constraints": [
+      "1 <= payments.length <= 10^4",
+      "-2^31 <= payments[i] <= 2^31 - 1"
+    ],
+    "hints": [
+      "Slow = next write index for non-zero",
+      "Fast scan karta hai",
+      "Phir slow se end tak zero bhar"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function moveFailedPayments(payments) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def move_failed_payments(payments):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function moveFailedPayments(payments) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def move_failed_payments(payments):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "moveFailedPayments",
     "tests": [
-      {"args": [[0,1,0,3,12]], "expected": [1,3,12,0,0]},
-      {"args": [[0]], "expected": [0]},
-      {"args": [[1,2,3]], "expected": [1,2,3]},
-      {"args": [[0,0,0]], "expected": [0,0,0]},
-      {"args": [[1,0,2,0,3]], "expected": [1,2,3,0,0]},
-      {"args": [[0,0,1]], "expected": [1,0,0]}
+      {
+        "args": [
+          [
+            0,
+            1,
+            0,
+            3,
+            12
+          ]
+        ],
+        "expected": [
+          1,
+          3,
+          12,
+          0,
+          0
+        ]
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": [
+          0
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            0,
+            2,
+            0,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          0,
+          0
+        ]
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          0,
+          0
+        ]
+      }
     ],
     "editorial": "**Idea:** Slow-fast pointers. `slow = 0`. Fast scan: if non-zero copy karo `payments[slow] = payments[fast]; slow++`. End mein `slow` se `n-1` tak `0` bhar do.\n\n```js\nfunction moveFailedPayments(p) {\n  let slow = 0;\n  for (let fast = 0; fast < p.length; fast++) {\n    if (p[fast] !== 0) p[slow++] = p[fast];\n  }\n  while (slow < p.length) p[slow++] = 0;\n  return p;\n}\n```\n\n**Complexity:** O(n) time, O(1) space."
   },
   {
     "slug": "cred-valid-card-substring",
     "number": 1108,
-    "title": "CRED Card Number Subsequence",
+    "title": "Is Subsequence",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["cred", "razorpay", "phonepe"],
+    "companies": [
+      "cred",
+      "razorpay",
+      "phonepe"
+    ],
     "description": "CRED detects masked card numbers. Given strings `s` and `t`, return `true` if `s` is a subsequence of `t` (characters appear in order, not necessarily contiguous).",
     "examples": [
-      {"input": "s = \"abc\", t = \"ahbgdc\"", "output": "true", "explanation": "a..b...c match in order."},
-      {"input": "s = \"axc\", t = \"ahbgdc\"", "output": "false", "explanation": "x missing."}
+      {
+        "input": "s = \"abc\", t = \"ahbgdc\"",
+        "output": "true",
+        "explanation": "a..b...c match in order."
+      },
+      {
+        "input": "s = \"axc\", t = \"ahbgdc\"",
+        "output": "false",
+        "explanation": "x missing."
+      }
     ],
-    "constraints": ["0 <= s.length <= 100", "0 <= t.length <= 10^4"],
-    "hints": ["Same-direction do pointers — i for s, j for t", "Match pe i++, hamesha j++", "Empty s always true"],
+    "constraints": [
+      "0 <= s.length <= 100",
+      "0 <= t.length <= 10^4"
+    ],
+    "hints": [
+      "Same-direction do pointers — i for s, j for t",
+      "Match pe i++, hamesha j++",
+      "Empty s always true"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function isCardSubsequence(s, t) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def is_card_subsequence(s, t):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function isCardSubsequence(s, t) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_card_subsequence(s, t):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "isCardSubsequence",
     "tests": [
-      {"args": ["abc","ahbgdc"], "expected": true},
-      {"args": ["axc","ahbgdc"], "expected": false},
-      {"args": ["","abc"], "expected": true},
-      {"args": ["a",""], "expected": false},
-      {"args": ["",""], "expected": true},
-      {"args": ["abc","abc"], "expected": true},
-      {"args": ["acb","abc"], "expected": false}
+      {
+        "args": [
+          "abc",
+          "ahbgdc"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "axc",
+          "ahbgdc"
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          "",
+          "abc"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "a",
+          ""
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          "",
+          ""
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "abc",
+          "abc"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "acb",
+          "abc"
+        ],
+        "expected": false
+      }
     ],
     "editorial": "**Idea:** `i = 0, j = 0`. Advance `j` through `t`; jab `s[i] === t[j]` ho `i++`. Hamesha `j++`. Akhir mein `i === s.length` matlab subsequence hai.\n\n```js\nfunction isCardSubsequence(s, t) {\n  let i = 0, j = 0;\n  while (i < s.length && j < t.length) {\n    if (s[i] === t[j]) i++;\n    j++;\n  }\n  return i === s.length;\n}\n```\n\n**Complexity:** O(|t|) time, O(1) space."
   },
   {
     "slug": "meesho-intersect-two-orders",
     "number": 1109,
-    "title": "Meesho Intersect Two Order Lists",
+    "title": "Intersection of Two Arrays II",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["meesho", "flipkart", "amazon"],
+    "companies": [
+      "meesho",
+      "flipkart",
+      "amazon"
+    ],
     "description": "Meesho has two sorted arrays `a` and `b` of order IDs (ascending). Return the intersection as a sorted array. Each element should appear as many times as it appears in **both** arrays (i.e. multiset intersection).",
     "examples": [
-      {"input": "a = [1,2,2,3], b = [2,2,4]", "output": "[2,2]", "explanation": "2 appears twice in both."},
-      {"input": "a = [1,3,5], b = [2,4,6]", "output": "[]", "explanation": "No common."}
+      {
+        "input": "a = [1,2,2,3], b = [2,2,4]",
+        "output": "[2,2]",
+        "explanation": "2 appears twice in both."
+      },
+      {
+        "input": "a = [1,3,5], b = [2,4,6]",
+        "output": "[]",
+        "explanation": "No common."
+      }
     ],
-    "constraints": ["0 <= a.length, b.length <= 10^4", "Both arrays sorted ascending"],
-    "hints": ["Two pointers i, j", "Equal mile to push aur dono badhao", "Chota wala increment"],
+    "constraints": [
+      "0 <= a.length, b.length <= 10^4",
+      "Both arrays sorted ascending"
+    ],
+    "hints": [
+      "Two pointers i, j",
+      "Equal mile to push aur dono badhao",
+      "Chota wala increment"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function intersectOrders(a, b) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def intersect_orders(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function intersectOrders(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def intersect_orders(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "intersectOrders",
     "tests": [
-      {"args": [[1,2,2,3],[2,2,4]], "expected": [2,2]},
-      {"args": [[1,3,5],[2,4,6]], "expected": []},
-      {"args": [[],[1,2]], "expected": []},
-      {"args": [[1,1,1],[1,1]], "expected": [1,1]},
-      {"args": [[1,2,3],[1,2,3]], "expected": [1,2,3]},
-      {"args": [[1,2,2,3,4],[2,3,5]], "expected": [2,3]}
+      {
+        "args": [
+          [
+            1,
+            2,
+            2,
+            3
+          ],
+          [
+            2,
+            2,
+            4
+          ]
+        ],
+        "expected": [
+          2,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            5
+          ],
+          [
+            2,
+            4,
+            6
+          ]
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [],
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          1
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            2,
+            3,
+            4
+          ],
+          [
+            2,
+            3,
+            5
+          ]
+        ],
+        "expected": [
+          2,
+          3
+        ]
+      }
     ],
     "editorial": "**Brute force:** Use a hashmap counting elements of `a`, then iterate `b` and emit min(count) — O(n+m) time, O(n) space.\n\n**Optimal (Two Pointers):** Both arrays sorted, so use `i, j`. `a[i] === b[j]` push and increment both. Else chhota wala increment. No extra hashmap.\n\n```js\nfunction intersectOrders(a, b) {\n  const out = [];\n  let i = 0, j = 0;\n  while (i < a.length && j < b.length) {\n    if (a[i] === b[j]) { out.push(a[i]); i++; j++; }\n    else if (a[i] < b[j]) i++;\n    else j++;\n  }\n  return out;\n}\n```\n\n**Complexity:** O(n + m) time, O(1) extra (output excluded)."
   },
   {
     "slug": "atlassian-valid-palindrome-skip",
     "number": 1110,
-    "title": "Atlassian Alphanumeric Palindrome",
+    "title": "Valid Palindrome",
     "difficulty": "Easy",
     "topic": "Two Pointers",
-    "companies": ["atlassian", "postman", "google"],
+    "companies": [
+      "atlassian",
+      "postman",
+      "google"
+    ],
     "description": "Atlassian's spam filter checks if a Jira ticket title is a palindrome considering only alphanumeric characters and ignoring case. Given a string `s`, return `true` if it is such a palindrome.",
     "examples": [
-      {"input": "s = \"A man, a plan, a canal: Panama\"", "output": "true", "explanation": "After cleaning: amanaplanacanalpanama."},
-      {"input": "s = \"race a car\"", "output": "false", "explanation": "raceacar reversed is racaecar."}
+      {
+        "input": "s = \"A man, a plan, a canal: Panama\"",
+        "output": "true",
+        "explanation": "After cleaning: amanaplanacanalpanama."
+      },
+      {
+        "input": "s = \"race a car\"",
+        "output": "false",
+        "explanation": "raceacar reversed is racaecar."
+      }
     ],
-    "constraints": ["1 <= s.length <= 2 * 10^5", "s contains printable ASCII"],
-    "hints": ["l, r pointers — non-alnum skip kar dono taraf", "lowercase compare karna hai", "Single char/empty cleaned palindrome hota hai"],
+    "constraints": [
+      "1 <= s.length <= 2 * 10^5",
+      "s contains printable ASCII"
+    ],
+    "hints": [
+      "l, r pointers — non-alnum skip kar dono taraf",
+      "lowercase compare karna hai",
+      "Single char/empty cleaned palindrome hota hai"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function isCleanPalindrome(s) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def is_clean_palindrome(s):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function isCleanPalindrome(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_clean_palindrome(s):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "isCleanPalindrome",
     "tests": [
-      {"args": ["A man, a plan, a canal: Panama"], "expected": true},
-      {"args": ["race a car"], "expected": false},
-      {"args": [" "], "expected": true},
-      {"args": [".,"], "expected": true},
-      {"args": ["0P"], "expected": false},
-      {"args": ["ab2a"], "expected": false},
-      {"args": ["aba"], "expected": true}
+      {
+        "args": [
+          "A man, a plan, a canal: Panama"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "race a car"
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          " "
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          ".,"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "0P"
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          "ab2a"
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          "aba"
+        ],
+        "expected": true
+      }
     ],
     "editorial": "**Idea:** Two pointers `l, r`. Non-alphanumeric ho to skip karo. Phir lowercase compare. Mismatch -> false.\n\n```js\nfunction isCleanPalindrome(s) {\n  const isAlnum = c => /[a-zA-Z0-9]/.test(c);\n  let l = 0, r = s.length - 1;\n  while (l < r) {\n    while (l < r && !isAlnum(s[l])) l++;\n    while (l < r && !isAlnum(s[r])) r--;\n    if (s[l].toLowerCase() !== s[r].toLowerCase()) return false;\n    l++; r--;\n  }\n  return true;\n}\n```\n\n**Complexity:** O(n) time, O(1) space."
   },
   {
     "slug": "swiggy-container-water-slots",
     "number": 1111,
-    "title": "Swiggy Delivery Slot Container",
+    "title": "Container With Most Water",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["swiggy", "zomato", "uber"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
     "description": "Swiggy plots `n` delivery slot demand bars. Each `heights[i]` is the demand height at position `i`. Choose two positions `i < j` to form a virtual container; capacity = `min(heights[i], heights[j]) * (j - i)`. Return the maximum capacity.",
     "examples": [
-      {"input": "heights = [1,8,6,2,5,4,8,3,7]", "output": "49", "explanation": "Pick indices 1 and 8: min(8,7) * (8-1) = 7*7 = 49."},
-      {"input": "heights = [1,1]", "output": "1", "explanation": "Only choice."}
+      {
+        "input": "heights = [1,8,6,2,5,4,8,3,7]",
+        "output": "49",
+        "explanation": "Pick indices 1 and 8: min(8,7) * (8-1) = 7*7 = 49."
+      },
+      {
+        "input": "heights = [1,1]",
+        "output": "1",
+        "explanation": "Only choice."
+      }
     ],
-    "constraints": ["2 <= heights.length <= 10^5", "0 <= heights[i] <= 10^4"],
-    "hints": ["Greedy: chhota wala bar limit kar raha hai", "Two pointer ends — chhota move kar", "Always track max"],
+    "constraints": [
+      "2 <= heights.length <= 10^5",
+      "0 <= heights[i] <= 10^4"
+    ],
+    "hints": [
+      "Greedy: chhota wala bar limit kar raha hai",
+      "Two pointer ends — chhota move kar",
+      "Always track max"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function maxSlotContainer(heights) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def max_slot_container(heights):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function maxSlotContainer(heights) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_slot_container(heights):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "maxSlotContainer",
     "tests": [
-      {"args": [[1,8,6,2,5,4,8,3,7]], "expected": 49},
-      {"args": [[1,1]], "expected": 1},
-      {"args": [[4,3,2,1,4]], "expected": 16},
-      {"args": [[1,2,1]], "expected": 2},
-      {"args": [[2,3,4,5,18,17,6]], "expected": 17},
-      {"args": [[0,0]], "expected": 0}
+      {
+        "args": [
+          [
+            1,
+            8,
+            6,
+            2,
+            5,
+            4,
+            8,
+            3,
+            7
+          ]
+        ],
+        "expected": 49
+      },
+      {
+        "args": [
+          [
+            1,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            4,
+            3,
+            2,
+            1,
+            4
+          ]
+        ],
+        "expected": 16
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            1
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            2,
+            3,
+            4,
+            5,
+            18,
+            17,
+            6
+          ]
+        ],
+        "expected": 17
+      },
+      {
+        "args": [
+          [
+            0,
+            0
+          ]
+        ],
+        "expected": 0
+      }
     ],
     "editorial": "**Brute force:** Sab pairs, O(n^2).\n\n**Optimal (Two Pointers):** `l = 0, r = n-1`. Compute area, track max. Move chote bar wala pointer (kyunki tall side rakhne se area kabhi nahi badhega — width ghat rahi hai aur min same/chhota hi hoga).\n\n```js\nfunction maxSlotContainer(h) {\n  let l = 0, r = h.length - 1, best = 0;\n  while (l < r) {\n    const area = Math.min(h[l], h[r]) * (r - l);\n    if (area > best) best = area;\n    if (h[l] < h[r]) l++; else r--;\n  }\n  return best;\n}\n```\n\n**Complexity:** O(n) time, O(1) space."
   },
   {
     "slug": "amazon-three-sum-zero",
     "number": 1112,
-    "title": "Amazon Triple Refund Sum Zero",
+    "title": "3Sum",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["amazon", "google", "microsoft"],
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
     "description": "Amazon refund team has signed adjustments `nums`. Find all unique triplets `[a, b, c]` such that `a + b + c == 0`. Return them as a sorted list of sorted triplets (each triplet itself sorted ascending; outer list lexicographically ascending). No duplicates.",
     "examples": [
-      {"input": "nums = [-1,0,1,2,-1,-4]", "output": "[[-1,-1,2],[-1,0,1]]", "explanation": "Two unique triplets sum to zero."},
-      {"input": "nums = [0,0,0]", "output": "[[0,0,0]]", "explanation": "Only one."}
+      {
+        "input": "nums = [-1,0,1,2,-1,-4]",
+        "output": "[[-1,-1,2],[-1,0,1]]",
+        "explanation": "Two unique triplets sum to zero."
+      },
+      {
+        "input": "nums = [0,0,0]",
+        "output": "[[0,0,0]]",
+        "explanation": "Only one."
+      }
     ],
-    "constraints": ["3 <= nums.length <= 3000", "-10^5 <= nums[i] <= 10^5"],
-    "hints": ["Sort kar le pehle", "Outer loop fix karo i, fir l = i+1, r = n-1", "Duplicates skip karo dono levels pe"],
+    "constraints": [
+      "3 <= nums.length <= 3000",
+      "-10^5 <= nums[i] <= 10^5"
+    ],
+    "hints": [
+      "Sort kar le pehle",
+      "Outer loop fix karo i, fir l = i+1, r = n-1",
+      "Duplicates skip karo dono levels pe"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function threeSumZero(nums) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def three_sum_zero(nums):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function threeSumZero(nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def three_sum_zero(nums):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "threeSumZero",
     "tests": [
-      {"args": [[-1,0,1,2,-1,-4]], "expected": [[-1,-1,2],[-1,0,1]]},
-      {"args": [[0,0,0]], "expected": [[0,0,0]]},
-      {"args": [[1,2,3]], "expected": []},
-      {"args": [[0,0,0,0]], "expected": [[0,0,0]]},
-      {"args": [[-2,0,1,1,2]], "expected": [[-2,0,2],[-2,1,1]]},
-      {"args": [[-1,-1,2]], "expected": [[-1,-1,2]]}
+      {
+        "args": [
+          [
+            -1,
+            0,
+            1,
+            2,
+            -1,
+            -4
+          ]
+        ],
+        "expected": [
+          [
+            -1,
+            -1,
+            2
+          ],
+          [
+            -1,
+            0,
+            1
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            -2,
+            0,
+            1,
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            -2,
+            0,
+            2
+          ],
+          [
+            -2,
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            -1,
+            -1,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            -1,
+            -1,
+            2
+          ]
+        ]
+      }
     ],
     "editorial": "**Brute force:** O(n^3) triple loop with set dedup.\n\n**Optimal:** Sort. For each `i`, do two-pointer `l = i+1, r = n-1` searching `-nums[i]`. Skip duplicates at i, l, r levels.\n\n```js\nfunction threeSumZero(nums) {\n  nums = [...nums].sort((a,b) => a - b);\n  const res = [];\n  for (let i = 0; i < nums.length - 2; i++) {\n    if (i > 0 && nums[i] === nums[i-1]) continue;\n    let l = i + 1, r = nums.length - 1;\n    while (l < r) {\n      const s = nums[i] + nums[l] + nums[r];\n      if (s === 0) {\n        res.push([nums[i], nums[l], nums[r]]);\n        while (l < r && nums[l] === nums[l+1]) l++;\n        while (l < r && nums[r] === nums[r-1]) r--;\n        l++; r--;\n      } else if (s < 0) l++; else r--;\n    }\n  }\n  return res;\n}\n```\n\n**Complexity:** O(n^2)."
   },
   {
     "slug": "google-three-sum-closest",
     "number": 1113,
-    "title": "Google Three-Sum Closest to Budget",
+    "title": "3Sum Closest",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["google", "uber", "atlassian"],
+    "companies": [
+      "google",
+      "uber",
+      "atlassian"
+    ],
     "description": "Given an array `nums` and an integer `target`, pick exactly three numbers whose sum is closest to `target`. Return that closest sum. Assume the closest sum is unique.",
     "examples": [
-      {"input": "nums = [-1,2,1,-4], target = 1", "output": "2", "explanation": "(-1)+2+1 = 2 is closest to 1."},
-      {"input": "nums = [0,0,0], target = 1", "output": "0", "explanation": "Only sum possible."}
+      {
+        "input": "nums = [-1,2,1,-4], target = 1",
+        "output": "2",
+        "explanation": "(-1)+2+1 = 2 is closest to 1."
+      },
+      {
+        "input": "nums = [0,0,0], target = 1",
+        "output": "0",
+        "explanation": "Only sum possible."
+      }
     ],
-    "constraints": ["3 <= nums.length <= 1000", "-10^4 <= nums[i], target <= 10^4"],
-    "hints": ["Sort + fix one + two pointers", "Track minimal diff", "Update sum based on l/r movement"],
+    "constraints": [
+      "3 <= nums.length <= 1000",
+      "-10^4 <= nums[i], target <= 10^4"
+    ],
+    "hints": [
+      "Sort + fix one + two pointers",
+      "Track minimal diff",
+      "Update sum based on l/r movement"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function threeSumClosest(nums, target) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def three_sum_closest(nums, target):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function threeSumClosest(nums, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def three_sum_closest(nums, target):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "threeSumClosest",
     "tests": [
-      {"args": [[-1,2,1,-4], 1], "expected": 2},
-      {"args": [[0,0,0], 1], "expected": 0},
-      {"args": [[1,1,1,0], -100], "expected": 2},
-      {"args": [[-1,0,1,1,55], 3], "expected": 2},
-      {"args": [[1,2,4,8,16,32,64,128], 82], "expected": 82}
+      {
+        "args": [
+          [
+            -1,
+            2,
+            1,
+            -4
+          ],
+          1
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0
+          ],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          -100
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            -1,
+            0,
+            1,
+            1,
+            55
+          ],
+          3
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128
+          ],
+          82
+        ],
+        "expected": 82
+      }
     ],
     "editorial": "**Idea:** Sort. For each `i`, two-pointer for remaining target — track sum with smallest absolute distance.\n\n```js\nfunction threeSumClosest(nums, target) {\n  const a = [...nums].sort((x,y) => x - y);\n  let best = a[0] + a[1] + a[2];\n  for (let i = 0; i < a.length - 2; i++) {\n    let l = i + 1, r = a.length - 1;\n    while (l < r) {\n      const s = a[i] + a[l] + a[r];\n      if (Math.abs(s - target) < Math.abs(best - target)) best = s;\n      if (s < target) l++;\n      else if (s > target) r--;\n      else return s;\n    }\n  }\n  return best;\n}\n```\n\n**Complexity:** O(n^2). Test case `[1,2,4,8,16,32,64,128]` → optimal triple is 16+2+64 = 82."
   },
   {
     "slug": "microsoft-sort-colors-flag",
     "number": 1114,
-    "title": "Microsoft Sort Three Service Tiers",
+    "title": "Sort Colors",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["microsoft", "amazon", "atlassian"],
+    "companies": [
+      "microsoft",
+      "amazon",
+      "atlassian"
+    ],
     "description": "Microsoft tags servers with tier `0`, `1`, or `2`. Sort the array `tiers` in place so that `0`s come first, then `1`s, then `2`s. Use one pass and constant extra memory (Dutch National Flag).",
     "examples": [
-      {"input": "tiers = [2,0,2,1,1,0]", "output": "[0,0,1,1,2,2]", "explanation": "Sorted by tier."},
-      {"input": "tiers = [0]", "output": "[0]", "explanation": "Single."}
+      {
+        "input": "tiers = [2,0,2,1,1,0]",
+        "output": "[0,0,1,1,2,2]",
+        "explanation": "Sorted by tier."
+      },
+      {
+        "input": "tiers = [0]",
+        "output": "[0]",
+        "explanation": "Single."
+      }
     ],
-    "constraints": ["1 <= tiers.length <= 300", "tiers[i] in {0,1,2}"],
-    "hints": ["Three pointers — low, mid, high", "0 mile to swap low++ mid++", "2 mile to swap high-- (mid same rakh)"],
+    "constraints": [
+      "1 <= tiers.length <= 300",
+      "tiers[i] in {0,1,2}"
+    ],
+    "hints": [
+      "Three pointers — low, mid, high",
+      "0 mile to swap low++ mid++",
+      "2 mile to swap high-- (mid same rakh)"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function sortTiers(tiers) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def sort_tiers(tiers):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function sortTiers(tiers) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def sort_tiers(tiers):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "sortTiers",
     "tests": [
-      {"args": [[2,0,2,1,1,0]], "expected": [0,0,1,1,2,2]},
-      {"args": [[0]], "expected": [0]},
-      {"args": [[1,2,0]], "expected": [0,1,2]},
-      {"args": [[2,2,2]], "expected": [2,2,2]},
-      {"args": [[0,0,1,1,2,2]], "expected": [0,0,1,1,2,2]},
-      {"args": [[2,1,0,2,1,0]], "expected": [0,0,1,1,2,2]}
+      {
+        "args": [
+          [
+            2,
+            0,
+            2,
+            1,
+            1,
+            0
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          1,
+          1,
+          2,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": [
+          0
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            0
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": [
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            1,
+            1,
+            2,
+            2
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          1,
+          1,
+          2,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            2,
+            1,
+            0,
+            2,
+            1,
+            0
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          1,
+          1,
+          2,
+          2
+        ]
+      }
     ],
     "editorial": "**Idea:** Dutch National Flag. `low = 0, mid = 0, high = n - 1`. While mid <= high: if 0 swap with low and inc both, if 1 mid++, if 2 swap with high and high--.\n\n```js\nfunction sortTiers(t) {\n  let low = 0, mid = 0, high = t.length - 1;\n  while (mid <= high) {\n    if (t[mid] === 0) { [t[low], t[mid]] = [t[mid], t[low]]; low++; mid++; }\n    else if (t[mid] === 1) mid++;\n    else { [t[mid], t[high]] = [t[high], t[mid]]; high--; }\n  }\n  return t;\n}\n```\n\n**Complexity:** O(n) time, O(1) space."
   },
   {
     "slug": "phonepe-remove-element-inplace",
     "number": 1115,
-    "title": "PhonePe Remove Failed Codes In Place",
+    "title": "Remove Element",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["phonepe", "razorpay", "uber"],
+    "companies": [
+      "phonepe",
+      "razorpay",
+      "uber"
+    ],
     "description": "Given an array `codes` and an integer `val`, remove all occurrences of `val` from `codes` in place and return the new length `k`. Order of remaining elements must be preserved relative to original.",
     "examples": [
-      {"input": "codes = [3,2,2,3], val = 3", "output": "2", "explanation": "First two slots become [2,2]."},
-      {"input": "codes = [0,1,2,2,3,0,4,2], val = 2", "output": "5", "explanation": "First five slots become [0,1,3,0,4]."}
+      {
+        "input": "codes = [3,2,2,3], val = 3",
+        "output": "2",
+        "explanation": "First two slots become [2,2]."
+      },
+      {
+        "input": "codes = [0,1,2,2,3,0,4,2], val = 2",
+        "output": "5",
+        "explanation": "First five slots become [0,1,3,0,4]."
+      }
     ],
-    "constraints": ["0 <= codes.length <= 100", "0 <= codes[i], val <= 50"],
-    "hints": ["Slow write index", "Fast scan; non-val ho to copy", "Return slow"],
+    "constraints": [
+      "0 <= codes.length <= 100",
+      "0 <= codes[i], val <= 50"
+    ],
+    "hints": [
+      "Slow write index",
+      "Fast scan; non-val ho to copy",
+      "Return slow"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function removeFailedCodes(codes, val) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def remove_failed_codes(codes, val):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function removeFailedCodes(codes, val) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def remove_failed_codes(codes, val):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "removeFailedCodes",
     "tests": [
-      {"args": [[3,2,2,3], 3], "expected": 2},
-      {"args": [[0,1,2,2,3,0,4,2], 2], "expected": 5},
-      {"args": [[], 0], "expected": 0},
-      {"args": [[1], 1], "expected": 0},
-      {"args": [[1,1,1], 2], "expected": 3},
-      {"args": [[2,2,2], 2], "expected": 0}
+      {
+        "args": [
+          [
+            3,
+            2,
+            2,
+            3
+          ],
+          3
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            0,
+            1,
+            2,
+            2,
+            3,
+            0,
+            4,
+            2
+          ],
+          2
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [],
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          2
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ],
+          2
+        ],
+        "expected": 0
+      }
     ],
     "editorial": "**Idea:** Slow-fast. Fast loop; jab `codes[fast] !== val`, copy to `codes[slow]` aur `slow++`. Return slow.\n\n```js\nfunction removeFailedCodes(c, v) {\n  let slow = 0;\n  for (let fast = 0; fast < c.length; fast++) {\n    if (c[fast] !== v) c[slow++] = c[fast];\n  }\n  return slow;\n}\n```\n\n**Complexity:** O(n) time, O(1) space."
   },
   {
     "slug": "postman-string-compress",
     "number": 1116,
-    "title": "Postman API Path Compress",
+    "title": "String Compression",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["postman", "atlassian", "google"],
+    "companies": [
+      "postman",
+      "atlassian",
+      "google"
+    ],
     "description": "Postman compresses repeated chars in lowercase logs. Given an array of characters `chars`, compress it in place: each group of consecutive identical chars becomes the char followed by the digits of the count if count > 1. Return the new length and the input array's first `k` elements should hold the compressed form.",
     "examples": [
-      {"input": "chars = [\"a\",\"a\",\"b\",\"b\",\"c\",\"c\",\"c\"]", "output": "6", "explanation": "Becomes a2b2c3."},
-      {"input": "chars = [\"a\"]", "output": "1", "explanation": "Single — no count appended."},
-      {"input": "chars = [\"a\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\"]", "output": "4", "explanation": "ab12 — multi-digit."}
+      {
+        "input": "chars = [\"a\",\"a\",\"b\",\"b\",\"c\",\"c\",\"c\"]",
+        "output": "6",
+        "explanation": "Becomes a2b2c3."
+      },
+      {
+        "input": "chars = [\"a\"]",
+        "output": "1",
+        "explanation": "Single — no count appended."
+      },
+      {
+        "input": "chars = [\"a\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\"]",
+        "output": "4",
+        "explanation": "ab12 — multi-digit."
+      }
     ],
-    "constraints": ["1 <= chars.length <= 2000", "chars[i] is a printable ASCII character"],
-    "hints": ["Read pointer, write pointer", "Count by sliding read", "Multi-digit count ko digit by digit append kar"],
+    "constraints": [
+      "1 <= chars.length <= 2000",
+      "chars[i] is a printable ASCII character"
+    ],
+    "hints": [
+      "Read pointer, write pointer",
+      "Count by sliding read",
+      "Multi-digit count ko digit by digit append kar"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function compressApiPath(chars) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def compress_api_path(chars):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function compressApiPath(chars) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def compress_api_path(chars):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "compressApiPath",
     "tests": [
-      {"args": [["a","a","b","b","c","c","c"]], "expected": 6},
-      {"args": [["a"]], "expected": 1},
-      {"args": [["a","b","b","b","b","b","b","b","b","b","b","b","b"]], "expected": 4},
-      {"args": [["a","a","a","b","b","a","a"]], "expected": 6},
-      {"args": [["x","y","z"]], "expected": 3}
+      {
+        "args": [
+          [
+            "a",
+            "a",
+            "b",
+            "b",
+            "c",
+            "c",
+            "c"
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            "a"
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b",
+            "b"
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            "a",
+            "a",
+            "a",
+            "b",
+            "b",
+            "a",
+            "a"
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            "x",
+            "y",
+            "z"
+          ]
+        ],
+        "expected": 3
+      }
     ],
     "editorial": "**Idea:** Two pointers — `read` scans groups, `write` writes char (and count digits if >1).\n\n```js\nfunction compressApiPath(chars) {\n  let read = 0, write = 0;\n  while (read < chars.length) {\n    const ch = chars[read];\n    let cnt = 0;\n    while (read < chars.length && chars[read] === ch) { read++; cnt++; }\n    chars[write++] = ch;\n    if (cnt > 1) {\n      for (const d of String(cnt)) chars[write++] = d;\n    }\n  }\n  return write;\n}\n```\n\n**Complexity:** O(n) time, O(1) extra space."
   },
   {
     "slug": "uber-trapping-monsoon-water",
     "number": 1117,
-    "title": "Uber City Monsoon Water Trap",
+    "title": "Trapping Rain Water",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["uber", "google", "amazon"],
+    "companies": [
+      "uber",
+      "google",
+      "amazon"
+    ],
     "description": "Uber maps city street elevation `heights` (non-negative ints, equal width). After heavy rain, water gets trapped between higher elevations. Return the total units of water trapped.",
     "examples": [
-      {"input": "heights = [0,1,0,2,1,0,1,3,2,1,2,1]", "output": "6", "explanation": "Classic answer 6."},
-      {"input": "heights = [4,2,0,3,2,5]", "output": "9", "explanation": "Total trapped 9."}
+      {
+        "input": "heights = [0,1,0,2,1,0,1,3,2,1,2,1]",
+        "output": "6",
+        "explanation": "Classic answer 6."
+      },
+      {
+        "input": "heights = [4,2,0,3,2,5]",
+        "output": "9",
+        "explanation": "Total trapped 9."
+      }
     ],
-    "constraints": ["0 <= heights.length <= 2 * 10^4", "0 <= heights[i] <= 10^5"],
-    "hints": ["leftMax, rightMax track karo", "Two pointers — chote side ka pani guarantee hai", "Move the smaller side inward"],
+    "constraints": [
+      "0 <= heights.length <= 2 * 10^4",
+      "0 <= heights[i] <= 10^5"
+    ],
+    "hints": [
+      "leftMax, rightMax track karo",
+      "Two pointers — chote side ka pani guarantee hai",
+      "Move the smaller side inward"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function monsoonWater(heights) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def monsoon_water(heights):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function monsoonWater(heights) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def monsoon_water(heights):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "monsoonWater",
     "tests": [
-      {"args": [[0,1,0,2,1,0,1,3,2,1,2,1]], "expected": 6},
-      {"args": [[4,2,0,3,2,5]], "expected": 9},
-      {"args": [[]], "expected": 0},
-      {"args": [[1,1,1]], "expected": 0},
-      {"args": [[5]], "expected": 0},
-      {"args": [[3,0,3]], "expected": 3},
-      {"args": [[2,0,2]], "expected": 2}
+      {
+        "args": [
+          [
+            0,
+            1,
+            0,
+            2,
+            1,
+            0,
+            1,
+            3,
+            2,
+            1,
+            2,
+            1
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            4,
+            2,
+            0,
+            3,
+            2,
+            5
+          ]
+        ],
+        "expected": 9
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            3,
+            0,
+            3
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            2,
+            0,
+            2
+          ]
+        ],
+        "expected": 2
+      }
     ],
     "editorial": "**Brute force:** For each i, leftMax and rightMax — O(n^2) or O(n) with arrays.\n\n**Optimal:** Two pointers. Maintain `lmax, rmax`. Whichever side is smaller height, that side's water is determined by its own running max.\n\n```js\nfunction monsoonWater(h) {\n  let l = 0, r = h.length - 1, lmax = 0, rmax = 0, water = 0;\n  while (l < r) {\n    if (h[l] < h[r]) {\n      if (h[l] >= lmax) lmax = h[l];\n      else water += lmax - h[l];\n      l++;\n    } else {\n      if (h[r] >= rmax) rmax = h[r];\n      else water += rmax - h[r];\n      r--;\n    }\n  }\n  return water;\n}\n```\n\n**Complexity:** O(n) time, O(1) space."
   },
   {
     "slug": "zomato-merge-overlapping-slots",
     "number": 1118,
-    "title": "Zomato Merge Overlapping Slots",
+    "title": "Merge Intervals",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["zomato", "swiggy", "uber"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "uber"
+    ],
     "description": "Zomato has a list `slots` of `[start, end]` time intervals (inclusive ends in minutes). Merge all overlapping intervals and return the result sorted by start ascending. Two intervals overlap if `end1 >= start2`.",
     "examples": [
-      {"input": "slots = [[1,3],[2,6],[8,10],[15,18]]", "output": "[[1,6],[8,10],[15,18]]", "explanation": "[1,3] and [2,6] merge."},
-      {"input": "slots = [[1,4],[4,5]]", "output": "[[1,5]]", "explanation": "Touch and merge."}
+      {
+        "input": "slots = [[1,3],[2,6],[8,10],[15,18]]",
+        "output": "[[1,6],[8,10],[15,18]]",
+        "explanation": "[1,3] and [2,6] merge."
+      },
+      {
+        "input": "slots = [[1,4],[4,5]]",
+        "output": "[[1,5]]",
+        "explanation": "Touch and merge."
+      }
     ],
-    "constraints": ["1 <= slots.length <= 10^4", "0 <= start <= end <= 10^4"],
-    "hints": ["Sort by start", "Then iterate maintaining current merged interval", "Overlap to extend, warna push naya"],
+    "constraints": [
+      "1 <= slots.length <= 10^4",
+      "0 <= start <= end <= 10^4"
+    ],
+    "hints": [
+      "Sort by start",
+      "Then iterate maintaining current merged interval",
+      "Overlap to extend, warna push naya"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function mergeSlots(slots) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def merge_slots(slots):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function mergeSlots(slots) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def merge_slots(slots):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "mergeSlots",
     "tests": [
-      {"args": [[[1,3],[2,6],[8,10],[15,18]]], "expected": [[1,6],[8,10],[15,18]]},
-      {"args": [[[1,4],[4,5]]], "expected": [[1,5]]},
-      {"args": [[[1,4],[2,3]]], "expected": [[1,4]]},
-      {"args": [[[1,2]]], "expected": [[1,2]]},
-      {"args": [[[1,4],[5,6]]], "expected": [[1,4],[5,6]]},
-      {"args": [[[1,10],[2,3],[4,5],[6,7]]], "expected": [[1,10]]}
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            6
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            15,
+            18
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            5
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              6,
+              7
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            10
+          ]
+        ]
+      }
     ],
     "editorial": "**Idea:** Sort by start; sweep with a 'current' interval. If next starts <= current end, extend; else push current and start new.\n\n```js\nfunction mergeSlots(slots) {\n  if (!slots.length) return [];\n  const a = [...slots].sort((x,y) => x[0] - y[0]);\n  const out = [a[0].slice()];\n  for (let i = 1; i < a.length; i++) {\n    const top = out[out.length - 1];\n    if (a[i][0] <= top[1]) top[1] = Math.max(top[1], a[i][1]);\n    else out.push(a[i].slice());\n  }\n  return out;\n}\n```\n\n**Complexity:** O(n log n) due to sort; sweep O(n)."
   },
   {
     "slug": "razorpay-pair-difference-target",
     "number": 1119,
-    "title": "Razorpay Pair Difference Target",
+    "title": "K-diff Pairs in an Array",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["razorpay", "paytm", "phonepe"],
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
     "description": "Razorpay has a sorted ascending array `nums` of distinct integers. Return the **count** of pairs `(i, j)` with `i < j` such that `nums[j] - nums[i] === k` (a given non-negative integer).",
     "examples": [
-      {"input": "nums = [1,2,3,4,5], k = 2", "output": "3", "explanation": "(1,3),(2,4),(3,5)."},
-      {"input": "nums = [1,5,9], k = 3", "output": "0", "explanation": "No pair has diff 3."}
+      {
+        "input": "nums = [1,2,3,4,5], k = 2",
+        "output": "3",
+        "explanation": "(1,3),(2,4),(3,5)."
+      },
+      {
+        "input": "nums = [1,5,9], k = 3",
+        "output": "0",
+        "explanation": "No pair has diff 3."
+      }
     ],
-    "constraints": ["2 <= nums.length <= 10^5", "0 <= k <= 10^9", "Array sorted ascending; values distinct"],
-    "hints": ["Same-direction sliding pointers — slow & fast", "Diff < k to fast++, diff > k to slow++", "Equal mile to count++ aur dono badha"],
+    "constraints": [
+      "2 <= nums.length <= 10^5",
+      "0 <= k <= 10^9",
+      "Array sorted ascending; values distinct"
+    ],
+    "hints": [
+      "Same-direction sliding pointers — slow & fast",
+      "Diff < k to fast++, diff > k to slow++",
+      "Equal mile to count++ aur dono badha"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function countPairsDiff(nums, k) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def count_pairs_diff(nums, k):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function countPairsDiff(nums, k) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_pairs_diff(nums, k):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "countPairsDiff",
     "tests": [
-      {"args": [[1,2,3,4,5], 2], "expected": 3},
-      {"args": [[1,5,9], 3], "expected": 0},
-      {"args": [[1,2,3,4,5], 0], "expected": 0},
-      {"args": [[1,3], 2], "expected": 1},
-      {"args": [[1,2,3,4,5,6,7], 1], "expected": 6},
-      {"args": [[10,20,30,40], 10], "expected": 3}
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            5,
+            9
+          ],
+          3
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            3
+          ],
+          2
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          1
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40
+          ],
+          10
+        ],
+        "expected": 3
+      }
     ],
     "editorial": "Note: Distinct elements aur k>=0 ke saath, k=0 means same index — `i<j` ke liye 0 returns.\n\n**Idea:** Two pointers `slow=0, fast=1`. Diff `nums[fast] - nums[slow]`. If <k fast++, if >k slow++ (but ensure slow < fast), if == count++ and both move.\n\n```js\nfunction countPairsDiff(a, k) {\n  let slow = 0, fast = 1, cnt = 0;\n  while (fast < a.length) {\n    if (slow === fast) fast++;\n    else {\n      const d = a[fast] - a[slow];\n      if (d === k) { cnt++; slow++; fast++; }\n      else if (d < k) fast++;\n      else slow++;\n    }\n  }\n  return cnt;\n}\n```\n\n**Complexity:** O(n)."
   },
   {
     "slug": "swiggy-longest-mountain-route",
     "number": 1120,
-    "title": "Swiggy Longest Mountain Delivery Route",
+    "title": "Longest Mountain in Array",
     "difficulty": "Medium",
     "topic": "Two Pointers",
-    "companies": ["swiggy", "uber", "amazon"],
+    "companies": [
+      "swiggy",
+      "uber",
+      "amazon"
+    ],
     "description": "Swiggy logs hourly delivery counts on a route as `arr`. A 'mountain' is a contiguous sub-array of length >= 3 that strictly increases then strictly decreases (peak in middle). Return the length of the **longest** mountain. If no mountain exists, return 0.",
     "examples": [
-      {"input": "arr = [2,1,4,7,3,2,5]", "output": "5", "explanation": "1,4,7,3,2 forms length-5 mountain."},
-      {"input": "arr = [2,2,2]", "output": "0", "explanation": "No mountain."}
+      {
+        "input": "arr = [2,1,4,7,3,2,5]",
+        "output": "5",
+        "explanation": "1,4,7,3,2 forms length-5 mountain."
+      },
+      {
+        "input": "arr = [2,2,2]",
+        "output": "0",
+        "explanation": "No mountain."
+      }
     ],
-    "constraints": ["0 <= arr.length <= 10^4", "0 <= arr[i] <= 10^4"],
-    "hints": ["Find peaks: arr[i-1] < arr[i] > arr[i+1]", "Then expand left aur right with two pointers", "Track best length"],
+    "constraints": [
+      "0 <= arr.length <= 10^4",
+      "0 <= arr[i] <= 10^4"
+    ],
+    "hints": [
+      "Find peaks: arr[i-1] < arr[i] > arr[i+1]",
+      "Then expand left aur right with two pointers",
+      "Track best length"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function longestMountainRoute(arr) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def longest_mountain_route(arr):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function longestMountainRoute(arr) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def longest_mountain_route(arr):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "longestMountainRoute",
     "tests": [
-      {"args": [[2,1,4,7,3,2,5]], "expected": 5},
-      {"args": [[2,2,2]], "expected": 0},
-      {"args": [[]], "expected": 0},
-      {"args": [[0,1,0]], "expected": 3},
-      {"args": [[0,1,2,3,4,5,4,3,2,1,0]], "expected": 11},
-      {"args": [[1,2,3]], "expected": 0},
-      {"args": [[3,2,1]], "expected": 0}
+      {
+        "args": [
+          [
+            2,
+            1,
+            4,
+            7,
+            3,
+            2,
+            5
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            4,
+            3,
+            2,
+            1,
+            0
+          ]
+        ],
+        "expected": 11
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": 0
+      }
     ],
     "editorial": "**Idea:** Iterate `i` from 1 to n-2; if peak found, expand left pointer down while strictly decreasing-back, right pointer down while strictly decreasing. Length = right - left + 1.\n\n```js\nfunction longestMountainRoute(a) {\n  const n = a.length;\n  let best = 0;\n  for (let i = 1; i < n - 1; i++) {\n    if (a[i-1] < a[i] && a[i] > a[i+1]) {\n      let l = i - 1, r = i + 1;\n      while (l > 0 && a[l-1] < a[l]) l--;\n      while (r < n - 1 && a[r] > a[r+1]) r++;\n      best = Math.max(best, r - l + 1);\n    }\n  }\n  return best;\n}\n```\n\n**Complexity:** O(n) amortized."
   },
   {
     "slug": "amazon-four-sum-target",
     "number": 1121,
-    "title": "Amazon Four Refunds Sum Target",
+    "title": "4Sum",
     "difficulty": "Hard",
     "topic": "Two Pointers",
-    "companies": ["amazon", "google", "microsoft"],
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
     "description": "Given an array `nums` and integer `target`, find all unique quadruplets `[a,b,c,d]` (each sorted ascending; outer list lex-ascending) such that `a+b+c+d === target`. No duplicate quadruplets.",
     "examples": [
-      {"input": "nums = [1,0,-1,0,-2,2], target = 0", "output": "[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]", "explanation": "Three unique quads."},
-      {"input": "nums = [2,2,2,2,2], target = 8", "output": "[[2,2,2,2]]", "explanation": "Only one."}
+      {
+        "input": "nums = [1,0,-1,0,-2,2], target = 0",
+        "output": "[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]",
+        "explanation": "Three unique quads."
+      },
+      {
+        "input": "nums = [2,2,2,2,2], target = 8",
+        "output": "[[2,2,2,2]]",
+        "explanation": "Only one."
+      }
     ],
-    "constraints": ["1 <= nums.length <= 200", "-10^9 <= nums[i], target <= 10^9"],
-    "hints": ["Sort, fix two outer indices, then two pointer for inner pair", "Skip duplicates at all four levels", "Beware integer overflow — JS numbers safe under 2^53"],
+    "constraints": [
+      "1 <= nums.length <= 200",
+      "-10^9 <= nums[i], target <= 10^9"
+    ],
+    "hints": [
+      "Sort, fix two outer indices, then two pointer for inner pair",
+      "Skip duplicates at all four levels",
+      "Beware integer overflow — JS numbers safe under 2^53"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function fourSumTarget(nums, target) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def four_sum_target(nums, target):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function fourSumTarget(nums, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def four_sum_target(nums, target):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "fourSumTarget",
     "tests": [
-      {"args": [[1,0,-1,0,-2,2], 0], "expected": [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]},
-      {"args": [[2,2,2,2,2], 8], "expected": [[2,2,2,2]]},
-      {"args": [[1,2,3,4], 100], "expected": []},
-      {"args": [[0,0,0,0], 0], "expected": [[0,0,0,0]]},
-      {"args": [[-3,-2,-1,0,0,1,2,3], 0], "expected": [[-3,-2,2,3],[-3,-1,1,3],[-3,0,0,3],[-3,0,1,2],[-2,-1,0,3],[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]}
+      {
+        "args": [
+          [
+            1,
+            0,
+            -1,
+            0,
+            -2,
+            2
+          ],
+          0
+        ],
+        "expected": [
+          [
+            -2,
+            -1,
+            1,
+            2
+          ],
+          [
+            -2,
+            0,
+            0,
+            2
+          ],
+          [
+            -1,
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          8
+        ],
+        "expected": [
+          [
+            2,
+            2,
+            2,
+            2
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          100
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          0
+        ],
+        "expected": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "args": [
+          [
+            -3,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            3
+          ],
+          0
+        ],
+        "expected": [
+          [
+            -3,
+            -2,
+            2,
+            3
+          ],
+          [
+            -3,
+            -1,
+            1,
+            3
+          ],
+          [
+            -3,
+            0,
+            0,
+            3
+          ],
+          [
+            -3,
+            0,
+            1,
+            2
+          ],
+          [
+            -2,
+            -1,
+            0,
+            3
+          ],
+          [
+            -2,
+            -1,
+            1,
+            2
+          ],
+          [
+            -2,
+            0,
+            0,
+            2
+          ],
+          [
+            -1,
+            0,
+            0,
+            1
+          ]
+        ]
+      }
     ],
     "editorial": "**Idea:** Sort. Two outer loops `i < j`, then two-pointer `l = j+1, r = n-1`. Skip duplicates at every level after a hit.\n\n```js\nfunction fourSumTarget(nums, target) {\n  const a = [...nums].sort((x,y) => x - y);\n  const n = a.length, res = [];\n  for (let i = 0; i < n - 3; i++) {\n    if (i > 0 && a[i] === a[i-1]) continue;\n    for (let j = i + 1; j < n - 2; j++) {\n      if (j > i + 1 && a[j] === a[j-1]) continue;\n      let l = j + 1, r = n - 1;\n      while (l < r) {\n        const s = a[i] + a[j] + a[l] + a[r];\n        if (s === target) {\n          res.push([a[i], a[j], a[l], a[r]]);\n          while (l < r && a[l] === a[l+1]) l++;\n          while (l < r && a[r] === a[r-1]) r--;\n          l++; r--;\n        } else if (s < target) l++; else r--;\n      }\n    }\n  }\n  return res;\n}\n```\n\n**Complexity:** O(n^3)."
   },
   {
     "slug": "google-trap-rain-circular",
     "number": 1122,
-    "title": "Google Minimum Window Pair Stations",
+    "title": "Minimum Difference Between Two Arrays",
     "difficulty": "Hard",
     "topic": "Two Pointers",
-    "companies": ["google", "uber", "amazon"],
+    "companies": [
+      "google",
+      "uber",
+      "amazon"
+    ],
     "description": "Two sorted ascending arrays `a` and `b` of integer station coordinates are given. Find the pair `(x, y)` with `x` from `a` and `y` from `b` minimising `|x - y|`. Return that minimum absolute difference.",
     "examples": [
-      {"input": "a = [1,3,15,11,2], b = [23,127,235,19,8]", "output": "3", "explanation": "Sort both; closest pair (11,8) has diff 3."},
-      {"input": "a = [10,5,40], b = [50,90,80]", "output": "10", "explanation": "(40,50)."}
+      {
+        "input": "a = [1,3,15,11,2], b = [23,127,235,19,8]",
+        "output": "3",
+        "explanation": "Sort both; closest pair (11,8) has diff 3."
+      },
+      {
+        "input": "a = [10,5,40], b = [50,90,80]",
+        "output": "10",
+        "explanation": "(40,50)."
+      }
     ],
-    "constraints": ["1 <= a.length, b.length <= 10^5", "-10^9 <= values <= 10^9", "Inputs may not be pre-sorted; sort yourself"],
-    "hints": ["Sort dono", "Two pointers — chhota wala increment", "Track min diff"],
+    "constraints": [
+      "1 <= a.length, b.length <= 10^5",
+      "-10^9 <= values <= 10^9",
+      "Inputs may not be pre-sorted; sort yourself"
+    ],
+    "hints": [
+      "Sort dono",
+      "Two pointers — chhota wala increment",
+      "Track min diff"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function minStationDiff(a, b) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_station_diff(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minStationDiff(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_station_diff(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minStationDiff",
     "tests": [
-      {"args": [[1,3,15,11,2],[23,127,235,19,8]], "expected": 3},
-      {"args": [[10,5,40],[50,90,80]], "expected": 10},
-      {"args": [[1],[1]], "expected": 0},
-      {"args": [[1],[100]], "expected": 99},
-      {"args": [[-5,0,5],[6,-2]], "expected": 1},
-      {"args": [[1,2,3],[4,5,6]], "expected": 1}
+      {
+        "args": [
+          [
+            1,
+            3,
+            15,
+            11,
+            2
+          ],
+          [
+            23,
+            127,
+            235,
+            19,
+            8
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            10,
+            5,
+            40
+          ],
+          [
+            50,
+            90,
+            80
+          ]
+        ],
+        "expected": 10
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1
+          ],
+          [
+            100
+          ]
+        ],
+        "expected": 99
+      },
+      {
+        "args": [
+          [
+            -5,
+            0,
+            5
+          ],
+          [
+            6,
+            -2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ],
+        "expected": 1
+      }
     ],
     "editorial": "**Idea:** Brute force O(n*m). Sort + two pointers gives O((n+m) log) only from sort. Move the smaller side to potentially decrease diff.\n\n```js\nfunction minStationDiff(a, b) {\n  const x = [...a].sort((p,q) => p - q);\n  const y = [...b].sort((p,q) => p - q);\n  let i = 0, j = 0, best = Infinity;\n  while (i < x.length && j < y.length) {\n    best = Math.min(best, Math.abs(x[i] - y[j]));\n    if (x[i] < y[j]) i++; else j++;\n  }\n  return best;\n}\n```\n\n**Complexity:** O(n log n + m log m)."
   },
   {
     "slug": "microsoft-smaller-triplets-count",
     "number": 1123,
-    "title": "Microsoft Smaller Triplet Count",
+    "title": "3Sum Smaller",
     "difficulty": "Hard",
     "topic": "Two Pointers",
-    "companies": ["microsoft", "amazon", "google"],
+    "companies": [
+      "microsoft",
+      "amazon",
+      "google"
+    ],
     "description": "Given an integer array `nums` and integer `target`, return the number of index triplets `(i, j, k)` with `i < j < k` such that `nums[i] + nums[j] + nums[k] < target`.",
     "examples": [
-      {"input": "nums = [-2,0,1,3], target = 2", "output": "2", "explanation": "(-2,0,1) sum -1 <2; (-2,0,3) sum 1<2."},
-      {"input": "nums = [], target = 0", "output": "0", "explanation": "Empty."}
+      {
+        "input": "nums = [-2,0,1,3], target = 2",
+        "output": "2",
+        "explanation": "(-2,0,1) sum -1 <2; (-2,0,3) sum 1<2."
+      },
+      {
+        "input": "nums = [], target = 0",
+        "output": "0",
+        "explanation": "Empty."
+      }
     ],
-    "constraints": ["0 <= nums.length <= 3500", "-100 <= nums[i], target <= 100"],
-    "hints": ["Sort", "Fix i, then two pointer l, r", "Sum < target to (r-l) triplets count me add kar, l++"],
+    "constraints": [
+      "0 <= nums.length <= 3500",
+      "-100 <= nums[i], target <= 100"
+    ],
+    "hints": [
+      "Sort",
+      "Fix i, then two pointer l, r",
+      "Sum < target to (r-l) triplets count me add kar, l++"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function countSmallerTriplets(nums, target) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def count_smaller_triplets(nums, target):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function countSmallerTriplets(nums, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_smaller_triplets(nums, target):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "countSmallerTriplets",
     "tests": [
-      {"args": [[-2,0,1,3], 2], "expected": 2},
-      {"args": [[], 0], "expected": 0},
-      {"args": [[0], 0], "expected": 0},
-      {"args": [[1,1,1,1], 4], "expected": 4},
-      {"args": [[-1,1,-1,-1], -1], "expected": 1},
-      {"args": [[3,1,0,-2], 4], "expected": 3}
+      {
+        "args": [
+          [
+            -2,
+            0,
+            1,
+            3
+          ],
+          2
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [],
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            0
+          ],
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          4
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            -1,
+            1,
+            -1,
+            -1
+          ],
+          -1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            3,
+            1,
+            0,
+            -2
+          ],
+          4
+        ],
+        "expected": 3
+      }
     ],
     "editorial": "**Idea:** Sort. For each `i`, two pointers `l, r`. If `nums[i] + nums[l] + nums[r] < target`, then all `(l, l+1..r)` are valid because sorted — so add `r - l`, then `l++`. Else `r--`.\n\n```js\nfunction countSmallerTriplets(nums, target) {\n  const a = [...nums].sort((x,y) => x - y);\n  const n = a.length;\n  let cnt = 0;\n  for (let i = 0; i < n - 2; i++) {\n    let l = i + 1, r = n - 1;\n    while (l < r) {\n      if (a[i] + a[l] + a[r] < target) { cnt += r - l; l++; }\n      else r--;\n    }\n  }\n  return cnt;\n}\n```\n\n**Complexity:** O(n^2). Verify [3,1,0,-2] sorted [-2,0,1,3], triplets <4: (-2,0,1)= -1, (-2,0,3)=1, (-2,1,3)=2, (0,1,3)=4 not<4 -> 3 valid. Correct."
   },
   {
     "slug": "atlassian-shortest-subarray-positive",
     "number": 1124,
-    "title": "Atlassian Shortest Subarray Sum Threshold",
+    "title": "Minimum Size Subarray Sum",
     "difficulty": "Hard",
     "topic": "Two Pointers",
-    "companies": ["atlassian", "google", "amazon"],
+    "companies": [
+      "atlassian",
+      "google",
+      "amazon"
+    ],
     "description": "Given an array `nums` of **positive** integers and integer `target`, return the **minimal length** of a contiguous subarray of which the sum is greater than or equal to `target`. If no such subarray exists, return 0.",
     "examples": [
-      {"input": "target = 7, nums = [2,3,1,2,4,3]", "output": "2", "explanation": "[4,3] sum 7."},
-      {"input": "target = 4, nums = [1,4,4]", "output": "1", "explanation": "[4]."},
-      {"input": "target = 11, nums = [1,1,1,1,1,1,1,1]", "output": "0", "explanation": "Total only 8."}
+      {
+        "input": "target = 7, nums = [2,3,1,2,4,3]",
+        "output": "2",
+        "explanation": "[4,3] sum 7."
+      },
+      {
+        "input": "target = 4, nums = [1,4,4]",
+        "output": "1",
+        "explanation": "[4]."
+      },
+      {
+        "input": "target = 11, nums = [1,1,1,1,1,1,1,1]",
+        "output": "0",
+        "explanation": "Total only 8."
+      }
     ],
-    "constraints": ["1 <= target <= 10^9", "1 <= nums.length <= 10^5", "1 <= nums[i] <= 10^4"],
-    "hints": ["Sliding window — two same-direction pointers", "Right expand jab sum < target; left shrink jab sum >= target", "Track min length"],
+    "constraints": [
+      "1 <= target <= 10^9",
+      "1 <= nums.length <= 10^5",
+      "1 <= nums[i] <= 10^4"
+    ],
+    "hints": [
+      "Sliding window — two same-direction pointers",
+      "Right expand jab sum < target; left shrink jab sum >= target",
+      "Track min length"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function shortestSubarraySum(target, nums) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def shortest_subarray_sum(target, nums):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function shortestSubarraySum(target, nums) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def shortest_subarray_sum(target, nums):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "shortestSubarraySum",
     "tests": [
-      {"args": [7, [2,3,1,2,4,3]], "expected": 2},
-      {"args": [4, [1,4,4]], "expected": 1},
-      {"args": [11, [1,1,1,1,1,1,1,1]], "expected": 0},
-      {"args": [15, [1,2,3,4,5]], "expected": 5},
-      {"args": [100, [50,60]], "expected": 2},
-      {"args": [1, [1]], "expected": 1}
+      {
+        "args": [
+          7,
+          [
+            2,
+            3,
+            1,
+            2,
+            4,
+            3
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          4,
+          [
+            1,
+            4,
+            4
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          11,
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          15,
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          100,
+          [
+            50,
+            60
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          1,
+          [
+            1
+          ]
+        ],
+        "expected": 1
+      }
     ],
     "editorial": "**Idea:** Sliding window since all positive. `l = 0, sum = 0`. Expand `r`, `sum += nums[r]`. While `sum >= target` shrink: track length, then `sum -= nums[l]; l++`.\n\n```js\nfunction shortestSubarraySum(target, nums) {\n  let l = 0, sum = 0, best = Infinity;\n  for (let r = 0; r < nums.length; r++) {\n    sum += nums[r];\n    while (sum >= target) {\n      best = Math.min(best, r - l + 1);\n      sum -= nums[l++];\n    }\n  }\n  return best === Infinity ? 0 : best;\n}\n```\n\n**Complexity:** O(n) amortized."
   },
   {
     "slug": "uber-trap-rainwater-array-2",
     "number": 1125,
-    "title": "Uber Driver Heatmap Container",
+    "title": "Maximum Trapped Water Between Two Pillars",
     "difficulty": "Hard",
     "topic": "Two Pointers",
-    "companies": ["uber", "google", "amazon", "microsoft"],
+    "companies": [
+      "uber",
+      "google",
+      "amazon",
+      "microsoft"
+    ],
     "description": "Uber represents driver heatmap intensity in a non-negative array `bars`. Define `score(i, j) = (j - i) * min(bars[i], bars[j]) - sum(bars[i+1 .. j-1] capped by min)`. Concretely, this is the **container minus the obstacle volume between**, i.e. the empty volume actually free between the two pillars. Return the maximum such score over all `i < j`.\n\nFormally `score(i, j) = (j - i - 1) * min(bars[i], bars[j]) - sum_{k=i+1}^{j-1} min(bars[k], min(bars[i], bars[j]))` is **wrong shape**. Use exactly: `score(i, j) = sum_{k=i+1}^{j-1} max(0, min(bars[i], bars[j]) - bars[k])`. That is the trapped volume between two specific pillars. Maximise it.",
     "examples": [
-      {"input": "bars = [3,0,0,2,0,4]", "output": "10", "explanation": "Pick i=0, j=5; min=3, gaps: (3-0)+(3-0)+(3-2)+(3-0) = 3+3+1+3 = 10."},
-      {"input": "bars = [1,2,3]", "output": "0", "explanation": "No interior."}
+      {
+        "input": "bars = [3,0,0,2,0,4]",
+        "output": "10",
+        "explanation": "Pick i=0, j=5; min=3, gaps: (3-0)+(3-0)+(3-2)+(3-0) = 3+3+1+3 = 10."
+      },
+      {
+        "input": "bars = [1,2,3]",
+        "output": "0",
+        "explanation": "No interior."
+      }
     ],
-    "constraints": ["2 <= bars.length <= 1000", "0 <= bars[i] <= 10^4"],
-    "hints": ["O(n^2) is acceptable here — fix i and j", "Inner sum can be cumulative", "Two pointers can prune by area upper bound — but n^2 brute force is fine for n<=1000"],
+    "constraints": [
+      "2 <= bars.length <= 1000",
+      "0 <= bars[i] <= 10^4"
+    ],
+    "hints": [
+      "O(n^2) is acceptable here — fix i and j",
+      "Inner sum can be cumulative",
+      "Two pointers can prune by area upper bound — but n^2 brute force is fine for n<=1000"
+    ],
     "starterCode": [
-      {"language": "javascript", "code": "function maxHeatmapTrap(bars) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def max_heatmap_trap(bars):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function maxHeatmapTrap(bars) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_heatmap_trap(bars):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "maxHeatmapTrap",
     "tests": [
-      {"args": [[3,0,0,2,0,4]], "expected": 10},
-      {"args": [[1,2,3]], "expected": 0},
-      {"args": [[2,0,2]], "expected": 2},
-      {"args": [[5,1,1,1,5]], "expected": 12},
-      {"args": [[0,0,0]], "expected": 0},
-      {"args": [[4,2,0,3,2,5]], "expected": 9}
+      {
+        "args": [
+          [
+            3,
+            0,
+            0,
+            2,
+            0,
+            4
+          ]
+        ],
+        "expected": 10
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            2,
+            0,
+            2
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            5,
+            1,
+            1,
+            1,
+            5
+          ]
+        ],
+        "expected": 12
+      },
+      {
+        "args": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            4,
+            2,
+            0,
+            3,
+            2,
+            5
+          ]
+        ],
+        "expected": 9
+      }
     ],
     "editorial": "**Idea:** For each pair `(i, j)` compute trapped between them = `sum_{k=i+1..j-1} max(0, min(bars[i], bars[j]) - bars[k])`. With n<=1000, O(n^2) inner-summed-on-the-fly works.\n\n```js\nfunction maxHeatmapTrap(bars) {\n  const n = bars.length;\n  let best = 0;\n  for (let i = 0; i < n; i++) {\n    for (let j = i + 2; j < n; j++) {\n      const cap = Math.min(bars[i], bars[j]);\n      let trap = 0;\n      for (let k = i + 1; k < j; k++) {\n        if (bars[k] < cap) trap += cap - bars[k];\n      }\n      if (trap > best) best = trap;\n    }\n  }\n  return best;\n}\n```\n\nVerify `[5,1,1,1,5]`: cap=5, gaps 4+4+4 = 12. `[4,2,0,3,2,5]`: best window (0,5) cap=4, gaps 2+4+1+2=9. **Complexity:** O(n^3) but n<=1000 still bearable for tests; can be optimised with prefix sums to O(n^2)."
   }

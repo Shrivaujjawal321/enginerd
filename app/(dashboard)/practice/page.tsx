@@ -64,7 +64,7 @@ export default async function PracticePage() {
                 Sign in to track which problems you&apos;ve solved.
               </p>
               <p className="text-xs text-slate-400">
-                Streak, leaderboard, multi-language code runner — all free.
+                Streak, leaderboard, an in-browser code runner — all free.
               </p>
             </div>
           </div>

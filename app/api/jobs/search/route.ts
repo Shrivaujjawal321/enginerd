@@ -64,7 +64,7 @@ export async function GET(req: Request) {
       {
         jobs,
         count: jobs.length,
-        source: jobs.length > 0 ? "live" : "stub",
+        source: "live" as const,
       },
       {
         headers: {

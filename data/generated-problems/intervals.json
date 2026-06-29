@@ -2,499 +2,2567 @@
   {
     "slug": "bookmyshow-merge-show-overlaps",
     "number": 2501,
-    "title": "BookMyShow Merge Show Schedule Overlaps",
+    "title": "Merge Intervals",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["bookmyshow", "paytm-insider", "google"],
+    "companies": [
+      "bookmyshow",
+      "paytm-insider",
+      "google"
+    ],
     "description": "BookMyShow's screen-allocation team has a list of show time-windows for one screen as `[start, end]` pairs (minutes from midnight). Some shows overlap due to last-minute reschedules. Merge every overlapping/touching pair so the screen calendar is clean. Return the merged intervals sorted by start ascending.",
     "examples": [
-      {"input": "shows = [[60,120],[100,180],[200,240],[230,260]]", "output": "[[60,180],[200,260]]", "explanation": "[60,120] & [100,180] merge into [60,180]; [200,240] & [230,260] merge into [200,260]."},
-      {"input": "shows = [[10,20]]", "output": "[[10,20]]"}
+      {
+        "input": "shows = [[60,120],[100,180],[200,240],[230,260]]",
+        "output": "[[60,180],[200,260]]",
+        "explanation": "[60,120] & [100,180] merge into [60,180]; [200,240] & [230,260] merge into [200,260]."
+      },
+      {
+        "input": "shows = [[10,20]]",
+        "output": "[[10,20]]"
+      }
     ],
-    "constraints": ["1 <= shows.length <= 10^4", "0 <= start <= end <= 10^6", "Touching intervals like [1,3] & [3,5] should merge"],
+    "constraints": [
+      "1 <= shows.length <= 10^4",
+      "0 <= start <= end <= 10^6",
+      "Touching intervals like [1,3] & [3,5] should merge"
+    ],
     "hints": [
       "Pehle start ke according sort kar de.",
       "Ek result list rakh — har naya interval previous ke saath compare kar.",
       "Agar current.start <= previous.end toh end ko max le, warna naya push kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function mergeShows(shows) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def merge_shows(shows):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function mergeShows(shows) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def merge_shows(shows):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "mergeShows",
     "tests": [
-      {"args": [[[60,120],[100,180],[200,240],[230,260]]], "expected": [[60,180],[200,260]], "label": "two clusters"},
-      {"args": [[[10,20]]], "expected": [[10,20]], "label": "single interval"},
-      {"args": [[[1,4],[4,5]]], "expected": [[1,5]], "label": "touching merge"},
-      {"args": [[[1,10],[2,3],[4,5]]], "expected": [[1,10]], "label": "fully covered"},
-      {"args": [[[5,6],[1,2],[3,4]]], "expected": [[1,2],[3,4],[5,6]], "label": "disjoint unsorted"},
-      {"args": [[[0,0],[0,0]]], "expected": [[0,0]], "label": "zero length duplicates"}
+      {
+        "args": [
+          [
+            [
+              60,
+              120
+            ],
+            [
+              100,
+              180
+            ],
+            [
+              200,
+              240
+            ],
+            [
+              230,
+              260
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            60,
+            180
+          ],
+          [
+            200,
+            260
+          ]
+        ],
+        "label": "two clusters"
+      },
+      {
+        "args": [
+          [
+            [
+              10,
+              20
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            10,
+            20
+          ]
+        ],
+        "label": "single interval"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            5
+          ]
+        ],
+        "label": "touching merge"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            10
+          ]
+        ],
+        "label": "fully covered"
+      },
+      {
+        "args": [
+          [
+            [
+              5,
+              6
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "label": "disjoint unsorted"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ]
+        ],
+        "label": "zero length duplicates"
+      }
     ],
     "editorial": "**Pattern — sort + sweep**: Overlap detection requires a known order. Sort by `start` ascending; then walk left→right keeping a current `[s,e]`. Each next interval either extends `e` (overlap/touch) or starts a fresh segment.\n\n```javascript\nfunction mergeShows(shows) {\n  if (shows.length === 0) return [];\n  const arr = shows.slice().sort((a, b) => a[0] - b[0]);\n  const out = [arr[0].slice()];\n  for (let i = 1; i < arr.length; i++) {\n    const [s, e] = arr[i];\n    const last = out[out.length - 1];\n    if (s <= last[1]) {\n      last[1] = Math.max(last[1], e);\n    } else {\n      out.push([s, e]);\n    }\n  }\n  return out;\n}\n```\n\n**Time**: O(n log n) — sort dominates; sweep is O(n).\n**Space**: O(n) for output.\n\nTouching case (`[1,4]`,`[4,5]`) merges because of `<=`. If business rules require strict overlap only, change to `<`."
   },
   {
     "slug": "zomato-insert-delivery-slot",
     "number": 2502,
-    "title": "Zomato Insert New Delivery Slot",
+    "title": "Insert Interval",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["zomato", "swiggy", "dunzo"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "dunzo"
+    ],
     "description": "Zomato has a sorted, non-overlapping list of delivery time slots `[start, end]` for a partner. A new slot `newSlot` arrives; insert it into the schedule, merging any overlaps. Return the resulting schedule sorted by start.",
     "examples": [
-      {"input": "slots = [[1,3],[6,9]], newSlot = [2,5]", "output": "[[1,5],[6,9]]", "explanation": "[2,5] overlaps [1,3] producing [1,5]."},
-      {"input": "slots = [[1,2],[3,5],[6,7],[8,10],[12,16]], newSlot = [4,8]", "output": "[[1,2],[3,10],[12,16]]"}
+      {
+        "input": "slots = [[1,3],[6,9]], newSlot = [2,5]",
+        "output": "[[1,5],[6,9]]",
+        "explanation": "[2,5] overlaps [1,3] producing [1,5]."
+      },
+      {
+        "input": "slots = [[1,2],[3,5],[6,7],[8,10],[12,16]], newSlot = [4,8]",
+        "output": "[[1,2],[3,10],[12,16]]"
+      }
     ],
-    "constraints": ["0 <= slots.length <= 10^4", "slots is sorted by start, non-overlapping", "0 <= start <= end <= 10^6"],
+    "constraints": [
+      "0 <= slots.length <= 10^4",
+      "slots is sorted by start, non-overlapping",
+      "0 <= start <= end <= 10^6"
+    ],
     "hints": [
       "Three phases: pre (entirely before new), merge (overlapping), post (entirely after).",
       "Pre: end < newSlot.start. Post: start > newSlot.end.",
       "Merge phase me start = min, end = max le."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function insertDeliverySlot(slots, newSlot) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def insert_delivery_slot(slots, new_slot):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function insertDeliverySlot(slots, newSlot) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def insert_delivery_slot(slots, new_slot):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "insertDeliverySlot",
     "tests": [
-      {"args": [[[1,3],[6,9]], [2,5]], "expected": [[1,5],[6,9]], "label": "single overlap"},
-      {"args": [[[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8]], "expected": [[1,2],[3,10],[12,16]], "label": "multi overlap"},
-      {"args": [[], [5,7]], "expected": [[5,7]], "label": "empty schedule"},
-      {"args": [[[1,5]], [2,3]], "expected": [[1,5]], "label": "fully covered by existing"},
-      {"args": [[[1,2],[5,6]], [3,4]], "expected": [[1,2],[3,4],[5,6]], "label": "disjoint middle"},
-      {"args": [[[3,5]], [1,2]], "expected": [[1,2],[3,5]], "label": "insert before all"},
-      {"args": [[[1,2]], [3,4]], "expected": [[1,2],[3,4]], "label": "insert after all"}
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              6,
+              9
+            ]
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            5
+          ],
+          [
+            6,
+            9
+          ]
+        ],
+        "label": "single overlap"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              12,
+              16
+            ]
+          ],
+          [
+            4,
+            8
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            10
+          ],
+          [
+            12,
+            16
+          ]
+        ],
+        "label": "multi overlap"
+      },
+      {
+        "args": [
+          [],
+          [
+            5,
+            7
+          ]
+        ],
+        "expected": [
+          [
+            5,
+            7
+          ]
+        ],
+        "label": "empty schedule"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ]
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            5
+          ]
+        ],
+        "label": "fully covered by existing"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              5,
+              6
+            ]
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "label": "disjoint middle"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              5
+            ]
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "label": "insert before all"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ]
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "label": "insert after all"
+      }
     ],
     "editorial": "**Idea — three pass linear walk**: Since `slots` is already sorted, no full sort needed (O(n) total).\n\n1. Push every interval ending before `newSlot.start` (no overlap).\n2. While current overlaps with newSlot (`start <= newSlot.end`), expand `newSlot = [min(start), max(end)]`.\n3. Push the merged newSlot, then append the rest.\n\n```javascript\nfunction insertDeliverySlot(slots, newSlot) {\n  const out = [];\n  let i = 0, n = slots.length;\n  let [s, e] = newSlot;\n  while (i < n && slots[i][1] < s) out.push(slots[i++]);\n  while (i < n && slots[i][0] <= e) {\n    s = Math.min(s, slots[i][0]);\n    e = Math.max(e, slots[i][1]);\n    i++;\n  }\n  out.push([s, e]);\n  while (i < n) out.push(slots[i++]);\n  return out;\n}\n```\n\n**Time**: O(n) — leverages the sorted invariant.\n**Space**: O(n) for output.\n\nIf input weren't pre-sorted, you'd push then sort+merge — O(n log n)."
   },
   {
     "slug": "swiggy-shift-conflict-check",
     "number": 2503,
-    "title": "Swiggy Partner Shift Conflict Check",
+    "title": "Meeting Rooms",
     "difficulty": "Easy",
     "topic": "Intervals",
-    "companies": ["swiggy", "zomato", "uber"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "uber"
+    ],
     "description": "Swiggy assigns shifts `[start, end]` to a delivery partner. A partner can attend all assigned shifts only if no two overlap (touching at endpoints is fine: shift `[1,3]` and `[3,5]` are OK because handover happens instantly). Return `true` if all shifts can be attended without conflict, else `false`.",
     "examples": [
-      {"input": "shifts = [[0,30],[5,10],[15,20]]", "output": "false", "explanation": "[0,30] overlaps both later shifts."},
-      {"input": "shifts = [[7,10],[2,4]]", "output": "true"}
+      {
+        "input": "shifts = [[0,30],[5,10],[15,20]]",
+        "output": "false",
+        "explanation": "[0,30] overlaps both later shifts."
+      },
+      {
+        "input": "shifts = [[7,10],[2,4]]",
+        "output": "true"
+      }
     ],
-    "constraints": ["0 <= shifts.length <= 10^4", "0 <= start <= end <= 10^6"],
+    "constraints": [
+      "0 <= shifts.length <= 10^4",
+      "0 <= start <= end <= 10^6"
+    ],
     "hints": [
       "Sort by start.",
       "Adjacent compare — agar prev.end > curr.start toh conflict.",
       "Touching (==) allow karna hai problem ke hisaab se."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function canAttendShifts(shifts) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def can_attend_shifts(shifts):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function canAttendShifts(shifts) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_attend_shifts(shifts):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "canAttendShifts",
     "tests": [
-      {"args": [[[0,30],[5,10],[15,20]]], "expected": false, "label": "obvious conflict"},
-      {"args": [[[7,10],[2,4]]], "expected": true, "label": "disjoint"},
-      {"args": [[]], "expected": true, "label": "no shifts"},
-      {"args": [[[1,5]]], "expected": true, "label": "single shift"},
-      {"args": [[[1,3],[3,5]]], "expected": true, "label": "touching is fine"},
-      {"args": [[[1,4],[2,3]]], "expected": false, "label": "fully covered"}
+      {
+        "args": [
+          [
+            [
+              0,
+              30
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              15,
+              20
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "obvious conflict"
+      },
+      {
+        "args": [
+          [
+            [
+              7,
+              10
+            ],
+            [
+              2,
+              4
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "disjoint"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": true,
+        "label": "no shifts"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "single shift"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              5
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "touching is fine"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "fully covered"
+      }
     ],
     "editorial": "**Pattern — sort then adjacent compare**: After sorting by start, the only possible overlap for interval `i` is with interval `i-1` (because all earlier intervals start no later, and we're scanning increasing).\n\n```javascript\nfunction canAttendShifts(shifts) {\n  if (shifts.length < 2) return true;\n  const arr = shifts.slice().sort((a, b) => a[0] - b[0]);\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i][0] < arr[i - 1][1]) return false;\n  }\n  return true;\n}\n```\n\n**Time**: O(n log n) — sort. **Space**: O(n) for the sorted copy (or O(1) if you mutate input).\n\nWhy strict `<` and not `<=`? Touching at the endpoint is permitted by the problem (instant handover)."
   },
   {
     "slug": "swiggy-min-meeting-rooms",
     "number": 2504,
-    "title": "Swiggy Minimum Meeting Rooms",
+    "title": "Meeting Rooms II",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["swiggy", "google", "amazon"],
+    "companies": [
+      "swiggy",
+      "google",
+      "amazon"
+    ],
     "description": "Swiggy HQ books many meetings as `[start, end]`. Find the minimum number of conference rooms needed so every meeting can run without conflict. A meeting ending at `t` and another starting at `t` can share the room (instant handover).",
     "examples": [
-      {"input": "meetings = [[0,30],[5,10],[15,20]]", "output": "2", "explanation": "Room1: [0,30]. Room2: [5,10] then [15,20]."},
-      {"input": "meetings = [[7,10],[2,4]]", "output": "1"}
+      {
+        "input": "meetings = [[0,30],[5,10],[15,20]]",
+        "output": "2",
+        "explanation": "Room1: [0,30]. Room2: [5,10] then [15,20]."
+      },
+      {
+        "input": "meetings = [[7,10],[2,4]]",
+        "output": "1"
+      }
     ],
-    "constraints": ["0 <= meetings.length <= 10^4", "0 <= start <= end <= 10^6"],
+    "constraints": [
+      "0 <= meetings.length <= 10^4",
+      "0 <= start <= end <= 10^6"
+    ],
     "hints": [
       "Sweep line: +1 at start, -1 at end. Max prefix sum = answer.",
       "Sort starts and ends separately, two pointers — equivalent.",
       "End === Start ko end pehle process kar (handover allowed)."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minMeetingRooms(meetings) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_meeting_rooms(meetings):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minMeetingRooms(meetings) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_meeting_rooms(meetings):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minMeetingRooms",
     "tests": [
-      {"args": [[[0,30],[5,10],[15,20]]], "expected": 2, "label": "classic"},
-      {"args": [[[7,10],[2,4]]], "expected": 1, "label": "disjoint"},
-      {"args": [[]], "expected": 0, "label": "empty"},
-      {"args": [[[1,5]]], "expected": 1, "label": "single meeting"},
-      {"args": [[[1,3],[3,5],[5,7]]], "expected": 1, "label": "all touching share room"},
-      {"args": [[[1,10],[2,7],[3,19],[8,12],[10,11],[10,25]]], "expected": 4, "label": "heavy overlap"}
+      {
+        "args": [
+          [
+            [
+              0,
+              30
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              15,
+              20
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              7,
+              10
+            ],
+            [
+              2,
+              4
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "disjoint"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single meeting"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "all touching share room"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              3,
+              19
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              10,
+              11
+            ],
+            [
+              10,
+              25
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "heavy overlap"
+      }
     ],
     "editorial": "**Sweep-line idea**: Each start is `+1` (room opens), each end is `-1` (room frees). Sort all events by time; at equal time, process `end` before `start` so handovers don't double-count. Max running counter is the answer.\n\n```javascript\nfunction minMeetingRooms(meetings) {\n  const starts = meetings.map(m => m[0]).sort((a, b) => a - b);\n  const ends = meetings.map(m => m[1]).sort((a, b) => a - b);\n  let rooms = 0, peak = 0, i = 0, j = 0;\n  while (i < starts.length) {\n    if (starts[i] < ends[j]) {\n      rooms++;\n      peak = Math.max(peak, rooms);\n      i++;\n    } else {\n      rooms--;\n      j++;\n      // do not advance i; reuse the freed room\n      // but we still need to count the new start later\n      // re-enter the increment branch on next iter\n      i; // no-op\n    }\n  }\n  return peak;\n}\n```\n\nWait — the cleaner two-pointer (no inner else stall):\n\n```javascript\nfunction minMeetingRooms(meetings) {\n  const starts = meetings.map(m => m[0]).sort((a, b) => a - b);\n  const ends = meetings.map(m => m[1]).sort((a, b) => a - b);\n  let rooms = 0, j = 0;\n  for (let i = 0; i < starts.length; i++) {\n    if (starts[i] < ends[j]) rooms++;\n    else j++;\n  }\n  return rooms;\n}\n```\n\nThis tracks net rooms ever needed: every start either spawns a new room or recycles an ended one. **Time**: O(n log n). **Space**: O(n).\n\nNote `<` (not `<=`): start equals end means handover, no extra room."
   },
   {
     "slug": "razorpay-non-overlapping-subscriptions",
     "number": 2505,
-    "title": "Razorpay Min Subscription Removals",
+    "title": "Non-overlapping Intervals",
     "difficulty": "Easy",
     "topic": "Intervals",
-    "companies": ["razorpay", "stripe", "google"],
+    "companies": [
+      "razorpay",
+      "stripe",
+      "google"
+    ],
     "description": "Razorpay has a list of active subscription billing periods `[start, end]`. To switch a customer to a clean non-overlapping plan, remove the minimum number of periods so no two remaining intervals overlap. Periods touching at endpoints are NOT considered overlapping. Return the count of removals.",
     "examples": [
-      {"input": "periods = [[1,2],[2,3],[3,4],[1,3]]", "output": "1", "explanation": "Remove [1,3]; the rest is non-overlapping."},
-      {"input": "periods = [[1,2],[1,2],[1,2]]", "output": "2"}
+      {
+        "input": "periods = [[1,2],[2,3],[3,4],[1,3]]",
+        "output": "1",
+        "explanation": "Remove [1,3]; the rest is non-overlapping."
+      },
+      {
+        "input": "periods = [[1,2],[1,2],[1,2]]",
+        "output": "2"
+      }
     ],
-    "constraints": ["0 <= periods.length <= 10^5", "-10^5 <= start < end <= 10^5"],
+    "constraints": [
+      "0 <= periods.length <= 10^5",
+      "-10^5 <= start < end <= 10^5"
+    ],
     "hints": [
       "Greedy by earliest END time — classic activity selection.",
       "Track last kept end; if next.start < last.end, drop it (count++).",
       "Sort by end ascending; break ties by start."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minRemovals(periods) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_removals(periods):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minRemovals(periods) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_removals(periods):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minRemovals",
     "tests": [
-      {"args": [[[1,2],[2,3],[3,4],[1,3]]], "expected": 1, "label": "remove one"},
-      {"args": [[[1,2],[1,2],[1,2]]], "expected": 2, "label": "all duplicates"},
-      {"args": [[[1,2],[2,3]]], "expected": 0, "label": "touching ok"},
-      {"args": [[]], "expected": 0, "label": "empty"},
-      {"args": [[[1,100]]], "expected": 0, "label": "single interval"},
-      {"args": [[[1,10],[2,3],[3,4],[4,5]]], "expected": 1, "label": "drop big one"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "remove one"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "all duplicates"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "touching ok"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              100
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "single interval"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "drop big one"
+      }
     ],
     "editorial": "**Greedy — earliest-end-first**: Sort by `end` ascending. Walk: keep an interval iff its `start >= lastEnd`; otherwise count it as a removal.\n\nWhy earliest-end is optimal: pick interval with the smallest end leaves the most room for future picks. Standard interval-scheduling proof by exchange argument.\n\n```javascript\nfunction minRemovals(periods) {\n  if (periods.length === 0) return 0;\n  const arr = periods.slice().sort((a, b) => a[1] - b[1]);\n  let lastEnd = -Infinity, removed = 0;\n  for (const [s, e] of arr) {\n    if (s >= lastEnd) lastEnd = e;\n    else removed++;\n  }\n  return removed;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n) for sorted copy.\n\nTouching (`s === lastEnd`) is allowed → keep it. Strict `<` for removal."
   },
   {
     "slug": "flipkart-sale-window-intersections",
     "number": 2506,
-    "title": "Flipkart Sale-Window Intersections",
+    "title": "Interval List Intersections",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["flipkart", "amazon", "myntra"],
+    "companies": [
+      "flipkart",
+      "amazon",
+      "myntra"
+    ],
     "description": "Flipkart's pricing engine has two sorted, non-overlapping interval lists representing two products' sale windows. Compute the list of time windows during which BOTH products are on sale (intersection). Return intersections sorted by start ascending. Touching at a single point counts (closed intervals).",
     "examples": [
-      {"input": "a = [[0,2],[5,10],[13,23],[24,25]], b = [[1,5],[8,12],[15,24],[25,26]]", "output": "[[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]"},
-      {"input": "a = [[1,3],[5,9]], b = []", "output": "[]"}
+      {
+        "input": "a = [[0,2],[5,10],[13,23],[24,25]], b = [[1,5],[8,12],[15,24],[25,26]]",
+        "output": "[[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]"
+      },
+      {
+        "input": "a = [[1,3],[5,9]], b = []",
+        "output": "[]"
+      }
     ],
-    "constraints": ["0 <= a.length, b.length <= 1000", "Each list sorted by start, non-overlapping, ends >= starts"],
+    "constraints": [
+      "0 <= a.length, b.length <= 1000",
+      "Each list sorted by start, non-overlapping, ends >= starts"
+    ],
     "hints": [
       "Two pointers, one per list.",
       "Intersection = [max(starts), min(ends)] if start <= end.",
       "Advance pointer with the smaller end."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function saleWindowIntersections(a, b) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def sale_window_intersections(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function saleWindowIntersections(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def sale_window_intersections(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "saleWindowIntersections",
     "tests": [
-      {"args": [[[0,2],[5,10],[13,23],[24,25]], [[1,5],[8,12],[15,24],[25,26]]], "expected": [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]], "label": "classic"},
-      {"args": [[[1,3],[5,9]], []], "expected": [], "label": "empty b"},
-      {"args": [[], [[1,3]]], "expected": [], "label": "empty a"},
-      {"args": [[[1,5]], [[2,3]]], "expected": [[2,3]], "label": "fully covered"},
-      {"args": [[[1,2]], [[3,4]]], "expected": [], "label": "disjoint"},
-      {"args": [[[1,2]], [[2,3]]], "expected": [[2,2]], "label": "single-point touch"}
+      {
+        "args": [
+          [
+            [
+              0,
+              2
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              13,
+              23
+            ],
+            [
+              24,
+              25
+            ]
+          ],
+          [
+            [
+              1,
+              5
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              15,
+              24
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            15,
+            23
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            25,
+            25
+          ]
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              5,
+              9
+            ]
+          ],
+          []
+        ],
+        "expected": [],
+        "label": "empty b"
+      },
+      {
+        "args": [
+          [],
+          [
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "empty a"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ]
+          ],
+          [
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            2,
+            3
+          ]
+        ],
+        "label": "fully covered"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ]
+          ],
+          [
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "disjoint"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ]
+          ],
+          [
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            2,
+            2
+          ]
+        ],
+        "label": "single-point touch"
+      }
     ],
     "editorial": "**Two-pointer sweep**: Both lists are pre-sorted, so we never re-scan. At each step the candidate intersection is `[max(a[i].start, b[j].start), min(a[i].end, b[j].end)]`; valid when `start <= end`. Then advance the pointer whose interval ends first (it can't intersect anything later in the other list).\n\n```javascript\nfunction saleWindowIntersections(a, b) {\n  const out = [];\n  let i = 0, j = 0;\n  while (i < a.length && j < b.length) {\n    const s = Math.max(a[i][0], b[j][0]);\n    const e = Math.min(a[i][1], b[j][1]);\n    if (s <= e) out.push([s, e]);\n    if (a[i][1] < b[j][1]) i++;\n    else j++;\n  }\n  return out;\n}\n```\n\n**Time**: O(m + n). **Space**: O(m + n) output worst case.\n\nClosed intervals → use `<=`. If half-open, use `<`."
   },
   {
     "slug": "bookmyshow-min-arrows-balloons",
     "number": 2507,
-    "title": "BookMyShow Min Arrows to Burst Promo Balloons",
+    "title": "Minimum Number of Arrows to Burst Balloons",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["bookmyshow", "google", "amazon"],
+    "companies": [
+      "bookmyshow",
+      "google",
+      "amazon"
+    ],
     "description": "At a BookMyShow promo event, balloons hang along a number line; each balloon spans a horizontal interval `[xstart, xend]`. An arrow shot vertically at coordinate `x` bursts every balloon with `xstart <= x <= xend`. Find the minimum arrows to burst them all.",
     "examples": [
-      {"input": "balloons = [[10,16],[2,8],[1,6],[7,12]]", "output": "2", "explanation": "Shoot at x=6 (bursts [1,6],[2,8]) and x=12 (bursts [7,12],[10,16])."},
-      {"input": "balloons = [[1,2],[3,4],[5,6],[7,8]]", "output": "4"}
+      {
+        "input": "balloons = [[10,16],[2,8],[1,6],[7,12]]",
+        "output": "2",
+        "explanation": "Shoot at x=6 (bursts [1,6],[2,8]) and x=12 (bursts [7,12],[10,16])."
+      },
+      {
+        "input": "balloons = [[1,2],[3,4],[5,6],[7,8]]",
+        "output": "4"
+      }
     ],
-    "constraints": ["0 <= balloons.length <= 10^5", "-2^31 <= xstart <= xend <= 2^31 - 1"],
+    "constraints": [
+      "0 <= balloons.length <= 10^5",
+      "-2^31 <= xstart <= xend <= 2^31 - 1"
+    ],
     "hints": [
       "Sort by xend ascending.",
       "Greedy: shoot at the smallest xend — bursts every balloon overlapping it.",
       "Next arrow when next balloon's xstart > previous arrow x."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minArrows(balloons) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_arrows(balloons):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minArrows(balloons) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_arrows(balloons):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minArrows",
     "tests": [
-      {"args": [[[10,16],[2,8],[1,6],[7,12]]], "expected": 2, "label": "two clusters"},
-      {"args": [[[1,2],[3,4],[5,6],[7,8]]], "expected": 4, "label": "all disjoint"},
-      {"args": [[[1,2],[2,3],[3,4],[4,5]]], "expected": 2, "label": "chain touching"},
-      {"args": [[]], "expected": 0, "label": "empty"},
-      {"args": [[[5,5]]], "expected": 1, "label": "single point"},
-      {"args": [[[1,10],[2,8],[3,7],[4,6]]], "expected": 1, "label": "all overlap one point"}
+      {
+        "args": [
+          [
+            [
+              10,
+              16
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              12
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two clusters"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              7,
+              8
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "all disjoint"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "chain touching"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            [
+              5,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single point"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              6
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "all overlap one point"
+      }
     ],
     "editorial": "**Greedy by end**: Sort by `xend`. Place an arrow at the first balloon's end; this bursts every balloon whose `xstart <= arrowX`. When we hit a balloon with `xstart > arrowX`, shoot a new arrow at its end.\n\nProof sketch: shooting at the smallest end is always safe — any arrow that bursts that balloon must land in its interval, and shooting at its rightmost point maximises coverage of others.\n\n```javascript\nfunction minArrows(balloons) {\n  if (balloons.length === 0) return 0;\n  const arr = balloons.slice().sort((a, b) => a[1] - b[1]);\n  let arrows = 1, arrowX = arr[0][1];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i][0] > arrowX) {\n      arrows++;\n      arrowX = arr[i][1];\n    }\n  }\n  return arrows;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n) for sorted copy.\n\nUse `>` (touching counts as overlap → no new arrow)."
   },
   {
     "slug": "phonepe-employee-free-time",
     "number": 2508,
-    "title": "PhonePe Employee Free Time",
+    "title": "Employee Free Time",
     "difficulty": "Hard",
     "topic": "Intervals",
-    "companies": ["phonepe", "google", "linkedin"],
+    "companies": [
+      "phonepe",
+      "google",
+      "linkedin"
+    ],
     "description": "PhonePe wants to schedule a company-wide standup. Given each employee's busy intervals as `schedules` (a flat array where every element is one busy interval `[start, end]`), find the common free time — gaps between the union of all busy intervals. Exclude time before the first busy interval and after the last. Return free intervals sorted by start.",
     "examples": [
-      {"input": "schedules = [[1,3],[6,7],[2,4],[2,5],[9,12]]", "output": "[[5,6],[7,9]]", "explanation": "Union of busy = [1,5] ∪ [6,7] ∪ [9,12]. Gaps inside are [5,6] and [7,9]."},
-      {"input": "schedules = [[1,2],[5,6],[1,3],[4,10]]", "output": "[[3,4]]"}
+      {
+        "input": "schedules = [[1,3],[6,7],[2,4],[2,5],[9,12]]",
+        "output": "[[5,6],[7,9]]",
+        "explanation": "Union of busy = [1,5] ∪ [6,7] ∪ [9,12]. Gaps inside are [5,6] and [7,9]."
+      },
+      {
+        "input": "schedules = [[1,2],[5,6],[1,3],[4,10]]",
+        "output": "[[3,4]]"
+      }
     ],
-    "constraints": ["1 <= schedules.length <= 10^4", "0 <= start < end <= 10^8"],
+    "constraints": [
+      "1 <= schedules.length <= 10^4",
+      "0 <= start < end <= 10^8"
+    ],
     "hints": [
       "Saare intervals ko ek list me daal — merge kar — fir adjacent gaps padh.",
       "Sort by start, sweep and merge.",
       "Touching intervals ka gap zero hai — skip."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function employeeFreeTime(schedules) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def employee_free_time(schedules):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function employeeFreeTime(schedules) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def employee_free_time(schedules):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "employeeFreeTime",
     "tests": [
-      {"args": [[[1,3],[6,7],[2,4],[2,5],[9,12]]], "expected": [[5,6],[7,9]], "label": "two gaps"},
-      {"args": [[[1,2],[5,6],[1,3],[4,10]]], "expected": [[3,4]], "label": "one gap"},
-      {"args": [[[1,5]]], "expected": [], "label": "single interval"},
-      {"args": [[[1,3],[3,5]]], "expected": [], "label": "touching no gap"},
-      {"args": [[[1,2],[3,4],[5,6]]], "expected": [[2,3],[4,5]], "label": "all disjoint"},
-      {"args": [[[1,10],[2,3],[4,5]]], "expected": [], "label": "fully covered"}
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              9,
+              12
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            5,
+            6
+          ],
+          [
+            7,
+            9
+          ]
+        ],
+        "label": "two gaps"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              4,
+              10
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            3,
+            4
+          ]
+        ],
+        "label": "one gap"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "single interval"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              5
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "touching no gap"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "label": "all disjoint"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "fully covered"
+      }
     ],
     "editorial": "**Merge-then-gap**: Treat all busy intervals as one bag. Sort by start; merge overlaps to get the busy union; the gaps between consecutive merged intervals are the free intervals.\n\n```javascript\nfunction employeeFreeTime(schedules) {\n  if (schedules.length === 0) return [];\n  const arr = schedules.slice().sort((a, b) => a[0] - b[0]);\n  const merged = [arr[0].slice()];\n  for (let i = 1; i < arr.length; i++) {\n    const [s, e] = arr[i];\n    const last = merged[merged.length - 1];\n    if (s <= last[1]) last[1] = Math.max(last[1], e);\n    else merged.push([s, e]);\n  }\n  const free = [];\n  for (let i = 1; i < merged.length; i++) {\n    if (merged[i - 1][1] < merged[i][0]) {\n      free.push([merged[i - 1][1], merged[i][0]]);\n    }\n  }\n  return free;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n).\n\nA k-way heap merge runs O(n log k) but for a flat list this is simpler. Touching intervals produce zero-width gap → filter with strict `<`."
   },
   {
     "slug": "ola-car-pooling",
     "number": 2509,
-    "title": "Ola Carpool Capacity Check",
+    "title": "Car Pooling",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["ola", "uber", "lyft"],
+    "companies": [
+      "ola",
+      "uber",
+      "lyft"
+    ],
     "description": "An Ola carpool driver has fixed `capacity` seats. Each trip is `[numPassengers, pickupLocation, dropLocation]` along a 1D route (pickup < drop). Determine if every trip can be served without ever exceeding `capacity` at any point. Passengers drop off at exactly `dropLocation` (the seats free up at that location, so a new pickup at the same point can use them).",
     "examples": [
-      {"input": "trips = [[2,1,5],[3,3,7]], capacity = 4", "output": "false", "explanation": "Between locations 3 and 5 we'd carry 5 passengers, exceeding 4."},
-      {"input": "trips = [[2,1,5],[3,3,7]], capacity = 5", "output": "true"}
+      {
+        "input": "trips = [[2,1,5],[3,3,7]], capacity = 4",
+        "output": "false",
+        "explanation": "Between locations 3 and 5 we'd carry 5 passengers, exceeding 4."
+      },
+      {
+        "input": "trips = [[2,1,5],[3,3,7]], capacity = 5",
+        "output": "true"
+      }
     ],
-    "constraints": ["1 <= trips.length <= 10^4", "1 <= numPassengers <= 100", "0 <= pickup < drop <= 1000", "1 <= capacity <= 10^5"],
+    "constraints": [
+      "1 <= trips.length <= 10^4",
+      "1 <= numPassengers <= 100",
+      "0 <= pickup < drop <= 1000",
+      "1 <= capacity <= 10^5"
+    ],
     "hints": [
       "Sweep line on locations: +pax at pickup, -pax at drop.",
       "Sort events; same location: process drops before pickups.",
       "Track running sum; if it exceeds capacity, return false."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function canCarpool(trips, capacity) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def can_carpool(trips, capacity):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function canCarpool(trips, capacity) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_carpool(trips, capacity):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "canCarpool",
     "tests": [
-      {"args": [[[2,1,5],[3,3,7]], 4], "expected": false, "label": "over capacity"},
-      {"args": [[[2,1,5],[3,3,7]], 5], "expected": true, "label": "exact capacity"},
-      {"args": [[[2,1,5],[3,5,7]], 3], "expected": true, "label": "drop matches pickup"},
-      {"args": [[[2,1,5],[3,5,7]], 2], "expected": false, "label": "still over"},
-      {"args": [[[3,2,7],[3,7,9],[8,3,9]], 11], "expected": true, "label": "tight pass"},
-      {"args": [[[100,0,1]], 100], "expected": true, "label": "single trip exact"},
-      {"args": [[[1,0,10]], 0], "expected": false, "label": "zero capacity"}
+      {
+        "args": [
+          [
+            [
+              2,
+              1,
+              5
+            ],
+            [
+              3,
+              3,
+              7
+            ]
+          ],
+          4
+        ],
+        "expected": false,
+        "label": "over capacity"
+      },
+      {
+        "args": [
+          [
+            [
+              2,
+              1,
+              5
+            ],
+            [
+              3,
+              3,
+              7
+            ]
+          ],
+          5
+        ],
+        "expected": true,
+        "label": "exact capacity"
+      },
+      {
+        "args": [
+          [
+            [
+              2,
+              1,
+              5
+            ],
+            [
+              3,
+              5,
+              7
+            ]
+          ],
+          3
+        ],
+        "expected": true,
+        "label": "drop matches pickup"
+      },
+      {
+        "args": [
+          [
+            [
+              2,
+              1,
+              5
+            ],
+            [
+              3,
+              5,
+              7
+            ]
+          ],
+          2
+        ],
+        "expected": false,
+        "label": "still over"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              2,
+              7
+            ],
+            [
+              3,
+              7,
+              9
+            ],
+            [
+              8,
+              3,
+              9
+            ]
+          ],
+          11
+        ],
+        "expected": true,
+        "label": "tight pass"
+      },
+      {
+        "args": [
+          [
+            [
+              100,
+              0,
+              1
+            ]
+          ],
+          100
+        ],
+        "expected": true,
+        "label": "single trip exact"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              10
+            ]
+          ],
+          0
+        ],
+        "expected": false,
+        "label": "zero capacity"
+      }
     ],
     "editorial": "**Sweep line — diff array on locations**: For every trip add `+pax` at pickup and `-pax` at drop. Sort events by location; at equal location, process drops before pickups (passengers leave first → frees seats). Walk events keeping running sum; fail if it ever > capacity.\n\n```javascript\nfunction canCarpool(trips, capacity) {\n  const events = [];\n  for (const [pax, p, d] of trips) {\n    events.push([p, pax]);\n    events.push([d, -pax]);\n  }\n  events.sort((a, b) => a[0] - b[0] || a[1] - b[1]); // drops (negative) first at tie\n  let cur = 0;\n  for (const [, delta] of events) {\n    cur += delta;\n    if (cur > capacity) return false;\n  }\n  return true;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n).\n\nIf the location range is small (e.g., ≤ 1000 here), a bucket diff array gives O(n + range)."
   },
   {
     "slug": "swiggy-remove-covered-shifts",
     "number": 2510,
-    "title": "Swiggy Remove Covered Shift Intervals",
+    "title": "Remove Covered Intervals",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["swiggy", "zomato", "google"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "google"
+    ],
     "description": "Swiggy's shift planner has a list of partner shifts `[start, end]`. A shift `[c,d]` is *covered* by another shift `[a,b]` iff `a <= c` and `d <= b` (and they aren't identical to a previous one — duplicates count as covered by the first occurrence). Return the count of shifts that remain after removing every covered shift.",
     "examples": [
-      {"input": "shifts = [[1,4],[3,6],[2,8]]", "output": "2", "explanation": "[3,6] is covered by [2,8]; [1,4] and [2,8] survive."},
-      {"input": "shifts = [[1,4],[2,3]]", "output": "1"}
+      {
+        "input": "shifts = [[1,4],[3,6],[2,8]]",
+        "output": "2",
+        "explanation": "[3,6] is covered by [2,8]; [1,4] and [2,8] survive."
+      },
+      {
+        "input": "shifts = [[1,4],[2,3]]",
+        "output": "1"
+      }
     ],
-    "constraints": ["1 <= shifts.length <= 1000", "0 <= start < end <= 10^5"],
+    "constraints": [
+      "1 <= shifts.length <= 1000",
+      "0 <= start < end <= 10^5"
+    ],
     "hints": [
       "Sort by start asc; tie-break by end DESC (longer first).",
       "Track lastEnd seen — if current.end <= lastEnd it's covered.",
       "Else count it and update lastEnd."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function remainingShifts(shifts) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def remaining_shifts(shifts):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function remainingShifts(shifts) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def remaining_shifts(shifts):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "remainingShifts",
     "tests": [
-      {"args": [[[1,4],[3,6],[2,8]]], "expected": 2, "label": "one covered"},
-      {"args": [[[1,4],[2,3]]], "expected": 1, "label": "second covered"},
-      {"args": [[[1,2],[3,4]]], "expected": 2, "label": "disjoint none covered"},
-      {"args": [[[1,5],[1,5]]], "expected": 1, "label": "duplicates"},
-      {"args": [[[1,10]]], "expected": 1, "label": "single"},
-      {"args": [[[1,2],[1,4],[3,4]]], "expected": 1, "label": "tie start, longer kept"}
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              2,
+              8
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "one covered"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "second covered"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "disjoint none covered"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "tie start, longer kept"
+      }
     ],
     "editorial": "**Sort trick — start asc, end desc**: After sorting, equal-start intervals are processed longest-first; subsequent equal-start intervals are guaranteed covered. For different starts, an interval is covered iff its `end <= maxEndSeenSoFar`.\n\n```javascript\nfunction remainingShifts(shifts) {\n  const arr = shifts.slice().sort((a, b) => a[0] - b[0] || b[1] - a[1]);\n  let count = 0, maxEnd = 0;\n  for (const [s, e] of arr) {\n    if (e > maxEnd) {\n      count++;\n      maxEnd = e;\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n).\n\nThe `b[1] - a[1]` tie-break is essential — without it `[1,2]` would survive before `[1,4]`, wrongly counting both."
   },
   {
     "slug": "zomato-find-right-slot",
     "number": 2511,
-    "title": "Zomato Find Right Delivery Slot",
+    "title": "Find Right Interval",
     "difficulty": "Medium",
     "topic": "Intervals",
-    "companies": ["zomato", "swiggy", "amazon"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "amazon"
+    ],
     "description": "Zomato has `n` delivery slots `[start, end]` with unique starts. For each slot `i`, find the index `j` of the slot whose `start` is the smallest value `>= slots[i].end`. If no such slot exists, use `-1`. Return an array `result` where `result[i] = j`.",
     "examples": [
-      {"input": "slots = [[1,2]]", "output": "[-1]", "explanation": "Only one slot."},
-      {"input": "slots = [[3,4],[2,3],[1,2]]", "output": "[-1,0,1]", "explanation": "[3,4] has no right; [2,3]'s right is index 0 (start 3); [1,2]'s right is index 1 (start 2)."}
+      {
+        "input": "slots = [[1,2]]",
+        "output": "[-1]",
+        "explanation": "Only one slot."
+      },
+      {
+        "input": "slots = [[3,4],[2,3],[1,2]]",
+        "output": "[-1,0,1]",
+        "explanation": "[3,4] has no right; [2,3]'s right is index 0 (start 3); [1,2]'s right is index 1 (start 2)."
+      }
     ],
-    "constraints": ["1 <= slots.length <= 2*10^4", "starts are unique", "-10^6 <= start < end <= 10^6"],
+    "constraints": [
+      "1 <= slots.length <= 2*10^4",
+      "starts are unique",
+      "-10^6 <= start < end <= 10^6"
+    ],
     "hints": [
       "Binary search on a sorted-by-start copy.",
       "Keep original index alongside start.",
       "Lower-bound on `slots[i].end`."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function findRightSlot(slots) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def find_right_slot(slots):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function findRightSlot(slots) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_right_slot(slots):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "findRightSlot",
     "tests": [
-      {"args": [[[1,2]]], "expected": [-1], "label": "single"},
-      {"args": [[[3,4],[2,3],[1,2]]], "expected": [-1,0,1], "label": "chain"},
-      {"args": [[[1,4],[2,3],[3,4]]], "expected": [-1,2,-1], "label": "mixed"},
-      {"args": [[[1,2],[3,4]]], "expected": [1,-1], "label": "disjoint"},
-      {"args": [[[1,5],[2,3],[4,6]]], "expected": [-1,2,-1], "label": "with overlap"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          -1
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              4
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          -1,
+          0,
+          1
+        ],
+        "label": "chain"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          -1,
+          2,
+          -1
+        ],
+        "label": "mixed"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          -1
+        ],
+        "label": "disjoint"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          -1,
+          2,
+          -1
+        ],
+        "label": "with overlap"
+      }
     ],
     "editorial": "**Approach — binary search on starts**: Build a list of `(start, originalIndex)` sorted by `start`. For each interval, binary-search the smallest start `>= end`. That start's original index is the answer; if no such start, `-1`.\n\n```javascript\nfunction findRightSlot(slots) {\n  const sorted = slots.map((s, i) => [s[0], i]).sort((a, b) => a[0] - b[0]);\n  const starts = sorted.map(p => p[0]);\n  const idx = sorted.map(p => p[1]);\n  function lowerBound(target) {\n    let lo = 0, hi = starts.length;\n    while (lo < hi) {\n      const mid = (lo + hi) >> 1;\n      if (starts[mid] < target) lo = mid + 1;\n      else hi = mid;\n    }\n    return lo;\n  }\n  const out = new Array(slots.length).fill(-1);\n  for (let i = 0; i < slots.length; i++) {\n    const pos = lowerBound(slots[i][1]);\n    out[i] = pos < starts.length ? idx[pos] : -1;\n  }\n  return out;\n}\n```\n\n**Time**: O(n log n). **Space**: O(n).\n\nUnique starts → lowerBound is unambiguous; if duplicates allowed, define which to pick (smallest index?) and adjust."
   },
   {
     "slug": "razorpay-flights-in-air",
     "number": 2512,
-    "title": "Razorpay Active Subscriptions At Time T",
+    "title": "Count Active Intervals At Time",
     "difficulty": "Easy",
     "topic": "Intervals",
-    "companies": ["razorpay", "stripe", "paytm"],
+    "companies": [
+      "razorpay",
+      "stripe",
+      "paytm"
+    ],
     "description": "Razorpay tracks each subscription's active interval `[start, end)` (half-open: active from `start` inclusive to `end` exclusive). For a given timestamp `t`, return how many subscriptions are active at exactly time `t`.",
     "examples": [
-      {"input": "subs = [[1,5],[2,6],[4,8]], t = 4", "output": "3", "explanation": "All three are active at t=4."},
-      {"input": "subs = [[1,3],[4,6]], t = 3", "output": "0", "explanation": "[1,3) ends just before 3; [4,6) hasn't started."}
+      {
+        "input": "subs = [[1,5],[2,6],[4,8]], t = 4",
+        "output": "3",
+        "explanation": "All three are active at t=4."
+      },
+      {
+        "input": "subs = [[1,3],[4,6]], t = 3",
+        "output": "0",
+        "explanation": "[1,3) ends just before 3; [4,6) hasn't started."
+      }
     ],
-    "constraints": ["0 <= subs.length <= 10^5", "0 <= start < end <= 10^9", "0 <= t <= 10^9"],
+    "constraints": [
+      "0 <= subs.length <= 10^5",
+      "0 <= start < end <= 10^9",
+      "0 <= t <= 10^9"
+    ],
     "hints": [
       "Linear count: start <= t < end.",
       "For many queries, precompute sorted starts/ends and use binary search.",
       "Half-open: end == t means inactive."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function activeAt(subs, t) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def active_at(subs, t):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function activeAt(subs, t) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def active_at(subs, t):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "activeAt",
     "tests": [
-      {"args": [[[1,5],[2,6],[4,8]], 4], "expected": 3, "label": "all active"},
-      {"args": [[[1,3],[4,6]], 3], "expected": 0, "label": "between"},
-      {"args": [[], 5], "expected": 0, "label": "empty"},
-      {"args": [[[1,10]], 0], "expected": 0, "label": "before start"},
-      {"args": [[[1,10]], 10], "expected": 0, "label": "at end exclusive"},
-      {"args": [[[1,10]], 1], "expected": 1, "label": "at start inclusive"},
-      {"args": [[[1,2],[2,3],[3,4]], 2], "expected": 1, "label": "exactly one active"}
+      {
+        "args": [
+          [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              4,
+              8
+            ]
+          ],
+          4
+        ],
+        "expected": 3,
+        "label": "all active"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              4,
+              6
+            ]
+          ],
+          3
+        ],
+        "expected": 0,
+        "label": "between"
+      },
+      {
+        "args": [
+          [],
+          5
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ]
+          ],
+          0
+        ],
+        "expected": 0,
+        "label": "before start"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ]
+          ],
+          10
+        ],
+        "expected": 0,
+        "label": "at end exclusive"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10
+            ]
+          ],
+          1
+        ],
+        "expected": 1,
+        "label": "at start inclusive"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          2
+        ],
+        "expected": 1,
+        "label": "exactly one active"
+      }
     ],
     "editorial": "**Single query — linear scan**: Count intervals where `start <= t < end`. Trivial O(n) and easy to reason about.\n\n```javascript\nfunction activeAt(subs, t) {\n  let cnt = 0;\n  for (const [s, e] of subs) {\n    if (s <= t && t < e) cnt++;\n  }\n  return cnt;\n}\n```\n\n**Time**: O(n). **Space**: O(1).\n\n**For many queries**: pre-sort starts and ends separately; active count at `t` is `(# starts <= t) - (# ends <= t)`. Each query becomes O(log n) via binary search after O(n log n) prep.\n\nHalf-open `[s, e)` — that's why we use `t < e`, not `t <= e`."
   },
   {
     "slug": "flipkart-range-addition-views",
     "number": 2513,
-    "title": "Flipkart Range Addition Page Views",
+    "title": "Range Addition",
     "difficulty": "Easy",
     "topic": "Intervals",
-    "companies": ["flipkart", "amazon", "myntra"],
+    "companies": [
+      "flipkart",
+      "amazon",
+      "myntra"
+    ],
     "description": "Flipkart's analytics gets a list of bursts `[startSecond, endSecond, increment]` (inclusive seconds). Apply each burst to a counter array of length `n` indexed `0..n-1`: every index in `[startSecond, endSecond]` gets `+increment`. Return the final counter array.",
     "examples": [
-      {"input": "n = 5, bursts = [[1,3,2],[2,4,3],[0,2,-2]]", "output": "[-2,0,3,5,3]", "explanation": "Apply each burst's increment to the inclusive index range."},
-      {"input": "n = 3, bursts = []", "output": "[0,0,0]"}
+      {
+        "input": "n = 5, bursts = [[1,3,2],[2,4,3],[0,2,-2]]",
+        "output": "[-2,0,3,5,3]",
+        "explanation": "Apply each burst's increment to the inclusive index range."
+      },
+      {
+        "input": "n = 3, bursts = []",
+        "output": "[0,0,0]"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4", "0 <= bursts.length <= 10^4", "0 <= start <= end < n", "-1000 <= increment <= 1000"],
+    "constraints": [
+      "1 <= n <= 10^4",
+      "0 <= bursts.length <= 10^4",
+      "0 <= start <= end < n",
+      "-1000 <= increment <= 1000"
+    ],
     "hints": [
       "Diff array trick: diff[start] += inc, diff[end+1] -= inc.",
       "Prefix sum the diff to get the answer.",
       "Watch boundaries — end+1 may equal n; size diff as n+1."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function rangeAddition(n, bursts) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def range_addition(n, bursts):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function rangeAddition(n, bursts) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def range_addition(n, bursts):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "rangeAddition",
     "tests": [
-      {"args": [5, [[1,3,2],[2,4,3],[0,2,-2]]], "expected": [-2,0,3,5,3], "label": "classic"},
-      {"args": [3, []], "expected": [0,0,0], "label": "no bursts"},
-      {"args": [1, [[0,0,7]]], "expected": [7], "label": "single index"},
-      {"args": [4, [[0,3,1],[0,3,1]]], "expected": [2,2,2,2], "label": "double full range"},
-      {"args": [5, [[0,2,5],[2,4,-5]]], "expected": [5,5,0,-5,-5], "label": "cancel partial"},
-      {"args": [2, [[0,1,3]]], "expected": [3,3], "label": "small array"}
+      {
+        "args": [
+          5,
+          [
+            [
+              1,
+              3,
+              2
+            ],
+            [
+              2,
+              4,
+              3
+            ],
+            [
+              0,
+              2,
+              -2
+            ]
+          ]
+        ],
+        "expected": [
+          -2,
+          0,
+          3,
+          5,
+          3
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          3,
+          []
+        ],
+        "expected": [
+          0,
+          0,
+          0
+        ],
+        "label": "no bursts"
+      },
+      {
+        "args": [
+          1,
+          [
+            [
+              0,
+              0,
+              7
+            ]
+          ]
+        ],
+        "expected": [
+          7
+        ],
+        "label": "single index"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              3,
+              1
+            ],
+            [
+              0,
+              3,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "label": "double full range"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              2,
+              5
+            ],
+            [
+              2,
+              4,
+              -5
+            ]
+          ]
+        ],
+        "expected": [
+          5,
+          5,
+          0,
+          -5,
+          -5
+        ],
+        "label": "cancel partial"
+      },
+      {
+        "args": [
+          2,
+          [
+            [
+              0,
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          3,
+          3
+        ],
+        "label": "small array"
+      }
     ],
     "editorial": "**Difference-array sweep**: Naive `O(n*k)` updates each burst over its range. With a diff array, each burst is O(1):\n\n- `diff[start] += inc`\n- `diff[end+1] -= inc`\n\nThen prefix-sum the diff to get the counter values. The +1 cancels the increment after the range.\n\n```javascript\nfunction rangeAddition(n, bursts) {\n  const diff = new Array(n + 1).fill(0);\n  for (const [s, e, inc] of bursts) {\n    diff[s] += inc;\n    diff[e + 1] -= inc;\n  }\n  const out = new Array(n);\n  let run = 0;\n  for (let i = 0; i < n; i++) {\n    run += diff[i];\n    out[i] = run;\n  }\n  return out;\n}\n```\n\n**Time**: O(n + k). **Space**: O(n).\n\nWhy `n+1`-sized diff? `e+1` can equal `n` for full-range bursts; we discard that slot."
   },
   {
     "slug": "bookmyshow-add-bold-tag",
     "number": 2514,
-    "title": "BookMyShow Bold Highlight Movie Title",
+    "title": "Add Bold Tag in String",
     "difficulty": "Hard",
     "topic": "Intervals",
-    "companies": ["bookmyshow", "netflix", "google"],
+    "companies": [
+      "bookmyshow",
+      "netflix",
+      "google"
+    ],
     "description": "BookMyShow's UI wants to bold every occurrence of any keyword from `words` inside a movie title `s`. Wrap consecutive bolded characters in a single `<b>...</b>` tag (overlapping/adjacent matches must merge into one tag). Return the resulting string.",
     "examples": [
-      {"input": "s = \"abcxyz123\", words = [\"abc\",\"123\"]", "output": "<b>abc</b>xyz<b>123</b>"},
-      {"input": "s = \"aaabbcc\", words = [\"aaa\",\"aab\",\"bc\"]", "output": "<b>aaabbc</b>c", "explanation": "Matches at [0,2],[1,3],[3,4],[4,5] merge into [0,5]."}
+      {
+        "input": "s = \"abcxyz123\", words = [\"abc\",\"123\"]",
+        "output": "<b>abc</b>xyz<b>123</b>"
+      },
+      {
+        "input": "s = \"aaabbcc\", words = [\"aaa\",\"aab\",\"bc\"]",
+        "output": "<b>aaabbc</b>c",
+        "explanation": "Matches at [0,2],[1,3],[3,4],[4,5] merge into [0,5]."
+      }
     ],
-    "constraints": ["0 <= s.length <= 1000", "0 <= words.length <= 100", "1 <= words[i].length <= 1000"],
+    "constraints": [
+      "0 <= s.length <= 1000",
+      "0 <= words.length <= 100",
+      "1 <= words[i].length <= 1000"
+    ],
     "hints": [
       "Har word ke saare match positions nikaal — intervals [i, i+len-1].",
       "Merge intervals (touching ko bhi merge kar — adjacent tags ek hi tag me).",
       "Walk s with merged intervals to build output."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function addBoldTag(s, words) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def add_bold_tag(s, words):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function addBoldTag(s, words) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def add_bold_tag(s, words):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "addBoldTag",
     "tests": [
-      {"args": ["abcxyz123", ["abc","123"]], "expected": "<b>abc</b>xyz<b>123</b>", "label": "two disjoint"},
-      {"args": ["aaabbcc", ["aaa","aab","bc"]], "expected": "<b>aaabbc</b>c", "label": "overlapping merge"},
-      {"args": ["", ["a"]], "expected": "", "label": "empty string"},
-      {"args": ["abcdef", []], "expected": "abcdef", "label": "no words"},
-      {"args": ["abcdef", ["xyz"]], "expected": "abcdef", "label": "no match"},
-      {"args": ["aaaa", ["aa"]], "expected": "<b>aaaa</b>", "label": "overlapping same word"},
-      {"args": ["abab", ["ab","ba"]], "expected": "<b>abab</b>", "label": "chain merge"}
+      {
+        "args": [
+          "abcxyz123",
+          [
+            "abc",
+            "123"
+          ]
+        ],
+        "expected": "<b>abc</b>xyz<b>123</b>",
+        "label": "two disjoint"
+      },
+      {
+        "args": [
+          "aaabbcc",
+          [
+            "aaa",
+            "aab",
+            "bc"
+          ]
+        ],
+        "expected": "<b>aaabbc</b>c",
+        "label": "overlapping merge"
+      },
+      {
+        "args": [
+          "",
+          [
+            "a"
+          ]
+        ],
+        "expected": "",
+        "label": "empty string"
+      },
+      {
+        "args": [
+          "abcdef",
+          []
+        ],
+        "expected": "abcdef",
+        "label": "no words"
+      },
+      {
+        "args": [
+          "abcdef",
+          [
+            "xyz"
+          ]
+        ],
+        "expected": "abcdef",
+        "label": "no match"
+      },
+      {
+        "args": [
+          "aaaa",
+          [
+            "aa"
+          ]
+        ],
+        "expected": "<b>aaaa</b>",
+        "label": "overlapping same word"
+      },
+      {
+        "args": [
+          "abab",
+          [
+            "ab",
+            "ba"
+          ]
+        ],
+        "expected": "<b>abab</b>",
+        "label": "chain merge"
+      }
     ],
     "editorial": "**Three steps**: (1) Find every match interval `[i, i+w.length-1]` of every word. (2) Merge intervals — *touching counts as overlap* (so adjacent tags fuse). (3) Walk `s`, wrapping each merged span in `<b>...</b>`.\n\n```javascript\nfunction addBoldTag(s, words) {\n  const ranges = [];\n  for (const w of words) {\n    if (!w) continue;\n    let i = s.indexOf(w);\n    while (i !== -1) {\n      ranges.push([i, i + w.length - 1]);\n      i = s.indexOf(w, i + 1);\n    }\n  }\n  if (ranges.length === 0) return s;\n  ranges.sort((a, b) => a[0] - b[0]);\n  const merged = [ranges[0].slice()];\n  for (let k = 1; k < ranges.length; k++) {\n    const last = merged[merged.length - 1];\n    if (ranges[k][0] <= last[1] + 1) {\n      last[1] = Math.max(last[1], ranges[k][1]);\n    } else {\n      merged.push(ranges[k].slice());\n    }\n  }\n  let out = '', p = 0;\n  for (const [l, r] of merged) {\n    out += s.slice(p, l) + '<b>' + s.slice(l, r + 1) + '</b>';\n    p = r + 1;\n  }\n  out += s.slice(p);\n  return out;\n}\n```\n\n**Time**: O(n*m + k log k) where n = |s|, m = total chars in words, k = match count.\n**Space**: O(k + n).\n\nKey twist: merge condition is `start <= lastEnd + 1` (not just `<= lastEnd`) so adjacent ranges fuse — `</b><b>` would otherwise leak through."
   },
   {
     "slug": "phonepe-max-non-overlap-promos",
     "number": 2515,
-    "title": "PhonePe Max Non-Overlapping Promos",
+    "title": "Maximum Profit in Job Scheduling",
     "difficulty": "Hard",
     "topic": "Intervals",
-    "companies": ["phonepe", "razorpay", "google"],
+    "companies": [
+      "phonepe",
+      "razorpay",
+      "google"
+    ],
     "description": "PhonePe runs promos as `[start, end, value]`. A promo is *active* during `[start, end)` (half-open). Pick a subset of non-overlapping promos that maximises total `value`. Return that maximum total. Two promos with `prevEnd == nextStart` are non-overlapping.",
     "examples": [
-      {"input": "promos = [[1,3,50],[2,5,20],[4,6,70]]", "output": "120", "explanation": "Pick [1,3,50] and [4,6,70] (non-overlapping, sum 120)."},
-      {"input": "promos = [[1,2,10],[2,3,10],[3,4,10]]", "output": "30"}
+      {
+        "input": "promos = [[1,3,50],[2,5,20],[4,6,70]]",
+        "output": "120",
+        "explanation": "Pick [1,3,50] and [4,6,70] (non-overlapping, sum 120)."
+      },
+      {
+        "input": "promos = [[1,2,10],[2,3,10],[3,4,10]]",
+        "output": "30"
+      }
     ],
-    "constraints": ["1 <= promos.length <= 5*10^4", "0 <= start < end <= 10^9", "0 <= value <= 10^4"],
+    "constraints": [
+      "1 <= promos.length <= 5*10^4",
+      "0 <= start < end <= 10^9",
+      "0 <= value <= 10^4"
+    ],
     "hints": [
       "Sort by end. dp[i] = best total using first i promos (sorted).",
       "For each i, binary-search the largest j with end[j] <= start[i] — pred(i).",
       "dp[i] = max(dp[i-1], dp[pred(i)] + value[i])."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function maxPromoValue(promos) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def max_promo_value(promos):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function maxPromoValue(promos) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_promo_value(promos):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "maxPromoValue",
     "tests": [
-      {"args": [[[1,3,50],[2,5,20],[4,6,70]]], "expected": 120, "label": "skip overlap"},
-      {"args": [[[1,2,10],[2,3,10],[3,4,10]]], "expected": 30, "label": "chain touching"},
-      {"args": [[[1,10,100]]], "expected": 100, "label": "single"},
-      {"args": [[[1,4,3],[2,5,4],[3,6,5]]], "expected": 5, "label": "all overlap pick best"},
-      {"args": [[[1,2,1],[3,4,1],[5,6,1],[7,8,1]]], "expected": 4, "label": "all disjoint"},
-      {"args": [[[1,3,10],[2,4,20],[3,5,30],[4,6,40]]], "expected": 60, "label": "weighted choice"},
-      {"args": [[[1,2,5],[1,2,3]]], "expected": 5, "label": "tie pick higher"}
+      {
+        "args": [
+          [
+            [
+              1,
+              3,
+              50
+            ],
+            [
+              2,
+              5,
+              20
+            ],
+            [
+              4,
+              6,
+              70
+            ]
+          ]
+        ],
+        "expected": 120,
+        "label": "skip overlap"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              10
+            ],
+            [
+              2,
+              3,
+              10
+            ],
+            [
+              3,
+              4,
+              10
+            ]
+          ]
+        ],
+        "expected": 30,
+        "label": "chain touching"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              10,
+              100
+            ]
+          ]
+        ],
+        "expected": 100,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4,
+              3
+            ],
+            [
+              2,
+              5,
+              4
+            ],
+            [
+              3,
+              6,
+              5
+            ]
+          ]
+        ],
+        "expected": 5,
+        "label": "all overlap pick best"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              3,
+              4,
+              1
+            ],
+            [
+              5,
+              6,
+              1
+            ],
+            [
+              7,
+              8,
+              1
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "all disjoint"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3,
+              10
+            ],
+            [
+              2,
+              4,
+              20
+            ],
+            [
+              3,
+              5,
+              30
+            ],
+            [
+              4,
+              6,
+              40
+            ]
+          ]
+        ],
+        "expected": 60,
+        "label": "weighted choice"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              5
+            ],
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 5,
+        "label": "tie pick higher"
+      }
     ],
     "editorial": "**Weighted interval scheduling — DP + binary search**:\n\n1. Sort promos by `end`.\n2. Let `pred(i)` = the largest index `j < i` with `end[j] <= start[i]` (or `-1`).\n3. `dp[i] = max(dp[i-1], value[i] + dp[pred(i)])` — either skip `i`, or take it and add the best result from non-conflicting predecessors.\n\nBinary-search for `pred(i)` keeps each step O(log n). Pure greedy (max non-overlap count) doesn't apply when values vary.\n\n```javascript\nfunction maxPromoValue(promos) {\n  if (promos.length === 0) return 0;\n  const arr = promos.slice().sort((a, b) => a[1] - b[1]);\n  const ends = arr.map(p => p[1]);\n  const n = arr.length;\n  function pred(i) {\n    let lo = 0, hi = i;\n    const target = arr[i][0];\n    while (lo < hi) {\n      const mid = (lo + hi) >> 1;\n      if (ends[mid] <= target) lo = mid + 1;\n      else hi = mid;\n    }\n    return lo - 1;\n  }\n  const dp = new Array(n + 1).fill(0); // dp[i] = best using arr[0..i-1]\n  for (let i = 0; i < n; i++) {\n    const take = arr[i][2] + dp[pred(i) + 1];\n    const skip = dp[i];\n    dp[i + 1] = Math.max(take, skip);\n  }\n  return dp[n];\n}\n```\n\n**Time**: O(n log n) — sort + n binary searches.\n**Space**: O(n) — dp + ends.\n\nTouching is allowed because `pred` uses `ends[mid] <= start`, not strict `<`."
   }

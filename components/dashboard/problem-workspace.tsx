@@ -160,23 +160,31 @@ type WorkspaceProps = {
    *  problem statement + examples + read-only editor; run/submit are gated
    *  behind a sign-in CTA. */
   isAuthed?: boolean;
+  /**
+   * True when the server-side Piston runner is pointing at a non-public host
+   * (i.e. PISTON_URL is not the dead emkc.org default). Computed server-side
+   * by isServerRunnerConfigured() in lib/env.ts and passed down as a prop so
+   * this client component never reads server env vars directly.
+   *
+   * When false: the language dropdown shows JavaScript only (in-browser runner).
+   * When true: all languages present in problem.starterCode are shown.
+   */
+  serverRunnerConfigured?: boolean;
 };
 
 export function ProblemWorkspace({
   problem,
   recentSubmissions = [],
   isAuthed = true,
+  serverRunnerConfigured = false,
 }: WorkspaceProps) {
-  // NOTE: Practice currently ships JavaScript ONLY — it runs entirely in the
-  // browser, no backend needed. The other languages (Python, Java, C++, Go,
-  // Rust) require a server-side Piston runner, which isn't hosted yet (the
-  // public Piston API went whitelist-only on 2026-02-15). They are disabled
-  // here so the dropdown offers just JavaScript. To re-enable them later:
-  // host a Piston instance, set PISTON_URL on the server, and restore the line:
-  //   const languages = problem.starterCode.map((s) => s.language);
+  // Language dropdown: JavaScript always shows (in-browser runner).
+  // Server languages (Python, Java, C++, Go, Rust, TypeScript, C) only appear
+  // when a self-hosted Piston runner is configured (PISTON_URL != emkc.org).
+  // Self-host: see docs/CODE_RUNNER.md.
   const languages = problem.starterCode
     .map((s) => s.language)
-    .filter((l) => l === "javascript");
+    .filter((l) => l === "javascript" || serverRunnerConfigured);
   const [language, setLanguage] = React.useState<string>(languages[0] ?? "javascript");
   const [code, setCode] = React.useState(
     problem.starterCode.find((s) => s.language === language)?.code ?? "",
@@ -217,7 +225,9 @@ export function ProblemWorkspace({
     "rust",
   ]);
   const supportsRun =
-    hasTests && (language === "javascript" || SERVER_LANGS.has(language));
+    hasTests &&
+    (language === "javascript" ||
+      (serverRunnerConfigured && SERVER_LANGS.has(language)));
 
   async function execute(mode: "run" | "submit") {
     if (!hasTests) {
@@ -228,7 +238,9 @@ export function ProblemWorkspace({
     }
     if (!supportsRun) {
       toast.info(`Auto-grading not available for ${language} yet.`, {
-        description: "Switch to JavaScript, Python, Java, C++, Go, or Rust.",
+        description: serverRunnerConfigured
+          ? "Switch to JavaScript, Python, Java, C++, Go, or Rust."
+          : "Only JavaScript runs here — set PISTON_URL to enable server languages (see docs/CODE_RUNNER.md).",
       });
       return;
     }
@@ -563,9 +575,11 @@ export function ProblemWorkspace({
                       disabled={result.kind === "running" || !supportsRun}
                       title={
                         !supportsRun
-                          ? language !== "javascript"
-                            ? "Auto-run is JavaScript-only for now"
-                            : "Auto-grading not configured for this problem"
+                          ? !hasTests
+                            ? "Auto-grading not configured for this problem"
+                            : serverRunnerConfigured
+                              ? `${language} auto-grading not available`
+                              : "Server runner not configured — only JavaScript available"
                           : "Run against the visible sample cases"
                       }
                     >
@@ -785,8 +799,10 @@ export function ProblemWorkspace({
 
             {result.kind === "idle" && hasTests && !supportsRun ? (
               <p className="mt-3 text-xs text-slate-400">
-                Auto-grading isn&apos;t set up for {language} on this problem.
-                Try JavaScript, Python, Java, C++, Go, or Rust.
+                Auto-grading isn&apos;t set up for {language} on this problem.{" "}
+                {serverRunnerConfigured
+                  ? "Try JavaScript, Python, Java, C++, Go, or Rust."
+                  : "Try JavaScript (server runner not configured — see docs/CODE_RUNNER.md)."}
               </p>
             ) : null}
             {result.kind === "idle" && hasTests && supportsRun && language !== "javascript" ? (

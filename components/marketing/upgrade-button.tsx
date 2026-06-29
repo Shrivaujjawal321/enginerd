@@ -124,9 +124,10 @@ export function UpgradeButton({
       });
 
       if (res.status === 503) {
-        toast.error("Razorpay isn't configured yet.", {
+        const data = await res.json().catch(() => null);
+        toast.error("Payments temporarily unavailable.", {
           description:
-            "Set RAZORPAY_KEY_ID + RAZORPAY_KEY_SECRET in production to enable checkout.",
+            data?.message ?? "Please try again later or contact support.",
         });
         return;
       }

@@ -2,488 +2,1532 @@
   {
     "slug": "cricket-scoreboard-cumulative-sum",
     "number": 3001,
-    "title": "Cricket Scoreboard Cumulative Sum",
+    "title": "Sum of Array Elements",
     "difficulty": "Easy",
     "topic": "Recursion",
-    "companies": ["jio-hotstar", "dream11", "sony-liv"],
+    "companies": [
+      "jio-hotstar",
+      "dream11",
+      "sony-liv"
+    ],
     "description": "A cricket scoreboard tracks runs scored ball-by-ball as an array `runs`. The producer wants the cumulative team total at the end of the over but the engine only allows recursion (no loops). Given the `runs` array, return the sum of all elements using a pure recursive approach.",
     "examples": [
-      {"input": "runs = [1, 4, 0, 6, 2, 1]", "output": "14", "explanation": "1+4+0+6+2+1 = 14."},
-      {"input": "runs = [0]", "output": "0"}
+      {
+        "input": "runs = [1, 4, 0, 6, 2, 1]",
+        "output": "14",
+        "explanation": "1+4+0+6+2+1 = 14."
+      },
+      {
+        "input": "runs = [0]",
+        "output": "0"
+      }
     ],
-    "constraints": ["1 <= runs.length <= 1000", "0 <= runs[i] <= 6"],
+    "constraints": [
+      "1 <= runs.length <= 1000",
+      "0 <= runs[i] <= 6"
+    ],
     "hints": [
       "Base case: empty ya last index reach kiya — return 0.",
       "Recurrence: sum(arr, i) = arr[i] + sum(arr, i+1).",
       "Tu helper function bana sakta hai jo index pass kare."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function cumulativeRuns(runs) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def cumulative_runs(runs):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function cumulativeRuns(runs) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def cumulative_runs(runs):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "cumulativeRuns",
     "tests": [
-      {"args": [[1, 4, 0, 6, 2, 1]], "expected": 14, "label": "classic over"},
-      {"args": [[0]], "expected": 0, "label": "single dot ball"},
-      {"args": [[6, 6, 6, 6, 6, 6]], "expected": 36, "label": "all sixes"},
-      {"args": [[1, 1, 1, 1]], "expected": 4, "label": "singles"},
-      {"args": [[4, 0, 0, 4, 0, 4]], "expected": 12, "label": "boundary mix"}
+      {
+        "args": [
+          [
+            1,
+            4,
+            0,
+            6,
+            2,
+            1
+          ]
+        ],
+        "expected": 14,
+        "label": "classic over"
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": 0,
+        "label": "single dot ball"
+      },
+      {
+        "args": [
+          [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+          ]
+        ],
+        "expected": 36,
+        "label": "all sixes"
+      },
+      {
+        "args": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "expected": 4,
+        "label": "singles"
+      },
+      {
+        "args": [
+          [
+            4,
+            0,
+            0,
+            4,
+            0,
+            4
+          ]
+        ],
+        "expected": 12,
+        "label": "boundary mix"
+      }
     ],
     "editorial": "**Base case + recurrence**: Define `sum(i)` = total of `runs[i..n-1]`.\n- Base: if `i === runs.length`, return 0.\n- Recurrence: `sum(i) = runs[i] + sum(i+1)`.\n\n```javascript\nfunction cumulativeRuns(runs) {\n  function helper(i) {\n    if (i === runs.length) return 0; // base case\n    return runs[i] + helper(i + 1);\n  }\n  return helper(0);\n}\n```\n\n**Time**: O(n) — one call per element.\n**Space**: O(n) — recursion stack depth.\n\n**Iterative alternative (without recursion stack)**: A simple `for` loop with accumulator gives O(1) extra space. Use the iterative form when n is huge and stack overflow is a risk."
   },
   {
     "slug": "razorpay-transaction-date-factorial",
     "number": 3002,
-    "title": "Razorpay Transaction Permutation Count",
+    "title": "Factorial",
     "difficulty": "Easy",
     "topic": "Recursion",
-    "companies": ["razorpay", "paytm", "phonepe"],
+    "companies": [
+      "razorpay",
+      "paytm",
+      "phonepe"
+    ],
     "description": "Razorpay's analytics needs `n!` (factorial of n) to count the number of orderings of n distinct transactions on a date. Implement factorial recursively. Return the result for the given non-negative integer `n`.",
     "examples": [
-      {"input": "n = 5", "output": "120", "explanation": "5*4*3*2*1 = 120."},
-      {"input": "n = 0", "output": "1", "explanation": "By convention 0! = 1."}
+      {
+        "input": "n = 5",
+        "output": "120",
+        "explanation": "5*4*3*2*1 = 120."
+      },
+      {
+        "input": "n = 0",
+        "output": "1",
+        "explanation": "By convention 0! = 1."
+      }
     ],
-    "constraints": ["0 <= n <= 18"],
+    "constraints": [
+      "0 <= n <= 18"
+    ],
     "hints": [
       "Base case: n === 0 ya n === 1 → return 1.",
       "Recurrence: factorial(n) = n * factorial(n-1).",
       "Memoization tab useful jab same n bar bar pucha jaaye."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function transactionFactorial(n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def transaction_factorial(n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function transactionFactorial(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def transaction_factorial(n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "transactionFactorial",
     "tests": [
-      {"args": [5], "expected": 120, "label": "five"},
-      {"args": [0], "expected": 1, "label": "zero edge"},
-      {"args": [1], "expected": 1, "label": "one"},
-      {"args": [6], "expected": 720, "label": "six"},
-      {"args": [10], "expected": 3628800, "label": "ten"},
-      {"args": [12], "expected": 479001600, "label": "twelve"}
+      {
+        "args": [
+          5
+        ],
+        "expected": 120,
+        "label": "five"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 1,
+        "label": "zero edge"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1,
+        "label": "one"
+      },
+      {
+        "args": [
+          6
+        ],
+        "expected": 720,
+        "label": "six"
+      },
+      {
+        "args": [
+          10
+        ],
+        "expected": 3628800,
+        "label": "ten"
+      },
+      {
+        "args": [
+          12
+        ],
+        "expected": 479001600,
+        "label": "twelve"
+      }
     ],
     "editorial": "**Base case + recurrence**:\n- Base: `n <= 1 → 1`.\n- Recurrence: `factorial(n) = n * factorial(n-1)`.\n\n```javascript\nfunction transactionFactorial(n) {\n  if (n <= 1) return 1; // base\n  return n * transactionFactorial(n - 1);\n}\n```\n\n**Time**: O(n). **Space**: O(n) recursion stack.\n\n**Memoization optimization**: If multiple queries share sub-results, cache them.\n\n```javascript\nconst memo = new Map();\nfunction fact(n) {\n  if (n <= 1) return 1;\n  if (memo.has(n)) return memo.get(n);\n  const v = n * fact(n - 1);\n  memo.set(n, v);\n  return v;\n}\n```\n\n**Iterative alternative (without recursion stack)**: Simple loop `for (let i = 2; i <= n; i++) result *= i;` — O(1) extra space."
   },
   {
     "slug": "fibonacci-of-day",
     "number": 3003,
-    "title": "Fibonacci Login Streak",
+    "title": "Fibonacci Number",
     "difficulty": "Easy",
     "topic": "Recursion",
-    "companies": ["dream11", "myntra", "cred"],
+    "companies": [
+      "dream11",
+      "myntra",
+      "cred"
+    ],
     "description": "A loyalty app rewards a user whose login pattern follows Fibonacci numbers. Given an integer `n`, return the n-th Fibonacci number where `fib(0) = 0`, `fib(1) = 1`, and `fib(n) = fib(n-1) + fib(n-2)` for n >= 2. Show the recursive definition; memoize for efficiency.",
     "examples": [
-      {"input": "n = 6", "output": "8", "explanation": "Sequence: 0,1,1,2,3,5,8 — index 6 is 8."},
-      {"input": "n = 0", "output": "0"}
+      {
+        "input": "n = 6",
+        "output": "8",
+        "explanation": "Sequence: 0,1,1,2,3,5,8 — index 6 is 8."
+      },
+      {
+        "input": "n = 0",
+        "output": "0"
+      }
     ],
-    "constraints": ["0 <= n <= 40"],
+    "constraints": [
+      "0 <= n <= 40"
+    ],
     "hints": [
       "Base: n < 2 → return n.",
       "Recurrence: fib(n) = fib(n-1) + fib(n-2).",
       "Plain recursion exponential hai — memo se O(n) hota hai."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function fibLoginStreak(n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def fib_login_streak(n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function fibLoginStreak(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def fib_login_streak(n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "fibLoginStreak",
     "tests": [
-      {"args": [6], "expected": 8, "label": "small index"},
-      {"args": [0], "expected": 0, "label": "zero"},
-      {"args": [1], "expected": 1, "label": "one"},
-      {"args": [10], "expected": 55, "label": "ten"},
-      {"args": [20], "expected": 6765, "label": "twenty"},
-      {"args": [30], "expected": 832040, "label": "thirty"}
+      {
+        "args": [
+          6
+        ],
+        "expected": 8,
+        "label": "small index"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0,
+        "label": "zero"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1,
+        "label": "one"
+      },
+      {
+        "args": [
+          10
+        ],
+        "expected": 55,
+        "label": "ten"
+      },
+      {
+        "args": [
+          20
+        ],
+        "expected": 6765,
+        "label": "twenty"
+      },
+      {
+        "args": [
+          30
+        ],
+        "expected": 832040,
+        "label": "thirty"
+      }
     ],
     "editorial": "**Naive recursion**:\n- Base: `n < 2 → n`.\n- Recurrence: `fib(n) = fib(n-1) + fib(n-2)`.\n\nThis is O(2^n) — at n=30 it visits ~10^6 nodes redundantly.\n\n**Optimal — memoized recursion** (top-down DP, but the *core* is still pure recursion):\n\n```javascript\nfunction fibLoginStreak(n) {\n  const memo = new Map();\n  function fib(k) {\n    if (k < 2) return k;\n    if (memo.has(k)) return memo.get(k);\n    const v = fib(k - 1) + fib(k - 2);\n    memo.set(k, v);\n    return v;\n  }\n  return fib(n);\n}\n```\n\n**Time**: O(n). **Space**: O(n).\n\n**Iterative alternative (without recursion stack)**: Two rolling variables — O(n) time, O(1) space. Best when only the final value is needed."
   },
   {
     "slug": "indian-railways-station-skip",
     "number": 3004,
-    "title": "Indian Railways Station Skip Count",
+    "title": "Print Numbers Forward and Backward",
     "difficulty": "Medium",
     "topic": "Recursion",
-    "companies": ["indian-railways-irctc", "redbus", "makemytrip"],
+    "companies": [
+      "indian-railways-irctc",
+      "redbus",
+      "makemytrip"
+    ],
     "description": "An IRCTC dashboard wants to print station numbers from 1 to N (announcement order) and N to 1 (return-trip order) using recursion only — no loops allowed. Given `n`, return an object `{forward: number[], reverse: number[]}` where `forward` is `[1, 2, ..., n]` and `reverse` is `[n, n-1, ..., 1]`.",
     "examples": [
-      {"input": "n = 3", "output": "{forward: [1,2,3], reverse: [3,2,1]}"},
-      {"input": "n = 1", "output": "{forward: [1], reverse: [1]}"}
+      {
+        "input": "n = 3",
+        "output": "{forward: [1,2,3], reverse: [3,2,1]}"
+      },
+      {
+        "input": "n = 1",
+        "output": "{forward: [1], reverse: [1]}"
+      }
     ],
-    "constraints": ["1 <= n <= 1000"],
+    "constraints": [
+      "1 <= n <= 1000"
+    ],
     "hints": [
       "Forward: print first, then recurse on n+1 — but tu reverse direction se bhi solve kar sakta hai.",
       "Trick: `printForward(n)` = `printForward(n-1)` then push n. Stack unwinding order use kar.",
       "Reverse: push n first, then recurse with n-1."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function stationSkipPrint(n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def station_skip_print(n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function stationSkipPrint(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def station_skip_print(n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "stationSkipPrint",
     "tests": [
-      {"args": [3], "expected": {"forward": [1, 2, 3], "reverse": [3, 2, 1]}, "label": "three"},
-      {"args": [1], "expected": {"forward": [1], "reverse": [1]}, "label": "single"},
-      {"args": [5], "expected": {"forward": [1, 2, 3, 4, 5], "reverse": [5, 4, 3, 2, 1]}, "label": "five"},
-      {"args": [2], "expected": {"forward": [1, 2], "reverse": [2, 1]}, "label": "two"},
-      {"args": [10], "expected": {"forward": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "reverse": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]}, "label": "ten"}
+      {
+        "args": [
+          3
+        ],
+        "expected": {
+          "forward": [
+            1,
+            2,
+            3
+          ],
+          "reverse": [
+            3,
+            2,
+            1
+          ]
+        },
+        "label": "three"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": {
+          "forward": [
+            1
+          ],
+          "reverse": [
+            1
+          ]
+        },
+        "label": "single"
+      },
+      {
+        "args": [
+          5
+        ],
+        "expected": {
+          "forward": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "reverse": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        },
+        "label": "five"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": {
+          "forward": [
+            1,
+            2
+          ],
+          "reverse": [
+            2,
+            1
+          ]
+        },
+        "label": "two"
+      },
+      {
+        "args": [
+          10
+        ],
+        "expected": {
+          "forward": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "reverse": [
+            10,
+            9,
+            8,
+            7,
+            6,
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        },
+        "label": "ten"
+      }
     ],
     "editorial": "**Trick — control print position relative to recursion call**:\n\nFor `1..n` in increasing order without a loop:\n- Recurse first (`printForward(n-1)`), THEN push `n`. Stack unwinds in increasing order.\n\nFor `n..1` in decreasing order:\n- Push `n` FIRST, then recurse (`printReverse(n-1)`). Top-of-stack action gives decreasing.\n\n```javascript\nfunction stationSkipPrint(n) {\n  const forward = [];\n  const reverse = [];\n  function pf(k) {\n    if (k < 1) return; // base\n    pf(k - 1);\n    forward.push(k);\n  }\n  function pr(k) {\n    if (k < 1) return; // base\n    reverse.push(k);\n    pr(k - 1);\n  }\n  pf(n);\n  pr(n);\n  return { forward, reverse };\n}\n```\n\n**Time**: O(n). **Space**: O(n) stack + O(n) output.\n\nKey lesson: same recursion can produce *opposite* orders just by swapping work-before-call vs work-after-call."
   },
   {
     "slug": "sum-of-digits-aadhaar",
     "number": 3005,
-    "title": "Aadhaar Digit Sum",
+    "title": "Sum of Digits",
     "difficulty": "Easy",
     "topic": "Recursion",
-    "companies": ["uidai", "paytm", "phonepe"],
+    "companies": [
+      "uidai",
+      "paytm",
+      "phonepe"
+    ],
     "description": "A KYC service must compute the sum of decimal digits of a non-negative integer `n` recursively. Return the digit sum.",
     "examples": [
-      {"input": "n = 12345", "output": "15", "explanation": "1+2+3+4+5 = 15."},
-      {"input": "n = 0", "output": "0"}
+      {
+        "input": "n = 12345",
+        "output": "15",
+        "explanation": "1+2+3+4+5 = 15."
+      },
+      {
+        "input": "n = 0",
+        "output": "0"
+      }
     ],
-    "constraints": ["0 <= n <= 10^9"],
+    "constraints": [
+      "0 <= n <= 10^9"
+    ],
     "hints": [
       "Base: n === 0 → return 0.",
       "Recurrence: sum(n) = (n % 10) + sum(floor(n/10)).",
       "Iterative form bhi simple hai using while loop."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function aadhaarDigitSum(n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def aadhaar_digit_sum(n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function aadhaarDigitSum(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def aadhaar_digit_sum(n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "aadhaarDigitSum",
     "tests": [
-      {"args": [12345], "expected": 15, "label": "five digits"},
-      {"args": [0], "expected": 0, "label": "zero"},
-      {"args": [9], "expected": 9, "label": "single digit"},
-      {"args": [1000000000], "expected": 1, "label": "billion"},
-      {"args": [99999], "expected": 45, "label": "all nines"},
-      {"args": [203], "expected": 5, "label": "with zero"}
+      {
+        "args": [
+          12345
+        ],
+        "expected": 15,
+        "label": "five digits"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0,
+        "label": "zero"
+      },
+      {
+        "args": [
+          9
+        ],
+        "expected": 9,
+        "label": "single digit"
+      },
+      {
+        "args": [
+          1000000000
+        ],
+        "expected": 1,
+        "label": "billion"
+      },
+      {
+        "args": [
+          99999
+        ],
+        "expected": 45,
+        "label": "all nines"
+      },
+      {
+        "args": [
+          203
+        ],
+        "expected": 5,
+        "label": "with zero"
+      }
     ],
     "editorial": "**Base case + recurrence**:\n- Base: `n === 0 → 0`.\n- Recurrence: `digitSum(n) = (n % 10) + digitSum(Math.floor(n / 10))`.\n\n```javascript\nfunction aadhaarDigitSum(n) {\n  if (n === 0) return 0;\n  return (n % 10) + aadhaarDigitSum(Math.floor(n / 10));\n}\n```\n\n**Time**: O(log10(n)) — one call per digit.\n**Space**: O(log10(n)) recursion stack.\n\n**Iterative alternative (without recursion stack)**:\n```javascript\nlet s = 0;\nwhile (n > 0) { s += n % 10; n = Math.floor(n / 10); }\nreturn s;\n```\n\nO(1) extra space, same time. Edge: explicit `n === 0 → 0` because the while-loop body never executes for 0."
   },
   {
     "slug": "string-reverse-recursive",
     "number": 3006,
-    "title": "Reverse Customer Name Recursively",
+    "title": "Reverse String",
     "difficulty": "Medium",
     "topic": "Recursion",
-    "companies": ["zomato", "swiggy", "flipkart"],
+    "companies": [
+      "zomato",
+      "swiggy",
+      "flipkart"
+    ],
     "description": "A delivery app's name-display module needs to reverse a customer's name string using only recursion (no loops, no built-in reverse). Given a string `s`, return its reverse.",
     "examples": [
-      {"input": "s = \"swiggy\"", "output": "\"yggiws\""},
-      {"input": "s = \"a\"", "output": "\"a\""}
+      {
+        "input": "s = \"swiggy\"",
+        "output": "\"yggiws\""
+      },
+      {
+        "input": "s = \"a\"",
+        "output": "\"a\""
+      }
     ],
-    "constraints": ["0 <= s.length <= 1000", "s consists of printable ASCII"],
+    "constraints": [
+      "0 <= s.length <= 1000",
+      "s consists of printable ASCII"
+    ],
     "hints": [
       "Base: empty ya single char string return as-is.",
       "Recurrence: reverse(s) = reverse(s.slice(1)) + s[0].",
       "Linear in length — har call ek char strip kare."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function reverseName(s) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def reverse_name(s):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function reverseName(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reverse_name(s):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "reverseName",
     "tests": [
-      {"args": ["swiggy"], "expected": "yggiws", "label": "brand"},
-      {"args": ["a"], "expected": "a", "label": "single char"},
-      {"args": [""], "expected": "", "label": "empty"},
-      {"args": ["abcd"], "expected": "dcba", "label": "even length"},
-      {"args": ["racecar"], "expected": "racecar", "label": "palindrome unchanged"},
-      {"args": ["Hello World"], "expected": "dlroW olleH", "label": "with space"}
+      {
+        "args": [
+          "swiggy"
+        ],
+        "expected": "yggiws",
+        "label": "brand"
+      },
+      {
+        "args": [
+          "a"
+        ],
+        "expected": "a",
+        "label": "single char"
+      },
+      {
+        "args": [
+          ""
+        ],
+        "expected": "",
+        "label": "empty"
+      },
+      {
+        "args": [
+          "abcd"
+        ],
+        "expected": "dcba",
+        "label": "even length"
+      },
+      {
+        "args": [
+          "racecar"
+        ],
+        "expected": "racecar",
+        "label": "palindrome unchanged"
+      },
+      {
+        "args": [
+          "Hello World"
+        ],
+        "expected": "dlroW olleH",
+        "label": "with space"
+      }
     ],
     "editorial": "**Base case + recurrence**:\n- Base: `s.length <= 1 → s`.\n- Recurrence: `reverse(s) = reverse(s.slice(1)) + s[0]`.\n\n```javascript\nfunction reverseName(s) {\n  if (s.length <= 1) return s;\n  return reverseName(s.slice(1)) + s[0];\n}\n```\n\n**Time**: O(n^2) due to string slicing/concatenation copying.\n**Space**: O(n) stack.\n\n**Better recursive (two-pointer swap with array)**:\n```javascript\nfunction reverseName(s) {\n  const arr = s.split('');\n  function rev(l, r) {\n    if (l >= r) return;\n    [arr[l], arr[r]] = [arr[r], arr[l]];\n    rev(l + 1, r - 1);\n  }\n  rev(0, arr.length - 1);\n  return arr.join('');\n}\n```\nO(n) time, O(n) stack.\n\n**Iterative alternative (without recursion stack)**: Two pointers swapping in-place — O(n) time, O(1) extra space."
   },
   {
     "slug": "fast-power-discount",
     "number": 3007,
-    "title": "Fast Power Discount Factor",
+    "title": "Pow(x, n)",
     "difficulty": "Medium",
     "topic": "Recursion",
-    "companies": ["amazon", "flipkart", "myntra"],
+    "companies": [
+      "amazon",
+      "flipkart",
+      "myntra"
+    ],
     "description": "An e-commerce coupon engine multiplies a discount factor `x` by itself `n` times to apply a compounded discount. To handle large `n` quickly, implement fast exponentiation recursively: compute `x^n` using divide-and-conquer (squaring). `n` may be negative — in which case return `1 / x^|n|`. Return the result as a JavaScript number rounded reasonably (tests use a tolerance via exact integer/half cases).",
     "examples": [
-      {"input": "x = 2.0, n = 10", "output": "1024", "explanation": "2^10 = 1024."},
-      {"input": "x = 2.0, n = -2", "output": "0.25", "explanation": "1/4."}
+      {
+        "input": "x = 2.0, n = 10",
+        "output": "1024",
+        "explanation": "2^10 = 1024."
+      },
+      {
+        "input": "x = 2.0, n = -2",
+        "output": "0.25",
+        "explanation": "1/4."
+      }
     ],
-    "constraints": ["-100.0 <= x <= 100.0", "-30 <= n <= 30", "x != 0 when n < 0"],
+    "constraints": [
+      "-100.0 <= x <= 100.0",
+      "-30 <= n <= 30",
+      "x != 0 when n < 0"
+    ],
     "hints": [
       "Base: n === 0 → 1.",
       "Recurrence: agar n even → power(x, n/2)^2. Odd → x * power(x, n-1).",
       "Negative n: convert to 1 / power(x, -n) at top level."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function fastPower(x, n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def fast_power(x, n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function fastPower(x, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def fast_power(x, n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "fastPower",
     "tests": [
-      {"args": [2.0, 10], "expected": 1024, "label": "classic power"},
-      {"args": [2.0, 0], "expected": 1, "label": "zero exponent"},
-      {"args": [2.0, -2], "expected": 0.25, "label": "negative"},
-      {"args": [3.0, 4], "expected": 81, "label": "odd base"},
-      {"args": [1.0, 30], "expected": 1, "label": "one to anything"},
-      {"args": [-2.0, 3], "expected": -8, "label": "negative base odd"}
+      {
+        "args": [
+          2,
+          10
+        ],
+        "expected": 1024,
+        "label": "classic power"
+      },
+      {
+        "args": [
+          2,
+          0
+        ],
+        "expected": 1,
+        "label": "zero exponent"
+      },
+      {
+        "args": [
+          2,
+          -2
+        ],
+        "expected": 0.25,
+        "label": "negative"
+      },
+      {
+        "args": [
+          3,
+          4
+        ],
+        "expected": 81,
+        "label": "odd base"
+      },
+      {
+        "args": [
+          1,
+          30
+        ],
+        "expected": 1,
+        "label": "one to anything"
+      },
+      {
+        "args": [
+          -2,
+          3
+        ],
+        "expected": -8,
+        "label": "negative base odd"
+      }
     ],
     "editorial": "**Naive recursion**: `power(x, n) = x * power(x, n-1)` — O(n).\n\n**Fast exponentiation (divide & conquer)**:\n- Base: `n === 0 → 1`.\n- If `n` even: `power(x, n/2) * power(x, n/2)` — compute once, square it.\n- If `n` odd: `x * power(x, n-1)` (or equivalently `x * half * half` where half = power(x, (n-1)/2)).\n- Negative `n`: handle once at the top by inverting.\n\n```javascript\nfunction fastPower(x, n) {\n  if (n < 0) return 1 / fastPower(x, -n);\n  if (n === 0) return 1;\n  const half = fastPower(x, Math.floor(n / 2));\n  if (n % 2 === 0) return half * half;\n  return x * half * half;\n}\n```\n\n**Time**: O(log n). **Space**: O(log n) recursion depth.\n\n**Iterative alternative (without recursion stack)**: Binary exponentiation loop — examine bits of `n`, multiply accumulator when bit is set, square `x` each step. O(log n) time, O(1) space."
   },
   {
     "slug": "tower-of-hanoi-moves",
     "number": 3008,
-    "title": "Tower of Hanoi Move List",
+    "title": "Tower of Hanoi",
     "difficulty": "Hard",
     "topic": "Recursion",
-    "companies": ["microsoft", "adobe", "tcs"],
+    "companies": [
+      "microsoft",
+      "adobe",
+      "tcs"
+    ],
     "description": "Classic Tower of Hanoi: `n` disks on rod `A`, move them to rod `C` using `B` as auxiliary, with the rule that no larger disk sits on a smaller one. Given `n`, return an object `{count: number, moves: string[]}` where `count` is the minimum number of moves and `moves` is the move sequence as strings like `\"A->C\"`.",
     "examples": [
-      {"input": "n = 2", "output": "{count: 3, moves: [\"A->B\", \"A->C\", \"B->C\"]}"},
-      {"input": "n = 1", "output": "{count: 1, moves: [\"A->C\"]}"}
+      {
+        "input": "n = 2",
+        "output": "{count: 3, moves: [\"A->B\", \"A->C\", \"B->C\"]}"
+      },
+      {
+        "input": "n = 1",
+        "output": "{count: 1, moves: [\"A->C\"]}"
+      }
     ],
-    "constraints": ["1 <= n <= 12"],
+    "constraints": [
+      "1 <= n <= 12"
+    ],
     "hints": [
       "Base: n === 1 → just move from source to dest.",
       "Recurrence: move n-1 from src→aux, move n-th from src→dest, move n-1 from aux→dest.",
       "Total moves count = 2^n - 1."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function towerOfHanoi(n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def tower_of_hanoi(n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function towerOfHanoi(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def tower_of_hanoi(n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "towerOfHanoi",
     "tests": [
-      {"args": [1], "expected": {"count": 1, "moves": ["A->C"]}, "label": "single disk"},
-      {"args": [2], "expected": {"count": 3, "moves": ["A->B", "A->C", "B->C"]}, "label": "two disks"},
-      {"args": [3], "expected": {"count": 7, "moves": ["A->C", "A->B", "C->B", "A->C", "B->A", "B->C", "A->C"]}, "label": "three disks"},
-      {"args": [4], "expected": {"count": 15, "moves": ["A->B", "A->C", "B->C", "A->B", "C->A", "C->B", "A->B", "A->C", "B->C", "B->A", "C->A", "B->C", "A->B", "A->C", "B->C"]}, "label": "four disks"}
+      {
+        "args": [
+          1
+        ],
+        "expected": {
+          "count": 1,
+          "moves": [
+            "A->C"
+          ]
+        },
+        "label": "single disk"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": {
+          "count": 3,
+          "moves": [
+            "A->B",
+            "A->C",
+            "B->C"
+          ]
+        },
+        "label": "two disks"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": {
+          "count": 7,
+          "moves": [
+            "A->C",
+            "A->B",
+            "C->B",
+            "A->C",
+            "B->A",
+            "B->C",
+            "A->C"
+          ]
+        },
+        "label": "three disks"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": {
+          "count": 15,
+          "moves": [
+            "A->B",
+            "A->C",
+            "B->C",
+            "A->B",
+            "C->A",
+            "C->B",
+            "A->B",
+            "A->C",
+            "B->C",
+            "B->A",
+            "C->A",
+            "B->C",
+            "A->B",
+            "A->C",
+            "B->C"
+          ]
+        },
+        "label": "four disks"
+      }
     ],
     "editorial": "**Recurrence**: To move `n` disks from `src` to `dest` using `aux`:\n1. Move top `n-1` disks from `src` to `aux` (using `dest`).\n2. Move the largest disk from `src` to `dest`.\n3. Move the `n-1` disks from `aux` to `dest` (using `src`).\n\nBase: `n === 1` → single move `src → dest`.\n\n```javascript\nfunction towerOfHanoi(n) {\n  const moves = [];\n  function solve(k, src, dest, aux) {\n    if (k === 1) {\n      moves.push(`${src}->${dest}`);\n      return;\n    }\n    solve(k - 1, src, aux, dest);\n    moves.push(`${src}->${dest}`);\n    solve(k - 1, aux, dest, src);\n  }\n  solve(n, 'A', 'C', 'B');\n  return { count: moves.length, moves };\n}\n```\n\n**Time**: O(2^n). **Space**: O(n) recursion depth + O(2^n) for the move list.\n\nMove count `T(n) = 2*T(n-1) + 1 → 2^n - 1`. This is *not* memoizable — every move is unique."
   },
   {
     "slug": "palindrome-receipt-recursive",
     "number": 3009,
-    "title": "Recursive Palindrome Check on Order ID",
+    "title": "Recursive Palindrome Check",
     "difficulty": "Easy",
     "topic": "Recursion",
-    "companies": ["zomato", "myntra", "bigbasket"],
+    "companies": [
+      "zomato",
+      "myntra",
+      "bigbasket"
+    ],
     "description": "A loyalty bot rewards users whose order ID string reads the same forwards and backwards. Implement a pure recursive palindrome check on a string `s`. Return `true` if `s` is a palindrome, otherwise `false`. Comparison is case-sensitive.",
     "examples": [
-      {"input": "s = \"madam\"", "output": "true"},
-      {"input": "s = \"order123\"", "output": "false"}
+      {
+        "input": "s = \"madam\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"order123\"",
+        "output": "false"
+      }
     ],
-    "constraints": ["0 <= s.length <= 1000"],
+    "constraints": [
+      "0 <= s.length <= 1000"
+    ],
     "hints": [
       "Base: length <= 1 → true.",
       "Recurrence: agar s[0] !== s[n-1] → false; else recurse on s[1..n-2].",
       "Two-pointer recursive form O(n) time and O(n) stack."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function isPalindromeRec(s) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def is_palindrome_rec(s):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function isPalindromeRec(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_palindrome_rec(s):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "isPalindromeRec",
     "tests": [
-      {"args": ["madam"], "expected": true, "label": "classic"},
-      {"args": ["order123"], "expected": false, "label": "not palindrome"},
-      {"args": [""], "expected": true, "label": "empty"},
-      {"args": ["a"], "expected": true, "label": "single"},
-      {"args": ["aa"], "expected": true, "label": "two same"},
-      {"args": ["ab"], "expected": false, "label": "two diff"}
+      {
+        "args": [
+          "madam"
+        ],
+        "expected": true,
+        "label": "classic"
+      },
+      {
+        "args": [
+          "order123"
+        ],
+        "expected": false,
+        "label": "not palindrome"
+      },
+      {
+        "args": [
+          ""
+        ],
+        "expected": true,
+        "label": "empty"
+      },
+      {
+        "args": [
+          "a"
+        ],
+        "expected": true,
+        "label": "single"
+      },
+      {
+        "args": [
+          "aa"
+        ],
+        "expected": true,
+        "label": "two same"
+      },
+      {
+        "args": [
+          "ab"
+        ],
+        "expected": false,
+        "label": "two diff"
+      }
     ],
     "editorial": "**Two-pointer recursion**:\n- Base: `l >= r → true` (window collapsed or crossed).\n- If `s[l] !== s[r]` → false.\n- Else recurse with `l+1, r-1`.\n\n```javascript\nfunction isPalindromeRec(s) {\n  function check(l, r) {\n    if (l >= r) return true; // base\n    if (s[l] !== s[r]) return false;\n    return check(l + 1, r - 1);\n  }\n  return check(0, s.length - 1);\n}\n```\n\n**Time**: O(n). **Space**: O(n) recursion stack.\n\n**Iterative alternative (without recursion stack)**: Same two-pointer pattern in a `while (l < r)` loop — O(n) time, O(1) extra space. Recursion is conceptually cleaner here, but the iterative version avoids the stack overhead and is preferred for very long strings."
   },
   {
     "slug": "binary-representation-recursive",
     "number": 3010,
-    "title": "Binary Representation of Account Number",
+    "title": "Decimal to Binary Conversion",
     "difficulty": "Medium",
     "topic": "Recursion",
-    "companies": ["icici", "hdfc", "axis-bank"],
+    "companies": [
+      "icici",
+      "hdfc",
+      "axis-bank"
+    ],
     "description": "A bank's encoder converts a non-negative account ID `n` to its binary string representation using recursion. Return the binary string with no leading zeros (except `n === 0` returns `\"0\"`).",
     "examples": [
-      {"input": "n = 13", "output": "\"1101\"", "explanation": "8+4+1 = 13."},
-      {"input": "n = 0", "output": "\"0\""}
+      {
+        "input": "n = 13",
+        "output": "\"1101\"",
+        "explanation": "8+4+1 = 13."
+      },
+      {
+        "input": "n = 0",
+        "output": "\"0\""
+      }
     ],
-    "constraints": ["0 <= n <= 10^9"],
+    "constraints": [
+      "0 <= n <= 10^9"
+    ],
     "hints": [
       "Base: n === 0 → return \"0\" at TOP-LEVEL ONLY; in recursion 0 should return empty.",
       "Recurrence: binary(n) = binary(floor(n/2)) + (n % 2).",
       "Tu wrapper function bana ke top-level pe handle kar le n=0 ka edge."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function toBinaryRec(n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def to_binary_rec(n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function toBinaryRec(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def to_binary_rec(n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "toBinaryRec",
     "tests": [
-      {"args": [13], "expected": "1101", "label": "thirteen"},
-      {"args": [0], "expected": "0", "label": "zero edge"},
-      {"args": [1], "expected": "1", "label": "one"},
-      {"args": [2], "expected": "10", "label": "two"},
-      {"args": [255], "expected": "11111111", "label": "byte max"},
-      {"args": [1024], "expected": "10000000000", "label": "power of two"}
+      {
+        "args": [
+          13
+        ],
+        "expected": "1101",
+        "label": "thirteen"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": "0",
+        "label": "zero edge"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": "1",
+        "label": "one"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": "10",
+        "label": "two"
+      },
+      {
+        "args": [
+          255
+        ],
+        "expected": "11111111",
+        "label": "byte max"
+      },
+      {
+        "args": [
+          1024
+        ],
+        "expected": "10000000000",
+        "label": "power of two"
+      }
     ],
     "editorial": "**Wrapper + recursive helper** (clean separation of edge case):\n- Wrapper: if `n === 0` → `\"0\"`, else call helper.\n- Helper base: `n === 0` → `\"\"` (empty so concatenation doesn't pollute).\n- Helper recurrence: `helper(n) = helper(Math.floor(n / 2)) + (n % 2)`.\n\n```javascript\nfunction toBinaryRec(n) {\n  if (n === 0) return '0';\n  function helper(k) {\n    if (k === 0) return '';\n    return helper(Math.floor(k / 2)) + (k % 2).toString();\n  }\n  return helper(n);\n}\n```\n\n**Time**: O(log n). **Space**: O(log n) stack + output.\n\n**Iterative alternative (without recursion stack)**: Loop while `n > 0`, prepend bits — O(log n), O(1) extra (besides output). Why split wrapper + helper? Because returning `\"0\"` from the helper for n=0 would inject a leading zero into every recursion path."
   },
   {
     "slug": "gcd-discount-merge",
     "number": 3011,
-    "title": "GCD via Euclidean Recursion",
+    "title": "Greatest Common Divisor",
     "difficulty": "Easy",
     "topic": "Recursion",
-    "companies": ["paytm", "razorpay", "google"],
+    "companies": [
+      "paytm",
+      "razorpay",
+      "google"
+    ],
     "description": "A coupon-merge service computes the greatest common divisor (GCD) of two non-negative integers `a` and `b` using the Euclidean algorithm — recursively. Return `gcd(a, b)`. By convention `gcd(0, 0) = 0`.",
     "examples": [
-      {"input": "a = 48, b = 18", "output": "6"},
-      {"input": "a = 0, b = 5", "output": "5"}
+      {
+        "input": "a = 48, b = 18",
+        "output": "6"
+      },
+      {
+        "input": "a = 0, b = 5",
+        "output": "5"
+      }
     ],
-    "constraints": ["0 <= a, b <= 10^9"],
+    "constraints": [
+      "0 <= a, b <= 10^9"
+    ],
     "hints": [
       "Base: b === 0 → return a.",
       "Recurrence: gcd(a, b) = gcd(b, a % b).",
       "a < b ka case automatically pehle swap ho jaata hai (a%b == a)."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function gcdRec(a, b) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def gcd_rec(a, b):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function gcdRec(a, b) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def gcd_rec(a, b):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "gcdRec",
     "tests": [
-      {"args": [48, 18], "expected": 6, "label": "classic"},
-      {"args": [0, 5], "expected": 5, "label": "one zero"},
-      {"args": [0, 0], "expected": 0, "label": "both zero"},
-      {"args": [7, 13], "expected": 1, "label": "coprime"},
-      {"args": [100, 75], "expected": 25, "label": "round numbers"},
-      {"args": [1000000000, 2], "expected": 2, "label": "billion even"}
+      {
+        "args": [
+          48,
+          18
+        ],
+        "expected": 6,
+        "label": "classic"
+      },
+      {
+        "args": [
+          0,
+          5
+        ],
+        "expected": 5,
+        "label": "one zero"
+      },
+      {
+        "args": [
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "both zero"
+      },
+      {
+        "args": [
+          7,
+          13
+        ],
+        "expected": 1,
+        "label": "coprime"
+      },
+      {
+        "args": [
+          100,
+          75
+        ],
+        "expected": 25,
+        "label": "round numbers"
+      },
+      {
+        "args": [
+          1000000000,
+          2
+        ],
+        "expected": 2,
+        "label": "billion even"
+      }
     ],
     "editorial": "**Euclid's algorithm**:\n- Base: `b === 0 → a`.\n- Recurrence: `gcd(a, b) = gcd(b, a % b)`.\n\nThe identity `gcd(a, b) = gcd(b, a mod b)` shrinks the second argument every step until it hits 0.\n\n```javascript\nfunction gcdRec(a, b) {\n  if (b === 0) return a;\n  return gcdRec(b, a % b);\n}\n```\n\n**Time**: O(log(min(a, b))) — Lamé's theorem.\n**Space**: O(log(min(a, b))) recursion stack.\n\n**Iterative alternative (without recursion stack)**:\n```javascript\nwhile (b !== 0) { [a, b] = [b, a % b]; }\nreturn a;\n```\n\nO(1) extra space. Edge: `gcd(0, 0)` → `b===0` branch returns `a===0`. ✓"
   },
   {
     "slug": "permute-string-recursive",
     "number": 3012,
-    "title": "Permute Coupon Code String",
+    "title": "String Permutations",
     "difficulty": "Medium",
     "topic": "Recursion",
-    "companies": ["myntra", "flipkart", "google"],
+    "companies": [
+      "myntra",
+      "flipkart",
+      "google"
+    ],
     "description": "A campaign tool generates all permutations of a short coupon-code string. Given a string `s` of distinct characters (length ≤ 7), return all permutations as a sorted lexicographic array. Use pure recursion (insert-at-every-position style).",
     "examples": [
-      {"input": "s = \"ab\"", "output": "[\"ab\", \"ba\"]"},
-      {"input": "s = \"a\"", "output": "[\"a\"]"}
+      {
+        "input": "s = \"ab\"",
+        "output": "[\"ab\", \"ba\"]"
+      },
+      {
+        "input": "s = \"a\"",
+        "output": "[\"a\"]"
+      }
     ],
-    "constraints": ["1 <= s.length <= 7", "All characters distinct"],
+    "constraints": [
+      "1 <= s.length <= 7",
+      "All characters distinct"
+    ],
     "hints": [
       "Base: length 1 → return [s].",
       "Recurrence: take s[0], permute s[1..], insert s[0] at every position of each smaller permutation.",
       "Final result ko sort kar do lexicographically."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function permuteString(s) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def permute_string(s):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function permuteString(s) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def permute_string(s):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "permuteString",
     "tests": [
-      {"args": ["a"], "expected": ["a"], "label": "single char"},
-      {"args": ["ab"], "expected": ["ab", "ba"], "label": "two chars"},
-      {"args": ["abc"], "expected": ["abc", "acb", "bac", "bca", "cab", "cba"], "label": "three chars"},
-      {"args": ["xy"], "expected": ["xy", "yx"], "label": "non alpha order"},
-      {"args": ["abcd"], "expected": ["abcd", "abdc", "acbd", "acdb", "adbc", "adcb", "bacd", "badc", "bcad", "bcda", "bdac", "bdca", "cabd", "cadb", "cbad", "cbda", "cdab", "cdba", "dabc", "dacb", "dbac", "dbca", "dcab", "dcba"], "label": "four chars"}
+      {
+        "args": [
+          "a"
+        ],
+        "expected": [
+          "a"
+        ],
+        "label": "single char"
+      },
+      {
+        "args": [
+          "ab"
+        ],
+        "expected": [
+          "ab",
+          "ba"
+        ],
+        "label": "two chars"
+      },
+      {
+        "args": [
+          "abc"
+        ],
+        "expected": [
+          "abc",
+          "acb",
+          "bac",
+          "bca",
+          "cab",
+          "cba"
+        ],
+        "label": "three chars"
+      },
+      {
+        "args": [
+          "xy"
+        ],
+        "expected": [
+          "xy",
+          "yx"
+        ],
+        "label": "non alpha order"
+      },
+      {
+        "args": [
+          "abcd"
+        ],
+        "expected": [
+          "abcd",
+          "abdc",
+          "acbd",
+          "acdb",
+          "adbc",
+          "adcb",
+          "bacd",
+          "badc",
+          "bcad",
+          "bcda",
+          "bdac",
+          "bdca",
+          "cabd",
+          "cadb",
+          "cbad",
+          "cbda",
+          "cdab",
+          "cdba",
+          "dabc",
+          "dacb",
+          "dbac",
+          "dbca",
+          "dcab",
+          "dcba"
+        ],
+        "label": "four chars"
+      }
     ],
     "editorial": "**Insert-at-every-position approach (pure recursion, no swap-mutation)**:\n- Base: `s.length <= 1 → [s]`.\n- Recurrence: get permutations of `s.slice(1)`. For each smaller permutation `p`, insert `s[0]` at every position 0..p.length to build new permutations.\n\n```javascript\nfunction permuteString(s) {\n  function perm(str) {\n    if (str.length <= 1) return [str];\n    const first = str[0];\n    const rest = perm(str.slice(1));\n    const result = [];\n    for (const p of rest) {\n      for (let i = 0; i <= p.length; i++) {\n        result.push(p.slice(0, i) + first + p.slice(i));\n      }\n    }\n    return result;\n  }\n  return perm(s).sort();\n}\n```\n\n**Time**: O(n * n!). **Space**: O(n * n!).\n\n**Note vs backtracking**: This is the *insertion* recursion form — distinct from backtracking (which mutates a current path with explicit undo). The recursive call returns *all* sub-permutations and we *build* on top — no enumeration tree with prune/restore."
   },
   {
     "slug": "valid-parentheses-recursive",
     "number": 3013,
-    "title": "Generate Valid Parentheses Recursively",
+    "title": "Generate Parentheses",
     "difficulty": "Medium",
     "topic": "Recursion",
-    "companies": ["amazon", "facebook", "adobe"],
+    "companies": [
+      "amazon",
+      "facebook",
+      "adobe"
+    ],
     "description": "A code-formatter generates all combinations of `n` pairs of well-formed parentheses (valid balanced strings). Given `n`, return all valid strings sorted lexicographically. Use a recursive function that tracks remaining open and close counts — open available, close available, current built string.",
     "examples": [
-      {"input": "n = 3", "output": "[\"((()))\", \"(()())\", \"(())()\", \"()(())\", \"()()()\"]"},
-      {"input": "n = 1", "output": "[\"()\"]"}
+      {
+        "input": "n = 3",
+        "output": "[\"((()))\", \"(()())\", \"(())()\", \"()(())\", \"()()()\"]"
+      },
+      {
+        "input": "n = 1",
+        "output": "[\"()\"]"
+      }
     ],
-    "constraints": ["1 <= n <= 8"],
+    "constraints": [
+      "1 <= n <= 8"
+    ],
     "hints": [
       "State: (open_left, close_left, current_string).",
       "Base: open_left === 0 && close_left === 0 → push current_string.",
       "Branches: agar open_left > 0 → add '('. Agar close_left > open_left → add ')'."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function generateParens(n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def generate_parens(n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function generateParens(n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def generate_parens(n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "generateParens",
     "tests": [
-      {"args": [1], "expected": ["()"], "label": "one pair"},
-      {"args": [2], "expected": ["(())", "()()"], "label": "two pairs"},
-      {"args": [3], "expected": ["((()))", "(()())", "(())()", "()(())", "()()()"], "label": "three pairs"},
-      {"args": [4], "expected": ["(((())))", "((()()))", "((())())", "((()))()", "(()(()))", "(()()())", "(()())()", "(())(())", "(())()()", "()((()))", "()(()())", "()(())()", "()()(())", "()()()()"], "label": "four pairs"}
+      {
+        "args": [
+          1
+        ],
+        "expected": [
+          "()"
+        ],
+        "label": "one pair"
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": [
+          "(())",
+          "()()"
+        ],
+        "label": "two pairs"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": [
+          "((()))",
+          "(()())",
+          "(())()",
+          "()(())",
+          "()()()"
+        ],
+        "label": "three pairs"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": [
+          "(((())))",
+          "((()()))",
+          "((())())",
+          "((()))()",
+          "(()(()))",
+          "(()()())",
+          "(()())()",
+          "(())(())",
+          "(())()()",
+          "()((()))",
+          "()(()())",
+          "()(())()",
+          "()()(())",
+          "()()()()"
+        ],
+        "label": "four pairs"
+      }
     ],
     "editorial": "**State-driven recursion (no try/undo backtracking — each call returns its full subtree contribution)**:\n\nMaintain `(openLeft, closeLeft, current)`:\n- Base: both counters 0 → emit `current` to results.\n- If `openLeft > 0` → recurse with `(openLeft - 1, closeLeft, current + '(')`.\n- If `closeLeft > openLeft` → recurse with `(openLeft, closeLeft - 1, current + ')')` (only when there's an unmatched `(` on the left).\n\n```javascript\nfunction generateParens(n) {\n  const result = [];\n  function build(openLeft, closeLeft, current) {\n    if (openLeft === 0 && closeLeft === 0) {\n      result.push(current);\n      return;\n    }\n    if (openLeft > 0) build(openLeft - 1, closeLeft, current + '(');\n    if (closeLeft > openLeft) build(openLeft, closeLeft - 1, current + ')');\n  }\n  build(n, n, '');\n  return result.sort();\n}\n```\n\n**Time**: O(4^n / sqrt(n)) — Catalan number C_n distinct outputs.\n**Space**: O(n) recursion depth + output.\n\nKey constraint that keeps results valid: never close more than you've opened (`closeLeft > openLeft` guard). This is *recursion with state* rather than backtracking-style choose/un-choose."
   },
   {
     "slug": "grid-paths-warehouse",
     "number": 3014,
-    "title": "Warehouse Grid Path Count",
+    "title": "Unique Paths",
     "difficulty": "Medium",
     "topic": "Recursion",
-    "companies": ["amazon", "flipkart", "delhivery"],
+    "companies": [
+      "amazon",
+      "flipkart",
+      "delhivery"
+    ],
     "description": "A warehouse robot starts at the top-left of an `m x n` grid and must reach the bottom-right, moving only right or down. Count the number of unique paths. Use recursion with memoization.",
     "examples": [
-      {"input": "m = 3, n = 3", "output": "6", "explanation": "Standard 3x3 grid has C(4,2) = 6 paths."},
-      {"input": "m = 1, n = 1", "output": "1"}
+      {
+        "input": "m = 3, n = 3",
+        "output": "6",
+        "explanation": "Standard 3x3 grid has C(4,2) = 6 paths."
+      },
+      {
+        "input": "m = 1, n = 1",
+        "output": "1"
+      }
     ],
-    "constraints": ["1 <= m, n <= 15"],
+    "constraints": [
+      "1 <= m, n <= 15"
+    ],
     "hints": [
       "State: (row, col). Base: pohunch gaya at (m-1, n-1) → 1 path.",
       "Recurrence: paths(r, c) = paths(r+1, c) + paths(r, c+1).",
       "Memoize using 2D map ya array taaki same (r,c) bar bar na compute ho."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function countGridPaths(m, n) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def count_grid_paths(m, n):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function countGridPaths(m, n) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_grid_paths(m, n):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "countGridPaths",
     "tests": [
-      {"args": [1, 1], "expected": 1, "label": "single cell"},
-      {"args": [2, 2], "expected": 2, "label": "2x2"},
-      {"args": [3, 3], "expected": 6, "label": "3x3"},
-      {"args": [3, 7], "expected": 28, "label": "rectangular"},
-      {"args": [7, 3], "expected": 28, "label": "transposed"},
-      {"args": [10, 10], "expected": 48620, "label": "10x10"}
+      {
+        "args": [
+          1,
+          1
+        ],
+        "expected": 1,
+        "label": "single cell"
+      },
+      {
+        "args": [
+          2,
+          2
+        ],
+        "expected": 2,
+        "label": "2x2"
+      },
+      {
+        "args": [
+          3,
+          3
+        ],
+        "expected": 6,
+        "label": "3x3"
+      },
+      {
+        "args": [
+          3,
+          7
+        ],
+        "expected": 28,
+        "label": "rectangular"
+      },
+      {
+        "args": [
+          7,
+          3
+        ],
+        "expected": 28,
+        "label": "transposed"
+      },
+      {
+        "args": [
+          10,
+          10
+        ],
+        "expected": 48620,
+        "label": "10x10"
+      }
     ],
     "editorial": "**Pure recursion**:\n- Base: `(r, c) === (m-1, n-1)` → 1. Out-of-bounds → 0.\n- Recurrence: `paths(r, c) = paths(r+1, c) + paths(r, c+1)`.\n\nNaive form is O(2^(m+n)) — explodes. **Memoize** repeated `(r, c)` states.\n\n```javascript\nfunction countGridPaths(m, n) {\n  const memo = new Array(m).fill(null).map(() => new Array(n).fill(-1));\n  function paths(r, c) {\n    if (r === m - 1 && c === n - 1) return 1;\n    if (r >= m || c >= n) return 0;\n    if (memo[r][c] !== -1) return memo[r][c];\n    return memo[r][c] = paths(r + 1, c) + paths(r, c + 1);\n  }\n  return paths(0, 0);\n}\n```\n\n**Time**: O(m*n). **Space**: O(m*n) memo + O(m+n) stack.\n\n**Iterative alternative (without recursion stack)**: Bottom-up DP table — fill `dp[r][c] = dp[r+1][c] + dp[r][c+1]` from bottom-right to top-left. Same O(m*n) time, O(m*n) or O(min(m,n)) space with rolling row.\n\n**Closed-form**: `C(m+n-2, m-1)` — pure combinatorics, O(min(m,n)) — but the recursive formulation is the teaching focus here."
   },
   {
     "slug": "reverse-stack-recursive",
     "number": 3015,
-    "title": "Reverse a Stack Using Only Recursion",
+    "title": "Reverse a Stack Using Recursion",
     "difficulty": "Hard",
     "topic": "Recursion",
-    "companies": ["microsoft", "amazon", "adobe"],
+    "companies": [
+      "microsoft",
+      "amazon",
+      "adobe"
+    ],
     "description": "A logging service holds events in a stack and must reverse the stack using ONLY recursion — no extra data structure (no auxiliary array, no second stack). Given the stack as an array `stack` (top = last element), return the stack reversed (top should now be the original bottom). You may use the call stack as your only auxiliary memory.",
     "examples": [
-      {"input": "stack = [1, 2, 3, 4]", "output": "[4, 3, 2, 1]", "explanation": "Top was 4, now it's 1."},
-      {"input": "stack = [1]", "output": "[1]"}
+      {
+        "input": "stack = [1, 2, 3, 4]",
+        "output": "[4, 3, 2, 1]",
+        "explanation": "Top was 4, now it's 1."
+      },
+      {
+        "input": "stack = [1]",
+        "output": "[1]"
+      }
     ],
-    "constraints": ["0 <= stack.length <= 200"],
+    "constraints": [
+      "0 <= stack.length <= 200"
+    ],
     "hints": [
       "Two recursive helpers: reverse(stack) aur insertAtBottom(stack, x).",
       "reverse: pop top, recursively reverse rest, fir insertAtBottom me use kar.",
       "insertAtBottom: agar empty → push x. Else pop, recurse, fir wapas push."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function reverseStack(stack) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def reverse_stack(stack):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function reverseStack(stack) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def reverse_stack(stack):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "reverseStack",
     "tests": [
-      {"args": [[1, 2, 3, 4]], "expected": [4, 3, 2, 1], "label": "four elements"},
-      {"args": [[1]], "expected": [1], "label": "single"},
-      {"args": [[]], "expected": [], "label": "empty"},
-      {"args": [[5, 5, 5]], "expected": [5, 5, 5], "label": "duplicates"},
-      {"args": [[1, 2]], "expected": [2, 1], "label": "two"},
-      {"args": [[10, 20, 30, 40, 50]], "expected": [50, 40, 30, 20, 10], "label": "five"}
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "label": "four elements"
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            5,
+            5,
+            5
+          ]
+        ],
+        "expected": [
+          5,
+          5,
+          5
+        ],
+        "label": "duplicates"
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          2,
+          1
+        ],
+        "label": "two"
+      },
+      {
+        "args": [
+          [
+            10,
+            20,
+            30,
+            40,
+            50
+          ]
+        ],
+        "expected": [
+          50,
+          40,
+          30,
+          20,
+          10
+        ],
+        "label": "five"
+      }
     ],
     "editorial": "**Two-helper recursion** — only the call stack is allowed as auxiliary memory.\n\n**Helper 1 — `insertAtBottom(stack, x)`**: place `x` at the bottom of the stack.\n- Base: stack empty → push `x`.\n- Else: pop top into a local var, recurse to insert `x` at bottom of the smaller stack, then push the local var back. The local var lives on the call stack.\n\n**Helper 2 — `reverse(stack)`**: reverse the entire stack.\n- Base: stack empty → return.\n- Else: pop top, recursively reverse rest, then `insertAtBottom(stack, top)`.\n\n```javascript\nfunction reverseStack(stack) {\n  function insertAtBottom(s, x) {\n    if (s.length === 0) {\n      s.push(x);\n      return;\n    }\n    const top = s.pop();\n    insertAtBottom(s, x);\n    s.push(top);\n  }\n  function reverse(s) {\n    if (s.length === 0) return;\n    const top = s.pop();\n    reverse(s);\n    insertAtBottom(s, top);\n  }\n  reverse(stack);\n  return stack;\n}\n```\n\n**Time**: O(n^2) — each of the n elements triggers an O(n) `insertAtBottom`.\n**Space**: O(n) call-stack depth × 2 from nested recursion = O(n).\n\n**Why no iterative alternative is acceptable here**: The problem explicitly forbids auxiliary structures; iterative reversal would need a second stack or two-pointer swap (which violates the stack-only access pattern in many interview framings). Two-pointer in-place swap on the array works for this representation but breaks the spirit of the problem (it relies on random access, which a real stack doesn't provide). The recursive formulation is the canonical answer."
   }

@@ -2,455 +2,2275 @@
   {
     "slug": "swiggy-delivery-bfs-levels",
     "number": 2001,
-    "title": "Swiggy Delivery Hub BFS Levels",
+    "title": "BFS of Graph",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["swiggy", "zomato", "dunzo"],
+    "companies": [
+      "swiggy",
+      "zomato",
+      "dunzo"
+    ],
     "description": "Swiggy's central kitchen at node 0 needs to push menu updates to every delivery hub. The delivery network is given as an adjacency list `graph` of `n` nodes (0-indexed). Return the BFS traversal order starting from node 0. Within a BFS level, neighbors are visited in the order they appear in the adjacency list.",
     "examples": [
-      {"input": "graph = [[1,2],[0,3],[0,3],[1,2]]", "output": "[0,1,2,3]", "explanation": "From 0 we visit neighbours 1,2; then their neighbour 3."},
-      {"input": "graph = [[]]", "output": "[0]"}
+      {
+        "input": "graph = [[1,2],[0,3],[0,3],[1,2]]",
+        "output": "[0,1,2,3]",
+        "explanation": "From 0 we visit neighbours 1,2; then their neighbour 3."
+      },
+      {
+        "input": "graph = [[]]",
+        "output": "[0]"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4", "graph[i] contains valid neighbour indices", "Graph is undirected and may be disconnected — only return the component containing 0"],
+    "constraints": [
+      "1 <= n <= 10^4",
+      "graph[i] contains valid neighbour indices",
+      "Graph is undirected and may be disconnected — only return the component containing 0"
+    ],
     "hints": [
       "Queue + visited set ka classic BFS likh.",
       "Adjacency list ka order preserve karna hai — bina sort kiye push kar.",
       "Start node 0 ko visited mark karke push kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function bfsDeliveryHubs(graph) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def bfs_delivery_hubs(graph):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function bfsDeliveryHubs(graph) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def bfs_delivery_hubs(graph):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "bfsDeliveryHubs",
     "tests": [
-      {"args": [[[1,2],[0,3],[0,3],[1,2]]], "expected": [0,1,2,3], "label": "diamond"},
-      {"args": [[[]]], "expected": [0], "label": "single node"},
-      {"args": [[[1],[0,2],[1,3],[2]]], "expected": [0,1,2,3], "label": "chain"},
-      {"args": [[[1,2,3],[0],[0],[0]]], "expected": [0,1,2,3], "label": "star"},
-      {"args": [[[1],[0],[3],[2]]], "expected": [0,1], "label": "disconnected"},
-      {"args": [[[2,1],[0],[0,3],[2]]], "expected": [0,2,1,3], "label": "neighbour order matters"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "diamond"
+      },
+      {
+        "args": [
+          [
+            []
+          ]
+        ],
+        "expected": [
+          0
+        ],
+        "label": "single node"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "chain"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "star"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0
+            ],
+            [
+              3
+            ],
+            [
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1
+        ],
+        "label": "disconnected"
+      },
+      {
+        "args": [
+          [
+            [
+              2,
+              1
+            ],
+            [
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "label": "neighbour order matters"
+      }
     ],
     "editorial": "**Idea — standard BFS**: Use a queue, push starting node 0, mark visited, then pop, append to output, and enqueue each unseen neighbour in the adjacency list's order.\n\n```javascript\nfunction bfsDeliveryHubs(graph) {\n  const visited = new Set([0]);\n  const queue = [0];\n  const order = [];\n  while (queue.length) {\n    const u = queue.shift();\n    order.push(u);\n    for (const v of graph[u]) {\n      if (!visited.has(v)) {\n        visited.add(v);\n        queue.push(v);\n      }\n    }\n  }\n  return order;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V).\n\nDeterministic order milta hai kyunki adjacency list me neighbours sorted/given order me hain — usi order me enqueue karte hain."
   },
   {
     "slug": "razorpay-merchant-network-dfs",
     "number": 2002,
-    "title": "Razorpay Merchant Network DFS Order",
+    "title": "DFS of Graph",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["razorpay", "stripe", "phonepe"],
+    "companies": [
+      "razorpay",
+      "stripe",
+      "phonepe"
+    ],
     "description": "Razorpay's fraud team wants to walk the merchant trust graph (undirected, adjacency list) from a given start node using DFS. Return the iterative DFS pre-order, visiting neighbours in the order they appear in the adjacency list (left to right).",
     "examples": [
-      {"input": "graph = [[1,2],[0,3],[0],[1]], start = 0", "output": "[0,1,3,2]", "explanation": "DFS from 0: go to 1, then 3, backtrack, then 2."},
-      {"input": "graph = [[]], start = 0", "output": "[0]"}
+      {
+        "input": "graph = [[1,2],[0,3],[0],[1]], start = 0",
+        "output": "[0,1,3,2]",
+        "explanation": "DFS from 0: go to 1, then 3, backtrack, then 2."
+      },
+      {
+        "input": "graph = [[]], start = 0",
+        "output": "[0]"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4", "0 <= start < n"],
+    "constraints": [
+      "1 <= n <= 10^4",
+      "0 <= start < n"
+    ],
     "hints": [
       "Stack se iterative DFS likh — recursion bhi chalega per stack overflow se bach.",
       "Stack me reverse order me push kar taaki pop pehle wala neighbour pehle de.",
       "Visited set must — undirected graph me cycle hoga."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function dfsMerchantNetwork(graph, start) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def dfs_merchant_network(graph, start):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function dfsMerchantNetwork(graph, start) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def dfs_merchant_network(graph, start):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "dfsMerchantNetwork",
     "tests": [
-      {"args": [[[1,2],[0,3],[0],[1]], 0], "expected": [0,1,3,2], "label": "basic"},
-      {"args": [[[]], 0], "expected": [0], "label": "single"},
-      {"args": [[[1],[0,2],[1,3],[2]], 0], "expected": [0,1,2,3], "label": "path"},
-      {"args": [[[1,2,3],[0],[0],[0]], 0], "expected": [0,1,2,3], "label": "star"},
-      {"args": [[[1,2],[0,3],[0,3],[1,2]], 1], "expected": [1,0,2,3], "label": "start mid"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          0
+        ],
+        "expected": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            []
+          ],
+          0
+        ],
+        "expected": [
+          0
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ]
+          ],
+          0
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "path"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          0
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "star"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          1
+        ],
+        "expected": [
+          1,
+          0,
+          2,
+          3
+        ],
+        "label": "start mid"
+      }
     ],
     "editorial": "**Idea — iterative DFS using stack**: Push start, then pop loop. To preserve left-to-right neighbour order in pre-order output, push neighbours in **reverse** order so the first neighbour ends up on top.\n\n```javascript\nfunction dfsMerchantNetwork(graph, start) {\n  const visited = new Set();\n  const stack = [start];\n  const order = [];\n  while (stack.length) {\n    const u = stack.pop();\n    if (visited.has(u)) continue;\n    visited.add(u);\n    order.push(u);\n    for (let i = graph[u].length - 1; i >= 0; i--) {\n      if (!visited.has(graph[u][i])) stack.push(graph[u][i]);\n    }\n  }\n  return order;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V).\n\nVisit-on-pop pattern duplicate stack entries handle kar leta hai — push pe check zaruri nahi."
   },
   {
     "slug": "indian-railways-connected-components",
     "number": 2003,
-    "title": "Indian Railways Connected Components",
+    "title": "Number of Connected Components in an Undirected Graph",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["irctc", "ola", "amazon"],
+    "companies": [
+      "irctc",
+      "ola",
+      "amazon"
+    ],
     "description": "Indian Railways wants to know how many disconnected route clusters their station network has. Given `n` (number of stations) and `edges` (undirected route pairs), return the number of connected components.",
     "examples": [
-      {"input": "n = 5, edges = [[0,1],[1,2],[3,4]]", "output": "2", "explanation": "Cluster A: {0,1,2}, Cluster B: {3,4}."},
-      {"input": "n = 3, edges = []", "output": "3"}
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[3,4]]",
+        "output": "2",
+        "explanation": "Cluster A: {0,1,2}, Cluster B: {3,4}."
+      },
+      {
+        "input": "n = 3, edges = []",
+        "output": "3"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4", "0 <= edges.length <= 10^5"],
+    "constraints": [
+      "1 <= n <= 10^4",
+      "0 <= edges.length <= 10^5"
+    ],
     "hints": [
       "Adjacency list bana, fir har unvisited node se DFS/BFS.",
       "Har naya DFS-launch ek component badhata hai.",
       "Edges undirected hain — dono direction me push."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function countRailwayComponents(n, edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def count_railway_components(n, edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function countRailwayComponents(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_railway_components(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "countRailwayComponents",
     "tests": [
-      {"args": [5, [[0,1],[1,2],[3,4]]], "expected": 2, "label": "two clusters"},
-      {"args": [3, []], "expected": 3, "label": "all isolated"},
-      {"args": [1, []], "expected": 1, "label": "single"},
-      {"args": [4, [[0,1],[1,2],[2,3]]], "expected": 1, "label": "all connected"},
-      {"args": [6, [[0,1],[2,3],[4,5]]], "expected": 3, "label": "three pairs"},
-      {"args": [5, [[0,1],[0,2],[3,4]]], "expected": 2, "label": "tree + edge"}
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two clusters"
+      },
+      {
+        "args": [
+          3,
+          []
+        ],
+        "expected": 3,
+        "label": "all isolated"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "all connected"
+      },
+      {
+        "args": [
+          6,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "three pairs"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "tree + edge"
+      }
     ],
     "editorial": "**Idea — DFS sweep**: Build the adjacency list. Iterate every vertex; if not yet visited, fire a DFS to flood-fill its component and increment a counter.\n\n```javascript\nfunction countRailwayComponents(n, edges) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of edges) {\n    adj[u].push(v);\n    adj[v].push(u);\n  }\n  const visited = new Array(n).fill(false);\n  let comps = 0;\n  for (let start = 0; start < n; start++) {\n    if (visited[start]) continue;\n    comps++;\n    const stack = [start];\n    visited[start] = true;\n    while (stack.length) {\n      const u = stack.pop();\n      for (const v of adj[u]) if (!visited[v]) { visited[v] = true; stack.push(v); }\n    }\n  }\n  return comps;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V+E). Union-Find bhi same answer dega."
   },
   {
     "slug": "flipkart-warehouse-cycle-undirected",
     "number": 2004,
-    "title": "Flipkart Warehouse Cycle Detection",
+    "title": "Detect Cycle in an Undirected Graph",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["flipkart", "amazon", "meesho"],
+    "companies": [
+      "flipkart",
+      "amazon",
+      "meesho"
+    ],
     "description": "Flipkart's warehouse conveyor map should be a forest (no loops) for safety. Given `n` warehouses and undirected `edges`, return `true` if any cycle exists, else `false`.",
     "examples": [
-      {"input": "n = 4, edges = [[0,1],[1,2],[2,3]]", "output": "false", "explanation": "Tree."},
-      {"input": "n = 4, edges = [[0,1],[1,2],[2,0]]", "output": "true", "explanation": "Triangle 0-1-2."}
+      {
+        "input": "n = 4, edges = [[0,1],[1,2],[2,3]]",
+        "output": "false",
+        "explanation": "Tree."
+      },
+      {
+        "input": "n = 4, edges = [[0,1],[1,2],[2,0]]",
+        "output": "true",
+        "explanation": "Triangle 0-1-2."
+      }
     ],
-    "constraints": ["1 <= n <= 10^4", "0 <= edges.length <= 10^5"],
+    "constraints": [
+      "1 <= n <= 10^4",
+      "0 <= edges.length <= 10^5"
+    ],
     "hints": [
       "Union-Find: edge add karte waqt agar dono ends ka root same hai → cycle.",
       "DFS bhi chalega: visited me jaate waqt parent ko exclude kar.",
       "Multigraph (duplicate edge) bhi cycle counts."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function hasWarehouseCycle(n, edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def has_warehouse_cycle(n, edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function hasWarehouseCycle(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def has_warehouse_cycle(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "hasWarehouseCycle",
     "tests": [
-      {"args": [4, [[0,1],[1,2],[2,3]]], "expected": false, "label": "tree"},
-      {"args": [4, [[0,1],[1,2],[2,0]]], "expected": true, "label": "triangle"},
-      {"args": [1, []], "expected": false, "label": "single node"},
-      {"args": [5, [[0,1],[2,3],[3,4]]], "expected": false, "label": "forest"},
-      {"args": [3, [[0,1],[0,1]]], "expected": true, "label": "duplicate edge"},
-      {"args": [6, [[0,1],[1,2],[3,4],[4,5],[5,3]]], "expected": true, "label": "cycle in second comp"}
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "tree"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "triangle"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": false,
+        "label": "single node"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "forest"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "duplicate edge"
+      },
+      {
+        "args": [
+          6,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              3
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "cycle in second comp"
+      }
     ],
     "editorial": "**Idea — Union-Find**: For each edge `(u,v)`, find roots. If equal, adding this edge would close a cycle → return true. Else union and continue.\n\n```javascript\nfunction hasWarehouseCycle(n, edges) {\n  const parent = Array.from({length: n}, (_, i) => i);\n  function find(x) { while (parent[x] !== x) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; }\n  for (const [u, v] of edges) {\n    const ru = find(u), rv = find(v);\n    if (ru === rv) return true;\n    parent[ru] = rv;\n  }\n  return false;\n}\n```\n\n**Time**: ~O((V+E) α(V)). **Space**: O(V).\n\nDFS variant: track visited; from `u` recurse into neighbours `v ≠ parent`. Visiting an already-visited non-parent → cycle."
   },
   {
     "slug": "mumbai-local-shortest-stops",
     "number": 2005,
-    "title": "Mumbai Local Train Shortest Stops",
+    "title": "Shortest Path in an Unweighted Graph",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["irctc", "uber", "ola"],
+    "companies": [
+      "irctc",
+      "uber",
+      "ola"
+    ],
     "description": "Mumbai local train network is unweighted (each adjacent station = 1 stop). Given an adjacency list `graph`, a `source`, and a `target`, return the minimum number of stops between them, or `-1` if unreachable.",
     "examples": [
-      {"input": "graph = [[1,2],[0,3],[0,3],[1,2,4],[3]], source = 0, target = 4", "output": "3"},
-      {"input": "graph = [[1],[0],[3],[2]], source = 0, target = 3", "output": "-1"}
+      {
+        "input": "graph = [[1,2],[0,3],[0,3],[1,2,4],[3]], source = 0, target = 4",
+        "output": "3"
+      },
+      {
+        "input": "graph = [[1],[0],[3],[2]], source = 0, target = 3",
+        "output": "-1"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4", "0 <= source, target < n"],
+    "constraints": [
+      "1 <= n <= 10^4",
+      "0 <= source, target < n"
+    ],
     "hints": [
       "BFS layer count = unweighted shortest path.",
       "Same-node case = 0.",
       "Disconnect → -1."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function shortestStops(graph, source, target) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def shortest_stops(graph, source, target):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function shortestStops(graph, source, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def shortest_stops(graph, source, target):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "shortestStops",
     "tests": [
-      {"args": [[[1,2],[0,3],[0,3],[1,2,4],[3]], 0, 4], "expected": 3, "label": "basic"},
-      {"args": [[[1],[0],[3],[2]], 0, 3], "expected": -1, "label": "disconnected"},
-      {"args": [[[1,2],[0,3],[0,3],[1,2]], 0, 0], "expected": 0, "label": "same node"},
-      {"args": [[[1],[0,2],[1,3],[2]], 0, 3], "expected": 3, "label": "linear"},
-      {"args": [[[1,2,3],[0],[0],[0]], 1, 3], "expected": 2, "label": "via hub"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2,
+              4
+            ],
+            [
+              3
+            ]
+          ],
+          0,
+          4
+        ],
+        "expected": 3,
+        "label": "basic"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0
+            ],
+            [
+              3
+            ],
+            [
+              2
+            ]
+          ],
+          0,
+          3
+        ],
+        "expected": -1,
+        "label": "disconnected"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "same node"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ]
+          ],
+          0,
+          3
+        ],
+        "expected": 3,
+        "label": "linear"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          1,
+          3
+        ],
+        "expected": 2,
+        "label": "via hub"
+      }
     ],
     "editorial": "**Idea — BFS distance**: BFS from source; the layer at which `target` is dequeued is its distance. Maintain `dist[]` initialised to -1, push source with `dist[source] = 0`.\n\n```javascript\nfunction shortestStops(graph, source, target) {\n  if (source === target) return 0;\n  const n = graph.length;\n  const dist = new Array(n).fill(-1);\n  dist[source] = 0;\n  const queue = [source];\n  while (queue.length) {\n    const u = queue.shift();\n    for (const v of graph[u]) {\n      if (dist[v] === -1) {\n        dist[v] = dist[u] + 1;\n        if (v === target) return dist[v];\n        queue.push(v);\n      }\n    }\n  }\n  return -1;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V)."
   },
   {
     "slug": "number-of-islands-grid",
     "number": 2006,
-    "title": "Number of Land Islands",
+    "title": "Number of Islands",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "microsoft"],
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
     "description": "Given a 2D grid of '1' (land) and '0' (water), count the number of islands. An island is a maximal 4-directionally connected region of '1's. Input is `number[][]` (1 = land, 0 = water).",
     "examples": [
-      {"input": "grid = [[1,1,0,0],[1,0,0,1],[0,0,1,1]]", "output": "2"},
-      {"input": "grid = [[0,0],[0,0]]", "output": "0"}
+      {
+        "input": "grid = [[1,1,0,0],[1,0,0,1],[0,0,1,1]]",
+        "output": "2"
+      },
+      {
+        "input": "grid = [[0,0],[0,0]]",
+        "output": "0"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 300", "grid[i][j] in {0, 1}"],
+    "constraints": [
+      "1 <= rows, cols <= 300",
+      "grid[i][j] in {0, 1}"
+    ],
     "hints": [
       "Har 1 mile to DFS/BFS se poora island flood-fill kar de.",
       "Counter +1 har naya island launch pe.",
       "4 directions: up/down/left/right."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function numberOfIslands(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def number_of_islands(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function numberOfIslands(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def number_of_islands(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "numberOfIslands",
     "tests": [
-      {"args": [[[1,1,0,0],[1,0,0,1],[0,0,1,1]]], "expected": 2, "label": "two islands"},
-      {"args": [[[0,0],[0,0]]], "expected": 0, "label": "all water"},
-      {"args": [[[1]]], "expected": 1, "label": "single land"},
-      {"args": [[[1,1,1],[1,1,1],[1,1,1]]], "expected": 1, "label": "one big"},
-      {"args": [[[1,0,1,0,1]]], "expected": 3, "label": "row separated"},
-      {"args": [[[1,0],[0,1]]], "expected": 2, "label": "diagonal not connected"}
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two islands"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "all water"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single land"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "one big"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              1,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "row separated"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "diagonal not connected"
+      }
     ],
     "editorial": "**Idea — flood fill on land cells**: Iterate every cell; on a `1` not yet sunk, increment counter and DFS/BFS to mark every connected land as visited (or overwrite to `0`).\n\n```javascript\nfunction numberOfIslands(grid) {\n  const rows = grid.length, cols = grid[0].length;\n  const visited = Array.from({length: rows}, () => new Array(cols).fill(false));\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  let count = 0;\n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) {\n      if (grid[r][c] !== 1 || visited[r][c]) continue;\n      count++;\n      const stack = [[r, c]];\n      visited[r][c] = true;\n      while (stack.length) {\n        const [x, y] = stack.pop();\n        for (const [dx, dy] of dirs) {\n          const nx = x + dx, ny = y + dy;\n          if (nx>=0&&ny>=0&&nx<rows&&ny<cols&&grid[nx][ny]===1&&!visited[nx][ny]) {\n            visited[nx][ny] = true;\n            stack.push([nx, ny]);\n          }\n        }\n      }\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C) for visited."
   },
   {
     "slug": "max-island-area",
     "number": 2007,
-    "title": "Max Island Area",
+    "title": "Max Area of Island",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "facebook"],
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
     "description": "Given a 2D `grid` of 0s and 1s, return the area (cell count) of the largest 4-connected island. If no land exists, return 0.",
     "examples": [
-      {"input": "grid = [[0,1,1],[0,1,0],[1,0,0]]", "output": "3"},
-      {"input": "grid = [[0,0],[0,0]]", "output": "0"}
+      {
+        "input": "grid = [[0,1,1],[0,1,0],[1,0,0]]",
+        "output": "3"
+      },
+      {
+        "input": "grid = [[0,0],[0,0]]",
+        "output": "0"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 300"],
+    "constraints": [
+      "1 <= rows, cols <= 300"
+    ],
     "hints": [
       "DFS area count return karta jaye.",
       "Visited mark, accumulate 1 + sum(neighbours).",
       "Track global max across all DFS launches."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function maxIslandArea(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def max_island_area(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function maxIslandArea(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_island_area(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "maxIslandArea",
     "tests": [
-      {"args": [[[0,1,1],[0,1,0],[1,0,0]]], "expected": 3, "label": "L-shape"},
-      {"args": [[[0,0],[0,0]]], "expected": 0, "label": "no land"},
-      {"args": [[[1,1,1],[1,1,1]]], "expected": 6, "label": "full"},
-      {"args": [[[1,0,1],[0,0,0],[1,0,1]]], "expected": 1, "label": "all singletons"},
-      {"args": [[[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]], "expected": 4, "label": "two equal"}
+      {
+        "args": [
+          [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "L-shape"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "no land"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "full"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "all singletons"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "two equal"
+      }
     ],
     "editorial": "**Idea — DFS counting**: Each unvisited 1 launches a DFS that returns the count of cells in its component. Keep the maximum.\n\n```javascript\nfunction maxIslandArea(grid) {\n  const rows = grid.length, cols = grid[0].length;\n  const seen = Array.from({length: rows}, () => new Array(cols).fill(false));\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  let best = 0;\n  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {\n    if (grid[r][c] !== 1 || seen[r][c]) continue;\n    let area = 0;\n    const stack = [[r, c]];\n    seen[r][c] = true;\n    while (stack.length) {\n      const [x, y] = stack.pop();\n      area++;\n      for (const [dx, dy] of dirs) {\n        const nx = x+dx, ny = y+dy;\n        if (nx>=0&&ny>=0&&nx<rows&&ny<cols&&grid[nx][ny]===1&&!seen[nx][ny]) {\n          seen[nx][ny] = true;\n          stack.push([nx, ny]);\n        }\n      }\n    }\n    best = Math.max(best, area);\n  }\n  return best;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C)."
   },
   {
     "slug": "surrounded-regions-flip",
     "number": 2008,
-    "title": "Surrounded Regions Flip",
+    "title": "Surrounded Regions",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "bloomberg"],
+    "companies": [
+      "amazon",
+      "google",
+      "bloomberg"
+    ],
     "description": "Given a 2D `board` of 0s (blank) and 1s (captured marker), flip every 1-region that is fully surrounded by 0s on all sides to 0. A region touching any border is NOT flipped. Return the new board.",
     "examples": [
-      {"input": "board = [[0,0,0,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]", "output": "[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]"},
-      {"input": "board = [[1,0,0],[0,1,0],[0,0,0]]", "output": "[[1,0,0],[0,0,0],[0,0,0]]"}
+      {
+        "input": "board = [[0,0,0,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]",
+        "output": "[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]"
+      },
+      {
+        "input": "board = [[1,0,0],[0,1,0],[0,0,0]]",
+        "output": "[[1,0,0],[0,0,0],[0,0,0]]"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 200"],
+    "constraints": [
+      "1 <= rows, cols <= 200"
+    ],
     "hints": [
       "Border-touching 1s safe hain.",
       "Border 1s se DFS karke unhe '2' mark kar — baaki 1s flip ho jayenge.",
       "Final pass: 1→0, 2→1."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function flipSurroundedRegions(board) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def flip_surrounded_regions(board):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function flipSurroundedRegions(board) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def flip_surrounded_regions(board):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "flipSurroundedRegions",
     "tests": [
-      {"args": [[[0,0,0,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]], "expected": [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]], "label": "fully surrounded"},
-      {"args": [[[1,0,0],[0,1,0],[0,0,0]]], "expected": [[1,0,0],[0,0,0],[0,0,0]], "label": "border safe corner"},
-      {"args": [[[1]]], "expected": [[1]], "label": "single border"},
-      {"args": [[[0,0],[0,0]]], "expected": [[0,0],[0,0]], "label": "no land"},
-      {"args": [[[1,1,1],[1,0,1],[1,1,1]]], "expected": [[1,1,1],[1,0,1],[1,1,1]], "label": "all border"}
+      {
+        "args": [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "label": "fully surrounded"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "label": "border safe corner"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1
+          ]
+        ],
+        "label": "single border"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "label": "no land"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "label": "all border"
+      }
     ],
     "editorial": "**Idea — reverse-mark from borders**: Every 1 reachable from a border 1 is safe. Run DFS/BFS from every border-1 marking those as `2`. After scanning, convert remaining 1→0 (surrounded got flipped) and 2→1 (restore safe).\n\n```javascript\nfunction flipSurroundedRegions(board) {\n  const R = board.length, C = board[0].length;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  function dfs(r, c) {\n    if (r<0||c<0||r>=R||c>=C||board[r][c]!==1) return;\n    board[r][c] = 2;\n    for (const [dx,dy] of dirs) dfs(r+dx, c+dy);\n  }\n  for (let r = 0; r < R; r++) { dfs(r, 0); dfs(r, C-1); }\n  for (let c = 0; c < C; c++) { dfs(0, c); dfs(R-1, c); }\n  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {\n    if (board[r][c] === 1) board[r][c] = 0;\n    else if (board[r][c] === 2) board[r][c] = 1;\n  }\n  return board;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C) recursion worst case."
   },
   {
     "slug": "rotting-oranges-multi-source",
     "number": 2009,
-    "title": "Rotting Oranges Multi-Source BFS",
+    "title": "Rotting Oranges",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "swiggy", "zomato"],
+    "companies": [
+      "amazon",
+      "swiggy",
+      "zomato"
+    ],
     "description": "Each cell of the `grid` is 0 (empty), 1 (fresh orange), or 2 (rotten). Every minute, any fresh orange 4-adjacent to a rotten one rots. Return the minimum minutes until no fresh orange remains, or -1 if impossible.",
     "examples": [
-      {"input": "grid = [[2,1,1],[1,1,0],[0,1,1]]", "output": "4"},
-      {"input": "grid = [[2,1,1],[0,1,1],[1,0,1]]", "output": "-1"}
+      {
+        "input": "grid = [[2,1,1],[1,1,0],[0,1,1]]",
+        "output": "4"
+      },
+      {
+        "input": "grid = [[2,1,1],[0,1,1],[1,0,1]]",
+        "output": "-1"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 100"],
+    "constraints": [
+      "1 <= rows, cols <= 100"
+    ],
     "hints": [
       "Multi-source BFS: saari rotten cells initially queue me daal.",
       "Layer count = minutes elapsed.",
       "Last me fresh remaining > 0 → -1."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function rottingOranges(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def rotting_oranges(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function rottingOranges(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def rotting_oranges(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "rottingOranges",
     "tests": [
-      {"args": [[[2,1,1],[1,1,0],[0,1,1]]], "expected": 4, "label": "classic"},
-      {"args": [[[2,1,1],[0,1,1],[1,0,1]]], "expected": -1, "label": "isolated fresh"},
-      {"args": [[[0,2]]], "expected": 0, "label": "no fresh"},
-      {"args": [[[0]]], "expected": 0, "label": "empty"},
-      {"args": [[[2,2,2,1,1]]], "expected": 2, "label": "linear spread"},
-      {"args": [[[1]]], "expected": -1, "label": "single fresh no rotten"}
+      {
+        "args": [
+          [
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "isolated fresh"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              2
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "no fresh"
+      },
+      {
+        "args": [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            [
+              2,
+              2,
+              2,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "linear spread"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "single fresh no rotten"
+      }
     ],
     "editorial": "**Idea — multi-source BFS**: Seed all rotten cells at time 0; BFS by level. Each level = 1 minute. Track fresh count; on rotting one decrement.\n\n```javascript\nfunction rottingOranges(grid) {\n  const R = grid.length, C = grid[0].length;\n  const queue = [];\n  let fresh = 0;\n  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {\n    if (grid[r][c] === 2) queue.push([r, c, 0]);\n    else if (grid[r][c] === 1) fresh++;\n  }\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  let minutes = 0;\n  let head = 0;\n  while (head < queue.length) {\n    const [r, c, t] = queue[head++];\n    minutes = t;\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr>=0&&nc>=0&&nr<R&&nc<C&&grid[nr][nc]===1) {\n        grid[nr][nc] = 2;\n        fresh--;\n        queue.push([nr, nc, t+1]);\n      }\n    }\n  }\n  return fresh === 0 ? minutes : -1;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C)."
   },
   {
     "slug": "walls-and-gates-distance",
     "number": 2010,
-    "title": "Walls and Gates Distance",
+    "title": "Walls and Gates",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["google", "facebook", "amazon"],
+    "companies": [
+      "google",
+      "facebook",
+      "amazon"
+    ],
     "description": "Each cell is `-1` (wall), `0` (gate), or `2147483647` (empty room). Fill every empty room with the distance to its nearest gate. If a room cannot reach any gate, leave it as is. Move 4-directionally.",
     "examples": [
-      {"input": "rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]", "output": "[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]"},
-      {"input": "rooms = [[-1]]", "output": "[[-1]]"}
+      {
+        "input": "rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]",
+        "output": "[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]"
+      },
+      {
+        "input": "rooms = [[-1]]",
+        "output": "[[-1]]"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 250"],
+    "constraints": [
+      "1 <= rows, cols <= 250"
+    ],
     "hints": [
       "Multi-source BFS from all gates.",
       "INF (2147483647) ko fill karte jao distance se.",
       "Walls skip kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function wallsAndGates(rooms) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def walls_and_gates(rooms):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function wallsAndGates(rooms) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def walls_and_gates(rooms):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "wallsAndGates",
     "tests": [
-      {"args": [[[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]], "expected": [[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]], "label": "classic"},
-      {"args": [[[-1]]], "expected": [[-1]], "label": "single wall"},
-      {"args": [[[0]]], "expected": [[0]], "label": "single gate"},
-      {"args": [[[2147483647]]], "expected": [[2147483647]], "label": "unreachable single"},
-      {"args": [[[0,2147483647,2147483647]]], "expected": [[0,1,2]], "label": "linear"}
+      {
+        "args": [
+          [
+            [
+              2147483647,
+              -1,
+              0,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              -1
+            ],
+            [
+              2147483647,
+              -1,
+              2147483647,
+              -1
+            ],
+            [
+              0,
+              -1,
+              2147483647,
+              2147483647
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            3,
+            -1,
+            0,
+            1
+          ],
+          [
+            2,
+            2,
+            1,
+            -1
+          ],
+          [
+            1,
+            -1,
+            2,
+            -1
+          ],
+          [
+            0,
+            -1,
+            3,
+            4
+          ]
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              -1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            -1
+          ]
+        ],
+        "label": "single wall"
+      },
+      {
+        "args": [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0
+          ]
+        ],
+        "label": "single gate"
+      },
+      {
+        "args": [
+          [
+            [
+              2147483647
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            2147483647
+          ]
+        ],
+        "label": "unreachable single"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              2147483647,
+              2147483647
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1,
+            2
+          ]
+        ],
+        "label": "linear"
+      }
     ],
     "editorial": "**Idea — multi-source BFS from gates**: Seed all `0` cells in the queue with distance 0. BFS outward; only update an empty (still `INF`) room.\n\n```javascript\nfunction wallsAndGates(rooms) {\n  const INF = 2147483647;\n  const R = rooms.length, C = rooms[0].length;\n  const queue = [];\n  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) if (rooms[r][c] === 0) queue.push([r, c]);\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  let head = 0;\n  while (head < queue.length) {\n    const [r, c] = queue[head++];\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr>=0&&nc>=0&&nr<R&&nc<C&&rooms[nr][nc]===INF) {\n        rooms[nr][nc] = rooms[r][c] + 1;\n        queue.push([nr, nc]);\n      }\n    }\n  }\n  return rooms;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C)."
   },
   {
     "slug": "course-schedule-can-finish",
     "number": 2011,
-    "title": "Course Schedule Feasibility",
+    "title": "Course Schedule",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "uber"],
+    "companies": [
+      "amazon",
+      "google",
+      "uber"
+    ],
     "description": "Given `numCourses` and prerequisite pairs `[a, b]` meaning `b` must come before `a`, return `true` if you can finish all courses, else `false`. Equivalent to: does the directed graph have no cycle?",
     "examples": [
-      {"input": "numCourses = 2, prerequisites = [[1,0]]", "output": "true"},
-      {"input": "numCourses = 2, prerequisites = [[1,0],[0,1]]", "output": "false"}
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0]]",
+        "output": "true"
+      },
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0],[0,1]]",
+        "output": "false"
+      }
     ],
-    "constraints": ["1 <= numCourses <= 2000", "0 <= prerequisites.length <= 5000"],
+    "constraints": [
+      "1 <= numCourses <= 2000",
+      "0 <= prerequisites.length <= 5000"
+    ],
     "hints": [
       "Topological sort feasible? → no cycle.",
       "Kahn's BFS: degree-0 enqueue, decrement neighbours.",
       "Processed count === numCourses → true."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function canFinishCourses(numCourses, prerequisites) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def can_finish_courses(num_courses, prerequisites):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function canFinishCourses(numCourses, prerequisites) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_finish_courses(num_courses, prerequisites):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "canFinishCourses",
     "tests": [
-      {"args": [2, [[1,0]]], "expected": true, "label": "linear ok"},
-      {"args": [2, [[1,0],[0,1]]], "expected": false, "label": "two-cycle"},
-      {"args": [1, []], "expected": true, "label": "single no prereq"},
-      {"args": [4, [[1,0],[2,1],[3,2]]], "expected": true, "label": "chain"},
-      {"args": [3, [[0,1],[1,2],[2,0]]], "expected": false, "label": "triangle"},
-      {"args": [5, [[1,0],[2,0],[3,1],[3,2],[4,3]]], "expected": true, "label": "DAG"}
+      {
+        "args": [
+          2,
+          [
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "linear ok"
+      },
+      {
+        "args": [
+          2,
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "two-cycle"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": true,
+        "label": "single no prereq"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "chain"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "triangle"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              3
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "DAG"
+      }
     ],
     "editorial": "**Idea — Kahn's topological sort**: Build adjacency `b → a` and indegree of every course. Push degree-0 nodes. Pop one, decrement neighbours, push freshly-zero ones. Count processed; equal to numCourses ⇒ no cycle.\n\n```javascript\nfunction canFinishCourses(numCourses, prerequisites) {\n  const adj = Array.from({length: numCourses}, () => []);\n  const indeg = new Array(numCourses).fill(0);\n  for (const [a, b] of prerequisites) { adj[b].push(a); indeg[a]++; }\n  const queue = [];\n  for (let i = 0; i < numCourses; i++) if (indeg[i] === 0) queue.push(i);\n  let processed = 0, head = 0;\n  while (head < queue.length) {\n    const u = queue[head++];\n    processed++;\n    for (const v of adj[u]) if (--indeg[v] === 0) queue.push(v);\n  }\n  return processed === numCourses;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V+E)."
   },
   {
     "slug": "course-schedule-order",
     "number": 2012,
-    "title": "Course Schedule Order Lex Smallest",
+    "title": "Course Schedule II",
     "difficulty": "Hard",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "microsoft"],
+    "companies": [
+      "amazon",
+      "google",
+      "microsoft"
+    ],
     "description": "Same as Course Schedule Feasibility but return a valid completion order (list of course IDs). If multiple are valid, return the lexicographically smallest one (treat as integer sequence). If impossible, return `[]`.",
     "examples": [
-      {"input": "numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]", "output": "[0,1,2,3]"},
-      {"input": "numCourses = 2, prerequisites = [[0,1],[1,0]]", "output": "[]"}
+      {
+        "input": "numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]",
+        "output": "[0,1,2,3]"
+      },
+      {
+        "input": "numCourses = 2, prerequisites = [[0,1],[1,0]]",
+        "output": "[]"
+      }
     ],
-    "constraints": ["1 <= numCourses <= 2000"],
+    "constraints": [
+      "1 <= numCourses <= 2000"
+    ],
     "hints": [
       "Kahn's BFS, but use a min-heap (priority queue) of zero-indegree nodes for lex-smallest output.",
       "Cycle ho gaya toh empty array.",
       "JS me array + sort har push pe ya simple repeated min-find chalega."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function courseScheduleOrder(numCourses, prerequisites) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def course_schedule_order(num_courses, prerequisites):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function courseScheduleOrder(numCourses, prerequisites) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def course_schedule_order(num_courses, prerequisites):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "courseScheduleOrder",
     "tests": [
-      {"args": [4, [[1,0],[2,0],[3,1],[3,2]]], "expected": [0,1,2,3], "label": "diamond"},
-      {"args": [2, [[0,1],[1,0]]], "expected": [], "label": "cycle"},
-      {"args": [1, []], "expected": [0], "label": "single"},
-      {"args": [3, []], "expected": [0,1,2], "label": "no edges sorted"},
-      {"args": [4, [[3,0],[3,1],[3,2]]], "expected": [0,1,2,3], "label": "many to one"},
-      {"args": [3, [[1,0],[2,0]]], "expected": [0,1,2], "label": "fan-out"}
+      {
+        "args": [
+          4,
+          [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "diamond"
+      },
+      {
+        "args": [
+          2,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": [],
+        "label": "cycle"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": [
+          0
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          3,
+          []
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ],
+        "label": "no edges sorted"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              3,
+              0
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "many to one"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ],
+        "label": "fan-out"
+      }
     ],
     "editorial": "**Idea — Kahn's with min-heap**: At each step pick the smallest-id course with indegree 0. With a simple repeated linear scan (n ≤ 2000) this is O(V^2) and trivial to write.\n\n```javascript\nfunction courseScheduleOrder(numCourses, prerequisites) {\n  const adj = Array.from({length: numCourses}, () => []);\n  const indeg = new Array(numCourses).fill(0);\n  for (const [a, b] of prerequisites) { adj[b].push(a); indeg[a]++; }\n  const order = [];\n  const taken = new Array(numCourses).fill(false);\n  for (let step = 0; step < numCourses; step++) {\n    let pick = -1;\n    for (let i = 0; i < numCourses; i++) if (!taken[i] && indeg[i] === 0) { pick = i; break; }\n    if (pick === -1) return [];\n    taken[pick] = true;\n    order.push(pick);\n    for (const v of adj[pick]) indeg[v]--;\n  }\n  return order;\n}\n```\n\n**Time**: O(V^2 + E). **Space**: O(V+E). Heap version: O((V+E) log V)."
   },
   {
     "slug": "clone-graph-adj-list",
     "number": 2013,
-    "title": "Clone Undirected Graph (Adj List)",
+    "title": "Clone Graph",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["facebook", "amazon", "google"],
+    "companies": [
+      "facebook",
+      "amazon",
+      "google"
+    ],
     "description": "An undirected graph is given as an adjacency list `graph` of `n` nodes (0-indexed). Return a deep copy as a new adjacency list. The clone must be structurally identical: each `clone[i]` lists the same neighbours in the same order. (Since we use index serialization in/out, this reduces to producing a fresh array of arrays with identical content.)",
     "examples": [
-      {"input": "graph = [[1,2],[0,2],[0,1]]", "output": "[[1,2],[0,2],[0,1]]"},
-      {"input": "graph = []", "output": "[]"}
+      {
+        "input": "graph = [[1,2],[0,2],[0,1]]",
+        "output": "[[1,2],[0,2],[0,1]]"
+      },
+      {
+        "input": "graph = []",
+        "output": "[]"
+      }
     ],
-    "constraints": ["0 <= n <= 100"],
+    "constraints": [
+      "0 <= n <= 100"
+    ],
     "hints": [
       "Naya array banao with same length, har neighbour list ko slice() kar.",
       "Reference share nahi karna — independent inner arrays.",
       "Empty graph empty return."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function cloneGraph(graph) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def clone_graph(graph):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function cloneGraph(graph) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def clone_graph(graph):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "cloneGraph",
     "tests": [
-      {"args": [[[1,2],[0,2],[0,1]]], "expected": [[1,2],[0,2],[0,1]], "label": "triangle"},
-      {"args": [[]], "expected": [], "label": "empty"},
-      {"args": [[[]]], "expected": [[]], "label": "single isolated"},
-      {"args": [[[1],[0]]], "expected": [[1],[0]], "label": "edge"},
-      {"args": [[[1,2,3],[0],[0],[0]]], "expected": [[1,2,3],[0],[0],[0]], "label": "star"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "label": "triangle"
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "label": "empty"
+      },
+      {
+        "args": [
+          [
+            []
+          ]
+        ],
+        "expected": [
+          []
+        ],
+        "label": "single isolated"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1
+          ],
+          [
+            0
+          ]
+        ],
+        "label": "edge"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            0
+          ],
+          [
+            0
+          ],
+          [
+            0
+          ]
+        ],
+        "label": "star"
+      }
     ],
     "editorial": "**Idea — index serialization**: Because input/output are adjacency lists keyed by index, deep cloning means producing a brand-new array whose inner arrays are independent copies.\n\n```javascript\nfunction cloneGraph(graph) {\n  return graph.map(neighbours => neighbours.slice());\n}\n```\n\n**Time**: O(V+E). **Space**: O(V+E).\n\nClassic LeetCode 'clone graph' uses Node references and BFS/DFS+map; that's the same algorithmic core but our index-form makes it a one-liner."
   },
   {
     "slug": "word-ladder-bfs",
     "number": 2014,
-    "title": "Word Ladder Shortest Length",
+    "title": "Word Ladder",
     "difficulty": "Hard",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "facebook"],
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
     "description": "Given `beginWord`, `endWord`, and a `wordList`, return the length of the shortest transformation sequence from begin to end such that each step changes exactly one letter and every intermediate word is in the list. Return 0 if impossible. Counted length includes both endpoints.",
     "examples": [
-      {"input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]", "output": "5"},
-      {"input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]", "output": "0"}
+      {
+        "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+        "output": "5"
+      },
+      {
+        "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]",
+        "output": "0"
+      }
     ],
-    "constraints": ["1 <= beginWord.length <= 10", "1 <= wordList.length <= 5000", "All words same length, lowercase"],
+    "constraints": [
+      "1 <= beginWord.length <= 10",
+      "1 <= wordList.length <= 5000",
+      "All words same length, lowercase"
+    ],
     "hints": [
       "BFS on words. Neighbours = words differing in exactly one letter.",
       "Wildcard pattern bucket (h*t) speeds up adjacency lookup.",
       "endWord wordList me na ho → 0."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function wordLadderLength(beginWord, endWord, wordList) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def word_ladder_length(begin_word, end_word, word_list):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function wordLadderLength(beginWord, endWord, wordList) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def word_ladder_length(begin_word, end_word, word_list):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "wordLadderLength",
     "tests": [
-      {"args": ["hit", "cog", ["hot","dot","dog","lot","log","cog"]], "expected": 5, "label": "classic"},
-      {"args": ["hit", "cog", ["hot","dot","dog","lot","log"]], "expected": 0, "label": "no end"},
-      {"args": ["a", "c", ["a","b","c"]], "expected": 2, "label": "single letter"},
-      {"args": ["hot", "dog", ["hot","dog"]], "expected": 0, "label": "no bridge"},
-      {"args": ["hot", "dog", ["hot","dog","dot"]], "expected": 3, "label": "via bridge"}
+      {
+        "args": [
+          "hit",
+          "cog",
+          [
+            "hot",
+            "dot",
+            "dog",
+            "lot",
+            "log",
+            "cog"
+          ]
+        ],
+        "expected": 5,
+        "label": "classic"
+      },
+      {
+        "args": [
+          "hit",
+          "cog",
+          [
+            "hot",
+            "dot",
+            "dog",
+            "lot",
+            "log"
+          ]
+        ],
+        "expected": 0,
+        "label": "no end"
+      },
+      {
+        "args": [
+          "a",
+          "c",
+          [
+            "a",
+            "b",
+            "c"
+          ]
+        ],
+        "expected": 2,
+        "label": "single letter"
+      },
+      {
+        "args": [
+          "hot",
+          "dog",
+          [
+            "hot",
+            "dog"
+          ]
+        ],
+        "expected": 0,
+        "label": "no bridge"
+      },
+      {
+        "args": [
+          "hot",
+          "dog",
+          [
+            "hot",
+            "dog",
+            "dot"
+          ]
+        ],
+        "expected": 3,
+        "label": "via bridge"
+      }
     ],
     "editorial": "**Idea — BFS with wildcard buckets**: Pre-build `pattern → [words]`, e.g. `h*t → [hat, hit, hot]`. BFS from beginWord; each pop generates patterns of itself and walks to all bucket-mates.\n\n```javascript\nfunction wordLadderLength(beginWord, endWord, wordList) {\n  const set = new Set(wordList);\n  if (!set.has(endWord)) return 0;\n  const buckets = new Map();\n  for (const w of wordList) {\n    for (let i = 0; i < w.length; i++) {\n      const p = w.slice(0, i) + '*' + w.slice(i + 1);\n      if (!buckets.has(p)) buckets.set(p, []);\n      buckets.get(p).push(w);\n    }\n  }\n  const visited = new Set([beginWord]);\n  let queue = [beginWord], steps = 1;\n  while (queue.length) {\n    const next = [];\n    for (const w of queue) {\n      if (w === endWord) return steps;\n      for (let i = 0; i < w.length; i++) {\n        const p = w.slice(0, i) + '*' + w.slice(i + 1);\n        for (const nb of (buckets.get(p) || [])) {\n          if (!visited.has(nb)) { visited.add(nb); next.push(nb); }\n        }\n      }\n    }\n    queue = next;\n    steps++;\n  }\n  return 0;\n}\n```\n\n**Time**: O(N * L^2). **Space**: O(N * L^2)."
   },
@@ -460,29 +2280,219 @@
     "title": "Pacific Atlantic Water Flow",
     "difficulty": "Hard",
     "topic": "Graphs",
-    "companies": ["google", "amazon", "facebook"],
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
     "description": "Given an `m x n` grid of heights, water can flow from a cell to a 4-adjacent cell of equal or lower height. The Pacific touches the top and left edges; the Atlantic touches the bottom and right edges. Return the list of `[r, c]` coordinates from which water can reach BOTH oceans. Output sorted by `r` then `c`.",
     "examples": [
-      {"input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]", "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"},
-      {"input": "heights = [[1]]", "output": "[[0,0]]"}
+      {
+        "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+        "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"
+      },
+      {
+        "input": "heights = [[1]]",
+        "output": "[[0,0]]"
+      }
     ],
-    "constraints": ["1 <= m, n <= 200"],
+    "constraints": [
+      "1 <= m, n <= 200"
+    ],
     "hints": [
       "Reverse flow trick: oceans se uphill DFS chala — visited cells that ocean reach.",
       "Pacific aur Atlantic ke liye alag visited matrix.",
       "Intersection of both = answer."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function pacificAtlantic(heights) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def pacific_atlantic(heights):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function pacificAtlantic(heights) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def pacific_atlantic(heights):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "pacificAtlantic",
     "tests": [
-      {"args": [[[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]], "expected": [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]], "label": "classic"},
-      {"args": [[[1]]], "expected": [[0,0]], "label": "single"},
-      {"args": [[[1,1],[1,1]]], "expected": [[0,0],[0,1],[1,0],[1,1]], "label": "all equal"},
-      {"args": [[[1,2,3]]], "expected": [[0,0],[0,1],[0,2]], "label": "single row"},
-      {"args": [[[3],[2],[1]]], "expected": [[0,0],[1,0],[2,0]], "label": "single column"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              2,
+              3,
+              5
+            ],
+            [
+              3,
+              2,
+              3,
+              4,
+              4
+            ],
+            [
+              2,
+              4,
+              5,
+              3,
+              1
+            ],
+            [
+              6,
+              7,
+              1,
+              4,
+              5
+            ],
+            [
+              5,
+              1,
+              1,
+              2,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            0
+          ]
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ]
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "label": "all equal"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "label": "single row"
+      },
+      {
+        "args": [
+          [
+            [
+              3
+            ],
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "label": "single column"
+      }
     ],
     "editorial": "**Idea — DFS uphill from each ocean**: Two boolean grids `pac` and `atl`. From every Pacific-edge cell, DFS to neighbours with equal-or-greater height, marking `pac`. Same for Atlantic. Cells true in both → answer.\n\n```javascript\nfunction pacificAtlantic(heights) {\n  const R = heights.length, C = heights[0].length;\n  const pac = Array.from({length: R}, () => new Array(C).fill(false));\n  const atl = Array.from({length: R}, () => new Array(C).fill(false));\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  function dfs(r, c, vis) {\n    vis[r][c] = true;\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr<0||nc<0||nr>=R||nc>=C||vis[nr][nc]) continue;\n      if (heights[nr][nc] < heights[r][c]) continue;\n      dfs(nr, nc, vis);\n    }\n  }\n  for (let r = 0; r < R; r++) { dfs(r, 0, pac); dfs(r, C-1, atl); }\n  for (let c = 0; c < C; c++) { dfs(0, c, pac); dfs(R-1, c, atl); }\n  const out = [];\n  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) if (pac[r][c] && atl[r][c]) out.push([r, c]);\n  return out;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C)."
   },
@@ -492,61 +2502,305 @@
     "title": "Keys and Rooms",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["google", "amazon", "facebook"],
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
     "description": "There are `n` rooms 0..n-1. Room 0 is open initially; every other room is locked. `rooms[i]` is the list of keys you find in room i (each key opens one room). Return `true` if you can visit every room.",
     "examples": [
-      {"input": "rooms = [[1],[2],[3],[]]", "output": "true"},
-      {"input": "rooms = [[1,3],[3,0,1],[2],[0]]", "output": "false"}
+      {
+        "input": "rooms = [[1],[2],[3],[]]",
+        "output": "true"
+      },
+      {
+        "input": "rooms = [[1,3],[3,0,1],[2],[0]]",
+        "output": "false"
+      }
     ],
-    "constraints": ["1 <= n <= 1000"],
+    "constraints": [
+      "1 <= n <= 1000"
+    ],
     "hints": [
       "Reachability problem — DFS/BFS from room 0.",
       "Visited count === n → true.",
       "Self-loops aur duplicate keys harmless."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function canVisitAllRooms(rooms) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def can_visit_all_rooms(rooms):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function canVisitAllRooms(rooms) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def can_visit_all_rooms(rooms):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "canVisitAllRooms",
     "tests": [
-      {"args": [[[1],[2],[3],[]]], "expected": true, "label": "linear"},
-      {"args": [[[1,3],[3,0,1],[2],[0]]], "expected": false, "label": "room 2 unreachable"},
-      {"args": [[[]]], "expected": true, "label": "single room"},
-      {"args": [[[1,2,3],[],[],[]]], "expected": true, "label": "all from 0"},
-      {"args": [[[2],[],[]]], "expected": false, "label": "no key for room 1"}
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            []
+          ]
+        ],
+        "expected": true,
+        "label": "linear"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              0,
+              1
+            ],
+            [
+              2
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "room 2 unreachable"
+      },
+      {
+        "args": [
+          [
+            []
+          ]
+        ],
+        "expected": true,
+        "label": "single room"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [],
+            [],
+            []
+          ]
+        ],
+        "expected": true,
+        "label": "all from 0"
+      },
+      {
+        "args": [
+          [
+            [
+              2
+            ],
+            [],
+            []
+          ]
+        ],
+        "expected": false,
+        "label": "no key for room 1"
+      }
     ],
     "editorial": "**Idea — BFS from room 0**: Standard reachability count.\n\n```javascript\nfunction canVisitAllRooms(rooms) {\n  const visited = new Set([0]);\n  const stack = [0];\n  while (stack.length) {\n    const r = stack.pop();\n    for (const k of rooms[r]) {\n      if (!visited.has(k)) {\n        visited.add(k);\n        stack.push(k);\n      }\n    }\n  }\n  return visited.size === rooms.length;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V)."
   },
   {
     "slug": "redundant-connection-uf",
     "number": 2017,
-    "title": "Redundant Connection (Union-Find)",
+    "title": "Redundant Connection",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "facebook"],
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
     "description": "A tree on `n` nodes (1..n) had ONE extra edge added. Given the resulting `edges` (in input order), return the edge that, if removed, makes it a tree again. If multiple choices are valid, return the one that appears LAST in `edges`.",
     "examples": [
-      {"input": "edges = [[1,2],[1,3],[2,3]]", "output": "[2,3]"},
-      {"input": "edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]", "output": "[1,4]"}
+      {
+        "input": "edges = [[1,2],[1,3],[2,3]]",
+        "output": "[2,3]"
+      },
+      {
+        "input": "edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]",
+        "output": "[1,4]"
+      }
     ],
-    "constraints": ["3 <= n <= 1000"],
+    "constraints": [
+      "3 <= n <= 1000"
+    ],
     "hints": [
       "Union-Find: process edges left-to-right.",
       "First edge whose endpoints already share a root → that's the redundant one (and it's automatically the last one needed for cycle).",
       "n nodes, n edges → exactly one cycle."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function findRedundantConnection(edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def find_redundant_connection(edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function findRedundantConnection(edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_redundant_connection(edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "findRedundantConnection",
     "tests": [
-      {"args": [[[1,2],[1,3],[2,3]]], "expected": [2,3], "label": "triangle"},
-      {"args": [[[1,2],[2,3],[3,4],[1,4],[1,5]]], "expected": [1,4], "label": "extra"},
-      {"args": [[[1,2],[2,3],[1,3]]], "expected": [1,3], "label": "small triangle"},
-      {"args": [[[3,4],[1,2],[2,4],[3,5],[2,5]]], "expected": [2,5], "label": "tail extra"},
-      {"args": [[[1,4],[3,4],[1,3],[1,2],[4,5]]], "expected": [1,3], "label": "middle extra"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          2,
+          3
+        ],
+        "label": "triangle"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          4
+        ],
+        "label": "extra"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          3
+        ],
+        "label": "small triangle"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              2,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          2,
+          5
+        ],
+        "label": "tail extra"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          3
+        ],
+        "label": "middle extra"
+      }
     ],
     "editorial": "**Idea — Union-Find**: Iterate edges left to right. For each `(u,v)`, if `find(u) === find(v)`, this edge closes a cycle and must be the answer. Else `union`.\n\n```javascript\nfunction findRedundantConnection(edges) {\n  const n = edges.length;\n  const parent = Array.from({length: n + 1}, (_, i) => i);\n  function find(x) { while (parent[x] !== x) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; }\n  for (const [u, v] of edges) {\n    const ru = find(u), rv = find(v);\n    if (ru === rv) return [u, v];\n    parent[ru] = rv;\n  }\n  return [];\n}\n```\n\n**Time**: ~O(N α(N)). **Space**: O(N)."
   },
@@ -556,29 +2810,154 @@
     "title": "Number of Provinces",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "swiggy"],
+    "companies": [
+      "amazon",
+      "google",
+      "swiggy"
+    ],
     "description": "`isConnected[i][j] = 1` means city `i` and city `j` are directly connected (n x n symmetric matrix, diagonal is 1). A province is a maximal group of directly or indirectly connected cities. Return the number of provinces.",
     "examples": [
-      {"input": "isConnected = [[1,1,0],[1,1,0],[0,0,1]]", "output": "2"},
-      {"input": "isConnected = [[1,0,0],[0,1,0],[0,0,1]]", "output": "3"}
+      {
+        "input": "isConnected = [[1,1,0],[1,1,0],[0,0,1]]",
+        "output": "2"
+      },
+      {
+        "input": "isConnected = [[1,0,0],[0,1,0],[0,0,1]]",
+        "output": "3"
+      }
     ],
-    "constraints": ["1 <= n <= 200"],
+    "constraints": [
+      "1 <= n <= 200"
+    ],
     "hints": [
       "Adjacency matrix → connected components problem.",
       "DFS/BFS from every unvisited city; count launches.",
       "Diagonal 1 ko ignore kar sakte (self loop)."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function countProvinces(isConnected) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def count_provinces(is_connected):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function countProvinces(isConnected) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def count_provinces(is_connected):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "countProvinces",
     "tests": [
-      {"args": [[[1,1,0],[1,1,0],[0,0,1]]], "expected": 2, "label": "two prov"},
-      {"args": [[[1,0,0],[0,1,0],[0,0,1]]], "expected": 3, "label": "all separate"},
-      {"args": [[[1]]], "expected": 1, "label": "single"},
-      {"args": [[[1,1,1],[1,1,1],[1,1,1]]], "expected": 1, "label": "fully connected"},
-      {"args": [[[1,1,0,0],[1,1,0,0],[0,0,1,1],[0,0,1,1]]], "expected": 2, "label": "two pairs"}
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two prov"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "all separate"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "fully connected"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two pairs"
+      }
     ],
     "editorial": "**Idea — connected components via DFS**: For each unvisited row, DFS marking all cities reachable through `isConnected[i][j] === 1`.\n\n```javascript\nfunction countProvinces(isConnected) {\n  const n = isConnected.length;\n  const visited = new Array(n).fill(false);\n  let count = 0;\n  for (let i = 0; i < n; i++) {\n    if (visited[i]) continue;\n    count++;\n    const stack = [i];\n    visited[i] = true;\n    while (stack.length) {\n      const u = stack.pop();\n      for (let v = 0; v < n; v++) {\n        if (!visited[v] && isConnected[u][v] === 1) {\n          visited[v] = true;\n          stack.push(v);\n        }\n      }\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n)."
   },
@@ -588,159 +2967,779 @@
     "title": "Find Center of Star Graph",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["amazon", "uber", "phonepe"],
+    "companies": [
+      "amazon",
+      "uber",
+      "phonepe"
+    ],
     "description": "A star graph on `n` nodes (1..n) has exactly one center connected to every other node. Given exactly `n - 1` `edges`, return the center node.",
     "examples": [
-      {"input": "edges = [[1,2],[2,3],[4,2]]", "output": "2"},
-      {"input": "edges = [[1,2],[5,1],[1,3],[1,4]]", "output": "1"}
+      {
+        "input": "edges = [[1,2],[2,3],[4,2]]",
+        "output": "2"
+      },
+      {
+        "input": "edges = [[1,2],[5,1],[1,3],[1,4]]",
+        "output": "1"
+      }
     ],
-    "constraints": ["3 <= n <= 10^5", "edges.length === n - 1"],
+    "constraints": [
+      "3 <= n <= 10^5",
+      "edges.length === n - 1"
+    ],
     "hints": [
       "Center hi har edge me appear hota hai.",
       "Pehle do edges check kar — common node = center.",
       "O(1) algo possible hai."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function findCenter(edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def find_center(edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function findCenter(edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def find_center(edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "findCenter",
     "tests": [
-      {"args": [[[1,2],[2,3],[4,2]]], "expected": 2, "label": "center 2"},
-      {"args": [[[1,2],[5,1],[1,3],[1,4]]], "expected": 1, "label": "center 1"},
-      {"args": [[[10,5],[5,7]]], "expected": 5, "label": "min input"},
-      {"args": [[[3,1],[3,2],[3,4]]], "expected": 3, "label": "center 3"},
-      {"args": [[[7,2],[3,2]]], "expected": 2, "label": "two edges"}
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              2
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "center 2"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "center 1"
+      },
+      {
+        "args": [
+          [
+            [
+              10,
+              5
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        ],
+        "expected": 5,
+        "label": "min input"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "center 3"
+      },
+      {
+        "args": [
+          [
+            [
+              7,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two edges"
+      }
     ],
     "editorial": "**Idea — first two edges share the center**: With ≥ 2 edges, the only node common to both is the center.\n\n```javascript\nfunction findCenter(edges) {\n  const [a, b] = edges[0];\n  const [c, d] = edges[1];\n  return (a === c || a === d) ? a : b;\n}\n```\n\n**Time**: O(1). **Space**: O(1)."
   },
   {
     "slug": "min-cost-connect-points",
     "number": 2020,
-    "title": "Min Cost to Connect All Points (Prim's)",
+    "title": "Min Cost to Connect All Points",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "uber"],
+    "companies": [
+      "amazon",
+      "google",
+      "uber"
+    ],
     "description": "Given `points` (each `[x, y]`), connect all of them so any two are reachable. Edge cost between two points is Manhattan distance `|x1-x2| + |y1-y2|`. Return the minimum total cost (MST weight).",
     "examples": [
-      {"input": "points = [[0,0],[2,2],[3,10],[5,2],[7,0]]", "output": "20"},
-      {"input": "points = [[3,12],[-2,5],[-4,1]]", "output": "18"}
+      {
+        "input": "points = [[0,0],[2,2],[3,10],[5,2],[7,0]]",
+        "output": "20"
+      },
+      {
+        "input": "points = [[3,12],[-2,5],[-4,1]]",
+        "output": "18"
+      }
     ],
-    "constraints": ["1 <= points.length <= 1000"],
+    "constraints": [
+      "1 <= points.length <= 1000"
+    ],
     "hints": [
       "MST problem; complete weighted graph.",
       "Prim's with min-distance array — O(n^2) sufficient.",
       "Single point → cost 0."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minCostConnectPoints(points) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_cost_connect_points(points):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minCostConnectPoints(points) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_cost_connect_points(points):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minCostConnectPoints",
     "tests": [
-      {"args": [[[0,0],[2,2],[3,10],[5,2],[7,0]]], "expected": 20, "label": "classic"},
-      {"args": [[[3,12],[-2,5],[-4,1]]], "expected": 18, "label": "three points"},
-      {"args": [[[0,0]]], "expected": 0, "label": "single"},
-      {"args": [[[0,0],[1,1]]], "expected": 2, "label": "two points"},
-      {"args": [[[0,0],[1,0],[2,0],[3,0]]], "expected": 3, "label": "collinear"}
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              5,
+              2
+            ],
+            [
+              7,
+              0
+            ]
+          ]
+        ],
+        "expected": 20,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              3,
+              12
+            ],
+            [
+              -2,
+              5
+            ],
+            [
+              -4,
+              1
+            ]
+          ]
+        ],
+        "expected": 18,
+        "label": "three points"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two points"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              0
+            ]
+          ]
+        ],
+        "expected": 3,
+        "label": "collinear"
+      }
     ],
     "editorial": "**Idea — Prim's MST (O(n^2) array version)**: Maintain `minDist[i]` = current cheapest edge cost from any tree node to `i`. Repeatedly pick the unvisited node with smallest `minDist`, add it, then relax its neighbours.\n\n```javascript\nfunction minCostConnectPoints(points) {\n  const n = points.length;\n  if (n <= 1) return 0;\n  const inTree = new Array(n).fill(false);\n  const minDist = new Array(n).fill(Infinity);\n  minDist[0] = 0;\n  let total = 0;\n  for (let step = 0; step < n; step++) {\n    let u = -1;\n    for (let i = 0; i < n; i++) {\n      if (!inTree[i] && (u === -1 || minDist[i] < minDist[u])) u = i;\n    }\n    inTree[u] = true;\n    total += minDist[u];\n    for (let v = 0; v < n; v++) {\n      if (!inTree[v]) {\n        const d = Math.abs(points[u][0]-points[v][0]) + Math.abs(points[u][1]-points[v][1]);\n        if (d < minDist[v]) minDist[v] = d;\n      }\n    }\n  }\n  return total;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n)."
   },
   {
     "slug": "bipartite-check",
     "number": 2021,
-    "title": "Bipartite Graph Check",
+    "title": "Is Graph Bipartite?",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["google", "amazon", "facebook"],
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
     "description": "Given an undirected `graph` (adjacency list), determine whether it can be 2-colored — i.e., is it bipartite? Graph may be disconnected.",
     "examples": [
-      {"input": "graph = [[1,3],[0,2],[1,3],[0,2]]", "output": "true", "explanation": "4-cycle is bipartite."},
-      {"input": "graph = [[1,2,3],[0,2],[0,1,3],[0,2]]", "output": "false", "explanation": "Contains odd cycle."}
+      {
+        "input": "graph = [[1,3],[0,2],[1,3],[0,2]]",
+        "output": "true",
+        "explanation": "4-cycle is bipartite."
+      },
+      {
+        "input": "graph = [[1,2,3],[0,2],[0,1,3],[0,2]]",
+        "output": "false",
+        "explanation": "Contains odd cycle."
+      }
     ],
-    "constraints": ["1 <= n <= 1000"],
+    "constraints": [
+      "1 <= n <= 1000"
+    ],
     "hints": [
       "BFS/DFS color karte ja — neighbour ka opposite color.",
       "Mismatch mile to false.",
       "Multiple components handle kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function isBipartite(graph) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def is_bipartite(graph):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function isBipartite(graph) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_bipartite(graph):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "isBipartite",
     "tests": [
-      {"args": [[[1,3],[0,2],[1,3],[0,2]]], "expected": true, "label": "even cycle"},
-      {"args": [[[1,2,3],[0,2],[0,1,3],[0,2]]], "expected": false, "label": "triangle"},
-      {"args": [[[]]], "expected": true, "label": "single"},
-      {"args": [[[1],[0],[3],[2]]], "expected": true, "label": "two pairs"},
-      {"args": [[[1,2],[0,2],[0,1]]], "expected": false, "label": "triangle 3"},
-      {"args": [[[1],[0,2,3],[1],[1]]], "expected": true, "label": "tree"}
+      {
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              0,
+              2
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "even cycle"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              3
+            ],
+            [
+              0,
+              2
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "triangle"
+      },
+      {
+        "args": [
+          [
+            []
+          ]
+        ],
+        "expected": true,
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0
+            ],
+            [
+              3
+            ],
+            [
+              2
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "two pairs"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "triangle 3"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0,
+              2,
+              3
+            ],
+            [
+              1
+            ],
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "tree"
+      }
     ],
     "editorial": "**Idea — BFS 2-coloring**: For each unvisited node, BFS assigning alternating colors 0/1. If a neighbour is already colored the same as current node, not bipartite.\n\n```javascript\nfunction isBipartite(graph) {\n  const n = graph.length;\n  const color = new Array(n).fill(-1);\n  for (let s = 0; s < n; s++) {\n    if (color[s] !== -1) continue;\n    color[s] = 0;\n    const queue = [s];\n    let head = 0;\n    while (head < queue.length) {\n      const u = queue[head++];\n      for (const v of graph[u]) {\n        if (color[v] === -1) {\n          color[v] = 1 - color[u];\n          queue.push(v);\n        } else if (color[v] === color[u]) {\n          return false;\n        }\n      }\n    }\n  }\n  return true;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V)."
   },
   {
     "slug": "directed-cycle-detect",
     "number": 2022,
-    "title": "Detect Cycle in Directed Graph",
+    "title": "Detect Cycle in a Directed Graph",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "uber"],
+    "companies": [
+      "amazon",
+      "google",
+      "uber"
+    ],
     "description": "Given `n` and directed `edges` (each `[u, v]` meaning u → v), return `true` if a cycle exists.",
     "examples": [
-      {"input": "n = 3, edges = [[0,1],[1,2],[2,0]]", "output": "true"},
-      {"input": "n = 3, edges = [[0,1],[1,2]]", "output": "false"}
+      {
+        "input": "n = 3, edges = [[0,1],[1,2],[2,0]]",
+        "output": "true"
+      },
+      {
+        "input": "n = 3, edges = [[0,1],[1,2]]",
+        "output": "false"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4"],
+    "constraints": [
+      "1 <= n <= 10^4"
+    ],
     "hints": [
       "DFS with three states: WHITE, GRAY (in stack), BLACK (done).",
       "GRAY node revisit → cycle.",
       "Or: Kahn's processed != n → cycle."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function hasDirectedCycle(n, edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def has_directed_cycle(n, edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function hasDirectedCycle(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def has_directed_cycle(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "hasDirectedCycle",
     "tests": [
-      {"args": [3, [[0,1],[1,2],[2,0]]], "expected": true, "label": "triangle"},
-      {"args": [3, [[0,1],[1,2]]], "expected": false, "label": "DAG"},
-      {"args": [1, [[0,0]]], "expected": true, "label": "self loop"},
-      {"args": [4, [[0,1],[2,3]]], "expected": false, "label": "two edges no cycle"},
-      {"args": [5, [[0,1],[1,2],[2,3],[3,4],[4,1]]], "expected": true, "label": "back edge mid"},
-      {"args": [4, [[0,1],[1,2],[2,3]]], "expected": false, "label": "chain"}
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "triangle"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "DAG"
+      },
+      {
+        "args": [
+          1,
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "self loop"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "two edges no cycle"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              1
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "back edge mid"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "chain"
+      }
     ],
     "editorial": "**Idea — three-color DFS**: 0 = unvisited, 1 = in current DFS stack, 2 = finished. Hitting a `1` neighbour ⇒ back edge ⇒ cycle.\n\n```javascript\nfunction hasDirectedCycle(n, edges) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of edges) adj[u].push(v);\n  const color = new Array(n).fill(0);\n  function dfs(u) {\n    color[u] = 1;\n    for (const v of adj[u]) {\n      if (color[v] === 1) return true;\n      if (color[v] === 0 && dfs(v)) return true;\n    }\n    color[u] = 2;\n    return false;\n  }\n  for (let i = 0; i < n; i++) if (color[i] === 0 && dfs(i)) return true;\n  return false;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V)."
   },
   {
     "slug": "all-components-list",
     "number": 2023,
-    "title": "List All Connected Components",
+    "title": "Connected Components in an Undirected Graph",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "swiggy", "flipkart"],
+    "companies": [
+      "amazon",
+      "swiggy",
+      "flipkart"
+    ],
     "description": "Given `n` and undirected `edges`, return all connected components. Each component's vertices must be sorted ascending; components themselves must be sorted by their first (smallest) vertex.",
     "examples": [
-      {"input": "n = 6, edges = [[5,4],[0,2],[2,1]]", "output": "[[0,1,2],[3],[4,5]]"},
-      {"input": "n = 1, edges = []", "output": "[[0]]"}
+      {
+        "input": "n = 6, edges = [[5,4],[0,2],[2,1]]",
+        "output": "[[0,1,2],[3],[4,5]]"
+      },
+      {
+        "input": "n = 1, edges = []",
+        "output": "[[0]]"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4"],
+    "constraints": [
+      "1 <= n <= 10^4"
+    ],
     "hints": [
       "BFS/DFS sweep over unvisited nodes.",
       "Each component: collect, sort, push.",
       "Final list also sorted by first element."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function listAllComponents(n, edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def list_all_components(n, edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function listAllComponents(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def list_all_components(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "listAllComponents",
     "tests": [
-      {"args": [6, [[5,4],[0,2],[2,1]]], "expected": [[0,1,2],[3],[4,5]], "label": "mixed"},
-      {"args": [1, []], "expected": [[0]], "label": "single"},
-      {"args": [4, []], "expected": [[0],[1],[2],[3]], "label": "all isolated"},
-      {"args": [5, [[0,1],[1,2],[3,4]]], "expected": [[0,1,2],[3,4]], "label": "two comps"},
-      {"args": [3, [[0,2]]], "expected": [[0,2],[1]], "label": "skip middle"}
+      {
+        "args": [
+          6,
+          [
+            [
+              5,
+              4
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "label": "mixed"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": [
+          [
+            0
+          ]
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          4,
+          []
+        ],
+        "expected": [
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ],
+        "label": "all isolated"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "label": "two comps"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "label": "skip middle"
+      }
     ],
     "editorial": "**Idea — sweep and BFS**: For every unvisited vertex, BFS to gather a component. Sort the component, push it. After all components are gathered, sort them by their first element (already minimum due to internal sort).\n\n```javascript\nfunction listAllComponents(n, edges) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of edges) { adj[u].push(v); adj[v].push(u); }\n  const visited = new Array(n).fill(false);\n  const comps = [];\n  for (let s = 0; s < n; s++) {\n    if (visited[s]) continue;\n    const comp = [];\n    const stack = [s];\n    visited[s] = true;\n    while (stack.length) {\n      const u = stack.pop();\n      comp.push(u);\n      for (const v of adj[u]) if (!visited[v]) { visited[v] = true; stack.push(v); }\n    }\n    comp.sort((a, b) => a - b);\n    comps.push(comp);\n  }\n  comps.sort((a, b) => a[0] - b[0]);\n  return comps;\n}\n```\n\n**Time**: O((V+E) + Σk log k). **Space**: O(V+E)."
   },
@@ -750,30 +3749,142 @@
     "title": "Shortest Path in Binary Matrix",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["google", "amazon", "facebook"],
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
     "description": "Given an `n x n` 0/1 grid, return the length of the shortest path from cell `(0,0)` to `(n-1, n-1)` traversing only 0-cells. You can move 8-directionally (including diagonals). Each visited cell counts (the path length is the number of cells). Return -1 if no path.",
     "examples": [
-      {"input": "grid = [[0,1],[1,0]]", "output": "2"},
-      {"input": "grid = [[0,0,0],[1,1,0],[1,1,0]]", "output": "4"}
+      {
+        "input": "grid = [[0,1],[1,0]]",
+        "output": "2"
+      },
+      {
+        "input": "grid = [[0,0,0],[1,1,0],[1,1,0]]",
+        "output": "4"
+      }
     ],
-    "constraints": ["1 <= n <= 100"],
+    "constraints": [
+      "1 <= n <= 100"
+    ],
     "hints": [
       "BFS — 8 directions.",
       "Start or end blocked → -1.",
       "Visited matrix to avoid re-enqueue."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function shortestPathBinaryMatrix(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def shortest_path_binary_matrix(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function shortestPathBinaryMatrix(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def shortest_path_binary_matrix(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "shortestPathBinaryMatrix",
     "tests": [
-      {"args": [[[0,1],[1,0]]], "expected": 2, "label": "diagonal"},
-      {"args": [[[0,0,0],[1,1,0],[1,1,0]]], "expected": 4, "label": "L-route"},
-      {"args": [[[1,0,0],[1,1,0],[1,1,0]]], "expected": -1, "label": "blocked start"},
-      {"args": [[[0]]], "expected": 1, "label": "single open"},
-      {"args": [[[1]]], "expected": -1, "label": "single blocked"},
-      {"args": [[[0,0],[0,0]]], "expected": 2, "label": "open 2x2"}
+      {
+        "args": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "diagonal"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "L-route"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "blocked start"
+      },
+      {
+        "args": [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single open"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "single blocked"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "open 2x2"
+      }
     ],
     "editorial": "**Idea — BFS, 8 neighbours**: Distance = number of cells on the path. Start with dist 1 at (0,0).\n\n```javascript\nfunction shortestPathBinaryMatrix(grid) {\n  const n = grid.length;\n  if (grid[0][0] !== 0 || grid[n-1][n-1] !== 0) return -1;\n  if (n === 1) return 1;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];\n  const visited = Array.from({length: n}, () => new Array(n).fill(false));\n  const queue = [[0, 0, 1]];\n  visited[0][0] = true;\n  let head = 0;\n  while (head < queue.length) {\n    const [r, c, d] = queue[head++];\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr<0||nc<0||nr>=n||nc>=n) continue;\n      if (visited[nr][nc] || grid[nr][nc] !== 0) continue;\n      if (nr === n-1 && nc === n-1) return d + 1;\n      visited[nr][nc] = true;\n      queue.push([nr, nc, d + 1]);\n    }\n  }\n  return -1;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2)."
   },
@@ -783,354 +3894,1772 @@
     "title": "Island Perimeter",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["google", "amazon", "facebook"],
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
     "description": "Given a `grid` containing exactly one island (connected 4-directionally) of 1s in a sea of 0s, return its perimeter — the number of edges shared between a land cell and either water or the grid boundary.",
     "examples": [
-      {"input": "grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]", "output": "16"},
-      {"input": "grid = [[1]]", "output": "4"}
+      {
+        "input": "grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]",
+        "output": "16"
+      },
+      {
+        "input": "grid = [[1]]",
+        "output": "4"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 100"],
+    "constraints": [
+      "1 <= rows, cols <= 100"
+    ],
     "hints": [
       "Har land cell ka contribution = 4 - (land neighbours).",
       "Ya har land cell ke 4 sides me check — out-of-bounds ya 0 → +1.",
       "Pure scan pattern, BFS optional."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function islandPerimeter(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def island_perimeter(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function islandPerimeter(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def island_perimeter(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "islandPerimeter",
     "tests": [
-      {"args": [[[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]], "expected": 16, "label": "classic"},
-      {"args": [[[1]]], "expected": 4, "label": "single cell"},
-      {"args": [[[1,1]]], "expected": 6, "label": "two horizontal"},
-      {"args": [[[1],[1]]], "expected": 6, "label": "two vertical"},
-      {"args": [[[1,1],[1,1]]], "expected": 8, "label": "2x2 square"}
+      {
+        "args": [
+          [
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 16,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "single cell"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "two horizontal"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": 6,
+        "label": "two vertical"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 8,
+        "label": "2x2 square"
+      }
     ],
     "editorial": "**Idea — count exposed sides**: For each land cell, count the 4 neighbour positions; if a neighbour is out of bounds or a 0, that side adds 1 to the perimeter.\n\n```javascript\nfunction islandPerimeter(grid) {\n  const R = grid.length, C = grid[0].length;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  let p = 0;\n  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {\n    if (grid[r][c] !== 1) continue;\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr<0||nc<0||nr>=R||nc>=C||grid[nr][nc]===0) p++;\n    }\n  }\n  return p;\n}\n```\n\n**Time**: O(R*C). **Space**: O(1)."
   },
   {
     "slug": "flood-fill-color",
     "number": 2026,
-    "title": "Flood Fill Color",
+    "title": "Flood Fill",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "adobe"],
+    "companies": [
+      "amazon",
+      "google",
+      "adobe"
+    ],
     "description": "Given an `image` matrix, a starting pixel `(sr, sc)`, and a `color`, replace the color of the connected (4-directionally) region of same-colored pixels starting at `(sr, sc)` with `color`. Return the modified image.",
     "examples": [
-      {"input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2", "output": "[[2,2,2],[2,2,0],[2,0,1]]"},
-      {"input": "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0", "output": "[[0,0,0],[0,0,0]]"}
+      {
+        "input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2",
+        "output": "[[2,2,2],[2,2,0],[2,0,1]]"
+      },
+      {
+        "input": "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0",
+        "output": "[[0,0,0],[0,0,0]]"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 50"],
+    "constraints": [
+      "1 <= rows, cols <= 50"
+    ],
     "hints": [
       "BFS/DFS from (sr, sc).",
       "Original color save kar — replace karte waqt confusion na ho.",
       "Same target color → no-op."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function floodFill(image, sr, sc, color) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def flood_fill(image, sr, sc, color):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function floodFill(image, sr, sc, color) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def flood_fill(image, sr, sc, color):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "floodFill",
     "tests": [
-      {"args": [[[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2], "expected": [[2,2,2],[2,2,0],[2,0,1]], "label": "classic"},
-      {"args": [[[0,0,0],[0,0,0]], 0, 0, 0], "expected": [[0,0,0],[0,0,0]], "label": "same color noop"},
-      {"args": [[[1]], 0, 0, 5], "expected": [[5]], "label": "single"},
-      {"args": [[[1,2],[2,1]], 0, 0, 3], "expected": [[3,2],[2,1]], "label": "diag separate"},
-      {"args": [[[1,1],[1,1]], 0, 0, 2], "expected": [[2,2],[2,2]], "label": "all same"}
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          1,
+          1,
+          2
+        ],
+        "expected": [
+          [
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            0
+          ],
+          [
+            2,
+            0,
+            1
+          ]
+        ],
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "label": "same color noop"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ]
+          ],
+          0,
+          0,
+          5
+        ],
+        "expected": [
+          [
+            5
+          ]
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          0,
+          0,
+          3
+        ],
+        "expected": [
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "label": "diag separate"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          0,
+          0,
+          2
+        ],
+        "expected": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "label": "all same"
+      }
     ],
     "editorial": "**Idea — BFS or DFS**: Save the source color. If equal to target, return immediately to avoid infinite loop. Otherwise BFS from `(sr, sc)`, replacing the source color with target along the way.\n\n```javascript\nfunction floodFill(image, sr, sc, color) {\n  const src = image[sr][sc];\n  if (src === color) return image;\n  const R = image.length, C = image[0].length;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  const stack = [[sr, sc]];\n  image[sr][sc] = color;\n  while (stack.length) {\n    const [r, c] = stack.pop();\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr>=0&&nc>=0&&nr<R&&nc<C&&image[nr][nc]===src) {\n        image[nr][nc] = color;\n        stack.push([nr, nc]);\n      }\n    }\n  }\n  return image;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C)."
   },
   {
     "slug": "is-graph-tree",
     "number": 2027,
-    "title": "Validate Graph Is a Tree",
+    "title": "Graph Valid Tree",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "facebook"],
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
     "description": "Given `n` and undirected `edges`, return `true` iff the graph is a tree: connected and acyclic. Equivalently: connected + has exactly `n - 1` edges.",
     "examples": [
-      {"input": "n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]", "output": "true"},
-      {"input": "n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]", "output": "false"}
+      {
+        "input": "n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]",
+        "output": "true"
+      },
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]",
+        "output": "false"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4"],
+    "constraints": [
+      "1 <= n <= 10^4"
+    ],
     "hints": [
       "Edge count != n-1 → false fast.",
       "Else BFS/DFS — visit count == n → true.",
       "Union-Find bhi clean lagta hai."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function isGraphTree(n, edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def is_graph_tree(n, edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function isGraphTree(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def is_graph_tree(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "isGraphTree",
     "tests": [
-      {"args": [5, [[0,1],[0,2],[0,3],[1,4]]], "expected": true, "label": "tree"},
-      {"args": [5, [[0,1],[1,2],[2,3],[1,3],[1,4]]], "expected": false, "label": "has cycle"},
-      {"args": [1, []], "expected": true, "label": "single node"},
-      {"args": [4, [[0,1],[2,3]]], "expected": false, "label": "disconnected"},
-      {"args": [3, [[0,1],[0,2]]], "expected": true, "label": "tiny tree"},
-      {"args": [4, [[0,1],[1,2],[2,3],[3,0]]], "expected": false, "label": "cycle"}
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              4
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "tree"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "has cycle"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": true,
+        "label": "single node"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "disconnected"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "tiny tree"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              0
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "cycle"
+      }
     ],
     "editorial": "**Idea — edge-count plus reachability**: A tree on n nodes has exactly n−1 edges and is connected. Quick filter: if `edges.length !== n - 1` it can't be a tree. Otherwise BFS from 0; if every node visited, it's a tree.\n\n```javascript\nfunction isGraphTree(n, edges) {\n  if (edges.length !== n - 1) return false;\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of edges) { adj[u].push(v); adj[v].push(u); }\n  const visited = new Array(n).fill(false);\n  visited[0] = true;\n  const stack = [0];\n  let count = 1;\n  while (stack.length) {\n    const u = stack.pop();\n    for (const v of adj[u]) if (!visited[v]) { visited[v] = true; count++; stack.push(v); }\n  }\n  return count === n;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V+E)."
   },
   {
     "slug": "count-islands-of-zeros",
     "number": 2028,
-    "title": "Count Closed Islands of Water",
+    "title": "Number of Closed Islands",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "uber"],
+    "companies": [
+      "amazon",
+      "google",
+      "uber"
+    ],
     "description": "Given a grid where 0 = water and 1 = land, return the number of CLOSED water-islands — i.e., 4-connected groups of 0s that do NOT touch any boundary.",
     "examples": [
-      {"input": "grid = [[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]]", "output": "2"},
-      {"input": "grid = [[0]]", "output": "0"}
+      {
+        "input": "grid = [[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]]",
+        "output": "2"
+      },
+      {
+        "input": "grid = [[0]]",
+        "output": "0"
+      }
     ],
-    "constraints": ["1 <= rows, cols <= 100"],
+    "constraints": [
+      "1 <= rows, cols <= 100"
+    ],
     "hints": [
       "Border-touching 0 → not closed; flood-fill those out first (mark as 1).",
       "Then count remaining 0-islands.",
       "Standard surrounded-regions trick reused."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function closedIslandsOfWater(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def closed_islands_of_water(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function closedIslandsOfWater(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def closed_islands_of_water(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "closedIslandsOfWater",
     "tests": [
-      {"args": [[[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]]], "expected": 2, "label": "two closed"},
-      {"args": [[[0]]], "expected": 0, "label": "border"},
-      {"args": [[[1,1,1],[1,0,1],[1,1,1]]], "expected": 1, "label": "single closed"},
-      {"args": [[[1,1,1],[1,0,1],[1,1,0]]], "expected": 1, "label": "one closed one open"},
-      {"args": [[[1,1,1,1],[1,0,0,1],[1,1,1,1]]], "expected": 1, "label": "horizontal closed"}
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              0,
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "two closed"
+      },
+      {
+        "args": [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": 0,
+        "label": "border"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "single closed"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "one closed one open"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "horizontal closed"
+      }
     ],
     "editorial": "**Idea — sink border-water then count**: Flood-fill all border 0s and their neighbours, turning them into 1. The remaining 0-islands are closed.\n\n```javascript\nfunction closedIslandsOfWater(grid) {\n  const R = grid.length, C = grid[0].length;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  function sink(r, c) {\n    if (r<0||c<0||r>=R||c>=C||grid[r][c]!==0) return;\n    grid[r][c] = 1;\n    for (const [dx, dy] of dirs) sink(r+dx, c+dy);\n  }\n  for (let r = 0; r < R; r++) { sink(r, 0); sink(r, C-1); }\n  for (let c = 0; c < C; c++) { sink(0, c); sink(R-1, c); }\n  let count = 0;\n  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {\n    if (grid[r][c] === 0) {\n      count++;\n      sink(r, c);\n    }\n  }\n  return count;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C)."
   },
   {
     "slug": "ola-cab-reachability",
     "number": 2029,
-    "title": "Ola Cab Reachable Stops",
+    "title": "Reachable Nodes From Source",
     "difficulty": "Easy",
     "topic": "Graphs",
-    "companies": ["ola", "uber", "swiggy"],
+    "companies": [
+      "ola",
+      "uber",
+      "swiggy"
+    ],
     "description": "Ola wants to know all unique stops reachable from a `start` stop in a directed graph. Given `n` and `edges` (each `[u, v]` directed), and `start`, return the sorted list of reachable stops INCLUDING `start`.",
     "examples": [
-      {"input": "n = 5, edges = [[0,1],[1,2],[3,4]], start = 0", "output": "[0,1,2]"},
-      {"input": "n = 3, edges = [[1,2]], start = 0", "output": "[0]"}
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[3,4]], start = 0",
+        "output": "[0,1,2]"
+      },
+      {
+        "input": "n = 3, edges = [[1,2]], start = 0",
+        "output": "[0]"
+      }
     ],
-    "constraints": ["1 <= n <= 10^4"],
+    "constraints": [
+      "1 <= n <= 10^4"
+    ],
     "hints": [
       "BFS/DFS from start, only forward edges.",
       "Self always included.",
       "Final list ko sort kar."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function olaReachable(n, edges, start) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def ola_reachable(n, edges, start):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function olaReachable(n, edges, start) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def ola_reachable(n, edges, start):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "olaReachable",
     "tests": [
-      {"args": [5, [[0,1],[1,2],[3,4]], 0], "expected": [0,1,2], "label": "chain"},
-      {"args": [3, [[1,2]], 0], "expected": [0], "label": "isolated"},
-      {"args": [1, [], 0], "expected": [0], "label": "single"},
-      {"args": [4, [[0,1],[0,2],[1,3]], 0], "expected": [0,1,2,3], "label": "tree"},
-      {"args": [4, [[0,1],[1,0],[2,3]], 0], "expected": [0,1], "label": "directed cycle"},
-      {"args": [5, [[0,1],[1,2],[2,3],[3,4]], 2], "expected": [2,3,4], "label": "tail"}
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          0
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ],
+        "label": "chain"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              1,
+              2
+            ]
+          ],
+          0
+        ],
+        "expected": [
+          0
+        ],
+        "label": "isolated"
+      },
+      {
+        "args": [
+          1,
+          [],
+          0
+        ],
+        "expected": [
+          0
+        ],
+        "label": "single"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          0
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "label": "tree"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          0
+        ],
+        "expected": [
+          0,
+          1
+        ],
+        "label": "directed cycle"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          2
+        ],
+        "expected": [
+          2,
+          3,
+          4
+        ],
+        "label": "tail"
+      }
     ],
     "editorial": "**Idea — BFS forward**: Traverse only outgoing edges from `start`.\n\n```javascript\nfunction olaReachable(n, edges, start) {\n  const adj = Array.from({length: n}, () => []);\n  for (const [u, v] of edges) adj[u].push(v);\n  const visited = new Set([start]);\n  const stack = [start];\n  while (stack.length) {\n    const u = stack.pop();\n    for (const v of adj[u]) if (!visited.has(v)) { visited.add(v); stack.push(v); }\n  }\n  return [...visited].sort((a, b) => a - b);\n}\n```\n\n**Time**: O(V+E). **Space**: O(V+E)."
   },
   {
     "slug": "min-knight-moves",
     "number": 2030,
-    "title": "Knight Minimum Moves on 8x8 Board",
+    "title": "Minimum Knight Moves",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "facebook"],
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
     "description": "On a standard 8x8 chessboard with rows/cols 0..7, a knight starts at `(sr, sc)` and wants to reach `(tr, tc)`. Return the minimum number of knight moves needed.",
     "examples": [
-      {"input": "sr = 0, sc = 0, tr = 7, tc = 7", "output": "6"},
-      {"input": "sr = 0, sc = 0, tr = 1, tc = 2", "output": "1"}
+      {
+        "input": "sr = 0, sc = 0, tr = 7, tc = 7",
+        "output": "6"
+      },
+      {
+        "input": "sr = 0, sc = 0, tr = 1, tc = 2",
+        "output": "1"
+      }
     ],
-    "constraints": ["0 <= sr, sc, tr, tc <= 7"],
+    "constraints": [
+      "0 <= sr, sc, tr, tc <= 7"
+    ],
     "hints": [
       "BFS with the 8 knight offsets.",
       "Same start/target → 0.",
       "8x8 chhota grid — visited matrix."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function minKnightMoves(sr, sc, tr, tc) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def min_knight_moves(sr, sc, tr, tc):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function minKnightMoves(sr, sc, tr, tc) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def min_knight_moves(sr, sc, tr, tc):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "minKnightMoves",
     "tests": [
-      {"args": [0, 0, 7, 7], "expected": 6, "label": "corner to corner"},
-      {"args": [0, 0, 1, 2], "expected": 1, "label": "single move"},
-      {"args": [0, 0, 0, 0], "expected": 0, "label": "same"},
-      {"args": [0, 0, 0, 1], "expected": 3, "label": "tricky adjacent"},
-      {"args": [3, 3, 5, 4], "expected": 1, "label": "single L"},
-      {"args": [0, 0, 7, 0], "expected": 5, "label": "edge column"}
+      {
+        "args": [
+          0,
+          0,
+          7,
+          7
+        ],
+        "expected": 6,
+        "label": "corner to corner"
+      },
+      {
+        "args": [
+          0,
+          0,
+          1,
+          2
+        ],
+        "expected": 1,
+        "label": "single move"
+      },
+      {
+        "args": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": 0,
+        "label": "same"
+      },
+      {
+        "args": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "expected": 3,
+        "label": "tricky adjacent"
+      },
+      {
+        "args": [
+          3,
+          3,
+          5,
+          4
+        ],
+        "expected": 1,
+        "label": "single L"
+      },
+      {
+        "args": [
+          0,
+          0,
+          7,
+          0
+        ],
+        "expected": 5,
+        "label": "edge column"
+      }
     ],
     "editorial": "**Idea — BFS with knight offsets**: Start a BFS over the 8x8 grid using the 8 (±1, ±2)/(±2, ±1) jumps. Layer count when we pop the target = answer.\n\n```javascript\nfunction minKnightMoves(sr, sc, tr, tc) {\n  if (sr === tr && sc === tc) return 0;\n  const moves = [[1,2],[1,-2],[-1,2],[-1,-2],[2,1],[2,-1],[-2,1],[-2,-1]];\n  const visited = Array.from({length: 8}, () => new Array(8).fill(false));\n  visited[sr][sc] = true;\n  const queue = [[sr, sc, 0]];\n  let head = 0;\n  while (head < queue.length) {\n    const [r, c, d] = queue[head++];\n    for (const [dx, dy] of moves) {\n      const nr = r+dx, nc = c+dy;\n      if (nr<0||nc<0||nr>=8||nc>=8||visited[nr][nc]) continue;\n      if (nr === tr && nc === tc) return d + 1;\n      visited[nr][nc] = true;\n      queue.push([nr, nc, d + 1]);\n    }\n  }\n  return -1;\n}\n```\n\n**Time**: O(64). **Space**: O(64)."
   },
   {
     "slug": "open-the-lock",
     "number": 2031,
-    "title": "Open The Lock (BFS on States)",
+    "title": "Open the Lock",
     "difficulty": "Hard",
     "topic": "Graphs",
-    "companies": ["google", "amazon", "facebook"],
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
     "description": "A lock has 4 wheels each showing 0..9; it starts at \"0000\". Each move turns one wheel forward or backward by one digit (with wrap). Given a list of `deadends` (states that lock the dial) and a `target`, return the minimum number of moves to reach `target`, or -1.",
     "examples": [
-      {"input": "deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\"", "output": "6"},
-      {"input": "deadends = [\"8888\"], target = \"0009\"", "output": "1"}
+      {
+        "input": "deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\"",
+        "output": "6"
+      },
+      {
+        "input": "deadends = [\"8888\"], target = \"0009\"",
+        "output": "1"
+      }
     ],
-    "constraints": ["1 <= deadends.length <= 500", "target.length == 4"],
+    "constraints": [
+      "1 <= deadends.length <= 500",
+      "target.length == 4"
+    ],
     "hints": [
       "Implicit graph: each node is a 4-digit string, 8 neighbours (4 wheels × 2 directions).",
       "BFS layer count.",
       "Deadend including \"0000\" → -1 instantly."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function openTheLock(deadends, target) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def open_the_lock(deadends, target):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function openTheLock(deadends, target) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def open_the_lock(deadends, target):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "openTheLock",
     "tests": [
-      {"args": [["0201","0101","0102","1212","2002"], "0202"], "expected": 6, "label": "classic"},
-      {"args": [["8888"], "0009"], "expected": 1, "label": "easy"},
-      {"args": [["0000"], "8888"], "expected": -1, "label": "start dead"},
-      {"args": [[], "0000"], "expected": 0, "label": "no move"},
-      {"args": [["0001","1000","0010","0100"], "0000"], "expected": 0, "label": "start ok deadends around"}
+      {
+        "args": [
+          [
+            "0201",
+            "0101",
+            "0102",
+            "1212",
+            "2002"
+          ],
+          "0202"
+        ],
+        "expected": 6,
+        "label": "classic"
+      },
+      {
+        "args": [
+          [
+            "8888"
+          ],
+          "0009"
+        ],
+        "expected": 1,
+        "label": "easy"
+      },
+      {
+        "args": [
+          [
+            "0000"
+          ],
+          "8888"
+        ],
+        "expected": -1,
+        "label": "start dead"
+      },
+      {
+        "args": [
+          [],
+          "0000"
+        ],
+        "expected": 0,
+        "label": "no move"
+      },
+      {
+        "args": [
+          [
+            "0001",
+            "1000",
+            "0010",
+            "0100"
+          ],
+          "0000"
+        ],
+        "expected": 0,
+        "label": "start ok deadends around"
+      }
     ],
     "editorial": "**Idea — BFS on string states**: 8 neighbours per state. Skip deadends and visited.\n\n```javascript\nfunction openTheLock(deadends, target) {\n  const dead = new Set(deadends);\n  if (dead.has(\"0000\")) return -1;\n  if (target === \"0000\") return 0;\n  const visited = new Set([\"0000\"]);\n  const queue = [[\"0000\", 0]];\n  let head = 0;\n  while (head < queue.length) {\n    const [s, d] = queue[head++];\n    for (let i = 0; i < 4; i++) {\n      for (const delta of [-1, 1]) {\n        const c = (parseInt(s[i]) + delta + 10) % 10;\n        const next = s.slice(0, i) + c + s.slice(i + 1);\n        if (visited.has(next) || dead.has(next)) continue;\n        if (next === target) return d + 1;\n        visited.add(next);\n        queue.push([next, d + 1]);\n      }\n    }\n  }\n  return -1;\n}\n```\n\n**Time**: O(10^4 * 8). **Space**: O(10^4)."
   },
   {
     "slug": "as-far-from-land-as-possible",
     "number": 2032,
-    "title": "As Far From Land As Possible",
+    "title": "As Far from Land as Possible",
     "difficulty": "Medium",
     "topic": "Graphs",
-    "companies": ["google", "amazon", "facebook"],
+    "companies": [
+      "google",
+      "amazon",
+      "facebook"
+    ],
     "description": "Given `n x n` grid with 0 (water) and 1 (land), return the largest Manhattan distance from a water cell to its nearest land cell. If no land or no water, return -1.",
     "examples": [
-      {"input": "grid = [[1,0,1],[0,0,0],[1,0,1]]", "output": "2"},
-      {"input": "grid = [[1,0,0],[0,0,0],[0,0,0]]", "output": "4"}
+      {
+        "input": "grid = [[1,0,1],[0,0,0],[1,0,1]]",
+        "output": "2"
+      },
+      {
+        "input": "grid = [[1,0,0],[0,0,0],[0,0,0]]",
+        "output": "4"
+      }
     ],
-    "constraints": ["1 <= n <= 100"],
+    "constraints": [
+      "1 <= n <= 100"
+    ],
     "hints": [
       "Multi-source BFS from all land cells.",
       "Last popped layer = answer.",
       "All-land or all-water → -1."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function maxDistanceFromLand(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def max_distance_from_land(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function maxDistanceFromLand(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def max_distance_from_land(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "maxDistanceFromLand",
     "tests": [
-      {"args": [[[1,0,1],[0,0,0],[1,0,1]]], "expected": 2, "label": "center water"},
-      {"args": [[[1,0,0],[0,0,0],[0,0,0]]], "expected": 4, "label": "lone land"},
-      {"args": [[[1,1,1],[1,1,1],[1,1,1]]], "expected": -1, "label": "all land"},
-      {"args": [[[0,0,0],[0,0,0],[0,0,0]]], "expected": -1, "label": "all water"},
-      {"args": [[[1,0],[0,1]]], "expected": 1, "label": "diag"}
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "center water"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "lone land"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "all land"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": -1,
+        "label": "all water"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "diag"
+      }
     ],
     "editorial": "**Idea — multi-source BFS from land**: Push every land cell at distance 0; expand layer by layer. The last distance reached is the answer.\n\n```javascript\nfunction maxDistanceFromLand(grid) {\n  const n = grid.length;\n  const queue = [];\n  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (grid[r][c] === 1) queue.push([r, c]);\n  if (queue.length === 0 || queue.length === n * n) return -1;\n  const dist = Array.from({length: n}, () => new Array(n).fill(-1));\n  for (const [r, c] of queue) dist[r][c] = 0;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  let head = 0, best = 0;\n  while (head < queue.length) {\n    const [r, c] = queue[head++];\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr<0||nc<0||nr>=n||nc>=n||dist[nr][nc]!==-1) continue;\n      dist[nr][nc] = dist[r][c] + 1;\n      best = Math.max(best, dist[nr][nc]);\n      queue.push([nr, nc]);\n    }\n  }\n  return best;\n}\n```\n\n**Time**: O(n^2). **Space**: O(n^2)."
   },
   {
     "slug": "graph-eulerian-path-exists",
     "number": 2033,
-    "title": "Eulerian Path Existence (Undirected)",
+    "title": "Eulerian Path in an Undirected Graph",
     "difficulty": "Hard",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "uber"],
+    "companies": [
+      "amazon",
+      "google",
+      "uber"
+    ],
     "description": "Given `n` nodes and undirected `edges` (multigraph allowed), return `true` iff the graph has an Eulerian path. An Eulerian path exists iff: (a) all edges lie in one connected component (isolated nodes ignored), and (b) the count of vertices with odd degree is 0 or 2.",
     "examples": [
-      {"input": "n = 4, edges = [[0,1],[1,2],[2,0],[1,3]]", "output": "true", "explanation": "Two odd vertices."},
-      {"input": "n = 4, edges = [[0,1],[2,3]]", "output": "false", "explanation": "Disconnected edges."}
+      {
+        "input": "n = 4, edges = [[0,1],[1,2],[2,0],[1,3]]",
+        "output": "true",
+        "explanation": "Two odd vertices."
+      },
+      {
+        "input": "n = 4, edges = [[0,1],[2,3]]",
+        "output": "false",
+        "explanation": "Disconnected edges."
+      }
     ],
-    "constraints": ["1 <= n <= 1000"],
+    "constraints": [
+      "1 <= n <= 1000"
+    ],
     "hints": [
       "Degree count nikaal — odd-degree count check.",
       "Connectivity: start from any vertex with edges, BFS, sab non-zero-degree nodes touched?",
       "Empty edges → trivially true."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function hasEulerianPath(n, edges) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def has_eulerian_path(n, edges):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function hasEulerianPath(n, edges) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def has_eulerian_path(n, edges):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "hasEulerianPath",
     "tests": [
-      {"args": [4, [[0,1],[1,2],[2,0],[1,3]]], "expected": true, "label": "two odd vertices"},
-      {"args": [4, [[0,1],[2,3]]], "expected": false, "label": "disconnected"},
-      {"args": [3, [[0,1],[1,2],[2,0]]], "expected": true, "label": "triangle"},
-      {"args": [4, [[0,1],[1,2],[2,3],[3,0]]], "expected": true, "label": "square"},
-      {"args": [4, [[0,1],[1,2],[2,3],[3,1]]], "expected": true, "label": "two odds"},
-      {"args": [5, [[0,1],[0,2],[0,3],[0,4]]], "expected": false, "label": "four odds"},
-      {"args": [1, []], "expected": true, "label": "empty"}
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "two odd vertices"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "disconnected"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "triangle"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              0
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "square"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              1
+            ]
+          ]
+        ],
+        "expected": true,
+        "label": "two odds"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        ],
+        "expected": false,
+        "label": "four odds"
+      },
+      {
+        "args": [
+          1,
+          []
+        ],
+        "expected": true,
+        "label": "empty"
+      }
     ],
     "editorial": "**Idea — degree + connectivity check**: Count degrees. If isolated nodes are ignored, the edges must all live in one connected component. Then the count of odd-degree vertices must be 0 (Eulerian circuit) or 2 (Eulerian path).\n\n```javascript\nfunction hasEulerianPath(n, edges) {\n  if (edges.length === 0) return true;\n  const adj = Array.from({length: n}, () => []);\n  const deg = new Array(n).fill(0);\n  for (const [u, v] of edges) { adj[u].push(v); adj[v].push(u); deg[u]++; deg[v]++; }\n  let odd = 0;\n  for (let i = 0; i < n; i++) if (deg[i] % 2 === 1) odd++;\n  if (odd !== 0 && odd !== 2) return false;\n  let start = -1;\n  for (let i = 0; i < n; i++) if (deg[i] > 0) { start = i; break; }\n  const visited = new Array(n).fill(false);\n  const stack = [start];\n  visited[start] = true;\n  while (stack.length) {\n    const u = stack.pop();\n    for (const v of adj[u]) if (!visited[v]) { visited[v] = true; stack.push(v); }\n  }\n  for (let i = 0; i < n; i++) if (deg[i] > 0 && !visited[i]) return false;\n  return true;\n}\n```\n\n**Time**: O(V+E). **Space**: O(V+E)."
   },
   {
     "slug": "shortest-bridge",
     "number": 2034,
-    "title": "Shortest Bridge Between Two Islands",
+    "title": "Shortest Bridge",
     "difficulty": "Hard",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "facebook"],
+    "companies": [
+      "amazon",
+      "google",
+      "facebook"
+    ],
     "description": "A grid has exactly two islands of 1s. Return the smallest number of 0-cells we must flip to 1 to connect them (4-directional connectivity). Equivalently, the minimum Manhattan-grid hop count between the two islands minus 1.",
     "examples": [
-      {"input": "grid = [[0,1],[1,0]]", "output": "1"},
-      {"input": "grid = [[0,1,0],[0,0,0],[0,0,1]]", "output": "2"}
+      {
+        "input": "grid = [[0,1],[1,0]]",
+        "output": "1"
+      },
+      {
+        "input": "grid = [[0,1,0],[0,0,0],[0,0,1]]",
+        "output": "2"
+      }
     ],
-    "constraints": ["2 <= rows, cols <= 100"],
+    "constraints": [
+      "2 <= rows, cols <= 100"
+    ],
     "hints": [
       "Step 1: DFS to find one island, mark cells as 2 and add to queue.",
       "Step 2: BFS outward from queue; the first time you hit a 1 = answer (layer-1).",
       "Two-phase pattern very common."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function shortestBridge(grid) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def shortest_bridge(grid):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function shortestBridge(grid) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def shortest_bridge(grid):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "shortestBridge",
     "tests": [
-      {"args": [[[0,1],[1,0]]], "expected": 1, "label": "diag islands"},
-      {"args": [[[0,1,0],[0,0,0],[0,0,1]]], "expected": 2, "label": "spread"},
-      {"args": [[[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]], "expected": 1, "label": "ring around"},
-      {"args": [[[1,0,0,0,0,1]]], "expected": 4, "label": "row gap"},
-      {"args": [[[1],[0],[0],[1]]], "expected": 2, "label": "vertical"}
+      {
+        "args": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "diag islands"
+      },
+      {
+        "args": [
+          [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "spread"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1,
+        "label": "ring around"
+      },
+      {
+        "args": [
+          [
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 4,
+        "label": "row gap"
+      },
+      {
+        "args": [
+          [
+            [
+              1
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": 2,
+        "label": "vertical"
+      }
     ],
     "editorial": "**Idea — DFS one island, multi-source BFS to second**: Find one island via DFS, painting it 2 and seeding a BFS queue. Then BFS layer by layer through 0-cells; the first layer that touches a 1 is the bridge length.\n\n```javascript\nfunction shortestBridge(grid) {\n  const R = grid.length, C = grid[0].length;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  const queue = [];\n  let found = false;\n  function dfs(r, c) {\n    if (r<0||c<0||r>=R||c>=C||grid[r][c]!==1) return;\n    grid[r][c] = 2;\n    queue.push([r, c, 0]);\n    for (const [dx, dy] of dirs) dfs(r+dx, c+dy);\n  }\n  outer: for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {\n    if (grid[r][c] === 1) { dfs(r, c); break outer; }\n  }\n  let head = 0;\n  while (head < queue.length) {\n    const [r, c, d] = queue[head++];\n    for (const [dx, dy] of dirs) {\n      const nr = r+dx, nc = c+dy;\n      if (nr<0||nc<0||nr>=R||nc>=C) continue;\n      if (grid[nr][nc] === 2) continue;\n      if (grid[nr][nc] === 1) return d;\n      grid[nr][nc] = 2;\n      queue.push([nr, nc, d + 1]);\n    }\n  }\n  return -1;\n}\n```\n\n**Time**: O(R*C). **Space**: O(R*C)."
   },
   {
     "slug": "course-schedule-iii-prereqs-query",
     "number": 2035,
-    "title": "Course Prerequisite Queries",
+    "title": "Course Schedule IV",
     "difficulty": "Hard",
     "topic": "Graphs",
-    "companies": ["amazon", "google", "uber"],
+    "companies": [
+      "amazon",
+      "google",
+      "uber"
+    ],
     "description": "Given `numCourses`, a list of direct prerequisite pairs `prerequisites[i] = [u, v]` meaning u must be taken before v, and a list of `queries[i] = [a, b]` asking 'is a a (direct or indirect) prerequisite of b?', return a boolean array answering each query. Assume the prerequisite graph is a DAG.",
     "examples": [
-      {"input": "numCourses = 3, prerequisites = [[0,1],[1,2]], queries = [[0,2],[2,0]]", "output": "[true, false]"},
-      {"input": "numCourses = 2, prerequisites = [], queries = [[0,1]]", "output": "[false]"}
+      {
+        "input": "numCourses = 3, prerequisites = [[0,1],[1,2]], queries = [[0,2],[2,0]]",
+        "output": "[true, false]"
+      },
+      {
+        "input": "numCourses = 2, prerequisites = [], queries = [[0,1]]",
+        "output": "[false]"
+      }
     ],
-    "constraints": ["1 <= numCourses <= 100", "Graph is a DAG"],
+    "constraints": [
+      "1 <= numCourses <= 100",
+      "Graph is a DAG"
+    ],
     "hints": [
       "Floyd-Warshall–style transitive closure: reach[i][j] true if path i→j.",
       "Initialize edges; then for k mid relax: reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]).",
       "Each query O(1) lookup."
     ],
     "starterCode": [
-      {"language": "javascript", "code": "function checkPrereqs(numCourses, prerequisites, queries) {\n  // tu yahan apna solution likh\n}\n"},
-      {"language": "python", "code": "def check_prereqs(num_courses, prerequisites, queries):\n    # tu yahan apna solution likh\n    pass\n"}
+      {
+        "language": "javascript",
+        "code": "function checkPrereqs(numCourses, prerequisites, queries) {\n  // tu yahan apna solution likh\n}\n"
+      },
+      {
+        "language": "python",
+        "code": "def check_prereqs(num_courses, prerequisites, queries):\n    # tu yahan apna solution likh\n    pass\n"
+      }
     ],
     "fnName": "checkPrereqs",
     "tests": [
-      {"args": [3, [[0,1],[1,2]], [[0,2],[2,0]]], "expected": [true, false], "label": "chain"},
-      {"args": [2, [], [[0,1]]], "expected": [false], "label": "no edges"},
-      {"args": [4, [[0,1],[1,2],[2,3]], [[0,3],[3,0],[1,3]]], "expected": [true, false, true], "label": "long chain"},
-      {"args": [3, [[0,1],[0,2]], [[0,1],[0,2],[1,2]]], "expected": [true, true, false], "label": "fan-out"},
-      {"args": [5, [[0,1],[1,2],[3,4]], [[0,2],[0,4],[3,4]]], "expected": [true, false, true], "label": "two components"}
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          true,
+          false
+        ],
+        "label": "chain"
+      },
+      {
+        "args": [
+          2,
+          [],
+          [
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": [
+          false
+        ],
+        "label": "no edges"
+      },
+      {
+        "args": [
+          4,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          true,
+          false,
+          true
+        ],
+        "label": "long chain"
+      },
+      {
+        "args": [
+          3,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "expected": [
+          true,
+          true,
+          false
+        ],
+        "label": "fan-out"
+      },
+      {
+        "args": [
+          5,
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          [
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          true,
+          false,
+          true
+        ],
+        "label": "two components"
+      }
     ],
     "editorial": "**Idea — transitive closure (O(V^3))**: With ≤ 100 nodes, build a `reach[V][V]` boolean matrix using Floyd-Warshall: `reach[i][j] |= reach[i][k] && reach[k][j]`.\n\n```javascript\nfunction checkPrereqs(numCourses, prerequisites, queries) {\n  const n = numCourses;\n  const reach = Array.from({length: n}, () => new Array(n).fill(false));\n  for (const [u, v] of prerequisites) reach[u][v] = true;\n  for (let k = 0; k < n; k++) {\n    for (let i = 0; i < n; i++) {\n      if (!reach[i][k]) continue;\n      for (let j = 0; j < n; j++) {\n        if (reach[k][j]) reach[i][j] = true;\n      }\n    }\n  }\n  return queries.map(([a, b]) => reach[a][b]);\n}\n```\n\n**Time**: O(V^3 + Q). **Space**: O(V^2)."
   }
