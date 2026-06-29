@@ -179,14 +179,12 @@ export function ProblemWorkspace({
   isAuthed = true,
   serverRunnerConfigured = false,
 }: WorkspaceProps) {
-  // Language dropdown: JavaScript + Python always show — both run entirely in
-  // the browser (JS in a sandboxed iframe, Python via a Pyodide WASM worker),
-  // no backend needed. Compiled languages (Java, C++, Go, Rust, TypeScript, C)
-  // only appear when a self-hosted Piston runner is configured
-  // (PISTON_URL != emkc.org). Self-host: see docs/CODE_RUNNER.md.
+  // Practice offers exactly two languages — JavaScript and Python — both of
+  // which run entirely in the browser (JS in a sandboxed iframe, Python via a
+  // Pyodide WASM worker). No backend, no compiled languages.
   const languages = problem.starterCode
     .map((s) => s.language)
-    .filter((l) => l === "javascript" || l === "python" || serverRunnerConfigured);
+    .filter((l) => l === "javascript" || l === "python");
   const [language, setLanguage] = React.useState<string>(languages[0] ?? "javascript");
   const [code, setCode] = React.useState(
     problem.starterCode.find((s) => s.language === language)?.code ?? "",
@@ -240,10 +238,8 @@ export function ProblemWorkspace({
       return;
     }
     if (!supportsRun) {
-      toast.info(`Auto-grading not available for ${language} yet.`, {
-        description: serverRunnerConfigured
-          ? "Switch to JavaScript, Python, Java, C++, Go, or Rust."
-          : "JavaScript and Python run in your browser. Compiled languages need a server runner (see docs/CODE_RUNNER.md).",
+      toast.info("Auto-grading isn't set up for this problem yet.", {
+        description: "Verify your solution against the examples for now.",
       });
       return;
     }
@@ -581,11 +577,7 @@ export function ProblemWorkspace({
                       disabled={result.kind === "running" || !supportsRun}
                       title={
                         !supportsRun
-                          ? !hasTests
-                            ? "Auto-grading not configured for this problem"
-                            : serverRunnerConfigured
-                              ? `${language} auto-grading not available`
-                              : "Server runner not configured — only JavaScript available"
+                          ? "Auto-grading not configured for this problem"
                           : "Run against the visible sample cases"
                       }
                     >
@@ -720,9 +712,9 @@ export function ProblemWorkspace({
             {result.kind === "running" ? (
               <div className="mt-4 space-y-2">
                 <p className="text-xs text-slate-400">
-                  {language === "javascript"
-                    ? "Running tests in the browser…"
-                    : `Compiling on Piston (cold start can take 6-8s for ${language})…`}
+                  {language === "python"
+                    ? "Running Python in your browser (first run loads Pyodide — a few seconds)…"
+                    : "Running tests in the browser…"}
                 </p>
                 {hasTests
                   ? Array.from({ length: 4 }).map((_, i) => (
@@ -805,16 +797,14 @@ export function ProblemWorkspace({
 
             {result.kind === "idle" && hasTests && !supportsRun ? (
               <p className="mt-3 text-xs text-slate-400">
-                Auto-grading isn&apos;t set up for {language} on this problem.{" "}
-                {serverRunnerConfigured
-                  ? "Try JavaScript, Python, Java, C++, Go, or Rust."
-                  : "Try JavaScript or Python — both run in your browser. Compiled languages need a server runner (docs/CODE_RUNNER.md)."}
+                Auto-grading isn&apos;t set up for this problem yet. Verify your
+                solution against the examples for now.
               </p>
             ) : null}
-            {result.kind === "idle" && hasTests && supportsRun && language !== "javascript" ? (
+            {result.kind === "idle" && hasTests && language === "python" ? (
               <p className="mt-3 text-xs text-slate-400">
-                {language} runs server-side via Piston — first call may take
-                a few seconds (cold start). JS is faster (in-browser).
+                Python runs in your browser via Pyodide — the first run loads the
+                runtime, so it may take a few seconds. Runs after that are quick.
               </p>
             ) : null}
           </GlassCard>
